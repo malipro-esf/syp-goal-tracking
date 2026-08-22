@@ -37,6 +37,16 @@ def test_duplicate_email_is_rejected_case_insensitively(api_client: TestClient) 
     assert response.json()["error"]["code"] == "email_already_registered"
 
 
+def test_registration_requires_at_least_eight_password_characters(
+    api_client: TestClient,
+) -> None:
+    too_short = {**REGISTRATION, "password": "1234567"}
+    accepted = {**REGISTRATION, "password": "12345678"}
+
+    assert api_client.post("/api/v1/auth/register", json=too_short).status_code == 422
+    assert api_client.post("/api/v1/auth/register", json=accepted).status_code == 201
+
+
 def test_login_rejects_invalid_password(api_client: TestClient) -> None:
     assert api_client.post("/api/v1/auth/register", json=REGISTRATION).status_code == 201
 

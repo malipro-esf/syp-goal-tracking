@@ -38,7 +38,7 @@ npm run dev
 ```
 
 Open <http://localhost:5173/register>. Create an account with a password of at
-least 12 characters. After registration, the protected dashboard shows the
+least 8 characters. After registration, the protected dashboard shows the
 authenticated user. Sign out, then use <http://localhost:5173/login> to sign in
 again.
 

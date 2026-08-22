@@ -40,3 +40,18 @@ test('logs in and displays the protected dashboard', async () => {
   expect(await screen.findByRole('heading', { name: 'Hello, SYP Learner' })).toBeInTheDocument()
   expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/auth/login', expect.objectContaining({ method: 'POST' }))
 })
+
+test('shows and hides the password from the login form', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/login')
+
+  const password = screen.getByLabelText('Password')
+  expect(password).toHaveAttribute('type', 'password')
+  expect(password).toHaveAttribute('minlength', '8')
+
+  fireEvent.click(screen.getByRole('button', { name: 'Show password' }))
+  expect(password).toHaveAttribute('type', 'text')
+
+  fireEvent.click(screen.getByRole('button', { name: 'Hide password' }))
+  expect(password).toHaveAttribute('type', 'password')
+})
