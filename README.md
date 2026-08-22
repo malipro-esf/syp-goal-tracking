@@ -1,8 +1,8 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
 SYP is being built incrementally as a modular monolith. The current milestone
-adds personal plan creation, ownership, editing, and lifecycle management to the
-secure FastAPI, React, and PostgreSQL foundation.
+adds measurable activities, units, decimal targets, schedules, and
+history-preserving expectation revisions to personal plans.
 
 ## Prerequisites
 
@@ -46,6 +46,11 @@ Open <http://localhost:5173/plans> after signing in. Create a draft personal
 plan, open it from the list, edit its details, and exercise its valid lifecycle
 actions: activate, pause/resume, complete, and archive. Archived plans are
 read-only.
+
+Inside an editable plan, add activities such as “Listening: 30 minutes every
+day,” “Reading: 20 pages on Monday, Wednesday, and Friday,” or “Writing: 3
+essays per week.” Changing a target or schedule creates a new effective-dated
+expectation rather than rewriting earlier history.
 
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is

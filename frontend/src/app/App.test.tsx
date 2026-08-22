@@ -76,3 +76,28 @@ test('shows the personal plan workspace for an authenticated user', async () => 
     headers: { Authorization: 'Bearer access-token' },
   }))
 })
+
+test('shows activity unit and schedule controls inside a plan', async () => {
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
+    access_token: 'access-token', token_type: 'bearer',
+    user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
+  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
+    id: 'plan-1', title: 'IELTS', description: null, status: 'draft',
+    start_date: null, end_date: null, created_at: '2026-08-22T00:00:00Z', updated_at: '2026-08-22T00:00:00Z',
+  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response('[]', {
+    status: 200, headers: { 'Content-Type': 'application/json' },
+  }))
+
+  renderApp('/plans/plan-1')
+
+  expect(await screen.findByRole('heading', { name: 'Activities' })).toBeInTheDocument()
+  expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()
+  expect(screen.getByRole('option', { name: 'Weekly quota' })).toBeInTheDocument()
+
+  fireEvent.change(screen.getByLabelText('Frequency'), { target: { value: 'selected_days' } })
+  expect(screen.getByText('Mon')).toBeInTheDocument()
+  expect(screen.getByText('Sun')).toBeInTheDocument()
+})

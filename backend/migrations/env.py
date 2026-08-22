@@ -3,6 +3,7 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+import syp.activities.models  # noqa: F401
 import syp.identity.models  # noqa: F401
 import syp.plans.models  # noqa: F401
 from syp.core.config import get_settings

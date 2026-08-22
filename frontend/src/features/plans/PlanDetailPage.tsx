@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { ApiError } from '../../api/client'
+import { ActivityPanel } from '../activities/ActivityPanel'
 import { useAuth } from '../auth/useAuth'
 import { getPlan, transitionPlan, updatePlan, type Plan } from './plans-api'
 
@@ -74,6 +75,7 @@ export function PlanDetailPage() {
           <button type="button" className="secondary-button" key={action} onClick={() => transition(action)}>{label}</button>
         ))}
       </section>
+      <ActivityPanel planId={plan.id} planStatus={plan.status} />
     </main>
   )
 }
