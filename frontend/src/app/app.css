@@ -23,7 +23,7 @@ button, input, textarea, select { font: inherit; }
 .header-account .text-button { color: #17633e; font-weight: 750; }
 .app-header + .workspace-shell, .app-header + .page-shell, .app-header + .admin-shell { min-height: calc(100vh - 4.5rem); }
 .page-shell { display: grid; min-height: 100vh; place-items: center; padding: 2rem; }
-.auth-card { width: min(100%, 34rem); padding: clamp(2rem, 6vw, 3.5rem); border: 1px solid #dce6de; border-radius: 1.5rem; background: #fff; box-shadow: 0 1.5rem 4rem rgb(39 75 57 / 10%); }
+.auth-card { width: min(100%, 42rem); padding: clamp(2rem, 5vw, 3.5rem); border: 1px solid #dce6de; border-radius: 1.5rem; background: #fff; box-shadow: 0 1.5rem 4rem rgb(39 75 57 / 10%); }
 .eyebrow { margin: 0 0 .75rem; color: #287653; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 h1 { margin: 0; color: #183e2c; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; }
 .description { margin: 1.25rem 0 2rem; color: #52675d; line-height: 1.65; }
