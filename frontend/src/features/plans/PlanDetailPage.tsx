@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { ApiError } from '../../api/client'
 import { ActivityPanel } from '../activities/ActivityPanel'
+import { AiCoachPanel } from '../ai-coach/AiCoachPanel'
 import { useAuth } from '../auth/useAuth'
 import { FeedbackPanel } from '../coaching/FeedbackPanel'
 import { getPlan, transitionPlan, updatePlan, type Plan } from './plans-api'
@@ -78,6 +79,7 @@ export function PlanDetailPage() {
       </section>
       <ActivityPanel planId={plan.id} planStatus={plan.status} />
       <FeedbackPanel enrollmentId={plan.id} />
+      <AiCoachPanel planId={plan.id} />
     </main>
   )
 }

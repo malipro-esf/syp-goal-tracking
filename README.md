@@ -25,7 +25,7 @@ Set up and run the backend:
 cd backend
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,ai]"
 fastapi dev src/syp/main.py
 ```
 
@@ -75,6 +75,12 @@ deterministic progress report and leave written feedback. This access is scoped
 to the accepted assignment; a coach cannot inspect unrelated participants.
 Participants see feedback inside their own plan without granting coaches edit
 access to progress records.
+
+The optional AI progress coach uses the OpenAI Agents SDK with five controlled,
+read-only tools for plan overview, progress reports, recent records, weekly
+summaries, and weak areas. It requires explicit per-request consent, enforces a
+daily usage limit, and records run/tool metadata without storing the question or
+answer. The rest of SYP remains available when AI is disabled or unavailable.
 
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is

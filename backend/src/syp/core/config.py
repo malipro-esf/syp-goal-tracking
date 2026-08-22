@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     auth_issuer: str = "syp-api"
     auth_audience: str = "syp-web"
     refresh_cookie_name: str = "syp_refresh_token"
+    openai_api_key: str | None = Field(default=None, repr=False)
+    ai_coach_enabled: bool = False
+    ai_coach_model: str = "gpt-5-mini"
+    ai_coach_daily_run_limit: int = Field(default=20, ge=1, le=100)
 
     @property
     def secure_cookies(self) -> bool:

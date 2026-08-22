@@ -104,6 +104,9 @@ test('shows activity unit and schedule controls inside a plan', async () => {
       start_date: '2026-08-17', end_date: '2026-08-23', overall_adherence_percent: '60.00',
       activities: [{ activity_id: 'activity-1', name: 'Listening', unit: 'minute', expected: '150.0000', actual: '90.0000', attainment_percent: '60.00', adherence_percent: '60.00', completed_occurrences: 2, partial_occurrences: 1, missed_occurrences: 1, upcoming_occurrences: 1 }],
     })
+    if (url === '/api/v1/ai-coach/ask') return json({
+      run_id: 'run-1', answer: 'Listening is at 60%. Try a smaller daily session.',
+    })
     return new Response('{}', { status: 404 })
   })
 
@@ -114,10 +117,16 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(screen.getByRole('option', { name: 'Weekly quota' })).toBeInTheDocument()
   expect(await screen.findByText('Record effort')).toBeInTheDocument()
   expect((await screen.findAllByText('60%')).length).toBeGreaterThan(0)
+  expect(screen.getByRole('heading', { name: 'Ask your progress coach' })).toBeInTheDocument()
 
   fireEvent.change(screen.getAllByLabelText('Frequency')[0], { target: { value: 'selected_days' } })
   expect(screen.getByText('Mon')).toBeInTheDocument()
   expect(screen.getByText('Sun')).toBeInTheDocument()
+
+  fireEvent.change(screen.getByLabelText('Your question'), { target: { value: 'Why am I behind?' } })
+  fireEvent.click(screen.getByText(/I agree to send relevant progress data/))
+  fireEvent.click(screen.getByRole('button', { name: 'Ask AI coach' }))
+  expect(await screen.findByText('Listening is at 60%. Try a smaller daily session.')).toBeInTheDocument()
 })
 
 test('shows the plan template workspace to a coach', async () => {
