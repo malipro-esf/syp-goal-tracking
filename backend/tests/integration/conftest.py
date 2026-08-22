@@ -4,7 +4,12 @@ from collections.abc import Generator
 import pytest
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import Engine, create_engine
+from fastapi.testclient import TestClient
+from sqlalchemy import Engine, create_engine, text
+from sqlalchemy.orm import Session
+
+from syp.core.database import get_db_session
+from syp.main import app
 
 TEST_DATABASE_URL = os.getenv(
     "SYP_TEST_DATABASE_URL",
@@ -33,3 +38,20 @@ def migrated_test_engine() -> Generator[Engine]:
         engine.dispose()
     finally:
         command.downgrade(alembic_config, "base")
+
+
+@pytest.fixture
+def api_client(migrated_test_engine: Engine) -> Generator[TestClient]:
+    def override_database_session() -> Generator[Session]:
+        with Session(migrated_test_engine) as session:
+            yield session
+
+    app.dependency_overrides[get_db_session] = override_database_session
+    with TestClient(app) as client:
+        yield client
+
+    app.dependency_overrides.clear()
+    with migrated_test_engine.begin() as connection:
+        connection.execute(text("DELETE FROM refresh_sessions"))
+        connection.execute(text("DELETE FROM user_roles"))
+        connection.execute(text("DELETE FROM users"))

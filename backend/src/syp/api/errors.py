@@ -5,9 +5,27 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from syp.core.exceptions import ApplicationError
+
 
 def register_exception_handlers(app: FastAPI) -> None:
     """Make expected API failures follow SYP's stable error envelope."""
+
+    @app.exception_handler(ApplicationError)
+    async def handle_application_error(
+        _request: Request,
+        exception: ApplicationError,
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=exception.status_code,
+            content={
+                "error": {
+                    "code": exception.code,
+                    "message": exception.message,
+                    "details": None,
+                }
+            },
+        )
 
     @app.exception_handler(StarletteHTTPException)
     async def handle_http_error(

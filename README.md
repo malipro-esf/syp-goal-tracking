@@ -1,7 +1,8 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
-SYP is being built incrementally as a modular monolith. Milestone 1 provides a
-FastAPI backend, React frontend, and a local PostgreSQL service.
+SYP is being built incrementally as a modular monolith. The current milestone
+adds secure registration, login, session refresh, logout, roles, and a protected
+React dashboard to the FastAPI and PostgreSQL foundation.
 
 ## Prerequisites
 
@@ -36,8 +37,15 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:5173>. The page calls the versioned backend health
-endpoint through Vite's development proxy.
+Open <http://localhost:5173/register>. Create an account with a password of at
+least 12 characters. After registration, the protected dashboard shows the
+authenticated user. Sign out, then use <http://localhost:5173/login> to sign in
+again.
+
+The API uses a short-lived JWT access token in React memory and a rotating,
+opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is
+stored in PostgreSQL. Change `SYP_AUTH_SECRET_KEY` to a strong private value
+outside local development.
 
 ## Database migrations
 

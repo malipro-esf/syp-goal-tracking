@@ -22,6 +22,20 @@ class Settings(BaseSettings):
         default="postgresql+psycopg://syp:local-development-only@localhost:55432/syp",
         repr=False,
     )
+    auth_secret_key: str = Field(
+        default="local-development-secret-key-change-before-production",
+        min_length=32,
+        repr=False,
+    )
+    access_token_minutes: int = Field(default=10, ge=1, le=60)
+    refresh_token_days: int = Field(default=30, ge=1, le=90)
+    auth_issuer: str = "syp-api"
+    auth_audience: str = "syp-web"
+    refresh_cookie_name: str = "syp_refresh_token"
+
+    @property
+    def secure_cookies(self) -> bool:
+        return self.environment in {"staging", "production"}
 
 
 @lru_cache
@@ -29,4 +43,3 @@ def get_settings() -> Settings:
     """Build settings once per process so every request sees the same configuration."""
 
     return Settings()
-
