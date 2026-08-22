@@ -15,6 +15,7 @@ export function DashboardPage() {
         <dl className="profile-list">
           <div><dt>Email</dt><dd>{user?.email}</dd></div>
           <div><dt>Role</dt><dd>{user?.roles.join(', ')}</dd></div>
+          <div><dt>Timezone</dt><dd>{user?.timezone}</dd></div>
         </dl>
         <div className="button-row">
           <Link className="primary-link" to="/plans">Manage plans</Link>

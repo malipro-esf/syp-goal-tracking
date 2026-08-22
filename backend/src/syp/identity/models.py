@@ -15,6 +15,7 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(320))
     normalized_email: Mapped[str] = mapped_column(String(320), unique=True, index=True)
     display_name: Mapped[str] = mapped_column(String(100))
+    timezone: Mapped[str] = mapped_column(String(100), default="UTC")
     password_hash: Mapped[str] = mapped_column(String(512))
     status: Mapped[str] = mapped_column(String(20), default="active")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

@@ -2,6 +2,12 @@ import { useEffect, useState, type FormEvent } from 'react'
 
 import { ApiError } from '../../api/client'
 import { useAuth } from '../auth/useAuth'
+import { ProgressHistory } from '../progress/ProgressHistory'
+import {
+  createProgressEntry,
+  listProgressEntries,
+  type ProgressEntry,
+} from '../progress/progress-api'
 import {
   createActivity,
   listActivities,
@@ -19,7 +25,11 @@ const units: { code: UnitCode; label: string }[] = [
   { code: 'number', label: 'Number' }, { code: 'meter', label: 'Meters' },
   { code: 'kilometer', label: 'Kilometers' }, { code: 'custom', label: 'Custom unit' },
 ]
-const today = () => new Date().toISOString().slice(0, 10)
+const today = () => {
+  const date = new Date()
+  const offset = date.getTimezoneOffset() * 60_000
+  return new Date(date.getTime() - offset).toISOString().slice(0, 10)
+}
 
 function expectationFromForm(data: FormData): ExpectationInput {
   const schedule = String(data.get('scheduleType')) as ScheduleType
@@ -65,16 +75,50 @@ function RevisionForm({ activity, planId, onRevised }: { activity: Activity; pla
   </form></details>
 }
 
+function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activity; planId: string; onRecorded: (entry: ProgressEntry) => void }) {
+  const { accessToken } = useAuth()
+  const [error, setError] = useState('')
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!accessToken) return
+    const form = event.currentTarget
+    const data = new FormData(form)
+    try {
+      onRecorded(await createProgressEntry(accessToken, planId, activity.id, {
+        quantity: String(data.get('quantity')),
+        performed_on: String(data.get('performedOn')),
+        note: String(data.get('note')) || null,
+      }))
+      form.reset(); setError('')
+    } catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not record effort.') }
+  }
+  const unit = activity.custom_unit_label ?? activity.unit_code
+  return <details className="record-box"><summary>Record effort</summary><form onSubmit={submit}>
+    <label>Actual amount ({unit})<input name="quantity" type="number" min="0.0001" step="0.0001" required /></label>
+    <label>Performed on<input name="performedOn" type="date" max={today()} defaultValue={today()} required /></label>
+    <label>Note (optional)<input name="note" maxLength={1000} /></label>
+    {error && <p className="form-error" role="alert">{error}</p>}
+    <button type="submit">Save actual effort</button>
+  </form></details>
+}
+
 export function ActivityPanel({ planId, planStatus }: { planId: string; planStatus: string }) {
   const { accessToken } = useAuth()
   const [activities, setActivities] = useState<Activity[]>([])
+  const [entries, setEntries] = useState<ProgressEntry[]>([])
   const [unit, setUnit] = useState<UnitCode>('minute')
   const [error, setError] = useState('')
   const readOnly = planStatus === 'completed' || planStatus === 'archived'
+  const canRecord = planStatus === 'active' || planStatus === 'paused'
 
   useEffect(() => {
-    if (accessToken) listActivities(accessToken, planId).then(setActivities).catch((caught: unknown) =>
-      setError(caught instanceof ApiError ? caught.message : 'Could not load activities.'))
+    if (accessToken) Promise.all([
+      listActivities(accessToken, planId),
+      listProgressEntries(accessToken, planId),
+    ]).then(([loadedActivities, loadedEntries]) => {
+      setActivities(loadedActivities); setEntries(loadedEntries)
+    }).catch((caught: unknown) =>
+      setError(caught instanceof ApiError ? caught.message : 'Could not load plan execution data.'))
   }, [accessToken, planId])
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -120,9 +164,11 @@ export function ActivityPanel({ planId, planStatus }: { planId: string; planStat
         return <article className="panel activity-card" key={activity.id}>
           <div><h3>{activity.name}</h3><p>{activity.description}</p></div>
           <p className="expectation"><strong>{activity.current_target.target_quantity} {unitLabel}</strong><span>{schedule}</span><small>Effective {activity.current_target.effective_from}</small></p>
+          {canRecord && <RecordProgressForm activity={activity} planId={planId} onRecorded={(entry) => setEntries((current) => [entry, ...current])} />}
           {!readOnly && <RevisionForm activity={activity} planId={planId} onRevised={(revised) => setActivities((current) => current.map((item) => item.id === revised.id ? revised : item))} />}
         </article>
       })}
     </div>
+    <ProgressHistory planId={planId} activities={activities} entries={entries} readOnly={planStatus === 'archived'} onEntriesChange={setEntries} />
   </section>
 }

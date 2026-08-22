@@ -84,9 +84,18 @@ test('shows activity unit and schedule controls inside a plan', async () => {
     user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
   }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
   fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
-    id: 'plan-1', title: 'IELTS', description: null, status: 'draft',
+    id: 'plan-1', title: 'IELTS', description: null, status: 'active',
     start_date: null, end_date: null, created_at: '2026-08-22T00:00:00Z', updated_at: '2026-08-22T00:00:00Z',
   }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
+    id: 'activity-1', enrollment_id: 'plan-1', name: 'Listening', description: null,
+    measurement_dimension: 'duration', unit_code: 'minute', custom_unit_label: null,
+    display_order: 0, status: 'active',
+    current_target: { target_quantity: '30.0000', effective_from: '2026-08-22', effective_until: null, reason: null },
+    current_schedule: { schedule_type: 'daily', weekdays: null, effective_from: '2026-08-22', effective_until: null },
+  }]), {
+    status: 200, headers: { 'Content-Type': 'application/json' },
+  }))
   fetchMock.mockResolvedValueOnce(new Response('[]', {
     status: 200, headers: { 'Content-Type': 'application/json' },
   }))
@@ -96,8 +105,9 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(await screen.findByRole('heading', { name: 'Activities' })).toBeInTheDocument()
   expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()
   expect(screen.getByRole('option', { name: 'Weekly quota' })).toBeInTheDocument()
+  expect(await screen.findByText('Record effort')).toBeInTheDocument()
 
-  fireEvent.change(screen.getByLabelText('Frequency'), { target: { value: 'selected_days' } })
+  fireEvent.change(screen.getAllByLabelText('Frequency')[0], { target: { value: 'selected_days' } })
   expect(screen.getByText('Mon')).toBeInTheDocument()
   expect(screen.getByText('Sun')).toBeInTheDocument()
 })

@@ -20,7 +20,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isLoading,
     login: async (email, password) => setSession(await loginUser({ email, password })),
     register: async (email, password, displayName) =>
-      setSession(await registerUser({ email, password, display_name: displayName })),
+      setSession(await registerUser({
+        email,
+        password,
+        display_name: displayName,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+      })),
     logout: async () => { try { await logoutUser() } finally { setSession(null) } },
   }), [isLoading, session])
 

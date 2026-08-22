@@ -1,8 +1,8 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
 SYP is being built incrementally as a modular monolith. The current milestone
-adds measurable activities, units, decimal targets, schedules, and
-history-preserving expectation revisions to personal plans.
+records actual effort as decimal progress entries, preserving partial and
+above-target work instead of reducing execution to pass or fail.
 
 ## Prerequisites
 
@@ -51,6 +51,12 @@ Inside an editable plan, add activities such as “Listening: 30 minutes every
 day,” “Reading: 20 pages on Monday, Wednesday, and Friday,” or “Writing: 3
 essays per week.” Changing a target or schedule creates a new effective-dated
 expectation rather than rewriting earlier history.
+
+Activate a plan to record actual effort from its activity cards. Multiple
+entries on the same date are preserved, recent entries can be corrected, and
+removal is implemented as recoverable soft deletion. The participant's IANA
+timezone determines whether a performed date is in the future; exact submission
+timestamps remain in UTC.
 
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is

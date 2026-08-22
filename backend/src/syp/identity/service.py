@@ -40,6 +40,7 @@ def build_user_response(session: Session, user: User) -> UserResponse:
         id=user.id,
         email=user.email,
         display_name=user.display_name,
+        timezone=user.timezone,
         roles=list(roles),
     )
 
@@ -78,6 +79,7 @@ def register_user(session: Session, request: RegistrationRequest, settings: Sett
         email=str(request.email).strip(),
         normalized_email=normalized_email,
         display_name=request.display_name,
+        timezone=request.timezone,
         password_hash=hash_password(request.password),
     )
     session.add(user)
