@@ -112,17 +112,22 @@ test('shows activity unit and schedule controls inside a plan', async () => {
 
   renderApp('/plans/plan-1')
 
+  expect(await screen.findByRole('heading', { name: 'Plan details' })).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('tab', { name: 'Activities' }))
   expect(await screen.findByRole('heading', { name: 'Activities' })).toBeInTheDocument()
   expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()
-  expect(screen.getByRole('option', { name: 'Weekly quota' })).toBeInTheDocument()
+  expect(screen.getAllByRole('option', { name: 'Weekly quota' }).length).toBeGreaterThan(0)
   expect(await screen.findByText('Record effort')).toBeInTheDocument()
-  expect((await screen.findAllByText('60%')).length).toBeGreaterThan(0)
-  expect(screen.getByRole('heading', { name: 'Ask your progress coach' })).toBeInTheDocument()
 
   fireEvent.change(screen.getAllByLabelText('Frequency')[0], { target: { value: 'selected_days' } })
   expect(screen.getByText('Mon')).toBeInTheDocument()
   expect(screen.getByText('Sun')).toBeInTheDocument()
 
+  fireEvent.click(screen.getByRole('tab', { name: 'Progress' }))
+  expect((await screen.findAllByText('60%')).length).toBeGreaterThan(0)
+
+  fireEvent.click(screen.getByRole('tab', { name: 'AI Coach' }))
+  expect(screen.getByRole('heading', { name: 'Ask your progress coach' })).toBeInTheDocument()
   fireEvent.change(screen.getByLabelText('Your question'), { target: { value: 'Why am I behind?' } })
   fireEvent.click(screen.getByText(/I agree to send relevant progress data/))
   fireEvent.click(screen.getByRole('button', { name: 'Ask AI coach' }))

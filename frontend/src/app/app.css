@@ -112,6 +112,50 @@ a { color: #17633e; font-weight: 700; }
 .consent-row input { width: auto; margin-top: .2rem; }
 .ai-answer { border-left: .3rem solid #17633e; }
 
+/* Plan administration workspace */
+.admin-shell { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); min-height: 100vh; background: #f4f7f5; }
+.admin-sidebar { position: sticky; top: 0; display: flex; flex-direction: column; height: 100vh; padding: 1.25rem 1rem; border-right: 1px solid #dce6de; background: #153e2c; color: #fff; }
+.admin-brand { display: flex; align-items: center; gap: .7rem; margin-bottom: 1.75rem; color: #fff; font-size: 1.15rem; text-decoration: none; }
+.admin-brand span { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: .6rem; background: #65b78c; color: #103522; font-weight: 900; }
+.back-link { padding: .65rem .75rem; border-radius: .55rem; color: #cfe4d7; font-size: .85rem; text-decoration: none; }
+.back-link:hover { background: rgb(255 255 255 / 8%); color: #fff; }
+.sidebar-plan { display: grid; gap: .4rem; margin: 1rem 0; padding: 1rem .75rem; border-block: 1px solid rgb(255 255 255 / 12%); }
+.sidebar-plan small { color: #9fc5af; }
+.sidebar-plan strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sidebar-plan .status-badge { margin-top: .25rem; }
+.admin-nav { display: grid; gap: .25rem; }
+.admin-nav button { display: flex; align-items: center; gap: .75rem; padding: .7rem .75rem; border-radius: .55rem; background: transparent; color: #cfe4d7; text-align: left; }
+.admin-nav button:hover { background: rgb(255 255 255 / 8%); color: #fff; }
+.admin-nav button.active { background: #fff; color: #153e2c; }
+.nav-icon { width: .55rem; height: .55rem; flex: 0 0 auto; border: 2px solid currentcolor; border-radius: 50%; }
+.admin-nav button.active .nav-icon { background: #287653; border-color: #287653; }
+.admin-main { min-width: 0; }
+.admin-topbar { display: flex; min-height: 7.5rem; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.5rem clamp(1.5rem, 4vw, 3.5rem); border-bottom: 1px solid #dce6de; background: #fff; }
+.admin-topbar h1 { font-size: clamp(1.75rem, 3vw, 2.35rem); }
+.admin-topbar .eyebrow { margin-bottom: .45rem; }
+.admin-topbar .lifecycle-actions { justify-content: flex-end; margin: 0; }
+.admin-content { width: min(100%, 76rem); margin: 0 auto; padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1rem, 4vw, 3.5rem); }
+.overview-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(15rem, 1fr); gap: 1.25rem; align-items: start; }
+.section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.section-heading h2 { margin: 0; }
+.section-count { padding: .35rem .6rem; border-radius: 999px; background: #edf3ef; color: #52675d; font-size: .8rem; white-space: nowrap; }
+.plan-at-a-glance h2 { margin-bottom: 1.25rem; }
+.plan-at-a-glance dl { display: grid; gap: .8rem; margin: 0; }
+.plan-at-a-glance dl div { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .8rem; border-bottom: 1px solid #e5ece7; }
+.plan-at-a-glance dt { color: #617168; }
+.plan-at-a-glance dd { margin: 0; font-weight: 750; text-transform: capitalize; }
+.plan-at-a-glance > p:last-child { margin: 1.25rem 0 0; color: #617168; line-height: 1.5; }
+.admin-section, .admin-content > .progress-summary, .admin-content > .progress-history, .admin-content > .feedback-panel, .admin-content > .ai-coach-panel { margin-top: 0; }
+.create-activity-panel { padding: 0; }
+.create-activity-panel > summary { padding: 1rem 1.25rem; color: #17633e; font-weight: 800; cursor: pointer; list-style-position: inside; }
+.create-activity-panel[open] > summary { border-bottom: 1px solid #e2eae5; }
+.create-activity-panel .activity-form { padding: 1.25rem; }
+.admin-content .activity-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.admin-content .activity-card { align-content: start; }
+.admin-content .report-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.admin-content .progress-history .progress-row { padding-block: 1rem; }
+.admin-content .feedback-panel, .admin-content .ai-coach-panel { max-width: 58rem; }
+
 @media (max-width: 760px) {
   .plan-layout { grid-template-columns: 1fr; }
   .workspace-header { align-items: flex-start; flex-direction: column; }
@@ -122,4 +166,14 @@ a { color: #17633e; font-weight: 700; }
   .report-row { grid-template-columns: 1fr; }
   .report-percent { justify-items: start; }
   .report-row dl { grid-column: 1; grid-template-columns: 1fr 1fr; }
+  .admin-shell { display: block; }
+  .admin-sidebar { position: static; width: 100%; height: auto; padding: .85rem 1rem; }
+  .admin-brand { margin-bottom: .75rem; }
+  .sidebar-plan { display: none; }
+  .admin-nav { display: flex; overflow-x: auto; padding-top: .5rem; border-top: 1px solid rgb(255 255 255 / 12%); }
+  .admin-nav button { flex: 0 0 auto; }
+  .admin-topbar { min-height: auto; align-items: flex-start; flex-direction: column; padding: 1.25rem; }
+  .admin-topbar .lifecycle-actions { justify-content: flex-start; }
+  .admin-content { padding: 1rem; }
+  .overview-grid, .admin-content .activity-list, .admin-content .report-list { grid-template-columns: 1fr; }
 }

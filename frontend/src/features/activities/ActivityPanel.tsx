@@ -104,7 +104,13 @@ function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activi
   </form></details>
 }
 
-export function ActivityPanel({ planId, planStatus }: { planId: string; planStatus: string }) {
+export type ActivityPanelView = 'activities' | 'progress' | 'entries'
+
+export function ActivityPanel({ planId, planStatus, view = 'activities' }: {
+  planId: string
+  planStatus: string
+  view?: ActivityPanelView
+}) {
   const { accessToken } = useAuth()
   const [activities, setActivities] = useState<Activity[]>([])
   const [entries, setEntries] = useState<ProgressEntry[]>([])
@@ -141,9 +147,12 @@ export function ActivityPanel({ planId, planStatus }: { planId: string; planStat
     } catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not create activity.') }
   }
 
-  return <section className="activity-section">
-    <div><p className="eyebrow">Measurable execution</p><h2>Activities</h2></div>
-    {!readOnly && <form className="panel activity-form" onSubmit={submit}>
+  if (view === 'progress') return <ProgressSummary planId={planId} entries={entries} />
+  if (view === 'entries') return <ProgressHistory planId={planId} activities={activities} entries={entries} readOnly={planStatus === 'archived'} onEntriesChange={setEntries} />
+
+  return <section className="activity-section admin-section">
+    <div className="section-heading"><div><p className="eyebrow">Measurable execution</p><h2>Activities</h2></div><span className="section-count">{activities.length} total</span></div>
+    {!readOnly && <details className="panel create-activity-panel"><summary>Add activity</summary><form className="activity-form" onSubmit={submit}>
       <label>Activity name<input name="name" maxLength={120} placeholder="Listening practice" required /></label>
       <label>Description<textarea name="description" rows={2} maxLength={2000} /></label>
       <div className="activity-grid">
@@ -155,7 +164,7 @@ export function ActivityPanel({ planId, planStatus }: { planId: string; planStat
       <label>Effective from<input name="effectiveFrom" type="date" defaultValue={today()} required /></label>
       {error && <p className="form-error" role="alert">{error}</p>}
       <button type="submit">Add activity</button>
-    </form>}
+    </form></details>}
     <div className="activity-list">
       {activities.length === 0 && <p className="empty-state">No activities yet.</p>}
       {activities.map((activity) => {
@@ -171,7 +180,5 @@ export function ActivityPanel({ planId, planStatus }: { planId: string; planStat
         </article>
       })}
     </div>
-    <ProgressSummary planId={planId} entries={entries} />
-    <ProgressHistory planId={planId} activities={activities} entries={entries} readOnly={planStatus === 'archived'} onEntriesChange={setEntries} />
   </section>
 }
