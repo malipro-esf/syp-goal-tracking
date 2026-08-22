@@ -6,10 +6,12 @@ from sqlalchemy.orm import Session
 
 from syp.activities.domain import UNIT_DIMENSIONS, UnitCode
 from syp.activities.models import ActivitySchedule, ActivityTargetRevision, EnrollmentActivity
-from syp.coaching.models import PlanAssignment, PlanTemplate, PlanTemplateActivity
+from syp.coaching.models import CoachFeedback, PlanAssignment, PlanTemplate, PlanTemplateActivity
 from syp.coaching.schemas import (
     AssignmentCreate,
     AssignmentResponse,
+    FeedbackCreate,
+    FeedbackResponse,
     TemplateActivityCreate,
     TemplateResponse,
     TemplateWrite,
@@ -306,3 +308,73 @@ def list_participants(session: Session, coach_id: uuid.UUID) -> list[AssignmentR
         .order_by(PlanAssignment.responded_at.desc())
     ).all()
     return [_assignment_response(session, item) for item in items]
+
+
+def get_coach_enrollment(
+    session: Session, coach_id: uuid.UUID, enrollment_id: uuid.UUID
+) -> PlanEnrollment:
+    plan = session.scalar(
+        select(PlanEnrollment)
+        .join(PlanAssignment, PlanAssignment.id == PlanEnrollment.source_assignment_id)
+        .where(
+            PlanEnrollment.id == enrollment_id,
+            PlanEnrollment.coach_user_id == coach_id,
+            PlanAssignment.assigned_by_user_id == coach_id,
+            PlanAssignment.status == "accepted",
+        )
+    )
+    if plan is None:
+        raise ApplicationError(
+            code="enrollment_not_found",
+            message="The participant plan was not found.",
+            status_code=404,
+        )
+    return plan
+
+
+def _feedback_response(session: Session, item: CoachFeedback) -> FeedbackResponse:
+    coach = session.get(User, item.coach_user_id)
+    if coach is None:
+        raise RuntimeError("Feedback coach is missing.")
+    return FeedbackResponse.model_validate({**item.__dict__, "coach_name": coach.display_name})
+
+
+def create_feedback(
+    session: Session,
+    coach_id: uuid.UUID,
+    enrollment_id: uuid.UUID,
+    payload: FeedbackCreate,
+) -> FeedbackResponse:
+    get_coach_enrollment(session, coach_id, enrollment_id)
+    message = payload.message.strip()
+    if not message:
+        raise ApplicationError(
+            code="feedback_message_required",
+            message="Feedback cannot be blank.",
+            status_code=422,
+        )
+    item = CoachFeedback(enrollment_id=enrollment_id, coach_user_id=coach_id, message=message)
+    session.add(item)
+    session.commit()
+    session.refresh(item)
+    return _feedback_response(session, item)
+
+
+def list_feedback(
+    session: Session, user_id: uuid.UUID, enrollment_id: uuid.UUID
+) -> list[FeedbackResponse]:
+    plan = session.get(PlanEnrollment, enrollment_id)
+    if plan is None:
+        raise ApplicationError(
+            code="enrollment_not_found",
+            message="The participant plan was not found.",
+            status_code=404,
+        )
+    if plan.participant_user_id != user_id:
+        get_coach_enrollment(session, user_id, enrollment_id)
+    items = session.scalars(
+        select(CoachFeedback)
+        .where(CoachFeedback.enrollment_id == enrollment_id)
+        .order_by(CoachFeedback.created_at.desc())
+    ).all()
+    return [_feedback_response(session, item) for item in items]

@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from syp.activities.domain import ScheduleType
 from syp.activities.models import EnrollmentActivity
+from syp.coaching.models import PlanAssignment
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import User
 from syp.plans.models import PlanEnrollment, PlanStatusEvent
@@ -41,13 +42,20 @@ def build_progress_report(
             message="Progress reports are limited to 93 days.",
             status_code=422,
         )
-    plan = session.scalar(
-        select(PlanEnrollment).where(
-            PlanEnrollment.id == plan_id,
-            PlanEnrollment.participant_user_id == user.id,
+    plan = session.get(PlanEnrollment, plan_id)
+    coach_access = False
+    if plan is not None and plan.participant_user_id != user.id:
+        coach_access = (
+            session.scalar(
+                select(PlanAssignment.id).where(
+                    PlanAssignment.id == plan.source_assignment_id,
+                    PlanAssignment.assigned_by_user_id == user.id,
+                    PlanAssignment.status == "accepted",
+                )
+            )
+            is not None
         )
-    )
-    if plan is None:
+    if plan is None or (plan.participant_user_id != user.id and not coach_access):
         raise ApplicationError(
             code="plan_not_found",
             message="The requested plan was not found.",
@@ -67,7 +75,7 @@ def build_progress_report(
         .join(EnrollmentActivity, EnrollmentActivity.id == ProgressEntry.activity_id)
         .where(
             EnrollmentActivity.enrollment_id == plan_id,
-            ProgressEntry.participant_user_id == user.id,
+            ProgressEntry.participant_user_id == plan.participant_user_id,
             ProgressEntry.deleted_at.is_(None),
             ProgressEntry.performed_on >= start_date,
             ProgressEntry.performed_on <= end_date,
@@ -112,7 +120,10 @@ def build_progress_report(
         )
         for activity in activities
     )
-    today = datetime.now(ZoneInfo(user.timezone)).date()
+    participant = session.get(User, plan.participant_user_id)
+    if participant is None:
+        raise RuntimeError("Plan participant is missing.")
+    today = datetime.now(ZoneInfo(participant.timezone)).date()
     return calculate_progress(
         start_date=start_date,
         end_date=end_date,

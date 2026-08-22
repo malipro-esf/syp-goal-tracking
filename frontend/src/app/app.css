@@ -102,6 +102,10 @@ a { color: #17633e; font-weight: 700; }
 .coaching-grid { display: grid; gap: 1.25rem; margin: 1.25rem 0; }
 .assignment-row { display: flex; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: .75rem; }
 .assignment-row span { display: block; color: #617168; }
+.feedback-panel { display: grid; gap: 1rem; margin-top: 2rem; }
+.feedback-panel h2 { margin: 0; }
+.feedback-item div { display: flex; justify-content: space-between; gap: 1rem; }
+.feedback-item time { color: #617168; font-size: .85rem; }
 
 @media (max-width: 760px) {
   .plan-layout { grid-template-columns: 1fr; }

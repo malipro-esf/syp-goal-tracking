@@ -101,7 +101,7 @@ export function CoachingPage() {
         <b>{item.status}</b>{!coach && item.status === 'pending' && <div className="button-row">
           <button onClick={() => respond(item.id, 'accept')}>Accept</button>
           <button className="secondary-button" onClick={() => respond(item.id, 'reject')}>Reject</button></div>}
-        {item.enrollment_id && <Link to={`/plans/${item.enrollment_id}`}>Open plan</Link>}
+        {item.enrollment_id && <Link to={coach ? `/coach/enrollments/${item.enrollment_id}` : `/plans/${item.enrollment_id}`}>{coach ? 'Review progress' : 'Open plan'}</Link>}
       </article>)}</section>
   </main>
 }

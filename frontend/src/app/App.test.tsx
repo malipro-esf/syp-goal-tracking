@@ -145,3 +145,32 @@ test('shows the plan template workspace to a coach', async () => {
   expect(await screen.findByText('Easy run: 5 kilometer · weekly')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
 })
+
+test('shows authorized participant progress and feedback to a coach', async () => {
+  vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+    const url = String(input)
+    const json = (body: unknown) => new Response(JSON.stringify(body), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    })
+    if (url === '/api/v1/auth/refresh') return json({
+      access_token: 'coach-token', token_type: 'bearer',
+      user: { id: '2', email: 'coach@example.com', display_name: 'Coach', timezone: 'UTC', roles: ['coach'] },
+    })
+    if (url.startsWith('/api/v1/plans/enrollment-1/progress-report?')) return json({
+      start_date: '2026-08-17', end_date: '2026-08-23', overall_adherence_percent: '75.00',
+      activities: [{ activity_id: 'activity-1', name: 'Running', unit: 'kilometer', expected: '20.0000', actual: '15.0000', attainment_percent: '75.00', adherence_percent: '75.00', completed_occurrences: 2, partial_occurrences: 1, missed_occurrences: 1, upcoming_occurrences: 0 }],
+    })
+    if (url === '/api/v1/coaching/enrollments/enrollment-1/feedback') return json([{
+      id: 'feedback-1', enrollment_id: 'enrollment-1', coach_user_id: '2', coach_name: 'Coach',
+      message: 'Good consistency this week.', created_at: '2026-08-22T10:00:00Z',
+    }])
+    return new Response('{}', { status: 404 })
+  })
+
+  renderApp('/coach/enrollments/enrollment-1')
+
+  expect(await screen.findByRole('heading', { name: 'Progress & feedback' })).toBeInTheDocument()
+  expect((await screen.findAllByText('75%')).length).toBeGreaterThan(0)
+  expect(await screen.findByText('Good consistency this week.')).toBeInTheDocument()
+  expect(screen.getByLabelText('Feedback for participant')).toBeInTheDocument()
+})

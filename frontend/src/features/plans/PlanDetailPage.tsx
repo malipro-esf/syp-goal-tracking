@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ApiError } from '../../api/client'
 import { ActivityPanel } from '../activities/ActivityPanel'
 import { useAuth } from '../auth/useAuth'
+import { FeedbackPanel } from '../coaching/FeedbackPanel'
 import { getPlan, transitionPlan, updatePlan, type Plan } from './plans-api'
 
 const actions: Record<string, { action: string; label: string }[]> = {
@@ -76,6 +77,7 @@ export function PlanDetailPage() {
         ))}
       </section>
       <ActivityPanel planId={plan.id} planStatus={plan.status} />
+      <FeedbackPanel enrollmentId={plan.id} />
     </main>
   )
 }

@@ -6,6 +6,8 @@ from syp.api.dependencies import CurrentUser, DatabaseSession
 from syp.coaching.schemas import (
     AssignmentCreate,
     AssignmentResponse,
+    FeedbackCreate,
+    FeedbackResponse,
     TemplateActivityCreate,
     TemplateResponse,
     TemplateWrite,
@@ -13,7 +15,9 @@ from syp.coaching.schemas import (
 from syp.coaching.service import (
     add_template_activity,
     assign_template,
+    create_feedback,
     create_template,
+    list_feedback,
     list_my_invitations,
     list_participants,
     list_sent_assignments,
@@ -117,3 +121,24 @@ def reject(
 @router.get("/participants", response_model=list[AssignmentResponse])
 def participants(session: DatabaseSession, current_user: CurrentUser) -> list[AssignmentResponse]:
     return list_participants(session, current_user.id)
+
+
+@router.get("/enrollments/{enrollment_id}/feedback", response_model=list[FeedbackResponse])
+def feedback(
+    enrollment_id: uuid.UUID, session: DatabaseSession, current_user: CurrentUser
+) -> list[FeedbackResponse]:
+    return list_feedback(session, current_user.id, enrollment_id)
+
+
+@router.post(
+    "/enrollments/{enrollment_id}/feedback",
+    response_model=FeedbackResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def leave_feedback(
+    enrollment_id: uuid.UUID,
+    payload: FeedbackCreate,
+    session: DatabaseSession,
+    current_user: CurrentUser,
+) -> FeedbackResponse:
+    return create_feedback(session, current_user.id, enrollment_id, payload)

@@ -70,6 +70,12 @@ before an independent draft plan is created. The participant's plan is a
 snapshot: later edits to the reusable template do not silently rewrite it.
 Participants can accept or reject invitations from the coaching workspace.
 
+After acceptance, the assigning coach can review that participant plan's
+deterministic progress report and leave written feedback. This access is scoped
+to the accepted assignment; a coach cannot inspect unrelated participants.
+Participants see feedback inside their own plan without granting coaches edit
+access to progress records.
+
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is
 stored in PostgreSQL. Change `SYP_AUTH_SECRET_KEY` to a strong private value

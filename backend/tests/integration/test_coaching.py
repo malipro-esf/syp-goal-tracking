@@ -109,3 +109,53 @@ def test_role_and_invitation_authorization(api_client: TestClient) -> None:
     )
     assert rejected.json()["status"] == "rejected"
     assert rejected.json()["enrollment_id"] is None
+
+
+def test_coach_progress_and_feedback_follow_accepted_assignment(api_client: TestClient) -> None:
+    coach = register(api_client, "coach@example.com", "coach")
+    other_coach = register(api_client, "other@example.com", "coach")
+    participant = register(api_client, "learner@example.com", "participant")
+    template_id = create_template_with_activity(api_client, coach)
+    sent = api_client.post(
+        f"/api/v1/coaching/templates/{template_id}/assignments",
+        headers=auth(coach),
+        json={"participant_email": "learner@example.com", "start_date": "2026-08-24"},
+    )
+    accepted = api_client.post(
+        f"/api/v1/coaching/invitations/{sent.json()['id']}/accept",
+        headers=auth(participant),
+    )
+    enrollment_id = accepted.json()["enrollment_id"]
+
+    report = api_client.get(
+        f"/api/v1/plans/{enrollment_id}/progress-report",
+        headers=auth(coach),
+        params={"start_date": "2026-08-24", "end_date": "2026-08-30"},
+    )
+    assert report.status_code == 200
+    hidden_report = api_client.get(
+        f"/api/v1/plans/{enrollment_id}/progress-report",
+        headers=auth(other_coach),
+        params={"start_date": "2026-08-24", "end_date": "2026-08-30"},
+    )
+    assert hidden_report.status_code == 404
+
+    created = api_client.post(
+        f"/api/v1/coaching/enrollments/{enrollment_id}/feedback",
+        headers=auth(coach),
+        json={"message": "Strong start. Keep the sessions consistent."},
+    )
+    assert created.status_code == 201
+    assert created.json()["coach_name"] == "Coach"
+    forbidden = api_client.post(
+        f"/api/v1/coaching/enrollments/{enrollment_id}/feedback",
+        headers=auth(other_coach),
+        json={"message": "Not authorized"},
+    )
+    assert forbidden.status_code == 404
+    visible = api_client.get(
+        f"/api/v1/coaching/enrollments/{enrollment_id}/feedback",
+        headers=auth(participant),
+    )
+    assert visible.status_code == 200
+    assert visible.json()[0]["message"].startswith("Strong start")

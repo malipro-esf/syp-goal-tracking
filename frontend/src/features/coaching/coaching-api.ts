@@ -17,6 +17,14 @@ export type Assignment = {
   start_date: string
   enrollment_id: string | null
 }
+export type Feedback = {
+  id: string
+  enrollment_id: string
+  coach_user_id: string
+  coach_name: string
+  message: string
+  created_at: string
+}
 
 const auth = (token: string, init: RequestInit = {}): RequestInit => ({
   ...init, headers: { ...init.headers, Authorization: `Bearer ${token}` },
@@ -36,3 +44,9 @@ export const listInvitations = (token: string) =>
   apiRequest<Assignment[]>('/api/v1/coaching/invitations', auth(token))
 export const respondInvitation = (token: string, id: string, action: 'accept' | 'reject') =>
   apiRequest<Assignment>(`/api/v1/coaching/invitations/${id}/${action}`, auth(token, { method: 'POST' }))
+export const listFeedback = (token: string, enrollmentId: string) =>
+  apiRequest<Feedback[]>(`/api/v1/coaching/enrollments/${enrollmentId}/feedback`, auth(token))
+export const createFeedback = (token: string, enrollmentId: string, message: string) =>
+  apiRequest<Feedback>(`/api/v1/coaching/enrollments/${enrollmentId}/feedback`, auth(token, {
+    method: 'POST', body: JSON.stringify({ message }),
+  }))
