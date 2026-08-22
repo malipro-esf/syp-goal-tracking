@@ -124,6 +124,8 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   renderApp('/plans/plan-1')
 
   expect(await screen.findByRole('heading', { name: 'Plan details' })).toBeInTheDocument()
+  expect(await screen.findByRole('heading', { name: 'Progress snapshot' })).toBeInTheDocument()
+  expect(await screen.findByRole('img', { name: 'Weekly overall adherence 60 percent' })).toBeInTheDocument()
   fireEvent.click(screen.getByRole('tab', { name: 'Activities' }))
   expect(await screen.findByRole('heading', { name: 'Activities' })).toBeInTheDocument()
   expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()

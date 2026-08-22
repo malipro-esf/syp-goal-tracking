@@ -149,6 +149,7 @@ a { color: #17633e; font-weight: 700; }
 .admin-topbar .lifecycle-actions { justify-content: flex-end; margin: 0; }
 .admin-content { width: min(100%, 76rem); margin: 0 auto; padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1rem, 4vw, 3.5rem); }
 .overview-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(15rem, 1fr); gap: 1.25rem; align-items: start; }
+.overview-aside { display: grid; gap: 1.25rem; }
 .section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .section-heading h2 { margin: 0; }
 .section-count { padding: .35rem .6rem; border-radius: 999px; background: #edf3ef; color: #52675d; font-size: .8rem; white-space: nowrap; }
@@ -158,6 +159,17 @@ a { color: #17633e; font-weight: 700; }
 .plan-at-a-glance dt { color: #617168; }
 .plan-at-a-glance dd { margin: 0; font-weight: 750; text-transform: capitalize; }
 .plan-at-a-glance > p:last-child { margin: 1.25rem 0 0; color: #617168; line-height: 1.5; }
+.overview-chart { padding: 1.5rem; }
+.overview-chart .section-heading { align-items: center; margin-bottom: 1.25rem; }
+.overview-chart h2 { margin-bottom: 0; font-size: 1.35rem; }
+.chart-score { color: #166b49; font-size: 1.5rem; }
+.chart-bars { display: grid; gap: 1rem; }
+.chart-row { display: grid; gap: .4rem; }
+.chart-label { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem; }
+.chart-label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chart-track { height: .65rem; overflow: hidden; border-radius: 999px; background: #e5eee8; }
+.chart-track span { display: block; height: 100%; min-width: 0; border-radius: inherit; background: linear-gradient(90deg, #2a805d, #65be92); transition: width .35s ease; }
+.chart-message { margin: 0; color: #617168; line-height: 1.5; }
 .admin-section, .admin-content > .progress-summary, .admin-content > .progress-history, .admin-content > .feedback-panel, .admin-content > .ai-coach-panel { margin-top: 0; }
 .create-activity-panel { padding: 0; }
 .create-activity-panel > summary { padding: 1rem 1.25rem; color: #17633e; font-weight: 800; cursor: pointer; list-style-position: inside; }

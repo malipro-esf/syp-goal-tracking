@@ -6,6 +6,7 @@ import { ActivityPanel, type ActivityPanelView } from '../activities/ActivityPan
 import { AiCoachPanel } from '../ai-coach/AiCoachPanel'
 import { useAuth } from '../auth/useAuth'
 import { FeedbackPanel } from '../coaching/FeedbackPanel'
+import { OverviewProgressChart } from '../progress/OverviewProgressChart'
 import { getPlan, transitionPlan, updatePlan, type Plan } from './plans-api'
 
 const actions: Record<string, { action: string; label: string }[]> = {
@@ -98,7 +99,10 @@ export function PlanDetailPage() {
             </div>
             {!archived && <button type="submit">Save changes</button>}
           </form>
-          <aside className="panel plan-at-a-glance"><p className="eyebrow">At a glance</p><h2>Plan status</h2><dl><div><dt>Current state</dt><dd>{plan.status}</dd></div><div><dt>Starts</dt><dd>{plan.start_date || 'Not set'}</dd></div><div><dt>Ends</dt><dd>{plan.end_date || 'Open-ended'}</dd></div></dl><p>Use the navigation to manage execution, inspect progress, or review coaching.</p></aside>
+          <div className="overview-aside">
+            <aside className="panel plan-at-a-glance"><p className="eyebrow">At a glance</p><h2>Plan status</h2><dl><div><dt>Current state</dt><dd>{plan.status}</dd></div><div><dt>Starts</dt><dd>{plan.start_date || 'Not set'}</dd></div><div><dt>Ends</dt><dd>{plan.end_date || 'Open-ended'}</dd></div></dl></aside>
+            <OverviewProgressChart planId={plan.id} />
+          </div>
         </section>}
         {(activeTab === 'activities' || activeTab === 'progress' || activeTab === 'entries') && <ActivityPanel planId={plan.id} planStatus={plan.status} view={activeTab} />}
         {activeTab === 'feedback' && <FeedbackPanel enrollmentId={plan.id} />}
