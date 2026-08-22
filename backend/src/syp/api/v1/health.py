@@ -24,4 +24,3 @@ def get_health() -> HealthResponse:
         service=settings.app_name,
         environment=settings.environment,
     )
-

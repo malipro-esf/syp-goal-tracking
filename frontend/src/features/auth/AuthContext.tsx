@@ -19,12 +19,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: session?.user ?? null,
     isLoading,
     login: async (email, password) => setSession(await loginUser({ email, password })),
-    register: async (email, password, displayName) =>
+    register: async (email, password, displayName, accountType) =>
       setSession(await registerUser({
         email,
         password,
         display_name: displayName,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
+        account_type: accountType,
       })),
     logout: async () => { try { await logoutUser() } finally { setSession(null) } },
   }), [isLoading, session])

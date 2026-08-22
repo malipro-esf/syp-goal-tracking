@@ -99,6 +99,9 @@ a { color: #17633e; font-weight: 700; }
 .report-row dl div { padding: .6rem; border-radius: .5rem; background: #f2f6f2; text-align: center; }
 .report-row dt { color: #617168; font-size: .75rem; }
 .report-row dd { margin: .2rem 0 0; font-weight: 800; }
+.coaching-grid { display: grid; gap: 1.25rem; margin: 1.25rem 0; }
+.assignment-row { display: flex; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: .75rem; }
+.assignment-row span { display: block; color: #617168; }
 
 @media (max-width: 760px) {
   .plan-layout { grid-template-columns: 1fr; }

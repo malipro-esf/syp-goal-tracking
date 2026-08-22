@@ -66,12 +66,8 @@ def _response(session: Session, activity: EnrollmentActivity) -> ActivityRespons
         custom_unit_label=activity.custom_unit_label,
         display_order=activity.display_order,
         status=activity.status,
-        current_target=TargetRevisionResponse.model_validate(
-            _latest_target(session, activity.id)
-        ),
-        current_schedule=ScheduleResponse.model_validate(
-            _latest_schedule(session, activity.id)
-        ),
+        current_target=TargetRevisionResponse.model_validate(_latest_target(session, activity.id)),
+        current_schedule=ScheduleResponse.model_validate(_latest_schedule(session, activity.id)),
         created_at=activity.created_at,
         updated_at=activity.updated_at,
     )
@@ -161,9 +157,7 @@ def get_activity(
     plan_id: uuid.UUID,
     activity_id: uuid.UUID,
 ) -> ActivityResponse:
-    return _response(
-        session, _owned_activity(session, participant_id, plan_id, activity_id)
-    )
+    return _response(session, _owned_activity(session, participant_id, plan_id, activity_id))
 
 
 def update_activity(

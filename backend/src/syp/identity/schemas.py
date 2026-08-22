@@ -1,4 +1,5 @@
 import uuid
+from typing import Literal
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import BaseModel, EmailStr, Field, field_validator
@@ -9,6 +10,7 @@ class RegistrationRequest(BaseModel):
     password: str = Field(min_length=8, max_length=128)
     display_name: str = Field(min_length=2, max_length=100)
     timezone: str = Field(default="UTC", min_length=1, max_length=100)
+    account_type: Literal["participant", "coach"] = "participant"
 
     @field_validator("display_name")
     @classmethod

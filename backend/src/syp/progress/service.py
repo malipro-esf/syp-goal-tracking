@@ -197,9 +197,7 @@ def delete_progress_entry(
     activity_id: uuid.UUID,
     entry_id: uuid.UUID,
 ) -> None:
-    entry, plan = _owned_entry(
-        session, participant_id, plan_id, activity_id, entry_id
-    )
+    entry, plan = _owned_entry(session, participant_id, plan_id, activity_id, entry_id)
     if PlanStatus(plan.status) == PlanStatus.ARCHIVED:
         raise ApplicationError(
             code="archived_plan_read_only",

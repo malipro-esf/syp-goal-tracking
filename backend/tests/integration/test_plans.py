@@ -65,9 +65,7 @@ def test_plan_ownership_is_enforced_as_not_found(api_client: TestClient) -> None
     ).json()
     other_token = register(api_client, "other@example.com")
 
-    response = api_client.get(
-        f"/api/v1/plans/{plan['id']}", headers=authorization(other_token)
-    )
+    response = api_client.get(f"/api/v1/plans/{plan['id']}", headers=authorization(other_token))
 
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "plan_not_found"
@@ -76,9 +74,7 @@ def test_plan_ownership_is_enforced_as_not_found(api_client: TestClient) -> None
 def test_plan_lifecycle_allows_only_defined_transitions(api_client: TestClient) -> None:
     token = register(api_client, "owner@example.com")
     headers = authorization(token)
-    plan = api_client.post(
-        "/api/v1/plans", headers=headers, json={"title": "Fitness"}
-    ).json()
+    plan = api_client.post("/api/v1/plans", headers=headers, json={"title": "Fitness"}).json()
     plan_url = f"/api/v1/plans/{plan['id']}"
 
     invalid = api_client.post(f"{plan_url}/pause", headers=headers)

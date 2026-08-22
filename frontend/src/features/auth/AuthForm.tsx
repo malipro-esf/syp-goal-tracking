@@ -20,7 +20,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
     try {
       const email = String(data.get('email'))
       const password = String(data.get('password'))
-      if (mode === 'register') await register(email, password, String(data.get('displayName')))
+      if (mode === 'register') await register(email, password, String(data.get('displayName')), String(data.get('accountType')) as 'participant' | 'coach')
       else await login(email, password)
       navigate('/dashboard', { replace: true })
     } catch (caught) {
@@ -41,6 +41,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
         </p>
         <form onSubmit={submit}>
           {registering && <label>Display name<input name="displayName" autoComplete="name" minLength={2} maxLength={100} required /></label>}
+          {registering && <label>Account type<select name="accountType" defaultValue="participant"><option value="participant">Participant</option><option value="coach">Coach</option></select></label>}
           <label>Email<input name="email" type="email" autoComplete="email" required /></label>
           <label>
             Password

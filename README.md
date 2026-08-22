@@ -64,6 +64,12 @@ capped adherence, and completed, partial, missed, and upcoming occurrence
 counts. Overall adherence averages activity-level adherence so incompatible
 units are never added together.
 
+Coach accounts can create reusable plan templates, add measurable activities,
+and invite an existing participant by email. The invitation must be accepted
+before an independent draft plan is created. The participant's plan is a
+snapshot: later edits to the reusable template do not silently rewrite it.
+Participants can accept or reject invitations from the coaching workspace.
+
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is
 stored in PostgreSQL. Change `SYP_AUTH_SECRET_KEY` to a strong private value

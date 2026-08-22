@@ -28,6 +28,15 @@ class PlanEnrollment(Base):
     created_by_user_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("users.id", ondelete="RESTRICT")
     )
+    coach_user_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL")
+    )
+    source_template_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("plan_templates.id", ondelete="SET NULL")
+    )
+    source_assignment_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("plan_assignments.id", ondelete="SET NULL"), unique=True
+    )
     title: Mapped[str] = mapped_column(String(120))
     description: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(20), default="draft")

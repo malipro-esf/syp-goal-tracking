@@ -39,9 +39,7 @@ def create_personal_plan(
 def list_personal_plans(
     session: Session, participant_id: uuid.UUID, status: PlanStatus | None = None
 ) -> list[PlanEnrollment]:
-    query = select(PlanEnrollment).where(
-        PlanEnrollment.participant_user_id == participant_id
-    )
+    query = select(PlanEnrollment).where(PlanEnrollment.participant_user_id == participant_id)
     if status is not None:
         query = query.where(PlanEnrollment.status == status.value)
     return list(session.scalars(query.order_by(PlanEnrollment.created_at.desc())))

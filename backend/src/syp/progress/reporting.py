@@ -103,9 +103,7 @@ def build_progress_report(
                     item.effective_from,
                     item.effective_until,
                 )
-                for item in sorted(
-                    activity.schedules, key=lambda schedule: schedule.effective_from
-                )
+                for item in sorted(activity.schedules, key=lambda schedule: schedule.effective_from)
             ),
             entries=tuple(
                 ActualRecord(entry.quantity, entry.performed_on)

@@ -13,12 +13,8 @@ class PlanStatus(StrEnum):
 
 ALLOWED_TRANSITIONS: dict[PlanStatus, frozenset[PlanStatus]] = {
     PlanStatus.DRAFT: frozenset({PlanStatus.ACTIVE, PlanStatus.ARCHIVED}),
-    PlanStatus.ACTIVE: frozenset(
-        {PlanStatus.PAUSED, PlanStatus.COMPLETED, PlanStatus.ARCHIVED}
-    ),
-    PlanStatus.PAUSED: frozenset(
-        {PlanStatus.ACTIVE, PlanStatus.COMPLETED, PlanStatus.ARCHIVED}
-    ),
+    PlanStatus.ACTIVE: frozenset({PlanStatus.PAUSED, PlanStatus.COMPLETED, PlanStatus.ARCHIVED}),
+    PlanStatus.PAUSED: frozenset({PlanStatus.ACTIVE, PlanStatus.COMPLETED, PlanStatus.ARCHIVED}),
     PlanStatus.COMPLETED: frozenset({PlanStatus.ARCHIVED}),
     PlanStatus.ARCHIVED: frozenset(),
 }

@@ -37,9 +37,7 @@ def test_daily_partial_missed_and_upcoming_occurrences() -> None:
         end_date=date(2026, 8, 22),
         today=date(2026, 8, 22),
         status_events=(StatusEventInput("active", date(2026, 8, 1), 0),),
-        activities=(
-            activity(entries=(ActualRecord(Decimal("18"), date(2026, 8, 20)),)),
-        ),
+        activities=(activity(entries=(ActualRecord(Decimal("18"), date(2026, 8, 20)),)),),
     )
     result = report.activities[0]
     assert result.expected == Decimal("90")

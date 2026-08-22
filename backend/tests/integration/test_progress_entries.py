@@ -28,9 +28,7 @@ def headers(token: str) -> dict[str, str]:
 
 
 def create_active_activity(api_client: TestClient, token: str) -> tuple[str, str]:
-    plan = api_client.post(
-        "/api/v1/plans", headers=headers(token), json={"title": "IELTS"}
-    ).json()
+    plan = api_client.post("/api/v1/plans", headers=headers(token), json={"title": "IELTS"}).json()
     api_client.post(f"/api/v1/plans/{plan['id']}/activate", headers=headers(token))
     activity = api_client.post(
         f"/api/v1/plans/{plan['id']}/activities",
@@ -72,9 +70,7 @@ def test_partial_multiple_and_above_target_entries_are_preserved(
     assert first.json()["quantity"] == "18.0000"
     assert second.status_code == 201
 
-    listed = api_client.get(
-        f"/api/v1/plans/{plan_id}/progress-entries", headers=headers(token)
-    )
+    listed = api_client.get(f"/api/v1/plans/{plan_id}/progress-entries", headers=headers(token))
     assert listed.status_code == 200
     assert len(listed.json()) == 2
     assert sum(float(item["quantity"]) for item in listed.json()) == 38
@@ -113,9 +109,10 @@ def test_entry_can_be_corrected_and_soft_deleted(
 
     removed = api_client.delete(url, headers=headers(token))
     assert removed.status_code == 204
-    assert api_client.get(
-        f"/api/v1/plans/{plan_id}/progress-entries", headers=headers(token)
-    ).json() == []
+    assert (
+        api_client.get(f"/api/v1/plans/{plan_id}/progress-entries", headers=headers(token)).json()
+        == []
+    )
     with migrated_test_engine.connect() as connection:
         deleted_at = connection.scalar(
             text("SELECT deleted_at FROM progress_entries WHERE id = :id"),

@@ -19,6 +19,7 @@ export function DashboardPage() {
         </dl>
         <div className="button-row">
           <Link className="primary-link" to="/plans">Manage plans</Link>
+          <Link className="primary-link" to="/coaching">{user?.roles.includes('coach') ? 'Coach workspace' : 'Plan invitations'}</Link>
           <button type="button" className="secondary-button" onClick={signOut}>Sign out</button>
         </div>
       </section>

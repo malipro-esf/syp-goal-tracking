@@ -18,9 +18,7 @@ def headers(token: str) -> dict[str, str]:
 
 
 def create_plan(api_client: TestClient, token: str) -> str:
-    response = api_client.post(
-        "/api/v1/plans", headers=headers(token), json={"title": "IELTS"}
-    )
+    response = api_client.post("/api/v1/plans", headers=headers(token), json={"title": "IELTS"})
     return response.json()["id"]
 
 
@@ -52,9 +50,7 @@ def test_create_and_list_measurable_activity(api_client: TestClient) -> None:
     assert activity["current_target"]["target_quantity"] == "30.5000"
     assert activity["current_schedule"]["weekdays"] == [0, 2, 4]
 
-    listed = api_client.get(
-        f"/api/v1/plans/{plan_id}/activities", headers=headers(token)
-    )
+    listed = api_client.get(f"/api/v1/plans/{plan_id}/activities", headers=headers(token))
     assert listed.status_code == 200
     assert [item["id"] for item in listed.json()] == [activity["id"]]
 

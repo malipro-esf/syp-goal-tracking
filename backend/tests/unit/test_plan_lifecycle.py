@@ -26,9 +26,7 @@ def test_allowed_plan_transitions(current: PlanStatus, target: PlanStatus) -> No
         (PlanStatus.ARCHIVED, PlanStatus.ACTIVE),
     ],
 )
-def test_invalid_plan_transitions_are_rejected(
-    current: PlanStatus, target: PlanStatus
-) -> None:
+def test_invalid_plan_transitions_are_rejected(current: PlanStatus, target: PlanStatus) -> None:
     with pytest.raises(ApplicationError) as error:
         ensure_transition_allowed(current, target)
 

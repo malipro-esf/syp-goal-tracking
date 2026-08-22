@@ -1,2 +1,1 @@
 """SYP backend application package."""
-

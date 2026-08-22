@@ -72,9 +72,9 @@ def register_user(session: Session, request: RegistrationRequest, settings: Sett
             message="An account with this email already exists.",
             status_code=409,
         )
-    role = session.scalar(select(Role).where(Role.code == "participant"))
+    role = session.scalar(select(Role).where(Role.code == request.account_type))
     if role is None:
-        raise RuntimeError("Required participant role is missing.")
+        raise RuntimeError(f"Required {request.account_type} role is missing.")
     user = User(
         email=str(request.email).strip(),
         normalized_email=normalized_email,

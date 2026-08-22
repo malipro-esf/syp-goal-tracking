@@ -55,9 +55,7 @@ def update_plan_activity(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> ActivityResponse:
-    return update_activity(
-        session, current_user.id, plan_id, activity_id, payload
-    )
+    return update_activity(session, current_user.id, plan_id, activity_id, payload)
 
 
 @router.post("/{activity_id}/expectations", response_model=ActivityResponse)
@@ -68,6 +66,4 @@ def revise_activity_expectation(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> ActivityResponse:
-    return revise_expectation(
-        session, current_user.id, plan_id, activity_id, payload
-    )
+    return revise_expectation(session, current_user.id, plan_id, activity_id, payload)

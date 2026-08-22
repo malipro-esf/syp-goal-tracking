@@ -119,3 +119,29 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(screen.getByText('Mon')).toBeInTheDocument()
   expect(screen.getByText('Sun')).toBeInTheDocument()
 })
+
+test('shows the plan template workspace to a coach', async () => {
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockImplementation(async (input) => {
+    const url = String(input)
+    const json = (body: unknown) => new Response(JSON.stringify(body), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    })
+    if (url === '/api/v1/auth/refresh') return json({
+      access_token: 'coach-token', token_type: 'bearer',
+      user: { id: '2', email: 'coach@example.com', display_name: 'Coach', timezone: 'UTC', roles: ['coach'] },
+    })
+    if (url === '/api/v1/coaching/templates') return json([{
+      id: 'template-1', title: 'Running foundation', description: 'A starter plan',
+      activities: [{ id: 'activity-1', name: 'Easy run', target_quantity: '5.0000', unit_code: 'kilometer', schedule_type: 'weekly' }],
+    }])
+    if (url === '/api/v1/coaching/assignments/sent') return json([])
+    return new Response('{}', { status: 404 })
+  })
+
+  renderApp('/coaching')
+
+  expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
+  expect(await screen.findByText('Easy run: 5 kilometer · weekly')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
+})

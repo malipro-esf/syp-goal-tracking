@@ -30,17 +30,14 @@ def get_progress_report(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> ProgressReportResponse:
-    report = build_progress_report(
-        session, current_user, plan_id, start_date, end_date
-    )
+    report = build_progress_report(session, current_user, plan_id, start_date, end_date)
     return ProgressReportResponse(
         start_date=report.start_date,
         end_date=report.end_date,
         expected_activity_count=report.expected_activity_count,
         overall_adherence_percent=report.overall_adherence_percent,
         activities=[
-            ActivityProgressResponse(**activity.__dict__)
-            for activity in report.activities
+            ActivityProgressResponse(**activity.__dict__) for activity in report.activities
         ],
     )
 
@@ -79,9 +76,7 @@ def create_entry(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> ProgressEntryResponse:
-    entry = create_progress_entry(
-        session, current_user, plan_id, activity_id, payload
-    )
+    entry = create_progress_entry(session, current_user, plan_id, activity_id, payload)
     return ProgressEntryResponse.model_validate(entry)
 
 
@@ -97,9 +92,7 @@ def update_entry(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> ProgressEntryResponse:
-    entry = update_progress_entry(
-        session, current_user, plan_id, activity_id, entry_id, payload
-    )
+    entry = update_progress_entry(session, current_user, plan_id, activity_id, entry_id, payload)
     return ProgressEntryResponse.model_validate(entry)
 
 
@@ -114,6 +107,4 @@ def delete_entry(
     session: DatabaseSession,
     current_user: CurrentUser,
 ) -> None:
-    delete_progress_entry(
-        session, current_user.id, plan_id, activity_id, entry_id
-    )
+    delete_progress_entry(session, current_user.id, plan_id, activity_id, entry_id)
