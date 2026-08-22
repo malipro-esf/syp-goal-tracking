@@ -79,6 +79,18 @@ def test_partial_multiple_and_above_target_entries_are_preserved(
     assert len(listed.json()) == 2
     assert sum(float(item["quantity"]) for item in listed.json()) == 38
 
+    report = api_client.get(
+        f"/api/v1/plans/{plan_id}/progress-report",
+        headers=headers(token),
+        params={"start_date": today, "end_date": today},
+    )
+    assert report.status_code == 200
+    summary = report.json()["activities"][0]
+    assert summary["expected"] == "30.0000"
+    assert summary["actual"] == "38.0000"
+    assert summary["attainment_percent"] == "126.67"
+    assert summary["adherence_percent"] == "100.00"
+
 
 def test_entry_can_be_corrected_and_soft_deleted(
     api_client: TestClient, migrated_test_engine: Engine

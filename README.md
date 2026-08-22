@@ -1,8 +1,8 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
 SYP is being built incrementally as a modular monolith. The current milestone
-records actual effort as decimal progress entries, preserving partial and
-above-target work instead of reducing execution to pass or fail.
+adds a deterministic Progress Engine that compares effective-dated expectations
+with actual effort for daily and weekly reporting.
 
 ## Prerequisites
 
@@ -57,6 +57,12 @@ entries on the same date are preserved, recent entries can be corrected, and
 removal is implemented as recoverable soft deletion. The participant's IANA
 timezone determines whether a performed date is in the future; exact submission
 timestamps remain in UTC.
+
+The plan screen now offers Today, This week, and custom date-range reports.
+Each activity exposes expected and actual quantities, uncapped attainment,
+capped adherence, and completed, partial, missed, and upcoming occurrence
+counts. Overall adherence averages activity-level adherence so incompatible
+units are never added together.
 
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 
 import { ApiError } from '../../api/client'
+import { formatNumber } from '../../utils/format-number'
 import type { Activity } from '../activities/activities-api'
 import { useAuth } from '../auth/useAuth'
 import {
@@ -62,7 +63,7 @@ export function ProgressHistory({ planId, activities, entries, readOnly, onEntri
       const unit = activity?.custom_unit_label ?? activity?.unit_code ?? ''
       return <article className="panel progress-row" key={entry.id}>
         <div><strong>{activity?.name ?? 'Activity'}</strong><span>{entry.performed_on}</span>{entry.note && <small>{entry.note}</small>}</div>
-        <b>{entry.quantity} {unit}</b>
+        <b>{formatNumber(entry.quantity)} {unit}</b>
         {!readOnly && <div className="entry-actions">
           <EditEntry entry={entry} planId={planId} onUpdated={(updated) => onEntriesChange(entries.map((item) => item.id === updated.id ? updated : item))} />
           <button type="button" className="text-button danger-button" onClick={() => remove(entry)}>Remove</button>

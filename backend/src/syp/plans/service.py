@@ -1,11 +1,14 @@
 import uuid
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from syp.core.exceptions import ApplicationError
+from syp.identity.models import User
 from syp.plans.domain import PlanStatus, ensure_transition_allowed
-from syp.plans.models import PlanEnrollment
+from syp.plans.models import PlanEnrollment, PlanStatusEvent
 from syp.plans.schemas import PlanCreate, PlanUpdate
 
 
@@ -18,6 +21,16 @@ def create_personal_plan(
         **payload.model_dump(),
     )
     session.add(plan)
+    session.flush()
+    user = session.get(User, participant_id)
+    timezone = user.timezone if user else "UTC"
+    session.add(
+        PlanStatusEvent(
+            plan_id=plan.id,
+            status=PlanStatus.DRAFT.value,
+            effective_on=datetime.now(ZoneInfo(timezone)).date(),
+        )
+    )
     session.commit()
     session.refresh(plan)
     return plan
@@ -101,6 +114,15 @@ def transition_personal_plan(
     plan = get_personal_plan(session, participant_id, plan_id)
     ensure_transition_allowed(PlanStatus(plan.status), target)
     plan.status = target.value
+    user = session.get(User, participant_id)
+    timezone = user.timezone if user else "UTC"
+    session.add(
+        PlanStatusEvent(
+            plan_id=plan.id,
+            status=target.value,
+            effective_on=datetime.now(ZoneInfo(timezone)).date(),
+        )
+    )
     session.commit()
     session.refresh(plan)
     return plan

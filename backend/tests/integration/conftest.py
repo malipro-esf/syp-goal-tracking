@@ -56,6 +56,7 @@ def api_client(migrated_test_engine: Engine) -> Generator[TestClient]:
         connection.execute(text("DELETE FROM activity_schedules"))
         connection.execute(text("DELETE FROM activity_target_revisions"))
         connection.execute(text("DELETE FROM enrollment_activities"))
+        connection.execute(text("DELETE FROM plan_status_events"))
         connection.execute(text("DELETE FROM plan_enrollments"))
         connection.execute(text("DELETE FROM refresh_sessions"))
         connection.execute(text("DELETE FROM user_roles"))

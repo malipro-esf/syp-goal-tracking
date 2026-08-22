@@ -79,26 +79,33 @@ test('shows the personal plan workspace for an authenticated user', async () => 
 
 test('shows activity unit and schedule controls inside a plan', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch')
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
-    access_token: 'access-token', token_type: 'bearer',
-    user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
-  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
-    id: 'plan-1', title: 'IELTS', description: null, status: 'active',
-    start_date: null, end_date: null, created_at: '2026-08-22T00:00:00Z', updated_at: '2026-08-22T00:00:00Z',
-  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
-    id: 'activity-1', enrollment_id: 'plan-1', name: 'Listening', description: null,
-    measurement_dimension: 'duration', unit_code: 'minute', custom_unit_label: null,
-    display_order: 0, status: 'active',
-    current_target: { target_quantity: '30.0000', effective_from: '2026-08-22', effective_until: null, reason: null },
-    current_schedule: { schedule_type: 'daily', weekdays: null, effective_from: '2026-08-22', effective_until: null },
-  }]), {
-    status: 200, headers: { 'Content-Type': 'application/json' },
-  }))
-  fetchMock.mockResolvedValueOnce(new Response('[]', {
-    status: 200, headers: { 'Content-Type': 'application/json' },
-  }))
+  fetchMock.mockImplementation(async (input) => {
+    const url = String(input)
+    const json = (body: unknown) => new Response(JSON.stringify(body), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    })
+    if (url === '/api/v1/auth/refresh') return json({
+      access_token: 'access-token', token_type: 'bearer',
+      user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', timezone: 'UTC', roles: ['participant'] },
+    })
+    if (url === '/api/v1/plans/plan-1') return json({
+      id: 'plan-1', title: 'IELTS', description: null, status: 'active',
+      start_date: null, end_date: null, created_at: '2026-08-22T00:00:00Z', updated_at: '2026-08-22T00:00:00Z',
+    })
+    if (url === '/api/v1/plans/plan-1/activities') return json([{
+      id: 'activity-1', enrollment_id: 'plan-1', name: 'Listening', description: null,
+      measurement_dimension: 'duration', unit_code: 'minute', custom_unit_label: null,
+      display_order: 0, status: 'active',
+      current_target: { target_quantity: '30.0000', effective_from: '2026-08-22', effective_until: null, reason: null },
+      current_schedule: { schedule_type: 'daily', weekdays: null, effective_from: '2026-08-22', effective_until: null },
+    }])
+    if (url === '/api/v1/plans/plan-1/progress-entries') return json([])
+    if (url.startsWith('/api/v1/plans/plan-1/progress-report?')) return json({
+      start_date: '2026-08-17', end_date: '2026-08-23', overall_adherence_percent: '60.00',
+      activities: [{ activity_id: 'activity-1', name: 'Listening', unit: 'minute', expected: '150.0000', actual: '90.0000', attainment_percent: '60.00', adherence_percent: '60.00', completed_occurrences: 2, partial_occurrences: 1, missed_occurrences: 1, upcoming_occurrences: 1 }],
+    })
+    return new Response('{}', { status: 404 })
+  })
 
   renderApp('/plans/plan-1')
 
@@ -106,6 +113,7 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()
   expect(screen.getByRole('option', { name: 'Weekly quota' })).toBeInTheDocument()
   expect(await screen.findByText('Record effort')).toBeInTheDocument()
+  expect((await screen.findAllByText('60%')).length).toBeGreaterThan(0)
 
   fireEvent.change(screen.getAllByLabelText('Frequency')[0], { target: { value: 'selected_days' } })
   expect(screen.getByText('Mon')).toBeInTheDocument()

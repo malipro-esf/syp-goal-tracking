@@ -37,3 +37,24 @@ class PlanEnrollment(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
+
+
+class PlanStatusEvent(Base):
+    __tablename__ = "plan_status_events"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('draft', 'active', 'paused', 'completed', 'archived')",
+            name="ck_plan_status_events_status",
+        ),
+        Index("ix_plan_status_events_plan_date", "plan_id", "effective_on"),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
+    plan_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("plan_enrollments.id", ondelete="CASCADE")
+    )
+    status: Mapped[str] = mapped_column(String(20))
+    effective_on: Mapped[date] = mapped_column(Date)
+    recorded_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )

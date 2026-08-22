@@ -1,8 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react'
 
 import { ApiError } from '../../api/client'
+import { formatNumber } from '../../utils/format-number'
 import { useAuth } from '../auth/useAuth'
 import { ProgressHistory } from '../progress/ProgressHistory'
+import { ProgressSummary } from '../progress/ProgressSummary'
 import {
   createProgressEntry,
   listProgressEntries,
@@ -163,12 +165,13 @@ export function ActivityPanel({ planId, planStatus }: { planId: string; planStat
           : activity.current_schedule.schedule_type.replace('_', ' ')
         return <article className="panel activity-card" key={activity.id}>
           <div><h3>{activity.name}</h3><p>{activity.description}</p></div>
-          <p className="expectation"><strong>{activity.current_target.target_quantity} {unitLabel}</strong><span>{schedule}</span><small>Effective {activity.current_target.effective_from}</small></p>
+          <p className="expectation"><strong>{formatNumber(activity.current_target.target_quantity)} {unitLabel}</strong><span>{schedule}</span><small>Effective {activity.current_target.effective_from}</small></p>
           {canRecord && <RecordProgressForm activity={activity} planId={planId} onRecorded={(entry) => setEntries((current) => [entry, ...current])} />}
           {!readOnly && <RevisionForm activity={activity} planId={planId} onRevised={(revised) => setActivities((current) => current.map((item) => item.id === revised.id ? revised : item))} />}
         </article>
       })}
     </div>
+    <ProgressSummary planId={planId} entries={entries} />
     <ProgressHistory planId={planId} activities={activities} entries={entries} readOnly={planStatus === 'archived'} onEntriesChange={setEntries} />
   </section>
 }

@@ -12,7 +12,7 @@ def test_migrations_reach_current_revision(migrated_test_engine: Engine) -> None
     with migrated_test_engine.connect() as connection:
         revision = connection.scalar(text("SELECT version_num FROM alembic_version"))
 
-    assert revision == "20260822_06"
+    assert revision == "20260822_07"
 
 
 def test_transaction_rollback_isolates_changes(migrated_test_engine: Engine) -> None:

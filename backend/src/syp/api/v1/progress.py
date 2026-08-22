@@ -5,6 +5,8 @@ from typing import Annotated
 from fastapi import APIRouter, Query, status
 
 from syp.api.dependencies import CurrentUser, DatabaseSession
+from syp.progress.report_schemas import ActivityProgressResponse, ProgressReportResponse
+from syp.progress.reporting import build_progress_report
 from syp.progress.schemas import (
     ProgressEntryCreate,
     ProgressEntryResponse,
@@ -18,6 +20,29 @@ from syp.progress.service import (
 )
 
 router = APIRouter(prefix="/plans/{plan_id}", tags=["progress entries"])
+
+
+@router.get("/progress-report", response_model=ProgressReportResponse)
+def get_progress_report(
+    plan_id: uuid.UUID,
+    start_date: date,
+    end_date: date,
+    session: DatabaseSession,
+    current_user: CurrentUser,
+) -> ProgressReportResponse:
+    report = build_progress_report(
+        session, current_user, plan_id, start_date, end_date
+    )
+    return ProgressReportResponse(
+        start_date=report.start_date,
+        end_date=report.end_date,
+        expected_activity_count=report.expected_activity_count,
+        overall_adherence_percent=report.overall_adherence_percent,
+        activities=[
+            ActivityProgressResponse(**activity.__dict__)
+            for activity in report.activities
+        ],
+    )
 
 
 @router.get("/progress-entries", response_model=list[ProgressEntryResponse])

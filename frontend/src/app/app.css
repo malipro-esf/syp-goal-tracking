@@ -82,6 +82,23 @@ a { color: #17633e; font-weight: 700; }
 .entry-edit form { min-width: min(20rem, 70vw); }
 .text-button { width: auto; padding: .25rem; background: transparent; color: #52675d; }
 .danger-button { color: #a13529; }
+.progress-summary { display: grid; gap: 1rem; margin-top: 2rem; }
+.summary-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.summary-header h2, .report-row h3 { margin: 0; color: #183e2c; }
+.report-dates { padding: 1rem; }
+.overall-score { display: flex; align-items: baseline; gap: .75rem; padding: 1.25rem; border-radius: 1rem; background: #183e2c; color: #fff; }
+.overall-score strong { font-size: 2rem; }
+.overall-score span { color: #cde0d5; }
+.report-list { display: grid; gap: 1rem; }
+.report-row { display: grid; grid-template-columns: 1fr auto; gap: 1rem 2rem; }
+.report-row p { margin: .35rem 0 0; color: #52675d; }
+.report-percent { display: grid; justify-items: end; }
+.report-percent strong { color: #17633e; font-size: 1.3rem; }
+.report-percent span { color: #617168; font-size: .8rem; }
+.report-row dl { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin: 0; }
+.report-row dl div { padding: .6rem; border-radius: .5rem; background: #f2f6f2; text-align: center; }
+.report-row dt { color: #617168; font-size: .75rem; }
+.report-row dd { margin: .2rem 0 0; font-weight: 800; }
 
 @media (max-width: 760px) {
   .plan-layout { grid-template-columns: 1fr; }
@@ -89,4 +106,8 @@ a { color: #17633e; font-weight: 700; }
   .date-fields { grid-template-columns: 1fr; }
   .activity-grid, .activity-card, .progress-row { grid-template-columns: 1fr; }
   .expectation { justify-items: start; text-align: left; }
+  .summary-header { align-items: flex-start; flex-direction: column; }
+  .report-row { grid-template-columns: 1fr; }
+  .report-percent { justify-items: start; }
+  .report-row dl { grid-column: 1; grid-template-columns: 1fr 1fr; }
 }
