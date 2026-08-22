@@ -1,0 +1,10 @@
+Alembic manages SYP's PostgreSQL schema history.
+
+Create revisions from the backend directory and always review generated SQL:
+
+    alembic revision --autogenerate -m "describe schema change"
+
+Apply all pending migrations:
+
+    alembic upgrade head
+

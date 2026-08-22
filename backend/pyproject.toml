@@ -8,8 +8,11 @@ version = "0.1.0"
 description = "Backend API for SYP"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.19,<2",
     "fastapi[standard]>=0.140,<0.141",
     "pydantic-settings>=2.10,<3",
+    "psycopg[binary]>=3.3,<4",
+    "sqlalchemy>=2.0.51,<2.1",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +29,9 @@ packages = ["src/syp"]
 addopts = "-q"
 pythonpath = ["src"]
 testpaths = ["tests"]
+markers = [
+    "integration: requires the isolated PostgreSQL test service",
+]
 
 [tool.ruff]
 target-version = "py312"
@@ -33,4 +39,3 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
-

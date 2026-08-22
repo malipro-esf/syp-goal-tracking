@@ -39,6 +39,23 @@ npm run dev
 Open <http://localhost:5173>. The page calls the versioned backend health
 endpoint through Vite's development proxy.
 
+## Database migrations
+
+From the `backend` directory with the virtual environment active:
+
+```powershell
+alembic upgrade head
+alembic current
+```
+
+Integration tests use a separate, temporary PostgreSQL service:
+
+```powershell
+docker compose --profile test up -d postgres-test
+cd backend
+pytest
+```
+
 ## Verification
 
 ```powershell
@@ -53,4 +70,3 @@ npm test -- --run
 npm run lint
 npm run build
 ```
-

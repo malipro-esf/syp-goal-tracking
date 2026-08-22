@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-syp}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${POSTGRES_PORT:-55432}:5432"
     volumes:
       - syp_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,6 +16,23 @@ services:
       retries: 10
       start_period: 5s
 
+  postgres-test:
+    image: postgres:17-alpine
+    profiles: ["test"]
+    environment:
+      POSTGRES_DB: syp_test
+      POSTGRES_USER: ${POSTGRES_USER:-syp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
+    ports:
+      - "${POSTGRES_TEST_PORT:-55433}:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 5s
+
 volumes:
   syp_postgres_data:
-

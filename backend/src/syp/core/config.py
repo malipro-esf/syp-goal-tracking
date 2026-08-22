@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     environment: Literal["development", "test", "staging", "production"] = "development"
     api_v1_prefix: str = "/api/v1"
     database_url: str = Field(
-        default="postgresql+psycopg://syp:local-development-only@localhost:5432/syp",
+        default="postgresql+psycopg://syp:local-development-only@localhost:55432/syp",
         repr=False,
     )
 
