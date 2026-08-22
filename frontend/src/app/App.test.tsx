@@ -55,3 +55,24 @@ test('shows and hides the password from the login form', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Hide password' }))
   expect(password).toHaveAttribute('type', 'password')
 })
+
+test('shows the personal plan workspace for an authenticated user', async () => {
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
+    access_token: 'access-token',
+    token_type: 'bearer',
+    user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
+  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response('[]', {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  }))
+
+  renderApp('/plans')
+
+  expect(await screen.findByRole('heading', { name: 'Your goals' })).toBeInTheDocument()
+  expect(await screen.findByText('No plans yet. Create your first draft.')).toBeInTheDocument()
+  expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/plans', expect.objectContaining({
+    headers: { Authorization: 'Bearer access-token' },
+  }))
+})

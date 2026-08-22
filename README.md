@@ -1,8 +1,8 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
 SYP is being built incrementally as a modular monolith. The current milestone
-adds secure registration, login, session refresh, logout, roles, and a protected
-React dashboard to the FastAPI and PostgreSQL foundation.
+adds personal plan creation, ownership, editing, and lifecycle management to the
+secure FastAPI, React, and PostgreSQL foundation.
 
 ## Prerequisites
 
@@ -41,6 +41,11 @@ Open <http://localhost:5173/register>. Create an account with a password of at
 least 8 characters. After registration, the protected dashboard shows the
 authenticated user. Sign out, then use <http://localhost:5173/login> to sign in
 again.
+
+Open <http://localhost:5173/plans> after signing in. Create a draft personal
+plan, open it from the list, edit its details, and exercise its valid lifecycle
+actions: activate, pause/resume, complete, and archive. Archived plans are
+read-only.
 
 The API uses a short-lived JWT access token in React memory and a rotating,
 opaque refresh token in an HttpOnly cookie. Only a hash of each refresh token is

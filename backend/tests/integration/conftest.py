@@ -52,6 +52,7 @@ def api_client(migrated_test_engine: Engine) -> Generator[TestClient]:
 
     app.dependency_overrides.clear()
     with migrated_test_engine.begin() as connection:
+        connection.execute(text("DELETE FROM plan_enrollments"))
         connection.execute(text("DELETE FROM refresh_sessions"))
         connection.execute(text("DELETE FROM user_roles"))
         connection.execute(text("DELETE FROM users"))

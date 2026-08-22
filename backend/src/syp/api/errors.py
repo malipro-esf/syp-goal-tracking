@@ -50,7 +50,12 @@ def register_exception_handlers(app: FastAPI) -> None:
         _request: Request,
         exception: RequestValidationError,
     ) -> JSONResponse:
-        details: list[dict[str, Any]] = exception.errors()
+        details: list[dict[str, Any]] = []
+        for error in exception.errors():
+            detail = dict(error)
+            if context := detail.get("ctx"):
+                detail["ctx"] = {key: str(value) for key, value in context.items()}
+            details.append(detail)
         return JSONResponse(
             status_code=422,
             content={

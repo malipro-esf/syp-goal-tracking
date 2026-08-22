@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from './useAuth'
 
 export function DashboardPage() {
@@ -16,7 +16,10 @@ export function DashboardPage() {
           <div><dt>Email</dt><dd>{user?.email}</dd></div>
           <div><dt>Role</dt><dd>{user?.roles.join(', ')}</dd></div>
         </dl>
-        <button type="button" className="secondary-button" onClick={signOut}>Sign out</button>
+        <div className="button-row">
+          <Link className="primary-link" to="/plans">Manage plans</Link>
+          <button type="button" className="secondary-button" onClick={signOut}>Sign out</button>
+        </div>
       </section>
     </main>
   )
