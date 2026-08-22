@@ -1,10 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from './useAuth'
 
 export function DashboardPage() {
-  const { logout, user } = useAuth()
-  const navigate = useNavigate()
-  async function signOut() { await logout(); navigate('/login', { replace: true }) }
+  const { user } = useAuth()
 
   return (
     <main className="page-shell">
@@ -20,7 +18,6 @@ export function DashboardPage() {
         <div className="button-row">
           <Link className="primary-link" to="/plans">Manage plans</Link>
           <Link className="primary-link" to="/coaching">{user?.roles.includes('coach') ? 'Coach workspace' : 'Plan invitations'}</Link>
-          <button type="button" className="secondary-button" onClick={signOut}>Sign out</button>
         </div>
       </section>
     </main>

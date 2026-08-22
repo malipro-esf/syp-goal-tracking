@@ -15,6 +15,15 @@ function renderApp(path: string) {
   )
 }
 
+test('renders a crawlable public landing page with product metadata', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/')
+
+  expect(screen.getByRole('heading', { name: /Measure the effort/i })).toBeInTheDocument()
+  await waitFor(() => expect(document.title).toBe('SYP — Smart Goal Tracking & AI Coaching'))
+  expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+})
+
 test('redirects an anonymous visitor from the dashboard to login', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/dashboard')
@@ -70,11 +79,13 @@ test('shows the personal plan workspace for an authenticated user', async () => 
 
   renderApp('/plans')
 
+  expect(await screen.findByRole('banner', { name: 'Application header' })).toBeInTheDocument()
   expect(await screen.findByRole('heading', { name: 'Your goals' })).toBeInTheDocument()
   expect(await screen.findByText('No plans yet. Create your first draft.')).toBeInTheDocument()
   expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/plans', expect.objectContaining({
     headers: { Authorization: 'Bearer access-token' },
   }))
+  await waitFor(() => expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow'))
 })
 
 test('shows activity unit and schedule controls inside a plan', async () => {

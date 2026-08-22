@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /plans
+Disallow: /coaching
+Disallow: /coach
+Disallow: /api

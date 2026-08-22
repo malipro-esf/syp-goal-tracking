@@ -6,11 +6,14 @@ import { CoachingPage } from '../features/coaching/CoachingPage'
 import { CoachEnrollmentPage } from '../features/coaching/CoachEnrollmentPage'
 import { PlanDetailPage } from '../features/plans/PlanDetailPage'
 import { PlanListPage } from '../features/plans/PlanListPage'
+import { LandingPage } from './LandingPage'
+import { RouteSeo } from './RouteSeo'
 import './app.css'
 
 export function App() {
   return (
-    <Routes>
+    <><RouteSeo /><Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<AuthForm mode="login" />} />
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route element={<ProtectedRoute />}>
@@ -20,7 +23,7 @@ export function App() {
         <Route path="/coaching" element={<CoachingPage />} />
         <Route path="/coach/enrollments/:enrollmentId" element={<CoachEnrollmentPage />} />
       </Route>
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
-    </Routes>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes></>
   )
 }

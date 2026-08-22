@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import { ApiError } from '../../api/client'
+import { AppHeader } from '../../app/AppHeader'
 import { useAuth } from './useAuth'
 
 export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
@@ -31,8 +32,8 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
   }
 
   const registering = mode === 'register'
-  return (
-    <main className="page-shell">
+  return <><AppHeader publicOnly />
+    <main className="page-shell auth-page-shell">
       <section className="auth-card">
         <p className="eyebrow">Progress over perfection.</p>
         <h1>{registering ? 'Create your account' : 'Welcome back'}</h1>
@@ -84,5 +85,5 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
         </p>
       </section>
     </main>
-  )
+  </>
 }
