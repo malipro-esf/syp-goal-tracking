@@ -1,4 +1,5 @@
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import Engine, inspect, text
 
 pytestmark = pytest.mark.integration
@@ -28,3 +29,10 @@ def test_transaction_rollback_isolates_changes(migrated_test_engine: Engine) -> 
         assert connection.scalar(text("SELECT count(*) FROM rollback_probe")) == 0
 
         outer_transaction.rollback()
+
+
+def test_readiness_checks_database(api_client: TestClient) -> None:
+    response = api_client.get("/api/v1/ready")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"

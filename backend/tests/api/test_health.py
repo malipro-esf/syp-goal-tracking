@@ -14,6 +14,13 @@ def test_health_endpoint_reports_api_is_available() -> None:
         "service": "SYP API",
         "environment": "development",
     }
+    assert response.headers["X-Request-ID"]
+
+
+def test_request_id_is_preserved_for_log_correlation() -> None:
+    response = client.get("/api/v1/health", headers={"X-Request-ID": "trace-123"})
+
+    assert response.headers["X-Request-ID"] == "trace-123"
 
 
 def test_unknown_endpoint_uses_standard_error_shape() -> None:

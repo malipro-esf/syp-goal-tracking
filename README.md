@@ -1,8 +1,9 @@
 # SYP — Smart Goal Tracking & AI Coaching Platform
 
-SYP is being built incrementally as a modular monolith. The current milestone
-adds a deterministic Progress Engine that compares effective-dated expectations
-with actual effort for daily and weekly reporting.
+SYP is being built incrementally as a modular monolith. The deterministic
+Progress Engine remains the source of truth, while the application now also has
+production-oriented health checks, structured request logging, container
+images, and continuous integration.
 
 ## Prerequisites
 
@@ -103,6 +104,42 @@ docker compose --profile test up -d postgres-test
 cd backend
 pytest
 ```
+
+## Run the complete container stack
+
+For a production-like local run, build and start PostgreSQL, the migration job,
+the API, and the web server together:
+
+```powershell
+docker compose --profile app up --build -d
+docker compose --profile app ps
+```
+
+Open <http://localhost:5173>. The API liveness endpoint is
+<http://localhost:8000/api/v1/health>; the readiness endpoint at
+<http://localhost:8000/api/v1/ready> also verifies PostgreSQL connectivity.
+
+```powershell
+docker compose --profile app logs backend
+docker compose --profile app down
+```
+
+The one-shot `migrate` service applies Alembic migrations before the API starts.
+This avoids several API replicas attempting to migrate the same database.
+Request logs are JSON and every response includes an `X-Request-ID` that can be
+used to trace a request through logs.
+
+Before a real production deployment, set `SYP_ENVIRONMENT=production`, use a
+private `SYP_AUTH_SECRET_KEY`, use strong PostgreSQL credentials, configure
+HTTPS at the hosting edge, and store secrets in the hosting platform rather
+than committing them. Production startup intentionally fails if the development
+authentication secret is still configured.
+
+## Continuous integration
+
+GitHub Actions runs backend linting and tests against PostgreSQL, frontend tests
+and linting, both production builds, and both Docker image builds for pushes to
+`main` and for pull requests.
 
 ## Verification
 

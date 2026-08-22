@@ -34,5 +34,45 @@ services:
       retries: 15
       start_period: 5s
 
+  migrate:
+    profiles: ["app"]
+    build:
+      context: ./backend
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      SYP_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-syp}:${POSTGRES_PASSWORD:-local-development-only}@postgres:5432/${POSTGRES_DB:-syp}
+      SYP_AUTH_SECRET_KEY: ${SYP_AUTH_SECRET_KEY:-local-development-secret-key-change-before-production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    profiles: ["app"]
+    build:
+      context: ./backend
+    environment:
+      SYP_ENVIRONMENT: ${SYP_ENVIRONMENT:-development}
+      SYP_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-syp}:${POSTGRES_PASSWORD:-local-development-only}@postgres:5432/${POSTGRES_DB:-syp}
+      SYP_AUTH_SECRET_KEY: ${SYP_AUTH_SECRET_KEY:-local-development-secret-key-change-before-production}
+      SYP_LOG_LEVEL: ${SYP_LOG_LEVEL:-INFO}
+      SYP_AI_COACH_ENABLED: ${SYP_AI_COACH_ENABLED:-false}
+      SYP_OPENAI_API_KEY: ${SYP_OPENAI_API_KEY:-}
+      SYP_AI_COACH_MODEL: ${SYP_AI_COACH_MODEL:-gpt-5-mini}
+    ports:
+      - "8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  frontend:
+    profiles: ["app"]
+    build:
+      context: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
 volumes:
   syp_postgres_data:

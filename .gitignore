@@ -15,3 +15,7 @@ coverage/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Local architecture working document and Microsoft Word lock file.
+syp-app-python-architure.docx
+~$p-app-python-architure.docx

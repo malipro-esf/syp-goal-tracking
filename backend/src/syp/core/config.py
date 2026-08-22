@@ -1,8 +1,13 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+UNSAFE_AUTH_SECRETS = {
+    "local-development-secret-key-change-before-production",
+    "replace-this-with-at-least-32-random-characters",
+}
 
 
 class Settings(BaseSettings):
@@ -36,6 +41,13 @@ class Settings(BaseSettings):
     ai_coach_enabled: bool = False
     ai_coach_model: str = "gpt-5-mini"
     ai_coach_daily_run_limit: int = Field(default=20, ge=1, le=100)
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
+
+    @model_validator(mode="after")
+    def validate_production_secrets(self) -> "Settings":
+        if self.environment == "production" and self.auth_secret_key in UNSAFE_AUTH_SECRETS:
+            raise ValueError("Production requires a private SYP_AUTH_SECRET_KEY.")
+        return self
 
     @property
     def secure_cookies(self) -> bool:
