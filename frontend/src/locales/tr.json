@@ -1,7 +1,27 @@
 {
   "brand": { "tagline": "Mükemmellikten önce ilerleme" },
   "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe" },
-  "navigation": { "dashboard": "Gösterge paneli", "plans": "Planlar", "coaching": "Koçluk", "howItWorks": "Nasıl çalışır", "signIn": "Giriş yap", "getStarted": "Başlayın", "signOut": "Çıkış yap" },
+  "navigation": { "dashboard": "Gösterge paneli", "plans": "Planlar", "coaching": "Koçluk", "features": "Özellikler", "howItWorks": "Nasıl çalışır", "forCoaches": "Koçlar için", "signIn": "Giriş yap", "getStarted": "Başlayın", "signOut": "Çıkış yap" },
+  "home": {
+    "hero": { "eyebrow": "Akıllı hedef takibi ve koçluk", "title": "Çabanızı görünür ilerlemeye dönüştürün.", "description": "Yapılandırılmış planlar oluşturun, gerçekte yaptıklarınızı kaydedin ve tamamlanmayan her hedefi başarısızlık saymadan gelişin.", "primary": "Takibe başlayın", "secondary": "Nasıl çalıştığını görün", "note": "Mükemmel seriler için değil, gerçek ilerleme için tasarlandı." },
+    "preview": { "aria": "Örnek haftalık ilerleme paneli", "week": "Bu hafta", "onTrack": "Yolunda", "adherence": "genel uyum", "planned": "Planlanan", "actual": "Gerçekleşen" },
+    "philosophy": { "eyebrow": "Mükemmellikten önce ilerleme", "title": "Kısmi bir sonuç da gerçek bir sonuçtur.", "description": "Sıradan görev uygulamaları tamamlanmamış hedef görür. SYP çabanızı görür ve ilerlemenizin dürüst bir resmini sunar.", "planned": "Planlanan", "actual": "Gerçekleşen", "minutes": "dakika", "progress": "ilerleme kaydedildi" },
+    "how": { "eyebrow": "Nasıl çalışır", "title": "Niyetten ölçülebilir uygulamaya", "description": "Hedeflerinizi uygulanabilir, kararlarınızı gerçek verilere dayalı tutan basit bir ritim.", "steps": {
+      "structure": { "title": "Hedefinizi yapılandırın", "description": "Anlamlı bir hedefi odaklı bir plana dönüştürün." },
+      "record": { "title": "Ölçülebilir aktiviteler ekleyin", "description": "Hedefleri, birimleri ve gerçekçi programları seçin." },
+      "understand": { "title": "Gerçek çabayı kaydedin", "description": "Kısmi olsa bile tam olarak yaptığınız miktarı kaydedin." },
+      "adjust": { "title": "Anlayın ve uyarlayın", "description": "İlerleme verileri ve geri bildirimle daha iyi adımlar atın." }
+    } },
+    "goals": { "eyebrow": "Farklı hedefler için", "title": "Tek ilerleme sistemi. Birçok hedef türü.", "description": "Zamanı, mesafeyi, sayfaları, tekrarları, ağırlığı, miktarları ve özel birimleri takip edin.", "items": { "ielts": "IELTS hazırlığı", "fitness": "Fitness", "reading": "Okuma", "programming": "Programlama öğrenme", "running": "Koşu", "development": "Kişisel gelişim" } },
+    "insights": { "eyebrow": "Net ilerleme bilgileri", "title": "Neyin ilerlediğini ve neyin ilgi gerektirdiğini bilin.", "description": "SYP'nin deterministik motoru ilerlemeyi planınızdan ve gerçek kayıtlarınızdan hesaplar. Aynı veri her zaman aynı sonucu üretir.", "demoTitle": "Haftalık aktiviteler", "items": { "plannedActual": "Planlanan ve gerçek çabayı karşılaştırın", "partial": "Kısmi ilerlemeyi görün", "consistency": "Zaman içindeki tutarlılığı anlayın", "weakAreas": "Zayıf aktiviteleri erken fark edin" } },
+    "audience": { "eyebrow": "Bağımsız veya birlikte gelişin", "title": "Katılımcılar için yararlı. Koçlar için odaklı.",
+      "participants": { "title": "Katılımcılar için", "description": "Hedeflerinize sahip çıkın ve uygulamanızı anlayın.", "items": { "personalPlans": "Kişisel planlar oluşturun", "actualEffort": "Gerçek çabayı kaydedin", "weakAreas": "Zayıf alanları keşfedin", "feedback": "Koç geri bildirimi alın" } },
+      "coaches": { "title": "Koçlar için", "description": "İnsanları varsayımlarla değil kanıtlarla destekleyin.", "items": { "templates": "Yeniden kullanılabilir plan şablonları oluşturun", "assign": "Yapılandırılmış planlar atayın", "review": "Katılımcı ilerlemesini inceleyin", "feedback": "Odaklı geri bildirim bırakın" } }
+    },
+    "ai": { "eyebrow": "İsteğe bağlı AI rehberliği", "title": "Gerçek ilerlemenize dayanan bir AI koçu.", "description": "Neden geride kaldığınızı veya nereye odaklanacağınızı sorun. AI kontrollü araçları okurken deterministik motor doğruluk kaynağı olarak kalır.", "readOnly": "Salt okunur araçlar", "consent": "Açık veri onayı", "available": "Temel uygulama AI olmadan çalışır" },
+    "cta": { "eyebrow": "Bir sonraki adımınız küçük olabilir", "title": "İlerlemenin anlamlı olması için mükemmel olması gerekmez.", "description": "İlk planınızı oluşturun ve hedeflerinizin arkasındaki çabayı görün.", "button": "Hesabınızı oluşturun" },
+    "footer": { "name": "İlerlemeni Gör", "tagline": "Mükemmellikten önce ilerleme.", "navigation": "Altbilgi navigasyonu", "features": "Özellikler", "coaches": "Koçlar için" }
+  },
   "plan": {
     "tabs": { "overview": "Genel bakış", "overviewLong": "Plan genel bakışı", "activities": "Aktiviteler", "progress": "İlerleme", "progressLong": "İlerleme raporu", "entries": "Kayıtlar", "entriesLong": "Son kayıtlar", "feedback": "Geri bildirim", "feedbackLong": "Koç geri bildirimi", "ai": "Yapay Zekâ Koçu", "aiLong": "Yapay zekâ koçu" },
     "allPlans": "Tüm planlar", "currentPlan": "Mevcut plan",

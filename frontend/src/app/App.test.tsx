@@ -24,7 +24,9 @@ test('renders a crawlable public landing page with product metadata', async () =
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/')
 
-  expect(screen.getByRole('heading', { name: /Measure the effort/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /Turn your effort into visible progress/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /A partial result is still a real result/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /Useful for participants/i })).toBeInTheDocument()
   await waitFor(() => expect(document.title).toBe('SYP — Smart Goal Tracking & AI Coaching'))
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
 })

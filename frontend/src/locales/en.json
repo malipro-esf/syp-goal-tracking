@@ -1,7 +1,27 @@
 {
   "brand": { "tagline": "Progress over perfection" },
   "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish" },
-  "navigation": { "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "howItWorks": "How it works", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
+  "navigation": { "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "features": "Features", "howItWorks": "How it works", "forCoaches": "For coaches", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
+  "home": {
+    "hero": { "eyebrow": "Smart goal tracking & coaching", "title": "Turn your effort into visible progress.", "description": "Build structured plans, record what you actually completed, and improve without turning every missed target into failure.", "primary": "Start tracking", "secondary": "See how it works", "note": "Designed for real progress—not perfect streaks." },
+    "preview": { "aria": "Example weekly progress dashboard", "week": "This week", "onTrack": "On track", "adherence": "overall adherence", "planned": "Planned", "actual": "Actual" },
+    "philosophy": { "eyebrow": "Progress over perfection", "title": "A partial result is still a real result.", "description": "Ordinary task apps see an unfinished target. SYP sees the effort you made and gives you an honest picture of your progress.", "planned": "Planned", "actual": "Actual", "minutes": "minutes", "progress": "progress recorded" },
+    "how": { "eyebrow": "How it works", "title": "From intention to measurable execution", "description": "A simple rhythm that keeps your goals practical and your decisions grounded in real data.", "steps": {
+      "structure": { "title": "Structure your goal", "description": "Turn a meaningful goal into a focused plan." },
+      "record": { "title": "Add measurable activities", "description": "Choose targets, units, and realistic schedules." },
+      "understand": { "title": "Record actual effort", "description": "Capture exactly what you completed—even when it is partial." },
+      "adjust": { "title": "Understand and adjust", "description": "Use progress insights and feedback to make better next steps." }
+    } },
+    "goals": { "eyebrow": "Built for different ambitions", "title": "One progress system. Many kinds of goals.", "description": "Track time, distance, pages, repetitions, weight, quantities, and custom units.", "items": { "ielts": "IELTS preparation", "fitness": "Fitness", "reading": "Reading", "programming": "Learn programming", "running": "Running", "development": "Personal development" } },
+    "insights": { "eyebrow": "Clear progress insights", "title": "Know what is moving—and what needs attention.", "description": "SYP’s deterministic engine calculates your progress from your plan and actual records. The same data always produces the same result.", "demoTitle": "Weekly activities", "items": { "plannedActual": "Compare planned and actual effort", "partial": "Recognize partial progress", "consistency": "Understand consistency over time", "weakAreas": "Spot weaker activities early" } },
+    "audience": { "eyebrow": "Grow independently or together", "title": "Useful for participants. Focused for coaches.",
+      "participants": { "title": "For participants", "description": "Own your goals and understand your execution.", "items": { "personalPlans": "Build personal plans", "actualEffort": "Record real effort", "weakAreas": "Discover weak areas", "feedback": "Receive coach feedback" } },
+      "coaches": { "title": "For coaches", "description": "Support people using evidence, not assumptions.", "items": { "templates": "Create reusable plan templates", "assign": "Assign structured plans", "review": "Review participant progress", "feedback": "Leave focused feedback" } }
+    },
+    "ai": { "eyebrow": "Optional AI guidance", "title": "An AI coach grounded in your actual progress.", "description": "Ask why you are falling behind or where to focus next. The AI reads controlled progress tools while the deterministic engine remains the source of truth.", "readOnly": "Read-only tools", "consent": "Explicit data consent", "available": "Core app works without AI" },
+    "cta": { "eyebrow": "Your next step can be small", "title": "Progress does not need to be perfect to be meaningful.", "description": "Create your first plan and start seeing the effort behind your goals.", "button": "Create your account" },
+    "footer": { "name": "See Your Progress", "tagline": "Progress over perfection.", "navigation": "Footer navigation", "features": "Features", "coaches": "For coaches" }
+  },
   "plan": {
     "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
     "allPlans": "All plans", "currentPlan": "Current plan",
