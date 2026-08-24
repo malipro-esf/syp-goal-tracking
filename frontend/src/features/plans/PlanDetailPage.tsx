@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
+import { Activity, Archive, ArrowLeft, Bot, ChartNoAxesColumnIncreasing, CircleCheck, FileClock, Gauge, MessageSquareText, Pause, Play, Save } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { ActivityPanel, type ActivityPanelView } from '../activities/ActivityPanel'
@@ -28,6 +29,13 @@ const tabs: { id: PlanTab; labelKey: string; shortLabelKey: string }[] = [
   { id: 'feedback', labelKey: 'feedbackLong', shortLabelKey: 'feedback' },
   { id: 'ai', labelKey: 'aiLong', shortLabelKey: 'ai' },
 ]
+
+const tabIcons = {
+  overview: Gauge, activities: Activity, progress: ChartNoAxesColumnIncreasing,
+  entries: FileClock, feedback: MessageSquareText, ai: Bot,
+}
+
+const actionIcons = { activate: Play, pause: Pause, complete: CircleCheck, archive: Archive }
 
 export function PlanDetailPage() {
   const { accessToken } = useAuth()
@@ -73,10 +81,10 @@ export function PlanDetailPage() {
   return <main className="admin-shell">
     <aside className="admin-sidebar">
       <Link className="admin-brand" to="/dashboard"><span>S</span><strong>SYP</strong></Link>
-      <Link className="back-link" to="/plans">← {t('plan.allPlans')}</Link>
+      <Link className="back-link icon-button" to="/plans"><ArrowLeft aria-hidden="true" />{t('plan.allPlans')}</Link>
       <div className="sidebar-plan"><small>{t('plan.currentPlan')}</small><strong>{plan.title}</strong><span className={`status-badge status-${plan.status}`}>{t(`plan.states.${plan.status}`)}</span></div>
       <nav className="admin-nav" aria-label="Plan sections" role="tablist">
-        {tabs.map((tab) => <button type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'active' : ''} key={tab.id} onClick={() => setActiveTab(tab.id)}><span className={`nav-icon nav-icon-${tab.id}`} aria-hidden="true" />{t(`plan.tabs.${tab.shortLabelKey}`)}</button>)}
+        {tabs.map((tab) => { const Icon = tabIcons[tab.id]; return <button type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'active' : ''} key={tab.id} onClick={() => setActiveTab(tab.id)}><Icon aria-hidden="true" />{t(`plan.tabs.${tab.shortLabelKey}`)}</button> })}
       </nav>
     </aside>
 
@@ -84,7 +92,7 @@ export function PlanDetailPage() {
       <header className="admin-topbar">
         <div><p className="eyebrow">{t(`plan.tabs.${tabs.find((tab) => tab.id === activeTab)?.labelKey}`)}</p><h1>{plan.title}</h1></div>
         <section className="lifecycle-actions" aria-label="Plan lifecycle actions">
-          {actions[plan.status].map(({ action, labelKey }) => <button type="button" className="secondary-button" key={action} onClick={() => transition(action)}>{t(`plan.actions.${labelKey}`)}</button>)}
+          {actions[plan.status].map(({ action, labelKey }) => { const Icon = actionIcons[action as keyof typeof actionIcons]; return <button type="button" className="secondary-button icon-button" key={action} onClick={() => transition(action)}><Icon aria-hidden="true" />{t(`plan.actions.${labelKey}`)}</button> })}
         </section>
       </header>
 
@@ -99,7 +107,7 @@ export function PlanDetailPage() {
               <label>{t('plan.startDate')}<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={archived} /></label>
               <label>{t('plan.endDate')}<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={archived} /></label>
             </div>
-            {!archived && <button type="submit">{t('plan.save')}</button>}
+            {!archived && <button type="submit" className="icon-button"><Save aria-hidden="true" />{t('plan.save')}</button>}
           </form>
           <div className="overview-aside">
             <aside className="panel plan-at-a-glance"><p className="eyebrow">{t('plan.atGlance')}</p><h2>{t('plan.status')}</h2><dl><div><dt>{t('plan.currentState')}</dt><dd>{t(`plan.states.${plan.status}`)}</dd></div><div><dt>{t('plan.starts')}</dt><dd>{plan.start_date || t('plan.notSet')}</dd></div><div><dt>{t('plan.ends')}</dt><dd>{plan.end_date || t('plan.openEnded')}</dd></div></dl></aside>

@@ -140,6 +140,10 @@ test('logs in and displays the protected dashboard', async () => {
     token_type: 'bearer',
     user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
   }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
+    id: 'plan-1', title: 'Learn Python', description: null, status: 'active',
+    start_date: null, end_date: null, created_at: '2026-08-20T00:00:00Z', updated_at: '2026-08-24T00:00:00Z',
+  }]), { status: 200, headers: { 'Content-Type': 'application/json' } }))
 
   renderApp('/login')
   const submit = await screen.findByRole('button', { name: 'Sign in' })
@@ -149,7 +153,10 @@ test('logs in and displays the protected dashboard', async () => {
   fireEvent.submit(submit.closest('form')!)
 
   expect(await screen.findByRole('heading', { name: 'Hello, SYP Learner' })).toBeInTheDocument()
-  expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/auth/login', expect.objectContaining({ method: 'POST' }))
+  expect(await screen.findByText('Learn Python')).toBeInTheDocument()
+  expect(screen.getByRole('region', { name: 'Plan summary' })).toHaveTextContent('Active plans1')
+  expect(fetchMock).toHaveBeenCalledWith('/api/v1/auth/login', expect.objectContaining({ method: 'POST' }))
+  expect(fetchMock).toHaveBeenCalledWith('/api/v1/plans', expect.objectContaining({ headers: { Authorization: 'Bearer access-token' } }))
 })
 
 test('shows and hides the password from the login form', async () => {
