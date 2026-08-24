@@ -20,7 +20,7 @@ export function LandingPage() {
           <p className="eyebrow">{t('home.hero.eyebrow')}</p>
           <h1>{t('home.hero.title')}</h1>
           <p className="hero-copy">{t('home.hero.description')}</p>
-          <div className="button-row"><Link className="primary-link" to="/register">{t('home.hero.primary')}</Link><a className="secondary-link" href="#how-it-works">{t('home.hero.secondary')} <span aria-hidden="true">→</span></a></div>
+          <div className="button-row"><Link className="primary-link" to="/register">{t('home.hero.primary')}</Link><Link className="secondary-link" to="/how-it-works">{t('home.hero.secondary')} <span aria-hidden="true">→</span></Link></div>
           <p className="hero-note"><span aria-hidden="true">✓</span> {t('home.hero.note')}</p>
         </div>
         <aside className="hero-dashboard" aria-label={t('home.preview.aria')}>
@@ -61,6 +61,6 @@ export function LandingPage() {
 
       <section className="final-cta"><p className="eyebrow">{t('home.cta.eyebrow')}</p><h2>{t('home.cta.title')}</h2><p>{t('home.cta.description')}</p><Link className="primary-link" to="/register">{t('home.cta.button')} <span aria-hidden="true">→</span></Link></section>
     </main>
-    <footer className="marketing-footer"><div><strong>SYP</strong><span>{t('home.footer.name')}</span></div><p>{t('home.footer.tagline')}</p><nav aria-label={t('home.footer.navigation')}><a href="#features">{t('home.footer.features')}</a><a href="#how-it-works">{t('navigation.howItWorks')}</a><a href="#for-coaches">{t('home.footer.coaches')}</a></nav></footer>
+    <footer className="marketing-footer"><div><strong>SYP</strong><span>{t('home.footer.name')}</span></div><p>{t('home.footer.tagline')}</p><nav aria-label={t('home.footer.navigation')}><a href="#features">{t('home.footer.features')}</a><Link to="/how-it-works">{t('navigation.howItWorks')}</Link><a href="#for-coaches">{t('home.footer.coaches')}</a></nav></footer>
   </div>
 }

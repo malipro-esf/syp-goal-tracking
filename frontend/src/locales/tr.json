@@ -22,6 +22,27 @@
     "cta": { "eyebrow": "Bir sonraki adımınız küçük olabilir", "title": "İlerlemenin anlamlı olması için mükemmel olması gerekmez.", "description": "İlk planınızı oluşturun ve hedeflerinizin arkasındaki çabayı görün.", "button": "Hesabınızı oluşturun" },
     "footer": { "name": "İlerlemeni Gör", "tagline": "Mükemmellikten önce ilerleme.", "navigation": "Altbilgi navigasyonu", "features": "Özellikler", "coaches": "Koçlar için" }
   },
+  "howPage": {
+    "hero": { "eyebrow": "SYP nasıl çalışır", "title": "Niyeti ilerlemeye dönüştüren pratik bir sistem.", "description": "SYP planladıklarınızı gerçekte yaptıklarınıza bağlar. Kısmi çabayı korur, ilerlemeyi tutarlı biçimde hesaplar ve sonraki adımınıza yardımcı olur.", "button": "İlk planınızı oluşturun" },
+    "workflow": { "eyebrow": "İş akışı", "title": "Hedeften içgörüye dört adım", "steps": {
+      "plan": { "title": "Odaklı bir plan oluşturun", "description": "Hedefinize açık bir amaç, zaman aralığı ve sonuç verin. Plan kişisel olabilir veya koç şablonundan atanabilir.", "example": "Örnek: On iki haftada IELTS puanımı yükseltmek." },
+      "activities": { "title": "Ölçülebilir aktiviteler tanımlayın", "description": "Planı hedefe uygun miktarlar, birimler ve programlarla eylemlere ayırın.", "example": "Örnek: Her gün 30 dakika dinleme." },
+      "effort": { "title": "Gerçekte olanı kaydedin", "description": "Tamamladığınız gerçek miktarı girin. SYP kısmi sonuçları korur; gününüzü yalnızca başarı veya başarısızlığa indirgemez.", "example": "Örnek: 30 dakika planlandı, 18 dakika tamamlandı." },
+      "report": { "title": "İnceleyin ve daha iyi karar verin", "description": "Deterministik raporlarla aktiviteler, tarihler ve eğilimlerde beklenen ve gerçek çabayı karşılaştırın.", "example": "Örnek: Planlanan 210 dakikanın 170'i %81 uyumdur." }
+    } },
+    "visual": { "goal": "Hedef planı", "ielts": "IELTS hazırlığı", "listening": "Dinleme · dakika", "reading": "Okuma · sayfa", "writing": "Yazma · makale", "planned": "Planlanan", "actual": "Gerçekleşen", "week": "Bu hafta", "report": "Genel uyum" },
+    "engine": { "eyebrow": "Tek doğruluk kaynağı", "title": "Rakamların sahibi İlerleme Motorudur.", "description": "Raporlar kayıtlı beklentilerden ve gerçek kayıtlardan hesaplanır. Denetleyiciler, koçlar ve AI rakip hesaplamalar oluşturmak yerine sonucu kullanır.", "aria": "Plan beklentileri ve gerçek kayıtlar deterministik bir ilerleme raporu üretir", "plan": "Plan beklentileri", "records": "Gerçek kayıtlar", "result": "İlerleme raporu" },
+    "principles": { "eyebrow": "Gerçek uygulama için tasarlandı", "title": "Sistemi farklı kılan nedir", "items": {
+      "partial": { "title": "Kısmi çaba değerlidir", "description": "30 dakikanın 18'ini tamamlamak başarısızlık değil, anlamlı ilerleme olarak kaydedilir." },
+      "deterministic": { "title": "Sonuçlar açıklanabilir kalır", "description": "Aynı plan ve kayıtlar her zaman aynı raporu üretir; her yüzde izlenebilir." },
+      "control": { "title": "Kontrol sizde kalır", "description": "Koç geri bildirimi ve AI rehberliği kararları destekler ancak kritik veriler sessizce değiştirilmez." }
+    } },
+    "roles": {
+      "coach": { "eyebrow": "İnsan koçluğu", "title": "Koçlar bağlam ve sorumluluk katar.", "description": "Koç yapılandırılmış plan atayabilir, yetkili katılımcı ilerlemesini inceleyebilir ve kayıtların sahibi olmadan geri bildirim bırakabilir." },
+      "ai": { "eyebrow": "İsteğe bağlı AI koçluğu", "title": "AI verileri kontrollü araçlarla açıklar.", "description": "Açık onayla AI koçu salt okunur ilerleme verilerini inceleyip uyarlamalar önerebilir. Temel uygulama AI olmadan da çalışır." }
+    },
+    "cta": { "eyebrow": "Anlamlı bir hedefle başlayın", "title": "Planlayın. Kaydedin. İlerlemenizi görün.", "description": "Yapılandırılmış bir plan oluşturun ve sonraki çabanızı yararlı bilgiye dönüştürün.", "button": "Başlayın" }
+  },
   "plan": {
     "tabs": { "overview": "Genel bakış", "overviewLong": "Plan genel bakışı", "activities": "Aktiviteler", "progress": "İlerleme", "progressLong": "İlerleme raporu", "entries": "Kayıtlar", "entriesLong": "Son kayıtlar", "feedback": "Geri bildirim", "feedbackLong": "Koç geri bildirimi", "ai": "Yapay Zekâ Koçu", "aiLong": "Yapay zekâ koçu" },
     "allPlans": "Tüm planlar", "currentPlan": "Mevcut plan",

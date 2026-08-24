@@ -303,6 +303,64 @@ a { color: #17633e; font-weight: 700; }
 [dir="rtl"] .insights-section li, [dir="rtl"] .audience-grid li { padding-right: 1.6rem; padding-left: 0; }
 [dir="rtl"] .insights-section li::before, [dir="rtl"] .audience-grid li::before { right: 0; left: auto; }
 
+/* How it works */
+.how-page-main { width: min(100%, 78rem); }
+.how-hero { max-width: 58rem; margin: 0 auto; padding: 7rem 0 6rem; text-align: center; }
+.how-hero h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
+.how-hero > p:not(.eyebrow) { max-width: 46rem; margin: 1.5rem auto 2rem; color: var(--muted); font-size: 1.1rem; line-height: 1.75; }
+.workflow-section { padding: 2rem 0 7rem; }
+.workflow-list { display: grid; gap: 1.25rem; }
+.workflow-list article { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .72fr); align-items: center; gap: 3rem; min-height: 19rem; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid #e2e0ee; border-radius: 1.5rem; background: #fff; box-shadow: 0 1.25rem 3rem rgb(56 49 105 / 7%); }
+.workflow-list article:nth-child(even) .workflow-copy { order: 2; }
+.workflow-list article:nth-child(even) > :last-child { order: 1; }
+.workflow-copy { display: flex; align-items: flex-start; gap: 1.25rem; }
+.workflow-copy > span { display: grid; width: 3rem; height: 3rem; flex: 0 0 auto; place-items: center; border-radius: .85rem; background: #eeecff; color: var(--primary-dark); font-weight: 900; }
+.workflow-copy h3 { margin: .25rem 0 .75rem; color: var(--brand); font-size: 1.65rem; }
+.workflow-copy p { margin: 0; color: var(--muted); line-height: 1.7; }
+.workflow-copy small { display: block; margin-top: 1rem; color: #8a4b12; font-weight: 650; }
+.how-plan-card, .how-activity-list, .how-effort-card, .how-report-card { width: min(100%, 23rem); margin-inline: auto; }
+.how-plan-card { padding: 1.4rem; border-radius: 1.1rem; background: linear-gradient(145deg, #302b59, #211e38); box-shadow: 0 1.4rem 2.5rem rgb(48 43 89 / 22%); color: #fff; }
+.how-plan-card > span { color: #bcb5f8; font-size: .78rem; }
+.how-plan-card strong { display: block; margin: .55rem 0 1.5rem; font-size: 1.35rem; }
+.how-plan-card > div { display: flex; gap: .5rem; }
+.how-plan-card i { display: block; width: 2.8rem; height: .55rem; border-radius: 999px; background: var(--progress); opacity: .45; }
+.how-plan-card i:first-child { width: 5rem; opacity: 1; }
+.how-activity-list { display: grid; gap: .7rem; }
+.how-activity-list > span { display: flex; align-items: center; gap: .8rem; padding: .8rem; border: 1px solid #e1dfed; border-radius: .8rem; background: #fafafe; color: #474356; font-weight: 700; }
+.how-activity-list i { display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border-radius: .65rem; background: var(--primary); color: #fff; font-style: normal; }
+.how-effort-card { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: .7rem; padding: 1.25rem; border-radius: 1.1rem; background: #ffe3d6; }
+.how-effort-card > div { display: grid; justify-items: center; padding: 1rem; border-radius: .8rem; background: #fff; }
+.how-effort-card span { color: var(--muted); font-size: .72rem; }
+.how-effort-card strong { color: var(--brand); font-size: 2.5rem; }
+.how-effort-card > div:nth-of-type(2) strong, .how-effort-card > b { color: var(--energy-dark); }
+.how-effort-card small { grid-column: 1 / -1; color: #6c615b; text-align: center; }
+.how-report-card { padding: 1.35rem; border-radius: 1.1rem; background: #292544; color: #fff; }
+.how-report-card > div { display: flex; align-items: baseline; justify-content: space-between; }
+.how-report-card span, .how-report-card small { color: #c5c1dd; }
+.how-report-card strong { font-size: 2.8rem; }
+.how-report-card p { height: .65rem; margin: 1.25rem 0 .75rem; overflow: hidden; border-radius: 999px; background: rgb(255 255 255 / 12%); }
+.how-report-card i { display: block; height: 100%; border-radius: inherit; background: var(--progress); }
+.engine-flow { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 4rem; margin-inline: calc(clamp(1.25rem, 4vw, 3rem) * -1); padding: 5rem clamp(1.25rem, 4vw, 3rem); border-radius: 2rem; background: linear-gradient(135deg, #5b4be8, var(--primary)); color: #fff; }
+.engine-flow h2, .engine-flow .eyebrow { color: #fff; }
+.engine-flow > div:first-child > p:last-child { color: #e3e0ff; line-height: 1.7; }
+.engine-diagram { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem; }
+.engine-diagram span, .engine-diagram strong { padding: 1rem; border: 1px solid rgb(255 255 255 / 18%); border-radius: .8rem; background: rgb(255 255 255 / 10%); text-align: center; }
+.engine-diagram strong { background: #fff; color: var(--primary-dark); }
+.engine-diagram b { color: #ffd1a5; font-size: 1.5rem; }
+.principles-section { padding: 7rem 0; }
+.principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.principle-grid article { padding: 1.75rem; border: 1px solid #e2e0ee; border-radius: 1rem; background: #fff; }
+.principle-grid article > span { color: var(--energy-dark); font-size: .78rem; font-weight: 900; }
+.principle-grid h3 { margin: 1rem 0 .65rem; color: var(--brand); }
+.principle-grid p { margin: 0; color: var(--muted); line-height: 1.65; }
+.how-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.how-roles > div { padding: clamp(1.75rem, 4vw, 3rem); border-radius: 1.4rem; background: #f1efff; }
+.how-roles > div:last-child { background: #fff2e6; }
+.how-roles h2 { font-size: clamp(1.75rem, 3vw, 2.4rem); }
+.how-roles > div > p:last-child { color: var(--muted); line-height: 1.7; }
+[dir="rtl"] .workflow-list article:nth-child(even) .workflow-copy { order: 2; }
+[dir="rtl"] .how-effort-card > b { transform: rotate(180deg); }
+
 @keyframes dashboard-enter {
   from { opacity: 0; transform: translateY(1.5rem) scale(.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -329,6 +387,9 @@ a { color: #17633e; font-weight: 700; }
   .hero-section { min-height: auto; grid-template-columns: 1fr; padding: 3rem 0; }
   .hero-dashboard { transform: none; }
   .philosophy-section, .goal-section, .insights-section, .ai-section { grid-template-columns: 1fr; }
+  .workflow-list article, .engine-flow, .how-roles { grid-template-columns: 1fr; }
+  .workflow-list article:nth-child(even) .workflow-copy, .workflow-list article:nth-child(even) > :last-child { order: initial; }
+  .principle-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr 1fr; }
   .audience-grid { grid-template-columns: 1fr; }
   .marketing-footer { grid-template-columns: 1fr; text-align: center; }

@@ -47,6 +47,17 @@ test('switches between Turkish and right-to-left Persian', async () => {
   expect(document.documentElement).toHaveAttribute('dir', 'rtl')
 })
 
+test('renders the public how-it-works workflow with crawlable metadata', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/how-it-works')
+
+  expect(screen.getByRole('heading', { name: /practical system for turning intention into progress/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'The Progress Engine owns the numbers.' })).toBeInTheDocument()
+  expect(screen.getByText('Planned 30 minutes, completed 18.', { exact: false })).toBeInTheDocument()
+  await waitFor(() => expect(document.title).toBe('How SYP works | See Your Progress'))
+  expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+})
+
 test('redirects an anonymous visitor from the dashboard to login', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/dashboard')

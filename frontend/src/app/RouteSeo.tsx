@@ -7,6 +7,11 @@ const publicMetadata: Record<string, { title: string; description: string; robot
     description: 'Turn meaningful goals into measurable plans, record actual effort, and improve with deterministic progress insights and optional AI coaching.',
     robots: 'index, follow',
   },
+  '/how-it-works': {
+    title: 'How SYP works | See Your Progress',
+    description: 'See how SYP turns goals into measurable activities, records partial effort, and calculates deterministic progress insights.',
+    robots: 'index, follow',
+  },
   '/login': {
     title: 'Sign in | SYP',
     description: 'Sign in to your private SYP goal tracking workspace.',

@@ -25,7 +25,7 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
         <NavLink to="/coaching">{t('navigation.coaching')}</NavLink>
       </> : <>
         <a href="/#features">{t('navigation.features')}</a>
-        <a href="/#how-it-works">{t('navigation.howItWorks')}</a>
+        <NavLink to="/how-it-works">{t('navigation.howItWorks')}</NavLink>
         <a href="/#for-coaches">{t('navigation.forCoaches')}</a>
         <Link to="/login">{t('navigation.signIn')}</Link>
         <Link className="header-cta" to="/register">{t('navigation.getStarted')}</Link>

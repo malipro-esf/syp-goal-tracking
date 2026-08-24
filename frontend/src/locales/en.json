@@ -22,6 +22,27 @@
     "cta": { "eyebrow": "Your next step can be small", "title": "Progress does not need to be perfect to be meaningful.", "description": "Create your first plan and start seeing the effort behind your goals.", "button": "Create your account" },
     "footer": { "name": "See Your Progress", "tagline": "Progress over perfection.", "navigation": "Footer navigation", "features": "Features", "coaches": "For coaches" }
   },
+  "howPage": {
+    "hero": { "eyebrow": "How SYP works", "title": "A practical system for turning intention into progress.", "description": "SYP connects what you planned with what you actually did. It preserves partial effort, calculates progress consistently, and helps you decide what to do next.", "button": "Create your first plan" },
+    "workflow": { "eyebrow": "The workflow", "title": "Four steps from goal to insight", "steps": {
+      "plan": { "title": "Create a focused plan", "description": "Give your goal a clear purpose, timeframe, and outcome. A plan can be personal or assigned from a coach’s reusable template.", "example": "Example: Improve my IELTS score in twelve weeks." },
+      "activities": { "title": "Define measurable activities", "description": "Break the plan into actions with quantities, units, and schedules that match the goal.", "example": "Example: Listening for 30 minutes each day." },
+      "effort": { "title": "Record what actually happened", "description": "Enter the real quantity you completed. SYP keeps partial results instead of reducing your day to success or failure.", "example": "Example: Planned 30 minutes, completed 18." },
+      "report": { "title": "Review and make a better next decision", "description": "Compare expected and actual effort across activities, dates, and trends using deterministic reports.", "example": "Example: 170 of 210 planned minutes equals 81% adherence." }
+    } },
+    "visual": { "goal": "Goal plan", "ielts": "IELTS preparation", "listening": "Listening · minutes", "reading": "Reading · pages", "writing": "Writing · essays", "planned": "Planned", "actual": "Actual", "week": "This week", "report": "Overall adherence" },
+    "engine": { "eyebrow": "One source of truth", "title": "The Progress Engine owns the numbers.", "description": "Reports are calculated from stored expectations and actual records. Controllers, coaches, and AI consume the result instead of creating competing calculations.", "aria": "Plan expectations plus actual records produce a deterministic progress report", "plan": "Plan expectations", "records": "Actual records", "result": "Progress report" },
+    "principles": { "eyebrow": "Designed around real execution", "title": "What makes the system different", "items": {
+      "partial": { "title": "Partial effort counts", "description": "Completing 18 of 30 minutes is recorded as meaningful progress—not a binary failure." },
+      "deterministic": { "title": "Results stay explainable", "description": "The same plan and records always produce the same report, making every percentage traceable." },
+      "control": { "title": "You remain in control", "description": "Coach feedback and AI guidance can inform decisions, but critical data is never changed silently." }
+    } },
+    "roles": {
+      "coach": { "eyebrow": "Human coaching", "title": "Coaches add context and accountability.", "description": "A coach can assign a structured plan, review authorized participant progress, and leave feedback without owning the participant’s records." },
+      "ai": { "eyebrow": "Optional AI coaching", "title": "AI explains data through controlled tools.", "description": "With explicit consent, the AI coach can inspect read-only progress data and suggest adjustments. The core application continues to work without AI." }
+    },
+    "cta": { "eyebrow": "Start with one meaningful goal", "title": "Plan it. Record it. See your progress.", "description": "Create a structured plan and turn your next effort into useful information.", "button": "Get started" }
+  },
   "plan": {
     "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
     "allPlans": "All plans", "currentPlan": "Current plan",
