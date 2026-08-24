@@ -45,9 +45,7 @@ def upgrade() -> None:
             "(unit_code <> 'custom' AND custom_unit_label IS NULL)",
             name="ck_activities_custom_unit",
         ),
-        sa.ForeignKeyConstraint(
-            ["enrollment_id"], ["plan_enrollments.id"], ondelete="CASCADE"
-        ),
+        sa.ForeignKeyConstraint(["enrollment_id"], ["plan_enrollments.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(
@@ -75,16 +73,10 @@ def upgrade() -> None:
             "effective_until IS NULL OR effective_until >= effective_from",
             name="ck_target_revisions_dates",
         ),
-        sa.ForeignKeyConstraint(
-            ["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"
-        ),
-        sa.ForeignKeyConstraint(
-            ["created_by_user_id"], ["users.id"], ondelete="RESTRICT"
-        ),
+        sa.ForeignKeyConstraint(["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(["created_by_user_id"], ["users.id"], ondelete="RESTRICT"),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint(
-            "activity_id", "effective_from", name="uq_target_revision_start"
-        ),
+        sa.UniqueConstraint("activity_id", "effective_from", name="uq_target_revision_start"),
     )
     op.create_index(
         "ix_activity_target_revisions_activity_id",
@@ -119,20 +111,12 @@ def upgrade() -> None:
             "effective_until IS NULL OR effective_until >= effective_from",
             name="ck_activity_schedules_dates",
         ),
-        sa.ForeignKeyConstraint(
-            ["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"
-        ),
-        sa.ForeignKeyConstraint(
-            ["created_by_user_id"], ["users.id"], ondelete="RESTRICT"
-        ),
+        sa.ForeignKeyConstraint(["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(["created_by_user_id"], ["users.id"], ondelete="RESTRICT"),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint(
-            "activity_id", "effective_from", name="uq_activity_schedule_start"
-        ),
+        sa.UniqueConstraint("activity_id", "effective_from", name="uq_activity_schedule_start"),
     )
-    op.create_index(
-        "ix_activity_schedules_activity_id", "activity_schedules", ["activity_id"]
-    )
+    op.create_index("ix_activity_schedules_activity_id", "activity_schedules", ["activity_id"])
 
 
 def downgrade() -> None:

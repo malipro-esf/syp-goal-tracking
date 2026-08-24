@@ -48,12 +48,8 @@ def upgrade() -> None:
         sa.Column("deleted_at", sa.DateTime(timezone=True)),
         sa.CheckConstraint("quantity > 0", name="ck_progress_entries_positive"),
         sa.CheckConstraint("source IN ('user')", name="ck_progress_entries_source"),
-        sa.ForeignKeyConstraint(
-            ["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"
-        ),
-        sa.ForeignKeyConstraint(
-            ["participant_user_id"], ["users.id"], ondelete="CASCADE"
-        ),
+        sa.ForeignKeyConstraint(["activity_id"], ["enrollment_activities.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(["participant_user_id"], ["users.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(
