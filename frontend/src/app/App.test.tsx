@@ -58,6 +58,18 @@ test('renders the public how-it-works workflow with crawlable metadata', async (
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
 })
 
+test('renders the public feature catalog with crawlable metadata', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/features')
+
+  expect(screen.getByRole('heading', { name: /Everything you need to turn goals/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'Deterministic reports' })).toBeInTheDocument()
+  expect(screen.getByText('125%')).toBeInTheDocument()
+  expect(screen.getByText('100%')).toBeInTheDocument()
+  await waitFor(() => expect(document.title).toBe('Features | SYP Goal Tracking & Coaching'))
+  expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+})
+
 test('redirects an anonymous visitor from the dashboard to login', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/dashboard')

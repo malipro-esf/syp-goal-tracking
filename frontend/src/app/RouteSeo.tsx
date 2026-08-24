@@ -12,6 +12,11 @@ const publicMetadata: Record<string, { title: string; description: string; robot
     description: 'See how SYP turns goals into measurable activities, records partial effort, and calculates deterministic progress insights.',
     robots: 'index, follow',
   },
+  '/features': {
+    title: 'Features | SYP Goal Tracking & Coaching',
+    description: 'Explore SYP features for measurable plans, partial effort tracking, deterministic progress reports, coach collaboration, and controlled AI guidance.',
+    robots: 'index, follow',
+  },
   '/login': {
     title: 'Sign in | SYP',
     description: 'Sign in to your private SYP goal tracking workspace.',

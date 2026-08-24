@@ -40,9 +40,5 @@ def downgrade() -> None:
         "activity_schedules",
         type_="check",
     )
-    op.drop_constraint(
-        "ck_activities_unit_code", "enrollment_activities", type_="check"
-    )
-    op.drop_constraint(
-        "ck_activities_dimension", "enrollment_activities", type_="check"
-    )
+    op.drop_constraint("ck_activities_unit_code", "enrollment_activities", type_="check")
+    op.drop_constraint("ck_activities_dimension", "enrollment_activities", type_="check")

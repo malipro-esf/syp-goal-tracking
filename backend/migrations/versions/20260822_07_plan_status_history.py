@@ -31,9 +31,7 @@ def upgrade() -> None:
             "status IN ('draft', 'active', 'paused', 'completed', 'archived')",
             name="ck_plan_status_events_status",
         ),
-        sa.ForeignKeyConstraint(
-            ["plan_id"], ["plan_enrollments.id"], ondelete="CASCADE"
-        ),
+        sa.ForeignKeyConstraint(["plan_id"], ["plan_enrollments.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(

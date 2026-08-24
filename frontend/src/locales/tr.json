@@ -43,6 +43,26 @@
     },
     "cta": { "eyebrow": "Anlamlı bir hedefle başlayın", "title": "Planlayın. Kaydedin. İlerlemenizi görün.", "description": "Yapılandırılmış bir plan oluşturun ve sonraki çabanızı yararlı bilgiye dönüştürün.", "button": "Başlayın" }
   },
+  "featuresPage": {
+    "hero": { "eyebrow": "Ürün yetenekleri", "title": "Hedefleri ölçülebilir ilerlemeye dönüştürmek için gereken her şey.", "description": "SYP esnek planlama, dürüst çaba kaydı, deterministik raporlama ve isteğe bağlı koçluğu tek bir çalışma alanında birleştirir.", "button": "Takibe başlayın", "secondary": "İş akışını görün", "visualAria": "Plan, çaba, ilerleme, koç ve AI özelliklerine genel bakış", "week": "Bu hafta", "adherence": "genel uyum", "plan": "Yapılandırılmış plan", "coach": "Koç geri bildirimi" },
+    "catalog": { "eyebrow": "Temel özellikler", "title": "Onay kutuları değil, uygulama için tasarlandı", "description": "Her yetenek aynı ilkeyi destekler: gerçeği kaydedin, net anlayın ve daha iyi karar verin.", "items": {
+      "plans": { "title": "Yapılandırılmış hedef planları", "description": "Kişisel plan oluşturun veya koç şablonundan bağımsız bir kopyayı kabul edin.", "detail": "Taslak, aktif, duraklatılmış, tamamlanmış ve arşivlenmiş yaşam döngüsü." },
+      "measurement": { "title": "Esnek ölçüm", "description": "Zaman, sayfa, tekrar, mesafe, ağırlık, miktar veya özel birim kullanın.", "detail": "Günlük, seçili gün ve haftalık kota programları." },
+      "effort": { "title": "Gerçek çaba kayıtları", "description": "Kısmi ilerleme ve aynı tarihte birden fazla kayıt dahil gerçekte olanı kaydedin.", "detail": "Düzeltmeler ve kurtarılabilir silme bütünlüğü korur." },
+      "reports": { "title": "Deterministik raporlar", "description": "Bugün, bu hafta veya özel aralıkta beklenen ve gerçek çabayı karşılaştırın.", "detail": "Açıklanabilir kazanım, uyum ve olay sayıları." },
+      "coaching": { "title": "Koç işbirliği", "description": "Şablon oluşturun, davet edin, yetkili ilerlemeyi inceleyin ve geri bildirim bırakın.", "detail": "Katılımcılar kayıtlarının sahibi olarak kalır." },
+      "ai": { "title": "Kontrollü AI rehberliği", "description": "Açık, salt okunur araçlarla gerçek plan verilerine dayalı sorular sorun.", "detail": "Onay gerekir ve temel özellikler AI olmadan çalışır." }
+    } },
+    "partial": { "eyebrow": "Dürüst çaba takibi", "title": "İlerlemeniz yapıldı veya yapılmadıdan daha fazlasıdır.", "description": "SYP gerçekten tamamlanan miktarı saklar; zor günler de yararlı bilgiye dönüşür.", "multiple": "Aynı gündeki birden fazla çabayı koruyun", "correction": "Hatalı kayıtları düzeltin", "history": "Geçmişi yeniden yazmak yerine beklentileri tarihleyin", "activity": "Dinleme çalışması", "today": "Bugün", "planned": "Planlanan", "actual": "Gerçekleşen", "recorded": "kaydedilen çaba" },
+    "reporting": { "eyebrow": "Dikkatli ilerleme matematiği", "title": "Dengeli raporları bozmadan başarıyı görün.", "description": "Kazanım, tam başarı miktarını gösterir ve %100'ü aşabilir. Uyum sınırlandırılır; böylece bir alandaki aşırı başarı başka bir zayıflığı gizlemez.", "attainment": "Kazanım", "uncapped": "sınırsız başarı", "adherence": "Uyum", "capped": "denge için sınırlı", "expected": "Beklenen", "actual": "Gerçekleşen", "ranges": "Bugün, haftalık ve özel aralıklar", "breakdown": "Tam, kısmi, kaçırılmış ve yaklaşan olaylar", "units": "Aktivite raporu uyumsuz birimleri ayrı tutar" },
+    "coaching": { "eyebrow": "Bilinçli koçluk akışı", "title": "Yapı, sahipliği almadan paylaşılabilir.", "description": "Kabul edilen atama bağımsız bir katılımcı planı oluşturur. Sonraki şablon düzenlemeleri onu sessizce değiştirmez.", "template": "Plan şablonu", "invitation": "Davet", "snapshot": "Katılımcı planı", "feedback": "Kapsamlı geri bildirim" },
+    "trust": { "eyebrow": "Kontrol ve dayanıklılık", "title": "Uygulama yararlı, özel ve anlaşılır kalır.", "description": "AI ve koçluk sistemi geliştirir ancak gizli bağımlılıklar haline gelmez.", "items": {
+      "auth": { "title": "Güvenli oturumlar", "description": "Kısa ömürlü erişim belirteçleri ve dönen HttpOnly yenileme çerezleri çalışma alanını korur." },
+      "consent": { "title": "Açık AI onayı", "description": "İlgili ilerleme verileri yalnızca kullanıcı o istek için kabul ettikten sonra gönderilir." },
+      "independent": { "title": "AI'dan bağımsız çekirdek", "description": "Planlar, kayıtlar, raporlar ve koçluk AI kapalıyken de çalışır." }
+    } },
+    "cta": { "eyebrow": "İlerleme tek kayıtla başlar", "title": "Gerçek çabayı ölçen bir plan oluşturun.", "description": "Bir hedef, bir aktivite ve dürüst bir ilerleme kaydıyla başlayın.", "button": "Hesabınızı oluşturun" }
+  },
   "plan": {
     "tabs": { "overview": "Genel bakış", "overviewLong": "Plan genel bakışı", "activities": "Aktiviteler", "progress": "İlerleme", "progressLong": "İlerleme raporu", "entries": "Kayıtlar", "entriesLong": "Son kayıtlar", "feedback": "Geri bildirim", "feedbackLong": "Koç geri bildirimi", "ai": "Yapay Zekâ Koçu", "aiLong": "Yapay zekâ koçu" },
     "allPlans": "Tüm planlar", "currentPlan": "Mevcut plan",
