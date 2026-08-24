@@ -45,6 +45,30 @@ test('switches between Turkish and right-to-left Persian', async () => {
   expect(await screen.findByRole('link', { name: 'ورود' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('lang', 'fa')
   expect(document.documentElement).toHaveAttribute('dir', 'rtl')
+
+  fireEvent.change(screen.getByLabelText('زبان'), { target: { value: 'ar' } })
+  expect(await screen.findByRole('link', { name: 'تسجيل الدخول' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'ar')
+  expect(document.documentElement).toHaveAttribute('dir', 'rtl')
+})
+
+test('localizes login and registration forms', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  await i18n.changeLanguage('fa')
+  const loginView = renderApp('/login')
+
+  expect(await screen.findByRole('heading', { name: 'خوش آمدید' })).toBeInTheDocument()
+  expect(screen.getByLabelText('ایمیل')).toBeInTheDocument()
+  expect(screen.getByLabelText('رمز عبور')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'ورود' })).toBeInTheDocument()
+  loginView.unmount()
+
+  await i18n.changeLanguage('ar')
+  renderApp('/register')
+  expect(await screen.findByRole('heading', { name: 'أنشئ حسابك' })).toBeInTheDocument()
+  expect(screen.getByLabelText('الاسم الظاهر')).toBeInTheDocument()
+  expect(screen.getByLabelText('نوع الحساب')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'إنشاء الحساب' })).toBeInTheDocument()
 })
 
 test('renders the public how-it-works workflow with crawlable metadata', async () => {

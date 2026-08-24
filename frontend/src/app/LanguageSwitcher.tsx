@@ -2,6 +2,10 @@ import { useTranslation } from 'react-i18next'
 
 import { supportedLanguages, type SupportedLanguage } from '../i18n'
 
+const languageLabelKeys: Record<SupportedLanguage, string> = {
+  en: 'english', fa: 'persian', tr: 'turkish', ar: 'arabic',
+}
+
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation()
 
@@ -12,7 +16,7 @@ export function LanguageSwitcher() {
       value={i18n.resolvedLanguage ?? 'en'}
       onChange={(event) => void i18n.changeLanguage(event.target.value as SupportedLanguage)}
     >
-      {supportedLanguages.map((language) => <option value={language} key={language}>{t(`language.${language === 'en' ? 'english' : language === 'fa' ? 'persian' : 'turkish'}`)}</option>)}
+      {supportedLanguages.map((language) => <option value={language} key={language}>{t(`language.${languageLabelKeys[language]}`)}</option>)}
     </select>
   </label>
 }

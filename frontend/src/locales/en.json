@@ -1,7 +1,18 @@
 {
   "brand": { "tagline": "Progress over perfection" },
-  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish" },
+  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish", "arabic": "Arabic" },
   "navigation": { "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "features": "Features", "howItWorks": "How it works", "forCoaches": "For coaches", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
+  "auth": {
+    "eyebrow": "Progress over perfection.",
+    "login": { "title": "Welcome back", "description": "Continue working on your goals." },
+    "register": { "title": "Create your account", "description": "Start turning plans into measurable progress." },
+    "fields": { "displayName": "Display name", "accountType": "Account type", "email": "Email", "password": "Password" },
+    "roles": { "participant": "Participant", "coach": "Coach" },
+    "password": { "show": "Show password", "hide": "Hide password" },
+    "actions": { "wait": "Please wait…", "create": "Create account", "createLong": "Create an account", "signIn": "Sign in" },
+    "switch": { "registered": "Already registered?", "new": "New to SYP?" },
+    "errors": { "unexpected": "Something went wrong. Please try again." }
+  },
   "home": {
     "hero": { "eyebrow": "Smart goal tracking & coaching", "title": "Turn your effort into visible progress.", "description": "Build structured plans, record what you actually completed, and improve without turning every missed target into failure.", "primary": "Start tracking", "secondary": "See how it works", "note": "Designed for real progress—not perfect streaks." },
     "preview": { "aria": "Example weekly progress dashboard", "week": "This week", "onTrack": "On track", "adherence": "overall adherence", "planned": "Planned", "actual": "Actual" },

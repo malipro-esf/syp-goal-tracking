@@ -1,7 +1,18 @@
 {
   "brand": { "tagline": "Mükemmellikten önce ilerleme" },
-  "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe" },
+  "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe", "arabic": "Arapça" },
   "navigation": { "dashboard": "Gösterge paneli", "plans": "Planlar", "coaching": "Koçluk", "features": "Özellikler", "howItWorks": "Nasıl çalışır", "forCoaches": "Koçlar için", "signIn": "Giriş yap", "getStarted": "Başlayın", "signOut": "Çıkış yap" },
+  "auth": {
+    "eyebrow": "Mükemmellikten önce ilerleme.",
+    "login": { "title": "Tekrar hoş geldiniz", "description": "Hedefleriniz üzerinde çalışmaya devam edin." },
+    "register": { "title": "Hesabınızı oluşturun", "description": "Planları ölçülebilir ilerlemeye dönüştürmeye başlayın." },
+    "fields": { "displayName": "Görünen ad", "accountType": "Hesap türü", "email": "E-posta", "password": "Şifre" },
+    "roles": { "participant": "Katılımcı", "coach": "Koç" },
+    "password": { "show": "Şifreyi göster", "hide": "Şifreyi gizle" },
+    "actions": { "wait": "Lütfen bekleyin…", "create": "Hesap oluştur", "createLong": "Bir hesap oluştur", "signIn": "Giriş yap" },
+    "switch": { "registered": "Zaten kayıtlı mısınız?", "new": "SYP'de yeni misiniz?" },
+    "errors": { "unexpected": "Bir sorun oluştu. Lütfen tekrar deneyin." }
+  },
   "home": {
     "hero": { "eyebrow": "Akıllı hedef takibi ve koçluk", "title": "Çabanızı görünür ilerlemeye dönüştürün.", "description": "Yapılandırılmış planlar oluşturun, gerçekte yaptıklarınızı kaydedin ve tamamlanmayan her hedefi başarısızlık saymadan gelişin.", "primary": "Takibe başlayın", "secondary": "Nasıl çalıştığını görün", "note": "Mükemmel seriler için değil, gerçek ilerleme için tasarlandı." },
     "preview": { "aria": "Örnek haftalık ilerleme paneli", "week": "Bu hafta", "onTrack": "Yolunda", "adherence": "genel uyum", "planned": "Planlanan", "actual": "Gerçekleşen" },
