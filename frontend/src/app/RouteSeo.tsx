@@ -17,6 +17,11 @@ const publicMetadata: Record<string, { title: string; description: string; robot
     description: 'Explore SYP features for measurable plans, partial effort tracking, deterministic progress reports, coach collaboration, and controlled AI guidance.',
     robots: 'index, follow',
   },
+  '/for-coaches': {
+    title: 'Goal Coaching Platform for Coaches | SYP',
+    description: 'Create reusable plan templates, invite participants, review deterministic progress, and provide scoped coaching feedback with SYP.',
+    robots: 'index, follow',
+  },
   '/login': {
     title: 'Sign in | SYP',
     description: 'Sign in to your private SYP goal tracking workspace.',

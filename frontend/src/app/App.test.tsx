@@ -70,6 +70,17 @@ test('renders the public feature catalog with crawlable metadata', async () => {
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
 })
 
+test('renders the public coaches page with clear ownership and crawlable metadata', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/for-coaches')
+
+  expect(screen.getByRole('heading', { name: /Coach with evidence/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /Clear ownership makes coaching safer/i })).toBeInTheDocument()
+  expect(screen.getByText(/independent draft plan snapshot/i)).toBeInTheDocument()
+  await waitFor(() => expect(document.title).toBe('Goal Coaching Platform for Coaches | SYP'))
+  expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+})
+
 test('redirects an anonymous visitor from the dashboard to login', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/dashboard')

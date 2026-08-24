@@ -63,6 +63,30 @@
     } },
     "cta": { "eyebrow": "Progress starts with one record", "title": "Build a plan that measures real effort.", "description": "Start with one goal, one activity, and one honest progress entry.", "button": "Create your account" }
   },
+  "coachesPage": {
+    "hero": { "eyebrow": "Coaching grounded in real progress", "title": "Coach with evidence—not assumptions.", "description": "Create reusable plan templates, invite participants, review the progress they authorize, and leave focused feedback based on planned versus actual effort.", "button": "Create a coach account", "secondary": "See the coaching workflow", "visualAria": "Example coach dashboard showing participant progress" },
+    "preview": { "title": "Coach workspace", "subtitle": "3 active participants", "active": "Live overview", "week": "This week's overall progress", "fitness": "Fitness", "reading": "Reading" },
+    "workflow": { "eyebrow": "A clear coaching workflow", "title": "From reusable structure to focused support", "description": "SYP keeps assignment, ownership, and progress access explicit at every step.", "steps": {
+      "template": { "title": "Create a plan template", "description": "Define measurable activities, targets, units, and schedules once, then reuse the structure." },
+      "invite": { "title": "Invite a participant", "description": "Send an assignment invitation to an existing participant by email." },
+      "accept": { "title": "Participant accepts", "description": "Acceptance creates an independent draft plan snapshot in the participant's account." },
+      "support": { "title": "Review and support", "description": "Inspect deterministic progress reports and leave feedback within the accepted assignment." }
+    } },
+    "template": { "visualLabel": "Plan template", "reusable": "Reusable", "planName": "IELTS preparation", "listening": " min listening", "reading": " pages reading", "writing": " essays weekly", "eyebrow": "Build once, assign thoughtfully", "title": "Turn your method into a reusable plan template.", "description": "Give participants a strong starting structure without making every goal identical.", "units": "Use time, pages, distance, repetitions, weight, and custom units.", "schedules": "Set daily, weekly, or selected-day expectations.", "snapshot": "Each accepted assignment becomes an independent plan snapshot." },
+    "capabilities": { "eyebrow": "Practical coaching tools", "title": "Everything needed for structured, human support", "items": {
+      "reusable": { "title": "Reusable templates", "description": "Standardize a proven program while keeping participant plans independent after acceptance." },
+      "measurable": { "title": "Measurable execution", "description": "Compare expected and actual effort instead of reducing progress to completed or failed." },
+      "visibility": { "title": "Authorized visibility", "description": "See progress only for participants who accepted your assignment." },
+      "feedback": { "title": "Focused feedback", "description": "Respond to real records, weak activities, and consistency patterns with useful context." }
+    } },
+    "insights": { "eyebrow": "See where support matters", "title": "Understand the numbers before starting the conversation.", "description": "Deterministic reports reveal adherence, partial effort, and weaker activities. You add the judgment, encouragement, and context.", "consistency": "overall adherence", "weakArea": "listening adherence", "partial": "partial entries", "feedback": "Coach feedback", "today": "Today", "message": "Your reading rhythm is improving. Let’s make the listening target smaller and more consistent this week.", "coach": "Coach" },
+    "boundaries": { "eyebrow": "Trust by design", "title": "Clear ownership makes coaching safer.", "description": "The platform separates the coach's template from the participant's plan and records.", "items": {
+      "ownership": { "title": "Participants own their progress", "description": "Actual-effort records belong to the participant and are never silently controlled by a coach." },
+      "scope": { "title": "Access follows acceptance", "description": "A coach can review progress only inside an assignment the participant has accepted." },
+      "history": { "title": "Template changes stay predictable", "description": "Later template edits do not silently rewrite a participant's independent plan snapshot." }
+    } },
+    "cta": { "eyebrow": "Support progress with clarity", "title": "Give every coaching conversation better evidence.", "description": "Create a coach account and turn your program into measurable, participant-owned progress.", "button": "Get started as a coach" }
+  },
   "plan": {
     "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
     "allPlans": "All plans", "currentPlan": "Current plan",
