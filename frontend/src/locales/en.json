@@ -43,6 +43,26 @@
     },
     "cta": { "eyebrow": "Start with one meaningful goal", "title": "Plan it. Record it. See your progress.", "description": "Create a structured plan and turn your next effort into useful information.", "button": "Get started" }
   },
+  "featuresPage": {
+    "hero": { "eyebrow": "Product capabilities", "title": "Everything you need to turn goals into measurable progress.", "description": "SYP combines flexible planning, honest effort tracking, deterministic reporting, and optional coaching in one focused workspace.", "button": "Start tracking", "secondary": "See the workflow", "visualAria": "Plan, effort, progress, coach, and AI feature overview", "week": "This week", "adherence": "overall adherence", "plan": "Structured plan", "coach": "Coach feedback" },
+    "catalog": { "eyebrow": "Core features", "title": "Built around execution—not checkboxes", "description": "Every capability supports the same principle: record reality, understand it clearly, and make a better next decision.", "items": {
+      "plans": { "title": "Structured goal plans", "description": "Create personal plans or accept an independent snapshot assigned from a coach template.", "detail": "Draft, active, paused, completed, and archived lifecycles." },
+      "measurement": { "title": "Flexible measurement", "description": "Use time, pages, repetitions, distance, weight, quantities, or a custom unit.", "detail": "Daily, selected-day, and weekly-quota schedules." },
+      "effort": { "title": "Actual effort records", "description": "Record exactly what happened, including partial progress and multiple entries on one date.", "detail": "Corrections and recoverable removal preserve integrity." },
+      "reports": { "title": "Deterministic reports", "description": "Compare expected and actual effort by activity across today, this week, or a custom range.", "detail": "Explainable attainment, adherence, and occurrence counts." },
+      "coaching": { "title": "Coach collaboration", "description": "Create reusable templates, invite participants, review authorized progress, and leave feedback.", "detail": "Participants retain ownership of their records." },
+      "ai": { "title": "Controlled AI guidance", "description": "Ask questions grounded in real plan data through explicit, read-only application tools.", "detail": "Consent is required and core features work without AI." }
+    } },
+    "partial": { "eyebrow": "Honest effort tracking", "title": "Your progress is more than done or not done.", "description": "SYP stores the quantity actually completed, so difficult days still contribute useful information.", "multiple": "Preserve multiple efforts on the same day", "correction": "Correct inaccurate entries", "history": "Keep expectations effective-dated instead of rewriting history", "activity": "Listening practice", "today": "Today", "planned": "Planned", "actual": "Actual", "recorded": "effort recorded" },
+    "reporting": { "eyebrow": "Careful progress mathematics", "title": "See achievement without distorting balanced reports.", "description": "Attainment shows the full quantity achieved and can exceed 100%. Adherence is capped so one overachieved activity does not hide another weak area.", "attainment": "Attainment", "uncapped": "uncapped achievement", "adherence": "Adherence", "capped": "capped for balance", "expected": "Expected", "actual": "Actual", "ranges": "Today, weekly, and custom ranges", "breakdown": "Complete, partial, missed, and upcoming occurrences", "units": "Activity-level reporting keeps incompatible units separate" },
+    "coaching": { "eyebrow": "A deliberate coaching workflow", "title": "Structure can be shared without taking away ownership.", "description": "An accepted assignment creates an independent participant plan. Future template edits do not silently rewrite it.", "template": "Plan template", "invitation": "Invitation", "snapshot": "Participant plan", "feedback": "Scoped feedback" },
+    "trust": { "eyebrow": "Control and resilience", "title": "The application remains useful, private, and understandable.", "description": "AI and coaching enhance the system without becoming hidden dependencies.", "items": {
+      "auth": { "title": "Secure sessions", "description": "Short-lived access tokens and rotating HttpOnly refresh cookies protect authenticated workspaces." },
+      "consent": { "title": "Explicit AI consent", "description": "Relevant progress data is sent for an AI answer only after the user agrees for that request." },
+      "independent": { "title": "AI-independent core", "description": "Plans, records, reports, and coaching continue to work when AI is disabled or unavailable." }
+    } },
+    "cta": { "eyebrow": "Progress starts with one record", "title": "Build a plan that measures real effort.", "description": "Start with one goal, one activity, and one honest progress entry.", "button": "Create your account" }
+  },
   "plan": {
     "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
     "allPlans": "All plans", "currentPlan": "Current plan",
