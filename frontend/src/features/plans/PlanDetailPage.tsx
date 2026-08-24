@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 
 import { ApiError } from '../../api/client'
@@ -9,27 +10,28 @@ import { FeedbackPanel } from '../coaching/FeedbackPanel'
 import { OverviewProgressChart } from '../progress/OverviewProgressChart'
 import { getPlan, transitionPlan, updatePlan, type Plan } from './plans-api'
 
-const actions: Record<string, { action: string; label: string }[]> = {
-  draft: [{ action: 'activate', label: 'Activate' }, { action: 'archive', label: 'Archive' }],
-  active: [{ action: 'pause', label: 'Pause' }, { action: 'complete', label: 'Complete' }, { action: 'archive', label: 'Archive' }],
-  paused: [{ action: 'activate', label: 'Resume' }, { action: 'complete', label: 'Complete' }, { action: 'archive', label: 'Archive' }],
-  completed: [{ action: 'archive', label: 'Archive' }],
+const actions: Record<string, { action: string; labelKey: string }[]> = {
+  draft: [{ action: 'activate', labelKey: 'activate' }, { action: 'archive', labelKey: 'archive' }],
+  active: [{ action: 'pause', labelKey: 'pause' }, { action: 'complete', labelKey: 'complete' }, { action: 'archive', labelKey: 'archive' }],
+  paused: [{ action: 'activate', labelKey: 'resume' }, { action: 'complete', labelKey: 'complete' }, { action: 'archive', labelKey: 'archive' }],
+  completed: [{ action: 'archive', labelKey: 'archive' }],
   archived: [],
 }
 
 type PlanTab = 'overview' | ActivityPanelView | 'feedback' | 'ai'
 
-const tabs: { id: PlanTab; label: string; shortLabel: string }[] = [
-  { id: 'overview', label: 'Plan overview', shortLabel: 'Overview' },
-  { id: 'activities', label: 'Activities', shortLabel: 'Activities' },
-  { id: 'progress', label: 'Progress report', shortLabel: 'Progress' },
-  { id: 'entries', label: 'Recent entries', shortLabel: 'Entries' },
-  { id: 'feedback', label: 'Coach feedback', shortLabel: 'Feedback' },
-  { id: 'ai', label: 'AI coach', shortLabel: 'AI Coach' },
+const tabs: { id: PlanTab; labelKey: string; shortLabelKey: string }[] = [
+  { id: 'overview', labelKey: 'overviewLong', shortLabelKey: 'overview' },
+  { id: 'activities', labelKey: 'activities', shortLabelKey: 'activities' },
+  { id: 'progress', labelKey: 'progressLong', shortLabelKey: 'progress' },
+  { id: 'entries', labelKey: 'entriesLong', shortLabelKey: 'entries' },
+  { id: 'feedback', labelKey: 'feedbackLong', shortLabelKey: 'feedback' },
+  { id: 'ai', labelKey: 'aiLong', shortLabelKey: 'ai' },
 ]
 
 export function PlanDetailPage() {
   const { accessToken } = useAuth()
+  const { t } = useTranslation()
   const { planId = '' } = useParams()
   const [plan, setPlan] = useState<Plan | null>(null)
   const [error, setError] = useState('')
@@ -38,8 +40,8 @@ export function PlanDetailPage() {
   useEffect(() => {
     if (!accessToken) return
     getPlan(accessToken, planId).then(setPlan).catch((caught: unknown) =>
-      setError(caught instanceof ApiError ? caught.message : 'Could not load the plan.'))
-  }, [accessToken, planId])
+      setError(caught instanceof ApiError ? caught.message : t('plan.errors.load')))
+  }, [accessToken, planId, t])
 
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -54,35 +56,35 @@ export function PlanDetailPage() {
       }))
       setError('')
     } catch (caught) {
-      setError(caught instanceof ApiError ? caught.message : 'Could not save the plan.')
+      setError(caught instanceof ApiError ? caught.message : t('plan.errors.save'))
     }
   }
 
   async function transition(action: string) {
     if (!accessToken || !plan) return
     try { setPlan(await transitionPlan(accessToken, plan.id, action)); setError('') }
-    catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not update status.') }
+    catch (caught) { setError(caught instanceof ApiError ? caught.message : t('plan.errors.status')) }
   }
 
-  if (error && !plan) return <main className="workspace-shell"><p role="alert">{error}</p><Link to="/plans">Back to plans</Link></main>
-  if (!plan) return <main className="workspace-shell">Loading plan…</main>
+  if (error && !plan) return <main className="workspace-shell"><p role="alert">{error}</p><Link to="/plans">{t('plan.allPlans')}</Link></main>
+  if (!plan) return <main className="workspace-shell">{t('plan.loading')}</main>
   const archived = plan.status === 'archived'
 
   return <main className="admin-shell">
     <aside className="admin-sidebar">
       <Link className="admin-brand" to="/dashboard"><span>S</span><strong>SYP</strong></Link>
-      <Link className="back-link" to="/plans">← All plans</Link>
-      <div className="sidebar-plan"><small>Current plan</small><strong>{plan.title}</strong><span className={`status-badge status-${plan.status}`}>{plan.status}</span></div>
+      <Link className="back-link" to="/plans">← {t('plan.allPlans')}</Link>
+      <div className="sidebar-plan"><small>{t('plan.currentPlan')}</small><strong>{plan.title}</strong><span className={`status-badge status-${plan.status}`}>{t(`plan.states.${plan.status}`)}</span></div>
       <nav className="admin-nav" aria-label="Plan sections" role="tablist">
-        {tabs.map((tab) => <button type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'active' : ''} key={tab.id} onClick={() => setActiveTab(tab.id)}><span className={`nav-icon nav-icon-${tab.id}`} aria-hidden="true" />{tab.shortLabel}</button>)}
+        {tabs.map((tab) => <button type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'active' : ''} key={tab.id} onClick={() => setActiveTab(tab.id)}><span className={`nav-icon nav-icon-${tab.id}`} aria-hidden="true" />{t(`plan.tabs.${tab.shortLabelKey}`)}</button>)}
       </nav>
     </aside>
 
     <section className="admin-main">
       <header className="admin-topbar">
-        <div><p className="eyebrow">{tabs.find((tab) => tab.id === activeTab)?.label}</p><h1>{plan.title}</h1></div>
+        <div><p className="eyebrow">{t(`plan.tabs.${tabs.find((tab) => tab.id === activeTab)?.labelKey}`)}</p><h1>{plan.title}</h1></div>
         <section className="lifecycle-actions" aria-label="Plan lifecycle actions">
-          {actions[plan.status].map(({ action, label }) => <button type="button" className="secondary-button" key={action} onClick={() => transition(action)}>{label}</button>)}
+          {actions[plan.status].map(({ action, labelKey }) => <button type="button" className="secondary-button" key={action} onClick={() => transition(action)}>{t(`plan.actions.${labelKey}`)}</button>)}
         </section>
       </header>
 
@@ -90,17 +92,17 @@ export function PlanDetailPage() {
         {error && <p className="form-error panel" role="alert">{error}</p>}
         {activeTab === 'overview' && <section className="overview-grid">
           <form className="panel plan-form" onSubmit={save}>
-            <div className="section-heading"><div><p className="eyebrow">Configuration</p><h2>Plan details</h2></div><span className={`status-badge status-${plan.status}`}>{plan.status}</span></div>
-            <label>Title<input name="title" defaultValue={plan.title} maxLength={120} disabled={archived} required /></label>
-            <label>Description<textarea name="description" defaultValue={plan.description ?? ''} maxLength={2000} rows={3} disabled={archived} /></label>
+            <div className="section-heading"><div><p className="eyebrow">{t('plan.configuration')}</p><h2>{t('plan.details')}</h2></div><span className={`status-badge status-${plan.status}`}>{t(`plan.states.${plan.status}`)}</span></div>
+            <label>{t('plan.title')}<input name="title" defaultValue={plan.title} maxLength={120} disabled={archived} required /></label>
+            <label>{t('plan.description')}<textarea name="description" defaultValue={plan.description ?? ''} maxLength={2000} rows={3} disabled={archived} /></label>
             <div className="date-fields">
-              <label>Start date<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={archived} /></label>
-              <label>End date<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={archived} /></label>
+              <label>{t('plan.startDate')}<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={archived} /></label>
+              <label>{t('plan.endDate')}<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={archived} /></label>
             </div>
-            {!archived && <button type="submit">Save changes</button>}
+            {!archived && <button type="submit">{t('plan.save')}</button>}
           </form>
           <div className="overview-aside">
-            <aside className="panel plan-at-a-glance"><p className="eyebrow">At a glance</p><h2>Plan status</h2><dl><div><dt>Current state</dt><dd>{plan.status}</dd></div><div><dt>Starts</dt><dd>{plan.start_date || 'Not set'}</dd></div><div><dt>Ends</dt><dd>{plan.end_date || 'Open-ended'}</dd></div></dl></aside>
+            <aside className="panel plan-at-a-glance"><p className="eyebrow">{t('plan.atGlance')}</p><h2>{t('plan.status')}</h2><dl><div><dt>{t('plan.currentState')}</dt><dd>{t(`plan.states.${plan.status}`)}</dd></div><div><dt>{t('plan.starts')}</dt><dd>{plan.start_date || t('plan.notSet')}</dd></div><div><dt>{t('plan.ends')}</dt><dd>{plan.end_date || t('plan.openEnded')}</dd></div></dl></aside>
             <OverviewProgressChart planId={plan.id} />
           </div>
         </section>}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { apiRequest, ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
@@ -36,6 +37,7 @@ function boundedPercent(value: string) {
 
 export function OverviewProgressChart({ planId }: { planId: string }) {
   const { accessToken } = useAuth()
+  const { t } = useTranslation()
   const [report, setReport] = useState<OverviewReport | null>(null)
   const [error, setError] = useState('')
 
@@ -48,19 +50,19 @@ export function OverviewProgressChart({ planId }: { planId: string }) {
     })
       .then((result) => { setReport(result); setError('') })
       .catch((caught: unknown) => setError(
-        caught instanceof ApiError ? caught.message : 'Could not load this week’s progress.',
+        caught instanceof ApiError ? caught.message : t('chart.error'),
       ))
-  }, [accessToken, planId])
+  }, [accessToken, planId, t])
 
   return <section className="panel overview-chart" aria-labelledby="overview-progress-title">
     <div className="section-heading">
-      <div><p className="eyebrow">This week</p><h2 id="overview-progress-title">Progress snapshot</h2></div>
+      <div><p className="eyebrow">{t('chart.period')}</p><h2 id="overview-progress-title">{t('chart.title')}</h2></div>
       {report && <strong className="chart-score">{formatNumber(report.overall_adherence_percent)}%</strong>}
     </div>
     {error && <p className="form-error" role="alert">{error}</p>}
-    {!report && !error && <p className="chart-message">Calculating progress…</p>}
-    {report && report.activities.length === 0 && <p className="chart-message">Add an activity to see progress here.</p>}
-    {report && report.activities.length > 0 && <div className="chart-bars" role="img" aria-label={`Weekly overall adherence ${formatNumber(report.overall_adherence_percent)} percent`}>
+    {!report && !error && <p className="chart-message">{t('chart.loading')}</p>}
+    {report && report.activities.length === 0 && <p className="chart-message">{t('chart.empty')}</p>}
+    {report && report.activities.length > 0 && <div className="chart-bars" role="img" aria-label={t('chart.aria', { percent: formatNumber(report.overall_adherence_percent) })}>
       {report.activities.map((activity) => <div className="chart-row" key={activity.activity_id}>
         <div className="chart-label"><span>{activity.name}</span><strong>{formatNumber(activity.adherence_percent)}%</strong></div>
         <div className="chart-track"><span style={{ width: `${boundedPercent(activity.adherence_percent)}%` }} /></div>

@@ -3,9 +3,14 @@ import { MemoryRouter } from 'react-router-dom'
 import { afterEach, expect, test, vi } from 'vitest'
 
 import { AuthProvider } from '../features/auth/AuthContext'
+import i18n from '../i18n'
 import { App } from './App'
 
-afterEach(() => vi.restoreAllMocks())
+afterEach(async () => {
+  vi.restoreAllMocks()
+  localStorage.clear()
+  await i18n.changeLanguage('en')
+})
 
 function renderApp(path: string) {
   return render(
@@ -22,6 +27,22 @@ test('renders a crawlable public landing page with product metadata', async () =
   expect(screen.getByRole('heading', { name: /Measure the effort/i })).toBeInTheDocument()
   await waitFor(() => expect(document.title).toBe('SYP — Smart Goal Tracking & AI Coaching'))
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+})
+
+test('switches between Turkish and right-to-left Persian', async () => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
+  renderApp('/')
+
+  const language = screen.getByLabelText('Language')
+  fireEvent.change(language, { target: { value: 'tr' } })
+  expect(await screen.findByRole('link', { name: 'Giriş yap' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'tr')
+  expect(document.documentElement).toHaveAttribute('dir', 'ltr')
+
+  fireEvent.change(screen.getByLabelText('Dil'), { target: { value: 'fa' } })
+  expect(await screen.findByRole('link', { name: 'ورود' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'fa')
+  expect(document.documentElement).toHaveAttribute('dir', 'rtl')
 })
 
 test('redirects an anonymous visitor from the dashboard to login', async () => {

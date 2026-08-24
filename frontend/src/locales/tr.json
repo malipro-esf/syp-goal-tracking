@@ -1,0 +1,15 @@
+{
+  "brand": { "tagline": "Mükemmellikten önce ilerleme" },
+  "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe" },
+  "navigation": { "dashboard": "Gösterge paneli", "plans": "Planlar", "coaching": "Koçluk", "howItWorks": "Nasıl çalışır", "signIn": "Giriş yap", "getStarted": "Başlayın", "signOut": "Çıkış yap" },
+  "plan": {
+    "tabs": { "overview": "Genel bakış", "overviewLong": "Plan genel bakışı", "activities": "Aktiviteler", "progress": "İlerleme", "progressLong": "İlerleme raporu", "entries": "Kayıtlar", "entriesLong": "Son kayıtlar", "feedback": "Geri bildirim", "feedbackLong": "Koç geri bildirimi", "ai": "Yapay Zekâ Koçu", "aiLong": "Yapay zekâ koçu" },
+    "allPlans": "Tüm planlar", "currentPlan": "Mevcut plan",
+    "actions": { "activate": "Etkinleştir", "pause": "Duraklat", "resume": "Devam et", "complete": "Tamamla", "archive": "Arşivle" },
+    "configuration": "Yapılandırma", "details": "Plan ayrıntıları", "title": "Başlık", "description": "Açıklama", "startDate": "Başlangıç tarihi", "endDate": "Bitiş tarihi", "save": "Değişiklikleri kaydet",
+    "atGlance": "Bir bakışta", "status": "Plan durumu", "currentState": "Mevcut durum", "starts": "Başlangıç", "ends": "Bitiş", "notSet": "Ayarlanmadı", "openEnded": "Süresiz",
+    "states": { "draft": "Taslak", "active": "Aktif", "paused": "Duraklatıldı", "completed": "Tamamlandı", "archived": "Arşivlendi" },
+    "errors": { "load": "Plan yüklenemedi.", "save": "Plan kaydedilemedi.", "status": "Durum güncellenemedi." }, "loading": "Plan yükleniyor…"
+  },
+  "chart": { "period": "Bu hafta", "title": "İlerleme özeti", "loading": "İlerleme hesaplanıyor…", "empty": "İlerlemeyi görmek için bir aktivite ekleyin.", "error": "Bu haftanın ilerlemesi yüklenemedi.", "aria": "Haftalık genel uyum yüzde {{percent}}" }
+}

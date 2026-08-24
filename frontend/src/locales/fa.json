@@ -1,0 +1,15 @@
+{
+  "brand": { "tagline": "پیشرفت مهم‌تر از بی‌نقص بودن است" },
+  "language": { "label": "زبان", "english": "انگلیسی", "persian": "فارسی", "turkish": "ترکی" },
+  "navigation": { "dashboard": "داشبورد", "plans": "برنامه‌ها", "coaching": "مربی‌گری", "howItWorks": "نحوه کار", "signIn": "ورود", "getStarted": "شروع کنید", "signOut": "خروج" },
+  "plan": {
+    "tabs": { "overview": "نمای کلی", "overviewLong": "نمای کلی برنامه", "activities": "فعالیت‌ها", "progress": "پیشرفت", "progressLong": "گزارش پیشرفت", "entries": "ثبت‌ها", "entriesLong": "ثبت‌های اخیر", "feedback": "بازخورد", "feedbackLong": "بازخورد مربی", "ai": "مربی هوش مصنوعی", "aiLong": "مربی هوش مصنوعی" },
+    "allPlans": "همه برنامه‌ها", "currentPlan": "برنامه فعلی",
+    "actions": { "activate": "فعال‌سازی", "pause": "توقف موقت", "resume": "ادامه", "complete": "تکمیل", "archive": "بایگانی" },
+    "configuration": "تنظیمات", "details": "جزئیات برنامه", "title": "عنوان", "description": "توضیحات", "startDate": "تاریخ شروع", "endDate": "تاریخ پایان", "save": "ذخیره تغییرات",
+    "atGlance": "در یک نگاه", "status": "وضعیت برنامه", "currentState": "وضعیت فعلی", "starts": "شروع", "ends": "پایان", "notSet": "تعیین نشده", "openEnded": "بدون پایان",
+    "states": { "draft": "پیش‌نویس", "active": "فعال", "paused": "متوقف", "completed": "تکمیل‌شده", "archived": "بایگانی‌شده" },
+    "errors": { "load": "بارگذاری برنامه ممکن نشد.", "save": "ذخیره برنامه ممکن نشد.", "status": "به‌روزرسانی وضعیت ممکن نشد." }, "loading": "در حال بارگذاری برنامه…"
+  },
+  "chart": { "period": "این هفته", "title": "نمای کلی پیشرفت", "loading": "در حال محاسبه پیشرفت…", "empty": "برای مشاهده پیشرفت یک فعالیت اضافه کنید.", "error": "بارگذاری پیشرفت این هفته ممکن نشد.", "aria": "پایبندی کلی هفتگی {{percent}} درصد" }
+}

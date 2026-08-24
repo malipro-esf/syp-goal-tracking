@@ -1,0 +1,15 @@
+{
+  "brand": { "tagline": "Progress over perfection" },
+  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish" },
+  "navigation": { "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "howItWorks": "How it works", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
+  "plan": {
+    "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
+    "allPlans": "All plans", "currentPlan": "Current plan",
+    "actions": { "activate": "Activate", "pause": "Pause", "resume": "Resume", "complete": "Complete", "archive": "Archive" },
+    "configuration": "Configuration", "details": "Plan details", "title": "Title", "description": "Description", "startDate": "Start date", "endDate": "End date", "save": "Save changes",
+    "atGlance": "At a glance", "status": "Plan status", "currentState": "Current state", "starts": "Starts", "ends": "Ends", "notSet": "Not set", "openEnded": "Open-ended",
+    "states": { "draft": "Draft", "active": "Active", "paused": "Paused", "completed": "Completed", "archived": "Archived" },
+    "errors": { "load": "Could not load the plan.", "save": "Could not save the plan.", "status": "Could not update status." }, "loading": "Loading plan…"
+  },
+  "chart": { "period": "This week", "title": "Progress snapshot", "loading": "Calculating progress…", "empty": "Add an activity to see progress here.", "error": "Could not load this week’s progress.", "aria": "Weekly overall adherence {{percent}} percent" }
+}
