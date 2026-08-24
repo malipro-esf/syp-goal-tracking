@@ -25,6 +25,7 @@ button, input, textarea, select { font: inherit; }
 .app-header nav .header-cta:hover { background: #17633e; color: #fff; }
 .header-account { display: flex; align-items: center; gap: .75rem; color: #52675d; font-size: .85rem; }
 .header-account .text-button { color: #17633e; font-weight: 750; }
+.header-account a { color: #365548; font-weight: 750; text-decoration: none; }
 .header-tools { display: flex; align-items: center; gap: .75rem; }
 .language-switcher { display: block; }
 .language-switcher select { width: auto; min-width: 6.5rem; padding: .55rem 2rem .55rem .7rem; font-size: .8rem; font-weight: 700; }
@@ -66,6 +67,17 @@ a { color: #17633e; font-weight: 700; }
 .narrow-workspace { width: min(100%, 48rem); }
 .workspace-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
 .plan-layout { display: grid; grid-template-columns: minmax(17rem, 24rem) 1fr; gap: 1.5rem; align-items: start; }
+.profile-page { max-width: 70rem; }
+.profile-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(17rem, .6fr); gap: 1.25rem; }
+.profile-form { display: grid; gap: 1rem; }
+.profile-form label { display: grid; gap: .45rem; font-weight: 700; }
+.profile-form label small, .account-summary > p { color: #66756d; font-weight: 400; }
+.form-success { color: #167341; }
+.account-summary h2 { margin-top: 0; }
+.account-summary dl { display: grid; gap: 1rem; }
+.account-summary dl > div { padding-bottom: 1rem; border-bottom: 1px solid #e3ebe6; }
+.account-summary dt { color: #66756d; }
+.account-summary dd { margin: .3rem 0 0; overflow-wrap: anywhere; font-weight: 750; }
 .panel { padding: 1.5rem; border: 1px solid #dce6de; border-radius: 1rem; background: #fff; box-shadow: 0 .75rem 2rem rgb(39 75 57 / 7%); }
 .panel h2 { margin-top: 0; color: #183e2c; }
 .plan-form { display: grid; gap: 1rem; }
@@ -549,7 +561,7 @@ a { color: #17633e; font-weight: 700; }
   .audience-grid { grid-template-columns: 1fr; }
   .marketing-footer { grid-template-columns: 1fr; text-align: center; }
   .marketing-footer nav { flex-wrap: wrap; justify-content: center; }
-  .plan-layout { grid-template-columns: 1fr; }
+  .plan-layout, .profile-grid { grid-template-columns: 1fr; }
   .workspace-header { align-items: flex-start; flex-direction: column; }
   .date-fields { grid-template-columns: 1fr; }
   .activity-grid, .activity-card, .progress-row { grid-template-columns: 1fr; }

@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthForm } from '../features/auth/AuthForm'
 import { DashboardPage } from '../features/auth/DashboardPage'
 import { ProtectedRoute } from '../features/auth/ProtectedRoute'
+import { ProfileSettingsPage } from '../features/auth/ProfileSettingsPage'
 import { CoachingPage } from '../features/coaching/CoachingPage'
 import { CoachEnrollmentPage } from '../features/coaching/CoachEnrollmentPage'
 import { PlanDetailPage } from '../features/plans/PlanDetailPage'
@@ -24,6 +25,7 @@ export function App() {
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/settings/profile" element={<ProfileSettingsPage />} />
         <Route path="/plans" element={<PlanListPage />} />
         <Route path="/plans/:planId" element={<PlanDetailPage />} />
         <Route path="/coaching" element={<CoachingPage />} />

@@ -31,6 +31,6 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
         <Link className="header-cta" to="/register">{t('navigation.getStarted')}</Link>
       </>}
     </nav>
-    <div className="header-tools"><LanguageSwitcher />{user && !publicOnly && <div className="header-account"><span>{user.display_name}</span><button type="button" className="text-button" onClick={signOut}>{t('navigation.signOut')}</button></div>}</div>
+    <div className="header-tools"><LanguageSwitcher />{user && !publicOnly && <div className="header-account"><Link to="/settings/profile">{user.display_name}</Link><button type="button" className="text-button" onClick={signOut}>{t('navigation.signOut')}</button></div>}</div>
   </header>
 }
