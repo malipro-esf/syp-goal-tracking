@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from syp.core.config import Settings
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import RefreshSession, Role, User, UserRole
-from syp.identity.schemas import LoginRequest, RegistrationRequest, UserResponse
+from syp.identity.schemas import LoginRequest, ProfileUpdate, RegistrationRequest, UserResponse
 from syp.identity.security import (
     DUMMY_PASSWORD_HASH,
     generate_refresh_token,
@@ -40,9 +40,21 @@ def build_user_response(session: Session, user: User) -> UserResponse:
         id=user.id,
         email=user.email,
         display_name=user.display_name,
+        bio=user.bio,
         timezone=user.timezone,
+        preferred_language=user.preferred_language,
         roles=list(roles),
     )
+
+
+def update_profile(session: Session, user: User, request: ProfileUpdate) -> UserResponse:
+    user.display_name = request.display_name
+    user.bio = request.bio
+    user.timezone = request.timezone
+    user.preferred_language = request.preferred_language
+    session.commit()
+    session.refresh(user)
+    return build_user_response(session, user)
 
 
 def _new_refresh_session(
@@ -80,6 +92,7 @@ def register_user(session: Session, request: RegistrationRequest, settings: Sett
         normalized_email=normalized_email,
         display_name=request.display_name,
         timezone=request.timezone,
+        preferred_language=request.preferred_language,
         password_hash=hash_password(request.password),
     )
     session.add(user)

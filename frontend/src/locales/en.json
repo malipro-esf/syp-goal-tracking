@@ -13,6 +13,7 @@
     "switch": { "registered": "Already registered?", "new": "New to SYP?" },
     "errors": { "unexpected": "Something went wrong. Please try again." }
   },
+  "profile": { "eyebrow": "Personal workspace", "title": "Profile and settings", "description": "Keep your identity and progress preferences accurate.", "displayName": "Display name", "bio": "Short bio", "bioHint": "Optional, up to 500 characters.", "language": "Preferred language", "timezone": "Timezone", "timezoneHint": "Use an IANA timezone such as Europe/Bucharest.", "save": "Save changes", "saving": "Saving…", "saved": "Your profile was updated.", "error": "The profile could not be updated.", "account": "Account information", "email": "Email", "roles": "Roles", "accountHint": "Email and roles cannot be changed from this page." },
   "home": {
     "hero": { "eyebrow": "Smart goal tracking & coaching", "title": "Turn your effort into visible progress.", "description": "Build structured plans, record what you actually completed, and improve without turning every missed target into failure.", "primary": "Start tracking", "secondary": "See how it works", "note": "Designed for real progress—not perfect streaks." },
     "preview": { "aria": "Example weekly progress dashboard", "week": "This week", "onTrack": "On track", "adherence": "overall adherence", "planned": "Planned", "actual": "Actual" },

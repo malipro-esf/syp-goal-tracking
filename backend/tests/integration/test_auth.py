@@ -37,6 +37,44 @@ def test_duplicate_email_is_rejected_case_insensitively(api_client: TestClient) 
     assert response.json()["error"]["code"] == "email_already_registered"
 
 
+def test_user_can_update_only_their_profile_preferences(api_client: TestClient) -> None:
+    registration = api_client.post("/api/v1/auth/register", json=REGISTRATION).json()
+    headers = {"Authorization": f"Bearer {registration['access_token']}"}
+
+    response = api_client.patch(
+        "/api/v1/users/me",
+        headers=headers,
+        json={
+            "display_name": "Updated Learner",
+            "bio": "Working toward IELTS band 8.",
+            "timezone": "Europe/Bucharest",
+            "preferred_language": "fa",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {
+        **registration["user"],
+        "display_name": "Updated Learner",
+        "bio": "Working toward IELTS band 8.",
+        "timezone": "Europe/Bucharest",
+        "preferred_language": "fa",
+    }
+    assert (
+        api_client.patch(
+            "/api/v1/users/me",
+            headers=headers,
+            json={
+                "display_name": "Updated Learner",
+                "bio": None,
+                "timezone": "Not/A_Timezone",
+                "preferred_language": "en",
+            },
+        ).status_code
+        == 422
+    )
+
+
 def test_registration_requires_at_least_eight_password_characters(
     api_client: TestClient,
 ) -> None:

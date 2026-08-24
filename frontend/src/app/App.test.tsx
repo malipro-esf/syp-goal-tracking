@@ -111,6 +111,27 @@ test('redirects an anonymous visitor from the dashboard to login', async () => {
   expect(await screen.findByRole('heading', { name: 'Welcome back' })).toBeInTheDocument()
 })
 
+test('updates the signed-in user profile and preferred language', async () => {
+  const user = { id: '1', email: 'learner@example.com', display_name: 'Learner', bio: null, timezone: 'UTC', preferred_language: 'en' as const, roles: ['participant'] }
+  const updated = { ...user, display_name: 'زبان‌آموز', bio: 'IELTS learner', timezone: 'Europe/Bucharest', preferred_language: 'fa' as const }
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ access_token: 'token', token_type: 'bearer', user }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+
+  const view = renderApp('/settings/profile')
+  expect(await screen.findByRole('heading', { name: 'Profile and settings' })).toBeInTheDocument()
+  expect(view.container.querySelectorAll('.app-header')).toHaveLength(1)
+  fireEvent.change(screen.getByLabelText('Display name'), { target: { value: 'زبان‌آموز' } })
+  fireEvent.change(screen.getByLabelText(/^Short bio/), { target: { value: 'IELTS learner' } })
+  fireEvent.change(screen.getByLabelText('Preferred language'), { target: { value: 'fa' } })
+  fireEvent.change(screen.getByLabelText(/^Timezone/), { target: { value: 'Europe/Bucharest' } })
+  fireEvent.click(screen.getByRole('button', { name: 'Save changes' }))
+
+  expect(await screen.findByRole('heading', { name: 'پروفایل و تنظیمات' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('dir', 'rtl')
+  expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/users/me', expect.objectContaining({ method: 'PATCH' }))
+})
+
 test('logs in and displays the protected dashboard', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch')
   fetchMock.mockResolvedValueOnce(new Response('{}', { status: 401 }))

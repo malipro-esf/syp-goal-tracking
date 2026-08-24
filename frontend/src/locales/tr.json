@@ -13,6 +13,7 @@
     "switch": { "registered": "Zaten kayıtlı mısınız?", "new": "SYP'de yeni misiniz?" },
     "errors": { "unexpected": "Bir sorun oluştu. Lütfen tekrar deneyin." }
   },
+  "profile": { "eyebrow": "Kişisel çalışma alanı", "title": "Profil ve ayarlar", "description": "Kimliğinizi ve ilerleme tercihlerinizi güncel tutun.", "displayName": "Görünen ad", "bio": "Kısa biyografi", "bioHint": "İsteğe bağlı, en fazla 500 karakter.", "language": "Tercih edilen dil", "timezone": "Saat dilimi", "timezoneHint": "Europe/Bucharest gibi bir IANA saat dilimi kullanın.", "save": "Değişiklikleri kaydet", "saving": "Kaydediliyor…", "saved": "Profiliniz güncellendi.", "error": "Profil güncellenemedi.", "account": "Hesap bilgileri", "email": "E-posta", "roles": "Roller", "accountHint": "E-posta ve roller bu sayfadan değiştirilemez." },
   "home": {
     "hero": { "eyebrow": "Akıllı hedef takibi ve koçluk", "title": "Çabanızı görünür ilerlemeye dönüştürün.", "description": "Yapılandırılmış planlar oluşturun, gerçekte yaptıklarınızı kaydedin ve tamamlanmayan her hedefi başarısızlık saymadan gelişin.", "primary": "Takibe başlayın", "secondary": "Nasıl çalıştığını görün", "note": "Mükemmel seriler için değil, gerçek ilerleme için tasarlandı." },
     "preview": { "aria": "Örnek haftalık ilerleme paneli", "week": "Bu hafta", "onTrack": "Yolunda", "adherence": "genel uyum", "planned": "Planlanan", "actual": "Gerçekleşen" },
