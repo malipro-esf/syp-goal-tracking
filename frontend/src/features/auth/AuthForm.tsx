@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
 import { AppHeader } from '../../app/AppHeader'
@@ -7,6 +8,7 @@ import { useAuth } from './useAuth'
 
 export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
   const { isLoading, login, register, user } = useAuth()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -25,7 +27,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
       else await login(email, password)
       navigate('/dashboard', { replace: true })
     } catch (caught) {
-      setError(caught instanceof ApiError ? caught.message : 'Something went wrong. Please try again.')
+      setError(caught instanceof ApiError ? caught.message : t('auth.errors.unexpected'))
     } finally {
       setSubmitting(false)
     }
@@ -35,17 +37,17 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
   return <><AppHeader publicOnly />
     <main className="page-shell auth-page-shell">
       <section className="auth-card">
-        <p className="eyebrow">Progress over perfection.</p>
-        <h1>{registering ? 'Create your account' : 'Welcome back'}</h1>
+        <p className="eyebrow">{t('auth.eyebrow')}</p>
+        <h1>{t(registering ? 'auth.register.title' : 'auth.login.title')}</h1>
         <p className="description">
-          {registering ? 'Start turning plans into measurable progress.' : 'Continue working on your goals.'}
+          {t(registering ? 'auth.register.description' : 'auth.login.description')}
         </p>
         <form onSubmit={submit}>
-          {registering && <label>Display name<input name="displayName" autoComplete="name" minLength={2} maxLength={100} required /></label>}
-          {registering && <label>Account type<select name="accountType" defaultValue="participant"><option value="participant">Participant</option><option value="coach">Coach</option></select></label>}
-          <label>Email<input name="email" type="email" autoComplete="email" required /></label>
+          {registering && <label>{t('auth.fields.displayName')}<input name="displayName" autoComplete="name" minLength={2} maxLength={100} required /></label>}
+          {registering && <label>{t('auth.fields.accountType')}<select name="accountType" defaultValue="participant"><option value="participant">{t('auth.roles.participant')}</option><option value="coach">{t('auth.roles.coach')}</option></select></label>}
+          <label>{t('auth.fields.email')}<input name="email" type="email" autoComplete="email" required /></label>
           <label>
-            Password
+            {t('auth.fields.password')}
             <span className="password-field">
               <input
                 name="password"
@@ -57,7 +59,7 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
               <button
                 type="button"
                 className="password-toggle"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={t(showPassword ? 'auth.password.hide' : 'auth.password.show')}
                 aria-pressed={showPassword}
                 onClick={() => setShowPassword((visible) => !visible)}
               >
@@ -76,12 +78,12 @@ export function AuthForm({ mode }: { mode: 'login' | 'register' }) {
           </label>
           {error && <p className="form-error" role="alert">{error}</p>}
           <button type="submit" disabled={submitting || isLoading}>
-            {submitting ? 'Please wait…' : registering ? 'Create account' : 'Sign in'}
+            {submitting ? t('auth.actions.wait') : t(registering ? 'auth.actions.create' : 'auth.actions.signIn')}
           </button>
         </form>
         <p className="form-switch">
-          {registering ? 'Already registered?' : 'New to SYP?'}{' '}
-          <Link to={registering ? '/login' : '/register'}>{registering ? 'Sign in' : 'Create an account'}</Link>
+          {t(registering ? 'auth.switch.registered' : 'auth.switch.new')}{' '}
+          <Link to={registering ? '/login' : '/register'}>{t(registering ? 'auth.actions.signIn' : 'auth.actions.createLong')}</Link>
         </p>
       </section>
     </main>

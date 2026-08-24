@@ -20,7 +20,6 @@ export function App() {
       <Route path="/features" element={<FeaturesPage />} />
       <Route path="/for-coaches" element={<ForCoachesPage />} />
       <Route path="/how-it-works" element={<HowItWorksPage />} />
-      <Route path="/for-coaches" element={<ForCoachesPage />} />
       <Route path="/login" element={<AuthForm mode="login" />} />
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route element={<ProtectedRoute />}>
