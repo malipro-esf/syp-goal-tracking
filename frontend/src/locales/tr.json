@@ -63,6 +63,30 @@
     } },
     "cta": { "eyebrow": "İlerleme tek kayıtla başlar", "title": "Gerçek çabayı ölçen bir plan oluşturun.", "description": "Bir hedef, bir aktivite ve dürüst bir ilerleme kaydıyla başlayın.", "button": "Hesabınızı oluşturun" }
   },
+  "coachesPage": {
+    "hero": { "eyebrow": "Gerçek ilerlemeye dayalı koçluk", "title": "Varsayımlarla değil, kanıtlarla koçluk yapın.", "description": "Yeniden kullanılabilir plan şablonları oluşturun, katılımcıları davet edin, izin verdikleri ilerlemeyi inceleyin ve planlanan ile gerçek çabaya göre odaklı geri bildirim verin.", "button": "Koç hesabı oluştur", "secondary": "Koçluk akışını görün", "visualAria": "Katılımcı ilerlemesini gösteren örnek koç paneli" },
+    "preview": { "title": "Koç çalışma alanı", "subtitle": "3 aktif katılımcı", "active": "Canlı görünüm", "week": "Bu haftanın genel ilerlemesi", "fitness": "Fitness", "reading": "Okuma" },
+    "workflow": { "eyebrow": "Açık bir koçluk akışı", "title": "Yeniden kullanılabilir yapıdan odaklı desteğe", "description": "SYP atama, sahiplik ve ilerleme erişimini her adımda açık tutar.", "steps": {
+      "template": { "title": "Plan şablonu oluşturun", "description": "Ölçülebilir aktiviteleri, hedefleri, birimleri ve programları bir kez tanımlayıp yeniden kullanın." },
+      "invite": { "title": "Katılımcıyı davet edin", "description": "Mevcut bir katılımcıya e-posta ile plan atama daveti gönderin." },
+      "accept": { "title": "Katılımcı kabul eder", "description": "Kabul edildiğinde katılımcının hesabında bağımsız bir taslak plan kopyası oluşturulur." },
+      "support": { "title": "İnceleyin ve destekleyin", "description": "Kabul edilen atama kapsamında deterministik ilerleme raporlarını inceleyin ve geri bildirim bırakın." }
+    } },
+    "template": { "visualLabel": "Plan şablonu", "reusable": "Yeniden kullanılabilir", "planName": "IELTS hazırlığı", "listening": " dk dinleme", "reading": " sayfa okuma", "writing": " haftalık kompozisyon", "eyebrow": "Bir kez oluşturun, bilinçli atayın", "title": "Yönteminizi yeniden kullanılabilir bir plan şablonuna dönüştürün.", "description": "Her hedefi aynılaştırmadan katılımcılara güçlü bir başlangıç yapısı verin.", "units": "Zaman, sayfa, mesafe, tekrar, ağırlık ve özel birimler kullanın.", "schedules": "Günlük, haftalık veya seçili gün beklentileri belirleyin.", "snapshot": "Kabul edilen her atama bağımsız bir plan kopyasına dönüşür." },
+    "capabilities": { "eyebrow": "Pratik koçluk araçları", "title": "Yapılandırılmış, insani destek için gerekenler", "items": {
+      "reusable": { "title": "Yeniden kullanılabilir şablonlar", "description": "Kanıtlanmış bir programı standartlaştırırken kabulden sonra katılımcı planını bağımsız tutun." },
+      "measurable": { "title": "Ölçülebilir uygulama", "description": "İlerlemeyi tamamlandı ya da başarısız diye sınırlamak yerine beklenen ve gerçek çabayı karşılaştırın." },
+      "visibility": { "title": "Yetkili görünürlük", "description": "Yalnızca atamanızı kabul eden katılımcıların ilerlemesini görün." },
+      "feedback": { "title": "Odaklı geri bildirim", "description": "Gerçek kayıtlara, zayıf aktivitelere ve tutarlılık örüntülerine yararlı bağlamla yanıt verin." }
+    } },
+    "insights": { "eyebrow": "Desteğin nerede gerektiğini görün", "title": "Sohbete başlamadan önce sayıları anlayın.", "description": "Deterministik raporlar bağlılığı, kısmi çabayı ve zayıf aktiviteleri gösterir. Yargı, teşvik ve bağlamı siz eklersiniz.", "consistency": "genel bağlılık", "weakArea": "dinleme bağlılığı", "partial": "kısmi kayıt", "feedback": "Koç geri bildirimi", "today": "Bugün", "message": "Okuma ritmin gelişiyor. Bu hafta dinleme hedefini daha küçük ve daha tutarlı hâle getirelim.", "coach": "Koç" },
+    "boundaries": { "eyebrow": "Tasarımla güven", "title": "Açık sahiplik koçluğu daha güvenli yapar.", "description": "Platform koçun şablonunu katılımcının planı ve kayıtlarından ayırır.", "items": {
+      "ownership": { "title": "İlerleme katılımcıya aittir", "description": "Gerçek çaba kayıtları katılımcıya aittir ve koç tarafından sessizce kontrol edilmez." },
+      "scope": { "title": "Erişim kabulü izler", "description": "Koç ilerlemeyi yalnızca katılımcının kabul ettiği bir atama içinde inceleyebilir." },
+      "history": { "title": "Şablon değişiklikleri öngörülebilir kalır", "description": "Sonraki şablon düzenlemeleri katılımcının bağımsız plan kopyasını sessizce yeniden yazmaz." }
+    } },
+    "cta": { "eyebrow": "İlerlemeyi netlikle destekleyin", "title": "Her koçluk görüşmesine daha iyi kanıt getirin.", "description": "Bir koç hesabı oluşturun ve programınızı ölçülebilir, katılımcıya ait ilerlemeye dönüştürün.", "button": "Koç olarak başlayın" }
+  },
   "plan": {
     "tabs": { "overview": "Genel bakış", "overviewLong": "Plan genel bakışı", "activities": "Aktiviteler", "progress": "İlerleme", "progressLong": "İlerleme raporu", "entries": "Kayıtlar", "entriesLong": "Son kayıtlar", "feedback": "Geri bildirim", "feedbackLong": "Koç geri bildirimi", "ai": "Yapay Zekâ Koçu", "aiLong": "Yapay zekâ koçu" },
     "allPlans": "Tüm planlar", "currentPlan": "Mevcut plan",

@@ -9,6 +9,7 @@ import { PlanListPage } from '../features/plans/PlanListPage'
 import { LandingPage } from './LandingPage'
 import { HowItWorksPage } from './HowItWorksPage'
 import { FeaturesPage } from './FeaturesPage'
+import { ForCoachesPage } from './ForCoachesPage'
 import { RouteSeo } from './RouteSeo'
 import './app.css'
 
@@ -17,7 +18,9 @@ export function App() {
     <><RouteSeo /><Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/features" element={<FeaturesPage />} />
+      <Route path="/for-coaches" element={<ForCoachesPage />} />
       <Route path="/how-it-works" element={<HowItWorksPage />} />
+      <Route path="/for-coaches" element={<ForCoachesPage />} />
       <Route path="/login" element={<AuthForm mode="login" />} />
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route element={<ProtectedRoute />}>
