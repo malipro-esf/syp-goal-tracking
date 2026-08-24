@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowLeft, ChevronRight, ClipboardList, LayoutDashboard, Plus } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { useAuth } from '../auth/useAuth'
@@ -42,8 +43,8 @@ export function PlanListPage() {
   return (
     <main className="workspace-shell">
       <header className="workspace-header">
-        <div><p className="eyebrow">Personal plans</p><h1>Your goals</h1></div>
-        <Link to="/dashboard">Dashboard</Link>
+        <div><p className="eyebrow">Personal plans</p><h1 className="heading-with-icon"><ClipboardList aria-hidden="true" />Your goals</h1></div>
+        <Link className="icon-button" to="/dashboard"><ArrowLeft aria-hidden="true" /><LayoutDashboard aria-hidden="true" />Dashboard</Link>
       </header>
       <section className="plan-layout">
         <form className="panel plan-form" onSubmit={submit}>
@@ -55,7 +56,7 @@ export function PlanListPage() {
             <label>End date<input name="endDate" type="date" /></label>
           </div>
           {error && <p className="form-error" role="alert">{error}</p>}
-          <button type="submit">Create draft</button>
+          <button type="submit" className="icon-button"><Plus aria-hidden="true" />Create draft</button>
         </form>
         <section className="panel" aria-labelledby="plan-list-title">
           <h2 id="plan-list-title">My plans</h2>
@@ -65,7 +66,7 @@ export function PlanListPage() {
             {plans.map((plan) => (
               <Link className="plan-row" to={`/plans/${plan.id}`} key={plan.id}>
                 <span><strong>{plan.title}</strong><small>{plan.description || 'No description'}</small></span>
-                <span className={`status-badge status-${plan.status}`}>{plan.status}</span>
+                <span className="plan-row-action"><span className={`status-badge status-${plan.status}`}>{plan.status}</span><ChevronRight aria-hidden="true" /></span>
               </Link>
             ))}
           </div>
