@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
 
-export const supportedLanguages = ['en', 'fa', 'tr', 'ar', 'de', 'ja', 'zh-CN', 'es', 'fr', 'pt-BR', 'hi', 'ko', 'fi'] as const
+export const supportedLanguages = ['ar', 'en', 'fi', 'fr', 'de', 'hi', 'ja', 'ko', 'fa', 'pt-BR', 'zh-CN', 'es', 'tr'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
 
 type TranslationCatalog = Record<string, unknown>
