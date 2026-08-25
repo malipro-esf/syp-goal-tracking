@@ -283,7 +283,7 @@ test('shows the plan template workspace to a coach', async () => {
   renderApp('/coaching')
 
   expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
-  expect(await screen.findByText('Easy run: 5 kilometer · weekly')).toBeInTheDocument()
+  expect(await screen.findByText('Easy run: 5 Kilometer · Weekly')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
 })
 

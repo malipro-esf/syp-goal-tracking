@@ -147,9 +147,7 @@ a { color: #17633e; font-weight: 700; }
 .report-row dl div { padding: .6rem; border-radius: .5rem; background: #f2f6f2; text-align: center; }
 .report-row dt { color: #617168; font-size: .75rem; }
 .report-row dd { margin: .2rem 0 0; font-weight: 800; }
-.coaching-grid { display: grid; gap: 1.25rem; margin: 1.25rem 0; }
-.assignment-row { display: flex; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: .75rem; }
-.assignment-row span { display: block; color: #617168; }
+.coaching-grid { display: grid; gap: 1.25rem; }
 .feedback-panel { display: grid; gap: 1rem; margin-top: 2rem; }
 .feedback-panel h2 { margin: 0; }
 .feedback-item div { display: flex; justify-content: space-between; gap: 1rem; }
@@ -254,6 +252,43 @@ a { color: #17633e; font-weight: 700; }
 .dashboard-empty > svg { width: 2rem; height: 2rem; color: #6d5dfb; }
 .dashboard-empty h3 { margin: .75rem 0 .25rem; }
 .dashboard-empty p { max-width: 28rem; margin: 0 0 1rem; color: #617168; }
+
+/* Coaching workspace */
+.coaching-topbar > div > p:last-child { max-width: 46rem; margin: .55rem 0 0; color: #617168; }
+.coaching-content { display: grid; gap: 1.5rem; }
+.coaching-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.coaching-create-template { display: grid; max-width: 48rem; gap: 1rem; }
+.coaching-create-template .section-heading > svg { width: 2rem; height: 2rem; color: #6d5dfb; }
+.coaching-templates, .assignment-section { display: grid; gap: 1rem; }
+.coaching-templates > .section-heading, .assignment-section > .section-heading { align-items: center; }
+.coaching-templates h2, .assignment-section h2 { margin: 0; color: #183e2c; }
+.template-card { display: grid; gap: 1.25rem; }
+.template-card-header { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: .9rem; }
+.template-card-header h2 { margin: 0; font-size: 1.25rem; }
+.template-card-header p { margin: .35rem 0 0; color: #617168; }
+.template-icon, .assignment-icon { display: grid; width: 2.6rem; height: 2.6rem; flex: 0 0 auto; place-items: center; border-radius: .75rem; background: rgb(109 93 251 / 12%); color: #6d5dfb; }
+.template-icon svg, .assignment-icon svg { width: 1.25rem; height: 1.25rem; }
+.template-activity-list { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.template-activity-list li { padding: .45rem .65rem; border-radius: 999px; background: #edf3ef; color: #365548; font-size: .82rem; }
+.template-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid #e3ebe6; }
+.template-actions form { align-content: start; padding: 1rem; border-radius: .85rem; background: #f7f9f8; }
+.template-actions h3 { margin: 0 0 .2rem; color: #183e2c; }
+.assignment-list { display: grid; gap: .75rem; }
+.assignment-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 1rem; }
+.assignment-copy { display: grid; min-width: 0; gap: .3rem; }
+.assignment-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.assignment-copy > span { display: inline-flex; align-items: center; gap: .35rem; color: #617168; font-size: .88rem; }
+.assignment-copy > span svg { width: .95rem; height: .95rem; }
+.assignment-open { text-decoration: none; white-space: nowrap; }
+.assignment-buttons { justify-content: flex-end; }
+.assignment-buttons button { padding: .65rem .75rem; }
+.coaching-empty { display: grid; justify-items: center; padding: 2.5rem 1rem; text-align: center; }
+.coaching-empty > svg { width: 2.25rem; height: 2.25rem; color: #6d5dfb; }
+.coaching-empty h3 { margin: .8rem 0 .25rem; }
+.coaching-empty p { margin: 0; color: #617168; }
+.status-pending { background: #fff1dc; color: #995600; }
+.status-accepted { background: #e1f4e8; color: #17633e; }
+.status-rejected { background: #fbe7e4; color: #9b3529; }
 
 /* Public, crawlable product page */
 .marketing-page { --primary: #6d5dfb; --primary-dark: #5142d8; --energy: #ff9f43; --energy-dark: #c75f00; --progress: #22c55e; --brand: #29263d; --muted: #667085; min-height: 100vh; overflow: hidden; background: #fafafe; }
@@ -628,7 +663,9 @@ a { color: #17633e; font-weight: 700; }
   .admin-topbar { min-height: auto; align-items: flex-start; flex-direction: column; padding: 1.25rem; }
   .admin-topbar .lifecycle-actions { justify-content: flex-start; }
   .admin-content { padding: 1rem; }
-  .overview-grid, .dashboard-grid, .admin-content .activity-list, .admin-content .report-list { grid-template-columns: 1fr; }
+  .overview-grid, .dashboard-grid, .template-actions, .admin-content .activity-list, .admin-content .report-list { grid-template-columns: 1fr; }
+  .assignment-card { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .assignment-card .assignment-open, .assignment-card .assignment-buttons { grid-column: 2 / -1; justify-self: start; }
 }
 
 @media (max-width: 480px) {
@@ -641,7 +678,11 @@ a { color: #17633e; font-weight: 700; }
   .effort-example > p { grid-column: 1; }
   .effort-arrow { transform: rotate(90deg); text-align: center; }
   [dir="rtl"] .effort-arrow { transform: rotate(90deg); }
-  .dashboard-metrics { grid-template-columns: 1fr; }
+  .dashboard-metrics, .coaching-metrics { grid-template-columns: 1fr; }
   .dashboard-plan-list > a { grid-template-columns: auto minmax(0, 1fr) auto; }
   .dashboard-plan-list > a > .status-badge { display: none; }
+  .template-card-header { grid-template-columns: auto minmax(0, 1fr); }
+  .template-card-header > .section-count { grid-column: 2; justify-self: start; }
+  .assignment-card { grid-template-columns: auto minmax(0, 1fr); }
+  .assignment-card > .status-badge, .assignment-card .assignment-open, .assignment-card .assignment-buttons { grid-column: 2; justify-self: start; }
 }
