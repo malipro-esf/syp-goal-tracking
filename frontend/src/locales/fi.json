@@ -1,0 +1,723 @@
+{
+  "brand": {
+    "tagline": "Edistys ennen täydellisyyttä"
+  },
+  "language": {
+    "label": "Kieli",
+    "english": "englanti",
+    "persian": "Persia",
+    "turkish": "turkki",
+    "arabic": "arabia",
+    "german": "saksa",
+    "japanese": "Japani",
+    "chineseSimplified": "Yksinkertaistettu kiina",
+    "spanish": "espanja",
+    "french": "ranska",
+    "portugueseBrazilian": "Portugali (Brasilia)",
+    "hindi": "Hindi",
+    "korean": "korea",
+    "finnish": "Suomi"
+  },
+  "navigation": {
+    "dashboard": "Kojelauta",
+    "plans": "Suunnitelmat",
+    "coaching": "Valmennus",
+    "features": "Ominaisuudet",
+    "howItWorks": "Miten se toimii?",
+    "forCoaches": "Valmentajille",
+    "signIn": "Kirjaudu sisään",
+    "getStarted": "Aloita",
+    "signOut": "Kirjaudu ulos"
+  },
+  "auth": {
+    "eyebrow": "Edistys ennen täydellisyyttä.",
+    "login": {
+      "title": "Tervetuloa takaisin",
+      "description": "Jatka tavoitteiden työstämistä."
+    },
+    "register": {
+      "title": "Luo tilisi",
+      "description": "Ala tehdä suunnitelmista mitattavissa olevaa edistystä."
+    },
+    "fields": {
+      "displayName": "Näytä nimi",
+      "accountType": "Tilityyppi",
+      "email": "Sähköposti",
+      "password": "Salasana"
+    },
+    "roles": {
+      "participant": "Osallistuja",
+      "coach": "Valmentaja"
+    },
+    "password": {
+      "show": "Näytä salasana",
+      "hide": "Piilota salasana"
+    },
+    "actions": {
+      "wait": "Odottakaa...",
+      "create": "Luo tili",
+      "createLong": "Luo tili",
+      "signIn": "Kirjaudu sisään"
+    },
+    "switch": {
+      "registered": "Oletko jo rekisteröitynyt?",
+      "new": "Oletko uusi SYP-käyttäjä?"
+    },
+    "errors": {
+      "unexpected": "Jokin meni pieleen. Yritä uudelleen."
+    }
+  },
+  "profile": {
+    "eyebrow": "Henkilökohtainen työtila",
+    "title": "Profiili ja asetukset",
+    "description": "Pidä henkilötietosi ja edistymisasetuksesi ajan tasalla.",
+    "displayName": "Näyttönimi",
+    "bio": "Lyhyt bio",
+    "bioHint": "Valinnainen, enintään 500 merkkiä.",
+    "language": "Ensisijainen kieli",
+    "timezone": "Aikavyöhyke",
+    "timezoneHint": "Käytä IANA aikavyöhyke kuten Europe/Bucharest.",
+    "save": "Tallenna muutokset",
+    "saving": "Tallennetaan…",
+    "saved": "Profiilisi on päivitetty.",
+    "error": "Profiilia ei voitu päivittää.",
+    "account": "Tilitiedot",
+    "email": "Sähköposti",
+    "roles": "Roolit",
+    "accountHint": "Sähköpostia ja rooleja ei voi muuttaa tältä sivulta."
+  },
+  "dashboard": {
+    "eyebrow": "Sinun edistymistyötilasi",
+    "greeting": "Hei, {{name}}",
+    "description": "Katso suunnitelmat, painopisteet, ja seuraavat toimet yhdellä silmäyksellä.",
+    "createPlan": "Luo suunnitelma",
+    "sidebar": {
+      "workspace": "Henkilökohtainen työtila",
+      "navigation": "Kojelaudan osiot",
+      "overview": "Yleiskatsaus",
+      "settings": "Asetukset"
+    },
+    "metrics": {
+      "label": "Suunnitelman yhteenveto",
+      "total": "Suunnitelmat yhteensä",
+      "active": "Aktiiviset suunnitelmat",
+      "completed": "Valmis"
+    },
+    "recent": {
+      "eyebrow": "Jatka siitä mihin jäit.",
+      "title": "Viimeaikaiset suunnitelmat",
+      "viewAll": "Näytä kaikki",
+      "loading": "Ladataan suunnitelmia…",
+      "emptyTitle": "Ei vielä suunnitelmia.",
+      "emptyDescription": "Luo ensimmäinen suunnitelmasi ja muuta tavoite mitattaviksi teoiksi.",
+      "emptyAction": "Luo ensimmäinen suunnitelma",
+      "updated": "Päivitetty {{date}}"
+    },
+    "actions": {
+      "eyebrow": "Pikanäppäimet",
+      "title": "Nopeat toimet",
+      "manage": "Hallitse suunnitelmia",
+      "manageDescription": "Luo, tarkista tai päivitä tavoitteitasi.",
+      "coach": "Valmentajan työtila",
+      "invitations": "Suunnitelmakutsut",
+      "coachingDescription": "Jatka valmennusyhteistyötä.",
+      "settings": "Profiili ja asetukset",
+      "settingsDescription": "Päivitä kieli, aikavyöhyke ja identiteetti."
+    },
+    "errors": {
+      "load": "Yleiskuvaasi ei voitu ladata."
+    }
+  },
+  "plansPage": {
+    "eyebrow": "Henkilökohtaiset suunnitelmat",
+    "title": "Sinun tavoitteesi",
+    "create": {
+      "title": "Luo suunnitelma",
+      "action": "Luo luonnos"
+    },
+    "fields": {
+      "title": "Nimi",
+      "description": "Kuvaus",
+      "startDate": "Aloituspäivä",
+      "endDate": "Päättymispäivä"
+    },
+    "list": {
+      "title": "Suunnitelmani",
+      "loading": "Ladataan suunnitelmia…",
+      "empty": "Ei vielä suunnitelmia. Luo ensimmäinen luonnoksesi.",
+      "noDescription": "Ei kuvausta"
+    },
+    "errors": {
+      "load": "Ei voitu ladata suunnitelmia.",
+      "create": "Suunnitelmaa ei voitu luoda."
+    }
+  },
+  "coachingPage": {
+    "eyebrow": "Valmentajayhteistyö",
+    "coachTitle": "Suunnitelmamallit ja tehtävät",
+    "participantTitle": "Suunnitelmakutsut",
+    "coachDescription": "Rakenna uudelleenkäytettäviä rakenteita, osoita ne harkitusti ja tue edistystä todisteilla.",
+    "participantDescription": "Tarkista kutsut ja jatka valmennussuhteita olet hyväksynyt.",
+    "summary": {
+      "label": "Kutsujen tiivistelmä",
+      "total": "Kutsut yhteensä",
+      "pending": "Odotetaan",
+      "accepted": "Hyväksytty"
+    },
+    "fields": {
+      "title": "Nimi",
+      "description": "Kuvaus",
+      "name": "Nimi",
+      "target": "Kohde",
+      "unit": "Yksikkö",
+      "frequency": "Toistuvuus",
+      "email": "Sähköposti",
+      "startDate": "Aloituspäivä"
+    },
+    "template": {
+      "eyebrow": "Uudelleenkäytettävä rakenne",
+      "new": "Uusi suunnitelmamalli",
+      "create": "Luo suunnitelmamalli",
+      "libraryEyebrow": "Valmennusjärjestelmä",
+      "library": "Suunnitelmamallikirjasto",
+      "activityCount": "{{count}} toimintoa",
+      "emptyTitle": "Ei vielä malleja",
+      "emptyDescription": "Luo osallistujille uusittavissa oleva suunnitelmarakenne."
+    },
+    "activity": {
+      "add": "Lisää toiminto",
+      "action": "Lisää toiminto"
+    },
+    "units": {
+      "minute": "Minuutti",
+      "page": "Sivu",
+      "repetition": "Toistaminen",
+      "kilometer": "Kilometri"
+    },
+    "schedules": {
+      "daily": "Päivä",
+      "weekly": "Viikoittain"
+    },
+    "assignment": {
+      "eyebrow": "Valmennussuhteet",
+      "assign": "Määritä osallistujalle",
+      "send": "Lähetä kutsu",
+      "sent": "Lähetetyt tehtävät",
+      "invitations": "Kutsunne",
+      "emptyTitle": "Ei vielä kutsuja.",
+      "empty": "Uudet valmennuskutsut tulevat tänne.",
+      "starts": "Alkaa {{date}}",
+      "accept": "Hyväksy",
+      "reject": "Hylkää",
+      "review": "Tarkastele edistymistä",
+      "open": "Avoin suunnitelma"
+    },
+    "statuses": {
+      "pending": "Odotetaan",
+      "accepted": "Hyväksytty",
+      "rejected": "Hylättiin."
+    },
+    "errors": {
+      "load": "Valmennusta ei voitu ladata.",
+      "createTemplate": "Suunnitelmamallia ei voitu luoda.",
+      "addActivity": "Toimintaa ei voitu lisätä.",
+      "send": "Ei voitu lähettää kutsua.",
+      "respond": "En voinut vastata kutsuun."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Älykäs tavoitteiden seuranta ja valmennus",
+      "title": "Tee ponnisteluistasi näkyvää edistystä.",
+      "description": "Luo jäsenneltyjä suunnitelmia, kirjaa mitä todella sait aikaan ja kehity muuttamatta jokaista saavuttamatta jäänyttä tavoitetta epäonnistumiseksi.",
+      "primary": "Aloita seuranta",
+      "secondary": "Katso miten se toimii",
+      "note": "Suunniteltu todelliseen edistymiseen – ei täydellisiin putkiin."
+    },
+    "preview": {
+      "aria": "Esimerkki viikoittaisesta edistymiskojelaudasta",
+      "week": "Tällä viikolla",
+      "onTrack": "Tavoitteessa",
+      "adherence": "kokonaisnoudattaminen",
+      "planned": "Suunniteltu",
+      "actual": "Todellinen"
+    },
+    "philosophy": {
+      "eyebrow": "Edistys ennen täydellisyyttä",
+      "title": "Osittainen tulos on edelleen todellinen tulos.",
+      "description": "Tavalliset tehtäväsovellukset näkevät keskeneräisen kohteen. SYP näkee tekemäsi työn ja antaa sinulle rehellisen kuvan edistymisestäsi.",
+      "planned": "Suunniteltu",
+      "actual": "Todellinen",
+      "minutes": "minuuttia",
+      "progress": "Edistyminen"
+    },
+    "how": {
+      "eyebrow": "Miten se toimii?",
+      "title": "Aikomuksesta mitattavissa olevaan toteuttamiseen",
+      "description": "Yksinkertainen rytmi, joka pitää tavoitteet käytännöllisinä ja päätökset tosidatassa.",
+      "steps": {
+        "structure": {
+          "title": "Rakenna tavoitteesi",
+          "description": "Tehdä merkityksellinen tavoite kohdennetuksi suunnitelmaksi."
+        },
+        "record": {
+          "title": "Lisää mitattavissa olevat toimet",
+          "description": "Valitse kohteet, yksiköt ja realistiset aikataulut."
+        },
+        "understand": {
+          "title": "Kirjaa todellinen ponnistelu",
+          "description": "Vangitkaa juuri se, mitä suorititte."
+        },
+        "adjust": {
+          "title": "Ymmärrä ja säädä",
+          "description": "Käytä edistymiskäsityksiä ja palautetta parantaaksesi seuraavia vaiheita."
+        }
+      }
+    },
+    "goals": {
+      "eyebrow": "Rakennettu erilaisiin tavoitteisiin",
+      "title": "Yksi edistymisjärjestelmä. Monenlaisia tavoitteita.",
+      "description": "Seuraa aikaa, matkaa, sivuja, toistoja, painoa, määriä ja mukautettuja yksiköitä.",
+      "items": {
+        "ielts": "IELTS-valmistelu",
+        "fitness": "Fitness",
+        "reading": "Lukeminen",
+        "programming": "Opi ohjelmointi",
+        "running": "Juoksu",
+        "development": "Henkilökohtainen kehitys"
+      }
+    },
+    "insights": {
+      "eyebrow": "Selkeä edistyminen",
+      "title": "Tiedä mikä liikkuu ja mikä kaipaa huomiota.",
+      "description": "SYP:n deterministinen moottori laskee edistymisesi suunnitelmasta ja todellisista kirjauksista. Sama data tuottaa aina saman tuloksen.",
+      "demoTitle": "Viikoittaiset toimet",
+      "items": {
+        "plannedActual": "Vertaa suunniteltuja ja todellisia toimia",
+        "partial": "Tunnista osittainen edistyminen",
+        "consistency": "Ymmärtää johdonmukaisuutta ajan mittaan",
+        "weakAreas": "Heikentynyttä toimintaa varhain"
+      }
+    },
+    "audience": {
+      "eyebrow": "Kasvaa itsenäisesti tai yhdessä",
+      "title": "Hyödyllistä osallistujille. Keskittynyt valmentajille.",
+      "participants": {
+        "title": "Osallistujat",
+        "description": "Hallitse tavoitteitasi ja ymmärrä toteutustasi.",
+        "items": {
+          "personalPlans": "Rakenna henkilökohtaiset suunnitelmat",
+          "actualEffort": "Tallenna todelliset ponnistelut",
+          "weakAreas": "Etsi heikkoja alueita",
+          "feedback": "Valmentajapalautteen vastaanottaminen"
+        }
+      },
+      "coaches": {
+        "title": "Valmentajille",
+        "description": "Tukemaan ihmisiä käyttäen todisteita, ei olettamuksia.",
+        "items": {
+          "templates": "Luo uudelleenkäytettäviä suunnitelmamalleja",
+          "assign": "Määrittele strukturoidut suunnitelmat",
+          "review": "Osallistujien edistyminen",
+          "feedback": "Jätä keskittynyt palaute"
+        }
+      }
+    },
+    "ai": {
+      "eyebrow": "Valinnaiset tekoälyohjeet",
+      "title": "Tekoälyvalmentaja, joka perustuu todelliseen edistymiseesi.",
+      "description": "Kysy miksi jäät jälkeen tai mihin keskittyä seuraavaksi. Tekoäly lukee hallittuja edistymistyökaluja, kun taas deterministinen moottori on edelleen totuuden lähde.",
+      "readOnly": "Vain lukutyökalut",
+      "consent": "Erityinen suostumus tietoihin",
+      "available": "Ydinsovellus toimii ilman tekoälyä"
+    },
+    "cta": {
+      "eyebrow": "Seuraava askel voi olla pieni",
+      "title": "Edistyksen ei tarvitse olla täydellistä ollakseen mielekästä.",
+      "description": "Luo ensimmäinen suunnitelma ja alkaa nähdä vaivaa takana tavoitteita.",
+      "button": "Luo tilisi"
+    },
+    "footer": {
+      "name": "Katso edistymistäsi",
+      "tagline": "Edistys ennen täydellisyyttä.",
+      "navigation": "Alatunnisteen navigointi",
+      "features": "Ominaisuudet",
+      "coaches": "Valmentajille"
+    }
+  },
+  "howPage": {
+    "hero": {
+      "eyebrow": "Näin SYP toimii",
+      "title": "Käytännön järjestelmä, jolla aikomukset voidaan toteuttaa.",
+      "description": "SYP yhdistää suunnitelmasi siihen, mitä todella teit. Se säilyttää osittain vaivaa, laskee edistystä johdonmukaisesti, ja auttaa sinua päättämään, mitä tehdä seuraavaksi.",
+      "button": "Luo ensimmäinen suunnitelma"
+    },
+    "workflow": {
+      "eyebrow": "Työnkulku",
+      "title": "Neljä askelta tavoitteesta oivallukseen",
+      "steps": {
+        "plan": {
+          "title": "Luo kohdennettu suunnitelma",
+          "description": "Anna tavoitteellesi selkeä tarkoitus, aikataulu ja lopputulos. Suunnitelma voi olla henkilökohtainen tai perustua valmentajan uudelleenkäytettävään malliin.",
+          "example": "Esimerkki: Paranna IELTS pisteet 12 viikon."
+        },
+        "activities": {
+          "title": "Määritellään mitattavissa olevat toimet",
+          "description": "Murtaa suunnitelma toimiin määriä, yksiköitä ja aikatauluja, jotka vastaavat tavoite.",
+          "example": "Esimerkki: Kuuntele 30 minuuttia joka päivä."
+        },
+        "effort": {
+          "title": "Tallenna mitä todella tapahtui",
+          "description": "Anna todellinen määrä olet suorittanut. SYP pitää osittaisia tuloksia sen sijaan, että lyhentäisit päivän onnistumiseen tai epäonnistumiseen.",
+          "example": "Esimerkki: Suunniteltu 30 minuuttia, valmis 18."
+        },
+        "report": {
+          "title": "Uudelleentarkastelu ja parempi seuraava päätös",
+          "description": "Verrataan odotettuja ja todellisia toimia eri toimintoihin, päivämääriin ja suuntauksiin determinististen raporttien avulla.",
+          "example": "Esimerkki: 170 210 suunnitellusta minuutista vastaa 81%:n sitoutumista."
+        }
+      }
+    },
+    "visual": {
+      "goal": "Tavoitesuunnitelma",
+      "ielts": "IELTS-valmistelu",
+      "listening": "Kuuntele · minuuttia",
+      "reading": "Lukeminen · sivut",
+      "writing": "Kirjoitetaan · esseitä",
+      "planned": "Suunniteltu",
+      "actual": "Todellinen",
+      "week": "Tällä viikolla",
+      "report": "Yleinen"
+    },
+    "engine": {
+      "eyebrow": "Yksi totuuden lähde",
+      "title": "Edistymismoottori vastaa luvuista.",
+      "description": "Raportit lasketaan tallennettujen odotusten ja todellisten tietueiden perusteella. Valvojat, valmentajat ja tekoäly kuluttavat tuloksia kilpailevien laskelmien sijaan.",
+      "aria": "Suunnitelma-odotukset ja todelliset tiedot tuottavat deterministisen edistymisraportin",
+      "plan": "Suunnitelma-odotukset",
+      "records": "Todelliset tietueet",
+      "result": "Edistymiskertomus"
+    },
+    "principles": {
+      "eyebrow": "Suunniteltu todellisen toteutuksen ympärille",
+      "title": "Mikä tekee järjestelmästä erilaisen",
+      "items": {
+        "partial": {
+          "title": "Osittainen ponnistelu huomioidaan",
+          "description": "18 / 30 minuuttia on kirjattu merkitseväksi edistykseksi."
+        },
+        "deterministic": {
+          "title": "Tulokset pysyvät selitettävissä",
+          "description": "Sama suunnitelma ja rekisterit tuottavat aina saman raportin, joten jokainen prosenttiosuus voidaan jäljittää."
+        },
+        "control": {
+          "title": "Sinä pysyt hallinnassa.",
+          "description": "Valmentajapalaute ja tekoälyn ohjaus voivat antaa tietoa päätöksistä, mutta kriittistä tietoa ei koskaan muuteta hiljaa."
+        }
+      }
+    },
+    "roles": {
+      "coach": {
+        "eyebrow": "Ihmisvalmennus",
+        "title": "Valmentajat lisäävät kontekstia ja vastuullisuutta.",
+        "description": "Valmentaja voi määrittää jäsennellyn suunnitelman, tarkistaa valtuutetun osallistujan edistymisen ja jättää palautetta ilman osallistujan ennätyksiä."
+      },
+      "ai": {
+        "eyebrow": "Valinnainen tekoälyvalmennus",
+        "title": "Tekoäly selittää dataa ohjattujen työkalujen avulla.",
+        "description": "Tekoälyvalmentaja voi nimenomaisella suostumuksella tarkastaa vain edistymistiedot ja ehdottaa muutoksia. Ydinsovellus toimii edelleen ilman tekoälyä."
+      }
+    },
+    "cta": {
+      "eyebrow": "Aloita yhdellä merkityksellisellä tavoitteella",
+      "title": "Suunnittele. Kirjaa. Näe edistymisesi.",
+      "description": "Luo jäsennelty suunnitelma ja muuta seuraava työ hyödylliseksi tiedoksi.",
+      "button": "Aloita"
+    }
+  },
+  "featuresPage": {
+    "hero": {
+      "eyebrow": "Tuoteominaisuudet",
+      "title": "Kaikki tarvittava tavoitteiden muuttamiseen mitattavaksi edistykseksi.",
+      "description": "SYP yhdistää joustavan suunnittelun, rehellisen työn seurannan, deterministisen raportoinnin ja vapaaehtoisen valmennuksen yhdessä keskitetyssä työtilassa.",
+      "button": "Aloita seuranta",
+      "secondary": "Katso työnkulkua",
+      "visualAria": "Suunnitelma, ponnistelut, edistyminen, valmentaja ja tekoäly ovat yleiskatsaus",
+      "week": "Tällä viikolla",
+      "adherence": "yleinen noudattaminen",
+      "plan": "Suunnitelma",
+      "coach": "Valmentajapalaute"
+    },
+    "catalog": {
+      "eyebrow": "Ydinominaisuudet",
+      "title": "Rakennettu toteutuksen – ei valintaruutujen – ympärille",
+      "description": "Jokainen kyky tukee samaa periaatetta: tallenna todellisuus, ymmärrä se selkeästi ja tee parempi seuraava päätös.",
+      "items": {
+        "plans": {
+          "title": "Rakenteelliset tavoitesuunnitelmat",
+          "description": "Luo henkilökohtaiset suunnitelmat tai hyväksy riippumaton tilannekatsaus annetaan valmentaja malli.",
+          "detail": "Luonnos, aktiivinen, tauko, valmis ja arkistoitu elinkaari."
+        },
+        "measurement": {
+          "title": "Joustava mittaus",
+          "description": "Käytä aikaa, sivuja, toistoja, etäisyyttä, painoa, määriä, tai mukautetun yksikön.",
+          "detail": "Päivittäin, valittu päivä, ja viikoittain kiintiö aikataulut."
+        },
+        "effort": {
+          "title": "Todellisen ponnistelun kirjaukset",
+          "description": "Tallenna tarkalleen mitä tapahtui, mukaan lukien osittainen edistyminen ja useita merkintöjä yhtenä päivänä.",
+          "detail": "Korjaukset ja palautukset säilyttävät eheyden."
+        },
+        "reports": {
+          "title": "Deterministiset raportit",
+          "description": "Vertaa odotettua ja todellista vaivaa toiminnan kautta tänään, tällä viikolla, tai mukautetun valikoiman.",
+          "detail": "Selittäkää, miten saavutan, pysyn ja esiinnyn."
+        },
+        "coaching": {
+          "title": "Valmentajayhteistyö",
+          "description": "Luo uudelleenkäytettäviä malleja, kutsu osallistujia, tutustu sallittuun edistymiseen ja jätä palautetta.",
+          "detail": "Osallistujat säilyttävät omistusoikeutensa."
+        },
+        "ai": {
+          "title": "Valvottu tekoälyn ohjaus",
+          "description": "Esitä todellisiin suunnitelmatietoihin pohjautuvia kysymyksiä täsmällisillä, vain lukusovellustyökaluilla.",
+          "detail": "Suostumus vaaditaan ja perusominaisuudet toimivat ilman tekoälyä."
+        }
+      }
+    },
+    "partial": {
+      "eyebrow": "Rehellinen työn seuranta",
+      "title": "Edistyminen on enemmän kuin tehty tai tekemättä.",
+      "description": "SYP säilyttää tosiasiallisesti suoritetun määrän, joten vaikeat päivät antavat silti hyödyllistä tietoa.",
+      "multiple": "Säästää useita ponnisteluja samana päivänä",
+      "correction": "Korjaa virheelliset kirjaukset",
+      "history": "Pidä odotukset ajan tasalla eikä kirjoittaa uudelleen historia",
+      "activity": "Kuuntelukäytäntö",
+      "today": "Tänään",
+      "planned": "Suunniteltu",
+      "actual": "Todellinen",
+      "recorded": "Ponnistus kirjattu"
+    },
+    "reporting": {
+      "eyebrow": "Huolellinen edistyminen matematiikassa",
+      "title": "Nähdä tuloksia vääristämättä tasapainoisia raportteja.",
+      "description": "Saavutettu määrä voi olla yli 100%. Sitoutuminen on rajattu siten, että yksi ylisaavutettu toiminta ei piilota toista heikkoa aluetta.",
+      "attainment": "Saavutusaste",
+      "uncapped": "rajoittamaton saavutus",
+      "adherence": "Noudattaminen",
+      "capped": "rajattu tasapainon vuoksi",
+      "expected": "Odotettu",
+      "actual": "Todellinen",
+      "ranges": "Tänään, viikoittain, ja mukautetun valikoimat",
+      "breakdown": "Täydelliset, osittaiset, puuttuvat ja tulevat tapahtumat",
+      "units": "Toimintotason raportointi pitää yhteensopimattomat yksiköt erillään"
+    },
+    "coaching": {
+      "eyebrow": "Tahallinen valmennustyö",
+      "title": "Rakenne voidaan jakaa ilman omistusta.",
+      "description": "Hyväksytty toimeksianto luo riippumattoman osallistujasuunnitelman. Tulevaisuuden mallin muokkaukset eivät hiljaa uudelleenkirjoita sitä.",
+      "template": "Suunnitelmamalli",
+      "invitation": "Kutsu",
+      "snapshot": "Osallistujan suunnitelma",
+      "feedback": "Sopeutettu palaute"
+    },
+    "trust": {
+      "eyebrow": "Valvonta ja sietokyky",
+      "title": "Sovellus on edelleen hyödyllinen, yksityinen ja ymmärrettävä.",
+      "description": "Tekoäly ja valmennus parantavat järjestelmää ilman, että niistä tulee piilotettuja riippuvuuksia.",
+      "items": {
+        "auth": {
+          "title": "Turvalliset istunnot",
+          "description": "Lyhytikäiset käyttöoikeustunnukset ja vaihtuvat HttpOnly-päivitysevästeet suojaavat todennettuja työtiloja."
+        },
+        "consent": {
+          "title": "Nimenomaan tekoälyn suostumus",
+          "description": "Asiaa koskevat edistymistiedot lähetetään tekoälyvastauksesta vasta sen jälkeen, kun käyttäjä on suostunut pyyntöön."
+        },
+        "independent": {
+          "title": "Tekoälystä riippumaton ydin",
+          "description": "Suunnitelmat, tiedot, raportit ja valmennus toimivat edelleen, kun tekoäly on pois päältä tai poissa käytöstä."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Edistyminen alkaa yhdellä tietueella",
+      "title": "Rakenna suunnitelma, joka mittaa todellisia ponnisteluja.",
+      "description": "Aloita yhdellä tavoitteella, yhdellä toimella ja yhdellä rehellisellä edistymisellä.",
+      "button": "Luo tilisi"
+    }
+  },
+  "coachesPage": {
+    "hero": {
+      "eyebrow": "Todelliseen edistymiseen perustuva valmennus",
+      "title": "Valmenna todisteiden – älä oletusten – avulla.",
+      "description": "Luo uudelleenkäytettäviä suunnitelmamalleja, kutsu osallistujia, tutustu heidän hyväksymäänsä edistykseen ja jätä kohdennettua palautetta suunnitellun vs. todellisen työn perusteella.",
+      "button": "Luo valmentajatili",
+      "secondary": "Katso valmennustyön kulkua",
+      "visualAria": "Esimerkki valmentaja kojelauta näyttää osallistujan edistymistä"
+    },
+    "preview": {
+      "title": "Valmentajan työtila",
+      "subtitle": "3 aktiivista osallistujaa",
+      "active": "Live-katsaus",
+      "week": "Tämän viikon kokonaiskehitys",
+      "fitness": "Fitness",
+      "reading": "Lukeminen"
+    },
+    "workflow": {
+      "eyebrow": "Selkeä valmennustyö",
+      "title": "Uudelleenkäytettävästä rakenteesta kohdennettuun tukeen",
+      "description": "SYP pitää tehtävän, omistajuuden ja edistymisen suorana joka vaiheessa.",
+      "steps": {
+        "template": {
+          "title": "Luo suunnitelmamalli",
+          "description": "Määrittele mitattavissa olevat toiminnot, tavoitteet, yksiköt ja aikataulut kerran ja käytä rakenne uudelleen."
+        },
+        "invite": {
+          "title": "Kutsu osallistuja",
+          "description": "Lähetä toimeksiantokutsu olemassa olevalle osallistujalle sähköpostitse."
+        },
+        "accept": {
+          "title": "Osallistuja hyväksyy",
+          "description": "Hyväksyminen luo osallistujan tilille itsenäisen suunnitelmaluonnoksen."
+        },
+        "support": {
+          "title": "Uudelleentarkastelu ja tuki",
+          "description": "Tutki deterministiset edistymisraportit ja jätä palaute hyväksyttyyn toimeksiantoon."
+        }
+      }
+    },
+    "template": {
+      "visualLabel": "Suunnitelmamalli",
+      "reusable": "Uudelleen käytettäväksi",
+      "planName": "IELTS-valmistelu",
+      "listening": "min",
+      "reading": "sivujen lukeminen",
+      "writing": "esseitä viikoittain",
+      "eyebrow": "Koosta kerran, anna harkitusti",
+      "title": "Muuta menetelmä uudelleenkäytettäväksi malliksi.",
+      "description": "Anna osallistujille vahva aloitusrakenne ilman, että jokainen tavoite on sama.",
+      "units": "Käytä aikaa, sivuja, etäisyyttä, toistoja, painoa ja mukautettuja yksiköitä.",
+      "schedules": "Aseta päivittäin, viikoittain tai valitun päivän odotukset.",
+      "snapshot": "Jokaisesta hyväksytystä tehtävästä tulee itsenäinen suunnitelmakuva."
+    },
+    "capabilities": {
+      "eyebrow": "Käytännön valmennusvälineet",
+      "title": "Kaikki, mitä tarvitaan jäsenneltyyn, inhimilliseen tukeen",
+      "items": {
+        "reusable": {
+          "title": "Uudelleenkäytettävät mallit",
+          "description": "Standardoi todistettu ohjelma samalla pitää osallistujan suunnitelmat itsenäisinä hyväksymisen jälkeen."
+        },
+        "measurable": {
+          "title": "Mitattava suoritus",
+          "description": "Verrataan odotettuja ja todellisia toimia sen sijaan, että edistyttäisiin loppuun tai epäonnistutaan."
+        },
+        "visibility": {
+          "title": "Sallittu näkyvyys",
+          "description": "Katso edistymistä vain niille osallistujille, jotka hyväksyivät tehtäväsi."
+        },
+        "feedback": {
+          "title": "Keskitetty palaute",
+          "description": "Vastatkaa todellisiin tietoihin, heikkoihin toimintoihin ja johdonmukaisuuteen hyödyllisessä kontekstissa."
+        }
+      }
+    },
+    "insights": {
+      "eyebrow": "Katso, missä tuki on tärkeää",
+      "title": "Ymmärrä numerot ennen keskustelun aloittamista.",
+      "description": "Deterministiset raportit paljastavat sitoutumisen, osittaisen ponnistelun ja heikomman toiminnan. Siihen lisätään arvostelukyky, rohkaisu ja konteksti.",
+      "consistency": "yleinen noudattaminen",
+      "weakArea": "kuuntelun noudattaminen",
+      "partial": "Osittainen merkintä",
+      "feedback": "Valmentajapalaute",
+      "today": "Tänään",
+      "message": "Lukurytmisi paranee. Tehdään kuuntelusta pienempi ja johdonmukaisempi tällä viikolla.",
+      "coach": "Valmentaja"
+    },
+    "boundaries": {
+      "eyebrow": "Luottamus suunnitellusti",
+      "title": "Selvä omistajuus tekee valmentamisesta turvallisempaa.",
+      "description": "Alusta erottaa valmentajan mallin osallistujan suunnitelmasta ja tietueista.",
+      "items": {
+        "ownership": {
+          "title": "Osallistujat omistavat edistyksen",
+          "description": "Todelliset tiedot kuuluvat osallistujalle, eivätkä ne koskaan ole valmentajan äänettömästi hallinnassa."
+        },
+        "scope": {
+          "title": "Pääsy on hyväksytty",
+          "description": "Valmentaja voi tarkastella edistymistä vain osallistujan hyväksymän tehtävän sisällä."
+        },
+        "history": {
+          "title": "Mallin muutokset pysyvät ennustettavissa",
+          "description": "Myöhemmin mallimuokkaukset eivät hiljaa uudelleenkirjoita osallistujan itsenäistä suunnitelmakuvaa."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Tuetaan edistymistä selkeästi",
+      "title": "Anna jokaiselle valmennuskeskustelulle paremmat todisteet.",
+      "description": "Luo valmentajatili ja muuta ohjelmasi mitattavissa olevaksi, osallistujan omistamaksi edistykseksi.",
+      "button": "Aloita valmentajana"
+    }
+  },
+  "plan": {
+    "tabs": {
+      "overview": "Yleiskatsaus",
+      "overviewLong": "Suunnitelma",
+      "activities": "Toimet",
+      "progress": "Edistyminen",
+      "progressLong": "Edistymiskertomus",
+      "entries": "Kirjaukset",
+      "entriesLong": "Viimeaikaiset tietueet",
+      "feedback": "Palaute",
+      "feedbackLong": "Valmentajapalaute",
+      "ai": "Tekoälyvalmentaja",
+      "aiLong": "Tekoälyvalmentaja"
+    },
+    "allPlans": "Kaikki suunnitelmat",
+    "currentPlan": "Nykyinen suunnitelma",
+    "actions": {
+      "activate": "Aktivoi",
+      "pause": "Keskeytä",
+      "resume": "Jatka",
+      "complete": "Merkitse valmiiksi",
+      "archive": "Arkisto"
+    },
+    "configuration": "Asetukset",
+    "details": "Suunnitelman yksityiskohdat",
+    "title": "Nimi",
+    "description": "Kuvaus",
+    "startDate": "Aloituspäivä",
+    "endDate": "Päättymispäivä",
+    "save": "Tallenna muutokset",
+    "atGlance": "Silmäyksellä",
+    "status": "Suunnitelman tila",
+    "currentState": "Nykytila",
+    "starts": "Käynnistykset",
+    "ends": "Loppu",
+    "notSet": "Ei asetettu",
+    "openEnded": "Avoin",
+    "states": {
+      "draft": "Luonnos",
+      "active": "Aktiivinen",
+      "paused": "Tauko",
+      "completed": "Valmis",
+      "archived": "Arkistoitu"
+    },
+    "errors": {
+      "load": "Suunnitelmaa ei voitu ladata.",
+      "save": "Suunnitelmaa ei voitu tallentaa.",
+      "status": "Tilaa ei voitu päivittää."
+    },
+    "loading": "Ladataan..."
+  },
+  "chart": {
+    "period": "Tällä viikolla",
+    "title": "Edistymiskatsaus",
+    "loading": "Edistyksen laskeminen...",
+    "empty": "Lisää toiminto nähdäksesi edistymisen täällä.",
+    "error": "Tällä viikolla ei voitu ladata edistystä.",
+    "aria": "Viikoittainen kokonaisnoudattaminen {{percent}} prosenttia"
+  }
+}
