@@ -48,7 +48,7 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
             "display_name": "Updated Learner",
             "bio": "Working toward IELTS band 8.",
             "timezone": "Europe/Bucharest",
-            "preferred_language": "zh-CN",
+            "preferred_language": "es",
         },
     )
 
@@ -58,7 +58,7 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
         "display_name": "Updated Learner",
         "bio": "Working toward IELTS band 8.",
         "timezone": "Europe/Bucharest",
-        "preferred_language": "zh-CN",
+        "preferred_language": "es",
     }
     assert (
         api_client.patch(
