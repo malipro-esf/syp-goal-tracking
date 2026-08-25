@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Progress over perfection" },
-  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish", "arabic": "Arabic", "german": "German", "japanese": "Japanese", "chineseSimplified": "Simplified Chinese", "spanish": "Spanish" },
+  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish", "arabic": "Arabic", "german": "German", "japanese": "Japanese", "chineseSimplified": "Simplified Chinese", "spanish": "Spanish", "french": "French" },
   "navigation": { "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "features": "Features", "howItWorks": "How it works", "forCoaches": "For coaches", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },
   "auth": {
     "eyebrow": "Progress over perfection.",
