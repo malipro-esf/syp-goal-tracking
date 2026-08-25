@@ -31,12 +31,17 @@ test('renders a crawlable public landing page with product metadata', async () =
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
 })
 
-test('switches between Brazilian Portuguese, French, Spanish, Simplified Chinese, Japanese, German, Turkish, and right-to-left languages', async () => {
+test('switches between Hindi, Brazilian Portuguese, French, Spanish, Simplified Chinese, Japanese, German, Turkish, and right-to-left languages', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/')
 
   const language = screen.getByLabelText('Language')
-  fireEvent.change(language, { target: { value: 'pt-BR' } })
+  fireEvent.change(language, { target: { value: 'hi' } })
+  expect(await screen.findByRole('link', { name: 'साइन इन' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'hi')
+  expect(document.documentElement).toHaveAttribute('dir', 'ltr')
+
+  fireEvent.change(screen.getByLabelText('भाषा'), { target: { value: 'pt-BR' } })
   expect(await screen.findByRole('link', { name: 'Entrar' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('lang', 'pt-BR')
   expect(document.documentElement).toHaveAttribute('dir', 'ltr')
