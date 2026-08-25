@@ -157,6 +157,11 @@ test('logs in and displays the protected dashboard', async () => {
   expect(screen.getByRole('region', { name: 'Plan summary' })).toHaveTextContent('Active plans1')
   expect(fetchMock).toHaveBeenCalledWith('/api/v1/auth/login', expect.objectContaining({ method: 'POST' }))
   expect(fetchMock).toHaveBeenCalledWith('/api/v1/plans', expect.objectContaining({ headers: { Authorization: 'Bearer access-token' } }))
+
+  fireEvent.change(screen.getByLabelText('Language'), { target: { value: 'fa' } })
+  expect(await screen.findByRole('heading', { name: 'سلام، SYP Learner' })).toBeInTheDocument()
+  expect(screen.getByRole('region', { name: 'خلاصه برنامه‌ها' })).toHaveTextContent('برنامه‌های فعال1')
+  expect(screen.getByRole('heading', { name: 'برنامه‌های اخیر' })).toBeInTheDocument()
 })
 
 test('shows and hides the password from the login form', async () => {
