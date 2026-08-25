@@ -3,10 +3,11 @@ import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
 import ar from './locales/ar.json'
+import de from './locales/de.json'
 import fa from './locales/fa.json'
 import tr from './locales/tr.json'
 
-export const supportedLanguages = ['en', 'fa', 'tr', 'ar'] as const
+export const supportedLanguages = ['en', 'fa', 'tr', 'ar', 'de'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
 
 function initialLanguage(): SupportedLanguage {
@@ -23,7 +24,7 @@ function updateDocumentLanguage(language: string) {
 }
 
 void i18n.use(initReactI18next).init({
-  resources: { en: { translation: en }, fa: { translation: fa }, tr: { translation: tr }, ar: { translation: ar } },
+  resources: { en: { translation: en }, fa: { translation: fa }, tr: { translation: tr }, ar: { translation: ar }, de: { translation: de } },
   lng: initialLanguage(),
   fallbackLng: 'en',
   supportedLngs: supportedLanguages,

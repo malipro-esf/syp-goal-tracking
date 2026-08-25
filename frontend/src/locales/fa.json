@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "پیشرفت مهم‌تر از بی‌نقص بودن است" },
-  "language": { "label": "زبان", "english": "انگلیسی", "persian": "فارسی", "turkish": "ترکی", "arabic": "عربی" },
+  "language": { "label": "زبان", "english": "انگلیسی", "persian": "فارسی", "turkish": "ترکی", "arabic": "عربی", "german": "آلمانی" },
   "navigation": { "dashboard": "داشبورد", "plans": "برنامه‌ها", "coaching": "مربی‌گری", "features": "ویژگی‌ها", "howItWorks": "نحوه کار", "forCoaches": "برای مربیان", "signIn": "ورود", "getStarted": "شروع کنید", "signOut": "خروج" },
   "auth": {
     "eyebrow": "پیشرفت مهم‌تر از بی‌نقص بودن است.",
