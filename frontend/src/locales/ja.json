@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "完璧よりも前進" },
-  "language": { "label": "言語", "english": "英語", "persian": "ペルシャ語", "turkish": "トルコ語", "arabic": "アラビア語", "german": "ドイツ語", "japanese": "日本語", "chineseSimplified": "簡体字中国語", "spanish": "スペイン語", "french": "フランス語", "portugueseBrazilian": "ポルトガル語（ブラジル）", "hindi": "ヒンディー語" },
+  "language": { "label": "言語", "english": "英語", "persian": "ペルシャ語", "turkish": "トルコ語", "arabic": "アラビア語", "german": "ドイツ語", "japanese": "日本語", "chineseSimplified": "簡体字中国語", "spanish": "スペイン語", "french": "フランス語", "portugueseBrazilian": "ポルトガル語（ブラジル）", "hindi": "ヒンディー語", "korean": "韓国語" },
   "navigation": { "dashboard": "ダッシュボード", "plans": "プラン", "coaching": "コーチング", "features": "機能", "howItWorks": "使い方", "forCoaches": "コーチ向け", "signIn": "ログイン", "getStarted": "始める", "signOut": "ログアウト" },
   "auth": {
     "eyebrow": "完璧よりも前進。",
