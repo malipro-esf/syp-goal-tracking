@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
         display_name: displayName,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
-        preferred_language: (i18n.resolvedLanguage ?? 'en') as 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'ja',
+        preferred_language: (i18n.resolvedLanguage ?? 'en') as 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'ja' | 'zh-CN',
         account_type: accountType,
       })),
     logout: async () => { try { await logoutUser() } finally { setSession(null) } },
