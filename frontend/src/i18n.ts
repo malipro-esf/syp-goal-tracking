@@ -2,19 +2,33 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
-import es from './locales/es.json'
-import fr from './locales/fr.json'
-import ptBR from './locales/pt-BR.json'
-import hi from './locales/hi.json'
-import ar from './locales/ar.json'
-import de from './locales/de.json'
-import ja from './locales/ja.json'
-import zhCN from './locales/zh-CN.json'
-import fa from './locales/fa.json'
-import tr from './locales/tr.json'
 
 export const supportedLanguages = ['en', 'fa', 'tr', 'ar', 'de', 'ja', 'zh-CN', 'es', 'fr', 'pt-BR', 'hi'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
+
+type TranslationCatalog = Record<string, unknown>
+type LocaleModule = { default: TranslationCatalog }
+type LocaleLoader = () => Promise<LocaleModule>
+
+const localeLoaders: Record<Exclude<SupportedLanguage, 'en'>, LocaleLoader> = {
+  fa: () => import('./locales/fa.json'),
+  tr: () => import('./locales/tr.json'),
+  ar: () => import('./locales/ar.json'),
+  de: () => import('./locales/de.json'),
+  ja: () => import('./locales/ja.json'),
+  'zh-CN': () => import('./locales/zh-CN.json'),
+  es: () => import('./locales/es.json'),
+  fr: () => import('./locales/fr.json'),
+  'pt-BR': () => import('./locales/pt-BR.json'),
+  hi: () => import('./locales/hi.json'),
+}
+
+export async function loadLocale(language: SupportedLanguage): Promise<TranslationCatalog> {
+  if (language === 'en') return en
+  const loader = localeLoaders[language]
+  if (!loader) throw new Error(`Unsupported locale: ${language}`)
+  return (await loader()).default
+}
 
 function initialLanguage(): SupportedLanguage {
   const saved = localStorage.getItem('syp-language')
@@ -31,15 +45,31 @@ function updateDocumentLanguage(language: string) {
   document.documentElement.dir = resolved === 'fa' || resolved === 'ar' ? 'rtl' : 'ltr'
 }
 
-void i18n.use(initReactI18next).init({
-  resources: { en: { translation: en }, fa: { translation: fa }, tr: { translation: tr }, ar: { translation: ar }, de: { translation: de }, ja: { translation: ja }, 'zh-CN': { translation: zhCN }, es: { translation: es }, fr: { translation: fr }, 'pt-BR': { translation: ptBR }, hi: { translation: hi } },
+const lazyLocaleBackend = {
+  type: 'backend' as const,
+  init: () => undefined,
+  read(language: string, _namespace: string, callback: (error: Error | null, data?: TranslationCatalog) => void) {
+    if (!supportedLanguages.includes(language as SupportedLanguage)) {
+      callback(new Error(`Unsupported locale: ${language}`))
+      return
+    }
+
+    void loadLocale(language as SupportedLanguage)
+      .then((catalog) => callback(null, catalog))
+      .catch((error: unknown) => callback(error instanceof Error ? error : new Error('Locale loading failed.')))
+  },
+}
+
+export const i18nReady = i18n.use(lazyLocaleBackend).use(initReactI18next).init({
+  resources: { en: { translation: en } },
+  partialBundledLanguages: true,
   lng: initialLanguage(),
   fallbackLng: 'en',
   supportedLngs: supportedLanguages,
   interpolation: { escapeValue: false },
 })
 
-updateDocumentLanguage(i18n.language)
+updateDocumentLanguage(initialLanguage())
 i18n.on('languageChanged', (language) => {
   localStorage.setItem('syp-language', language)
   updateDocumentLanguage(language)
