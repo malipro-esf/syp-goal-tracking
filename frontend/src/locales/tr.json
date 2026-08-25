@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Mükemmellikten önce ilerleme" },
-  "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe", "arabic": "Arapça", "german": "Almanca", "japanese": "Japonca" },
+  "language": { "label": "Dil", "english": "İngilizce", "persian": "Farsça", "turkish": "Türkçe", "arabic": "Arapça", "german": "Almanca", "japanese": "Japonca", "chineseSimplified": "Basitleştirilmiş Çince" },
   "navigation": { "dashboard": "Gösterge paneli", "plans": "Planlar", "coaching": "Koçluk", "features": "Özellikler", "howItWorks": "Nasıl çalışır", "forCoaches": "Koçlar için", "signIn": "Giriş yap", "getStarted": "Başlayın", "signOut": "Çıkış yap" },
   "auth": {
     "eyebrow": "Mükemmellikten önce ilerleme.",
