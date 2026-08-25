@@ -2,10 +2,10 @@ import { expect, test } from 'vitest'
 
 import { loadLocale } from './i18n'
 
-test('loads a non-English translation catalog on demand', async () => {
-  const french = await loadLocale('fr')
+test('loads the Korean translation catalog on demand', async () => {
+  const korean = await loadLocale('ko')
 
-  expect(french.navigation).toMatchObject({ signIn: 'Se connecter' })
+  expect(korean.navigation).toMatchObject({ signIn: '로그인' })
 })
 
 test('keeps the bundled English catalog available through the same interface', async () => {

@@ -1,0 +1,722 @@
+{
+  "brand": {
+    "tagline": "완벽보다 진전"
+  },
+  "language": {
+    "label": "언어",
+    "english": "영어",
+    "persian": "페르시아식",
+    "turkish": "터키어",
+    "arabic": "아랍어",
+    "german": "독일어",
+    "japanese": "일본어",
+    "chineseSimplified": "중국어 간체",
+    "spanish": "스페인어",
+    "french": "프랑스어",
+    "portugueseBrazilian": "포르투갈어(브라질)",
+    "hindi": "니르빅 차우다리",
+    "korean": "한국어"
+  },
+  "navigation": {
+    "dashboard": "대시보드",
+    "plans": "플랜",
+    "coaching": "코칭",
+    "features": "기능",
+    "howItWorks": "사용 방식",
+    "forCoaches": "코치용",
+    "signIn": "로그인",
+    "getStarted": "시작하기",
+    "signOut": "로그아웃"
+  },
+  "auth": {
+    "login": {
+      "title": "다시 오신 것을 환영합니다",
+      "description": "목표를 향해 계속 노력하세요."
+    },
+    "register": {
+      "title": "계정 만들기",
+      "description": "계획을 측정 가능한 진행 상태로 전환하세요."
+    },
+    "fields": {
+      "displayName": "닉네임",
+      "accountType": "계정 유형",
+      "email": "이메일",
+      "password": "비밀번호"
+    },
+    "roles": {
+      "participant": "참여자",
+      "coach": "코치"
+    },
+    "password": {
+      "show": "비밀번호 표시",
+      "hide": "비밀번호 숨기기"
+    },
+    "actions": {
+      "wait": "잠시만 기다려주세요...",
+      "create": "계정 생성",
+      "createLong": "계정 만들기",
+      "signIn": "로그인"
+    },
+    "switch": {
+      "registered": "이미 등록하셨나요?",
+      "new": "SYP를 처음 사용하시나요?"
+    },
+    "errors": {
+      "unexpected": "문제가 발생했습니다. 다시 시도해 보십시오."
+    },
+    "eyebrow": "완벽보다 진전."
+  },
+  "profile": {
+    "eyebrow": "개인 작업 공간",
+    "title": "프로필 및 설정 탭:",
+    "description": "신원 및 진행 상태 설정을 정확하게 유지하세요.",
+    "displayName": "닉네임",
+    "bio": "자신을 짧게 소개해 주세요",
+    "bioHint": "선택 사항, 최대 500자.",
+    "language": "선호 언어",
+    "timezone": "표준 시간대",
+    "timezoneHint": "유럽/부쿠레슈티와 같은 IANA 시간대를 사용하십시오.",
+    "save": "변경 사항 저장",
+    "saving": "저장 중입니다…",
+    "saved": "프로필이 업데이트되었습니다.",
+    "error": "프로필을 업데이트할 수 없습니다.",
+    "account": "계정 정보",
+    "email": "이메일",
+    "roles": "역할",
+    "accountHint": "이 페이지에서 이메일과 역할을 변경할 수 없습니다."
+  },
+  "dashboard": {
+    "sidebar": {
+      "workspace": "개인 작업 공간",
+      "navigation": "대시보드 섹션",
+      "overview": "제품정보",
+      "settings": "계정 설정"
+    },
+    "metrics": {
+      "label": "계획 요약",
+      "total": "총 계획",
+      "active": "활성 계획",
+      "completed": "지원하다"
+    },
+    "recent": {
+      "eyebrow": "자주 묻는 질문",
+      "title": "최근 계획",
+      "viewAll": "모두 보기",
+      "loading": "로딩...",
+      "emptyTitle": "아직 계획 없음",
+      "emptyDescription": "첫 번째 계획을 만들고 목표를 측정 가능한 행동으로 바꿔 보세요.",
+      "emptyAction": "첫 번째 계획 만들기",
+      "updated": "{{date}} 업데이트"
+    },
+    "actions": {
+      "eyebrow": "바로가기",
+      "title": "빠른 행동",
+      "manage": "자주 묻는 질문",
+      "manageDescription": "생성, 검토, 또는 당신의 목표를 업데이트.",
+      "coach": "코치 작업 공간",
+      "invitations": "계획 초대",
+      "coachingDescription": "코칭 협력을 계속하십시오.",
+      "settings": "프로필 및 설정",
+      "settingsDescription": "언어 업데이트, 시간대 및 정체성."
+    },
+    "errors": {
+      "load": "개요를로드 할 수 없습니다."
+    },
+    "eyebrow": "진행 상태 작업 공간",
+    "greeting": "안녕하세요, {{name}}님",
+    "description": "계획, 우선순위 및 다음 조치를 한눈에 확인하세요.",
+    "createPlan": "요금제 만들기"
+  },
+  "plansPage": {
+    "create": {
+      "title": "계획 만들기",
+      "action": "초안 만들기"
+    },
+    "fields": {
+      "title": "이름 *",
+      "description": "제품 설명",
+      "startDate": "시작 날짜",
+      "endDate": "종료일"
+    },
+    "list": {
+      "title": "내 계획",
+      "loading": "로딩...",
+      "empty": "아직 계획이 없습니다. 첫 번째 초안을 만듭니다.",
+      "noDescription": "설명 없음"
+    },
+    "errors": {
+      "load": "계획을로드 할 수 없습니다.",
+      "create": "계획을 만들 수 없습니다."
+    },
+    "eyebrow": "개인 계획",
+    "title": "당신의 목표"
+  },
+  "coachingPage": {
+    "summary": {
+      "label": "공지사항",
+      "total": "총 초대장",
+      "pending": "관련 기사",
+      "accepted": "이름 *"
+    },
+    "fields": {
+      "title": "이름 *",
+      "description": "제품 설명",
+      "name": "이름 *",
+      "target": "제품정보",
+      "unit": "제품정보",
+      "frequency": "주파수 영역",
+      "email": "이름 *",
+      "startDate": "시작 날짜"
+    },
+    "template": {
+      "eyebrow": "재사용 가능한 구조",
+      "new": "새로운 계획 템플릿",
+      "create": "계획 템플릿 만들기",
+      "libraryEyebrow": "당신의 코칭 체계",
+      "library": "계획 템플릿 라이브러리",
+      "activityCount": "활동 {{count}}개",
+      "emptyTitle": "아직 템플릿 없음",
+      "emptyDescription": "참가자를 위한 재사용 가능한 플랜 구조를 만듭니다."
+    },
+    "activity": {
+      "add": "관련 기사",
+      "action": "관련 기사"
+    },
+    "units": {
+      "minute": "이름 *",
+      "page": "- 연혁",
+      "repetition": "반복",
+      "kilometer": "킬로미터"
+    },
+    "schedules": {
+      "daily": "- 한국어",
+      "weekly": "지원하다"
+    },
+    "assignment": {
+      "eyebrow": "코칭 관계",
+      "assign": "참가자에게 할당",
+      "send": "연락처",
+      "sent": "연락처",
+      "invitations": "당신의 초대",
+      "emptyTitle": "아직 초대 없음",
+      "empty": "새로운 코칭 초대는 여기에 나타납니다.",
+      "starts": "{{date}} 시작",
+      "accept": "이름 *",
+      "reject": "관련 제품",
+      "review": "리뷰 진행",
+      "open": "오픈 플랜"
+    },
+    "statuses": {
+      "pending": "관련 기사",
+      "accepted": "이름 *",
+      "rejected": "관련 상품"
+    },
+    "errors": {
+      "load": "코칭을로드 할 수 없습니다.",
+      "createTemplate": "계획 템플릿을 만들 수 없습니다.",
+      "addActivity": "활동을 추가 할 수 없습니다.",
+      "send": "초대를 보낼 수 없습니다.",
+      "respond": "초대받지 못했습니다."
+    },
+    "eyebrow": "차 협력",
+    "coachTitle": "계획 템플릿 및 할당",
+    "participantTitle": "계획 초대",
+    "coachDescription": "재사용 가능한 구조를 구축하고, 그 생각을 할당하고, 증거로 진행을 지원합니다.",
+    "participantDescription": "검토 계획 초대하고 당신이 허용 한 코칭 관계를 계속합니다."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "스마트 목표 추적 및 코칭",
+      "title": "당신의 노력이 눈에 띄는 진행을 켭니다.",
+      "description": "구조화된 계획, 실제로 완료된 것을 기록하고, 실패로 각 놓인 표적을 돌리지 않고 개량하십시오.",
+      "primary": "시작 추적",
+      "secondary": "어떻게 작동합니까?",
+      "note": "완벽한 연속 기록이 아닌, 실제 진전을 위해 설계되었습니다."
+    },
+    "preview": {
+      "aria": "주간 진행 대시보드",
+      "week": "이번 주",
+      "onTrack": "트랙에",
+      "adherence": "공급 능력",
+      "planned": "옵션 정보",
+      "actual": "한국어"
+    },
+    "philosophy": {
+      "eyebrow": "완벽보다 진전",
+      "title": "일부 결과는 여전히 실제 결과입니다.",
+      "description": "일반적인 할 일 앱은 미완료 목표만 봅니다. SYP는 들인 노력을 인정하고 진전을 솔직하게 보여 줍니다.",
+      "planned": "옵션 정보",
+      "actual": "한국어",
+      "minutes": "1시간",
+      "progress": "진행 기록"
+    },
+    "how": {
+      "steps": {
+        "structure": {
+          "title": "당신의 목표",
+          "description": "집중적인 계획으로 의미있는 목표를 켭니다."
+        },
+        "record": {
+          "title": "측정 가능한 활동 추가",
+          "description": "대상, 단위 및 현실적인 일정을 선택하십시오."
+        },
+        "understand": {
+          "title": "기록 실제적인 노력",
+          "description": "부분적으로 완료될 때 정확히 캡처하십시오."
+        },
+        "adjust": {
+          "title": "이해 및 조정",
+          "description": "진행 통찰력 및 피드백을 사용하여 더 나은 다음 단계를 만듭니다."
+        }
+      },
+      "eyebrow": "어떻게 작동하나요?",
+      "title": "의도에서 측정 가능한 실행으로",
+      "description": "당신의 목표를 실질적으로 유지하고 실제 데이터에 기반을 둔 결정의 간단한 리듬."
+    },
+    "goals": {
+      "items": {
+        "ielts": "IELTS 준비",
+        "fitness": "뚱 베어",
+        "reading": "지원하다",
+        "programming": "학습 방법",
+        "running": "지원하다",
+        "development": "개인 개발"
+      },
+      "eyebrow": "다양한 목표를 위한 설계",
+      "title": "1개의 진도 체계. 목표의 많은 종류.",
+      "description": "추적 시간, 거리, 페이지, 반복, 무게, 수량 및 사용자 정의 단위."
+    },
+    "insights": {
+      "items": {
+        "plannedActual": "계획 및 실제적인 노력",
+        "partial": "부분 진행",
+        "consistency": "시간에 대한 일관성",
+        "weakAreas": "취약한 활동을 조기에 발견"
+      },
+      "eyebrow": "명확한 진도 통찰력",
+      "title": "무슨 일이 움직이는지 알 수 있습니다.",
+      "description": "SYP의 결정적인 엔진은 계획과 실제 기록에서 진행 상황을 계산합니다. 동일한 데이터는 항상 동일한 결과를 생성합니다.",
+      "demoTitle": "주간 활동"
+    },
+    "audience": {
+      "participants": {
+        "items": {
+          "personalPlans": "개인 계획",
+          "actualEffort": "진정한 노력",
+          "weakAreas": "약한 지역을 발견",
+          "feedback": "코치 피드백"
+        },
+        "title": "참가신청",
+        "description": "목표를 소유하고 실행을 이해하십시오."
+      },
+      "coaches": {
+        "items": {
+          "templates": "재사용 가능한 계획 템플릿 만들기",
+          "assign": "구조화된 계획 배정",
+          "review": "참여자 진전 검토",
+          "feedback": "자주 묻는 질문"
+        },
+        "title": "관련 기사",
+        "description": "증거를 사용하여 사람들을 지원, 가정하지."
+      },
+      "eyebrow": "자주적으로 또는 함께 성장",
+      "title": "참가업체 코치에 집중."
+    },
+    "ai": {
+      "eyebrow": "선택적 AI 지도",
+      "title": "AI 코치는 실제 진행 상황을 기반으로합니다.",
+      "description": "뒤처지는 이유와 다음 집중 영역을 질문해 보세요. AI는 통제된 진전 도구를 읽으며, 결정론적 엔진은 계속 단일 진실 공급원으로 남습니다.",
+      "readOnly": "읽기 전용 도구",
+      "consent": "명시적 데이터 동의",
+      "available": "핵심 앱은 AI 없이도 작동"
+    },
+    "cta": {
+      "eyebrow": "다음 단계는 작을 수 있습니다",
+      "title": "프로그레시브는 의미가 없습니다.",
+      "description": "첫 번째 계획을 작성하고 목표를 뒤에 노력하십시오.",
+      "button": "계정 만들기"
+    },
+    "footer": {
+      "name": "자주 묻는 질문",
+      "tagline": "완벽한 진행.",
+      "navigation": "회사 소개",
+      "features": "제품 정보",
+      "coaches": "관련 기사"
+    }
+  },
+  "howPage": {
+    "hero": {
+      "eyebrow": "SYP가 작동하는 방법",
+      "title": "선구자로서의 실제적인 시스템.",
+      "description": "SYP는 계획한 내용과 실제로 수행한 내용을 연결합니다. 부분적인 노력을 보존하고 진전을 일관되게 계산하여 다음 행동을 결정하도록 돕습니다.",
+      "button": "첫 번째 계획 만들기"
+    },
+    "workflow": {
+      "steps": {
+        "plan": {
+          "title": "집중 플랜 만들기",
+          "description": "목표에 명확한 목적, 기간, 결과를 설정하세요. 계획은 개인용이거나 코치의 재사용 가능한 템플릿에서 배정될 수 있습니다.",
+          "example": "예: 12주 내에 IELTS 점수를 향상시킬 수 있습니다."
+        },
+        "activities": {
+          "title": "측정 가능한 활동 정의",
+          "description": "목표와 일치하는 수량, 단위 및 일정으로 계획을 깰.",
+          "example": "예: 매일 30 분 동안 듣기."
+        },
+        "effort": {
+          "title": "실제로 무슨 일이 있었는지 기록",
+          "description": "완료된 실제 수량을 입력하십시오. SYP는 성공 또는 실패로 하루를 줄이는 대신 부분 결과를 유지합니다.",
+          "example": "예: 계획 30 분, 완료 18."
+        },
+        "report": {
+          "title": "검토하고 더 나은 다음 결정을",
+          "description": "ο 수집항목 : 이름, 연락처, 문의사항, 서비스 이용기록 , 접속 로그 , 접속 IP 정보",
+          "example": "예 : 210 계획 분의 170은 81% 준수와 같습니다."
+        }
+      },
+      "eyebrow": "작업 흐름",
+      "title": "목표의 4 단계 통찰력"
+    },
+    "visual": {
+      "goal": "목표 계획",
+      "ielts": "IELTS 준비",
+      "listening": "듣기 · 분",
+      "reading": "독서 · 페이지",
+      "writing": "작문 · 에세이",
+      "planned": "옵션 정보",
+      "actual": "한국어",
+      "week": "이번 주",
+      "report": "관련 제품"
+    },
+    "engine": {
+      "eyebrow": "진실의 한 소스",
+      "title": "진전 엔진이 수치를 책임집니다.",
+      "description": "보고서는 저장 된 기대와 실제 기록에서 계산됩니다. 컨트롤러, 코치 및 AI는 계산을 생성하는 대신 결과를 소비합니다.",
+      "aria": "계획 기대치와 실제 기록으로 결정론적 진전 보고서를 생성합니다",
+      "plan": "계획 기대",
+      "records": "실제 기록",
+      "result": "진행 보고서"
+    },
+    "principles": {
+      "items": {
+        "partial": {
+          "title": "부분적인 노력",
+          "description": "30 분의 18을 완료하면 의미있는 진행으로 기록됩니다."
+        },
+        "deterministic": {
+          "title": "결과에 대한 설명",
+          "description": "동일한 계획과 기록은 항상 동일한 보고서를 생성하고, 모든 비율을 추적 할 수 있습니다."
+        },
+        "control": {
+          "title": "당신은 통제에 남아",
+          "description": "코치 피드백 및 AI 지도는 결정할 수 있지만 중요한 데이터는 결코 침묵적으로 변경되지 않습니다."
+        }
+      },
+      "eyebrow": "실제 실행에 대한 설계",
+      "title": "다른 시스템"
+    },
+    "roles": {
+      "coach": {
+        "eyebrow": "인간 코칭",
+        "title": "코치는 맥락과 책임감을 더합니다.",
+        "description": "코치는 구조화 된 계획을 할당 할 수 있으며 승인 된 참가자 진행 상황을 검토하고 참가자의 기록을 소유하지 않고 피드백을 남겨주세요."
+      },
+      "ai": {
+        "eyebrow": "선택 AI 코칭",
+        "title": "AI는 통제되는 공구를 통해서 자료를 설명합니다.",
+        "description": "AI 코치는 읽기 전용 진행 데이터를 검사하고 조정을 제안 할 수 있습니다. 핵심 응용 프로그램은 AI없이 계속 작동합니다."
+      }
+    },
+    "cta": {
+      "eyebrow": "한 가지 의미있는 목표로 시작",
+      "title": "그것을 계획. 로그아웃 당신의 진도를 보십시오.",
+      "description": "구조화 된 계획을 만들고 다음의 노력을 유용한 정보로 전환하십시오.",
+      "button": "시작하기"
+    }
+  },
+  "featuresPage": {
+    "hero": {
+      "eyebrow": "제품 기능",
+      "title": "목표를 측정 가능한 진전으로 바꾸는 데 필요한 모든 것.",
+      "description": "SYP는 유연한 계획, 정직한 노력 추적, 신중한 보고 및 1개의 집중된 작업 공간에서 선택적인 코칭을 결합합니다.",
+      "button": "시작 추적",
+      "secondary": "워크플로우 보기",
+      "visualAria": "계획, 노력, 진행, 코치 및 AI 기능 개요",
+      "week": "이번 주",
+      "adherence": "공급 능력",
+      "plan": "구조 계획",
+      "coach": "차 의견"
+    },
+    "catalog": {
+      "items": {
+        "plans": {
+          "title": "구조화된 목표 계획",
+          "description": "개인 계획을 작성하거나 코치 템플릿에서 할당 된 독립적 인 스냅 샷을 수락하십시오.",
+          "detail": "초안, 활성, 일시 정지, 완료 및 보관 수명주기."
+        },
+        "measurement": {
+          "title": "유연한 측정",
+          "description": "사용 시간, 페이지, 반복, 거리, 무게, 수량, 또는 사용자 지정 단위.",
+          "detail": "매일, 선택한 일 및 주간 일정."
+        },
+        "effort": {
+          "title": "실제적인 노력 기록",
+          "description": "한 날짜에 부분 진행 및 여러 항목을 포함하여 정확히 무슨 일이 있었는지 기록하십시오.",
+          "detail": "수정 및 복구 가능한 제거는 무결성을 유지합니다."
+        },
+        "reports": {
+          "title": "결정론적 보고서",
+          "description": "오늘, 이번 주, 또는 사용자 정의 범위에 걸쳐 활동에 의해 예상되고 실제적인 노력을 비교하십시오.",
+          "detail": "설명할 수 있는 보증, 고착, 발생 조사."
+        },
+        "coaching": {
+          "title": "차 협력",
+          "description": "재사용 가능한 템플릿 만들기, 참가자를 초대, 승인 된 진행 상황을 검토하고 피드백을 남겨주세요.",
+          "detail": "참가자는 기록의 소유권을 유지합니다."
+        },
+        "ai": {
+          "title": "제어 AI 지도",
+          "description": "명시적, 읽기 전용 응용 도구를 통해 실제 계획 데이터에 지상에 질문.",
+          "detail": "필수 입력 및 핵심 기능은 AI 없이 작동합니다."
+        }
+      },
+      "eyebrow": "핵심 기능",
+      "title": "실행의 주위에 내장 - 체크 박스 없음",
+      "description": "모든 기능은 동일한 원리를 지원합니다: 기록적인 현실은, 명확하게 이해하고, 더 나은 다음 결정을 만듭니다."
+    },
+    "partial": {
+      "eyebrow": "정직한 노력 추적",
+      "title": "당신의 진전은 끝나지 않거나 행하지 않습니다.",
+      "description": "SYP는 실제로 완료 된 수량을 저장하므로 어려운 일도 여전히 유용한 정보를 제공합니다.",
+      "multiple": "같은 날에 여러 노력 보존",
+      "correction": "부정확한 항목 수정",
+      "history": "기록을 다시 쓰지 않고 기대치를 발효일별로 유지",
+      "activity": "듣기 연습",
+      "today": "으로",
+      "planned": "옵션 정보",
+      "actual": "한국어",
+      "recorded": "공지사항"
+    },
+    "reporting": {
+      "eyebrow": "관리적인 진도 수학",
+      "title": "균형 잡힌 보고 없이 업적을 보십시오.",
+      "description": "달성도는 실제 달성한 전체 수량을 보여 주므로 100%를 넘을 수 있습니다. 이행률에는 상한을 적용하여 한 활동의 초과 달성이 다른 취약 영역을 가리지 않게 합니다.",
+      "attainment": "관련 기사",
+      "uncapped": "상한 없는 달성도",
+      "adherence": "이름 *",
+      "capped": "균형을 위해 상한 적용",
+      "expected": "더 보기",
+      "actual": "한국어",
+      "ranges": "오늘, 주간 및 사용자 정의 범위",
+      "breakdown": "완료, 부분, 놓고, 다가오는 발생",
+      "units": "활동별 보고에서 서로 호환되지 않는 단위를 분리"
+    },
+    "coaching": {
+      "eyebrow": "신중한 코칭 워크플로",
+      "title": "구조는 소유권을 가지고 있지 않고 공유 할 수 있습니다.",
+      "description": "배정을 수락하면 독립적인 참여자 계획이 생성됩니다. 이후 템플릿을 수정해도 해당 계획을 몰래 다시 쓰지 않습니다.",
+      "template": "계획 템플릿",
+      "invitation": "회사연혁",
+      "snapshot": "참가자 계획",
+      "feedback": "범위가 지정된 피드백"
+    },
+    "trust": {
+      "items": {
+        "auth": {
+          "title": "보안 세션",
+          "description": "수명이 짧은 액세스 토큰과 순환되는 HttpOnly 새로고침 쿠키가 인증된 작업 공간을 보호합니다."
+        },
+        "consent": {
+          "title": "명시적 AI 동의",
+          "description": "관련 진행 데이터는 사용자가 해당 요청에 동의한 후 AI 응답을 위해 전송됩니다."
+        },
+        "independent": {
+          "title": "AI와 독립적인 핵심 기능",
+          "description": "계획, 기록, 보고서 및 코칭은 AI가 비활성화되거나 사용할 때 계속 작동합니다."
+        }
+      },
+      "eyebrow": "통제와 탄력",
+      "title": "이 응용 프로그램은 유용, 개인, 그리고 이해.",
+      "description": "AI 및 코칭은 숨겨진 의존성없이 시스템을 향상시킵니다."
+    },
+    "cta": {
+      "eyebrow": "1개의 기록으로 진행",
+      "title": "실제적인 노력을 측정하는 계획.",
+      "description": "1개의 목표, 1개의 활동 및 1개의 정직한 진도 입장으로 시작하십시오.",
+      "button": "계정 만들기"
+    }
+  },
+  "coachesPage": {
+    "hero": {
+      "eyebrow": "실제 진전에 근거한 코칭",
+      "title": "증거가있는 코치 - 가정이 아닙니다.",
+      "description": "재사용 가능한 계획 템플릿을 만들고 참여자를 초대하세요. 참여자가 허용한 진전을 검토하고 계획 대비 실제 노력에 근거한 피드백을 남길 수 있습니다.",
+      "button": "코치 계정 만들기",
+      "secondary": "코칭 워크플로우 보기",
+      "visualAria": "참여자 진전을 보여 주는 코치 대시보드 예시"
+    },
+    "preview": {
+      "title": "코치 작업 공간",
+      "subtitle": "3명의 참가자",
+      "active": "라이브 개요",
+      "week": "이번 주 전체 진행",
+      "fitness": "뚱 베어",
+      "reading": "지원하다"
+    },
+    "workflow": {
+      "steps": {
+        "template": {
+          "title": "계획 템플릿 만들기",
+          "description": "측정 가능한 활동, 목표, 단위, 일정을 한 번 정의한 뒤 구조를 재사용하세요."
+        },
+        "invite": {
+          "title": "참가자를 초대",
+          "description": "이메일에 의해 기존 참가자에 할당 초대를 보냅니다."
+        },
+        "accept": {
+          "title": "참가자는 받아들입니다",
+          "description": "수락은 참가자의 계정에서 독립적 인 초안 계획 스냅 샷을 만듭니다."
+        },
+        "support": {
+          "title": "리뷰 및 지원",
+          "description": "결정론적 진전 보고서를 검토하고 승인된 배정 범위 안에서 피드백을 남기세요."
+        }
+      },
+      "eyebrow": "명확한 코칭 워크플로우",
+      "title": "재사용 가능한 구조에서 집중 지원까지",
+      "description": "SYP는 모든 단계에서 할당, 소유권 및 진행 접근을 유지합니다."
+    },
+    "template": {
+      "visualLabel": "계획 템플릿",
+      "reusable": "옵션 정보",
+      "planName": "IELTS 준비",
+      "listening": "분 듣기",
+      "reading": "페이지 읽기",
+      "writing": "주간 에세이",
+      "eyebrow": "한 번에, 충분히 할당",
+      "title": "재사용 가능한 플랜 템플릿으로 방식을 켭니다.",
+      "description": "모든 목표가 동일하지 않고 강력한 시작 구조를 제공합니다.",
+      "units": "사용 시간, 페이지, 거리, 반복, 무게 및 사용자 정의 단위.",
+      "schedules": "매일, 주간, 또는 선택한 일 기대를 설정합니다.",
+      "snapshot": "각 허용 할당은 독립적 인 계획 스냅 샷이됩니다."
+    },
+    "capabilities": {
+      "items": {
+        "reusable": {
+          "title": "재사용 가능한 템플릿",
+          "description": "승인 후 독립적 인 참여 계획을 유지하면서 입증 된 프로그램을 표준화하십시오."
+        },
+        "measurable": {
+          "title": "측정 가능한 실행",
+          "description": "완료 또는 실패로 진행을 줄이기 위해 예상되고 실제적인 노력을 비교하십시오."
+        },
+        "visibility": {
+          "title": "인증된 가시성",
+          "description": "견적을 받을 수 있는 참가자만 진행하십시오."
+        },
+        "feedback": {
+          "title": "집중된 의견",
+          "description": "실제 기록, 약한 활동 및 유용한 상황에 대한 일관성 패턴에 대응합니다."
+        }
+      },
+      "eyebrow": "실용적인 코칭 도구",
+      "title": "구조화된 사람 중심 지원에 필요한 모든 것"
+    },
+    "insights": {
+      "eyebrow": "자주 묻는 질문",
+      "title": "대화를 시작하기 전에 숫자를 이해합니다.",
+      "description": "결정론적 보고서는 이행률, 부분 노력, 취약한 활동을 보여 줍니다. 코치는 판단과 격려, 맥락을 더합니다.",
+      "consistency": "공급 능력",
+      "weakArea": "감사합니다.",
+      "partial": "부분 항목",
+      "feedback": "차 의견",
+      "today": "으로",
+      "message": "당신의 독서 리듬은 향상됩니다. 이번 주에 더 작고 일관성있는 청취를 할 수 있습니다.",
+      "coach": "주요 특징"
+    },
+    "boundaries": {
+      "items": {
+        "ownership": {
+          "title": "참가자들은 그들의 진전을 소유",
+          "description": "실제 불쾌한 기록은 참가자에 속하고 코치에 의해 조용히 통제되지 않습니다."
+        },
+        "scope": {
+          "title": "오시는 길",
+          "description": "코치는 참여자가 허용 한 할당 내에서 진행 상황을 검토 할 수 있습니다."
+        },
+        "history": {
+          "title": "템플릿 변경은 예측 가능",
+          "description": "이후 템플릿을 수정해도 참여자의 독립적인 계획 스냅샷을 몰래 다시 쓰지 않습니다."
+        }
+      },
+      "eyebrow": "디자인의 신뢰",
+      "title": "명확한 소유권이 코칭을 더 안전하게 만듭니다.",
+      "description": "플랫폼은 참가자의 계획과 기록에서 코치의 템플릿을 분리합니다."
+    },
+    "cta": {
+      "eyebrow": "명확한 근거로 진전 지원",
+      "title": "모든 코칭 대화를 더 나은 증거를 제공합니다.",
+      "description": "코치 계정을 만들고 프로그램을 측정 가능하며 참여자가 소유하는 진전으로 바꾸세요.",
+      "button": "코치로 시작"
+    }
+  },
+  "plan": {
+    "tabs": {
+      "overview": "제품정보",
+      "overviewLong": "계획 개요",
+      "activities": "【특전】",
+      "progress": "주요사업",
+      "progressLong": "진행 보고서",
+      "entries": "이름 *",
+      "entriesLong": "최근 항목",
+      "feedback": "제품 설명",
+      "feedbackLong": "차 의견",
+      "ai": "AI 코치",
+      "aiLong": "AI 코치"
+    },
+    "actions": {
+      "activate": "지원하다",
+      "pause": "팟캐스트",
+      "resume": "제품 설명",
+      "complete": "지원하다",
+      "archive": "- 연혁"
+    },
+    "states": {
+      "draft": "사이트맵",
+      "active": "지원하다",
+      "paused": "이용 약관",
+      "completed": "지원하다",
+      "archived": "관련 기사"
+    },
+    "errors": {
+      "load": "계획을로드 할 수 없습니다.",
+      "save": "계획을 저장할 수 없습니다.",
+      "status": "상태를 업데이트 할 수 없습니다."
+    },
+    "allPlans": "모든 계획",
+    "currentPlan": "현재 계획",
+    "configuration": "제품 설명",
+    "details": "계획 내용",
+    "title": "이름 *",
+    "description": "제품 설명",
+    "startDate": "시작 날짜",
+    "endDate": "종료일",
+    "save": "자주 묻는 질문",
+    "atGlance": "한 눈에",
+    "status": "계획 상태",
+    "currentState": "현재 상태",
+    "starts": "계정 만들기",
+    "ends": "이름 *",
+    "notSet": "설치하기",
+    "openEnded": "공지사항",
+    "loading": "로딩..."
+  },
+  "chart": {
+    "period": "이번 주",
+    "title": "연락처",
+    "loading": "교육 진행 ...",
+    "empty": "활동을 추가하면 여기에 진전이 표시됩니다.",
+    "error": "이번 주 진행 상황을 로드할 수 없습니다.",
+    "aria": "주간 전체 이행률 {{percent}}퍼센트"
+  }
+}
