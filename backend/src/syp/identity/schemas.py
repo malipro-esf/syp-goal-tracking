@@ -11,7 +11,7 @@ class RegistrationRequest(BaseModel):
     display_name: str = Field(min_length=2, max_length=100)
     timezone: str = Field(default="UTC", min_length=1, max_length=100)
     preferred_language: Literal[
-        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR"
+        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi"
     ] = "en"
     account_type: Literal["participant", "coach"] = "participant"
 
@@ -44,7 +44,9 @@ class UserResponse(BaseModel):
     display_name: str
     bio: str | None
     timezone: str
-    preferred_language: Literal["en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR"]
+    preferred_language: Literal[
+        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi"
+    ]
     roles: list[str]
 
 
@@ -52,7 +54,9 @@ class ProfileUpdate(BaseModel):
     display_name: str = Field(min_length=2, max_length=100)
     bio: str | None = Field(default=None, max_length=500)
     timezone: str = Field(min_length=1, max_length=100)
-    preferred_language: Literal["en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR"]
+    preferred_language: Literal[
+        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi"
+    ]
 
     @field_validator("display_name")
     @classmethod

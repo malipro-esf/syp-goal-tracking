@@ -5,6 +5,7 @@ import en from './locales/en.json'
 import es from './locales/es.json'
 import fr from './locales/fr.json'
 import ptBR from './locales/pt-BR.json'
+import hi from './locales/hi.json'
 import ar from './locales/ar.json'
 import de from './locales/de.json'
 import ja from './locales/ja.json'
@@ -12,7 +13,7 @@ import zhCN from './locales/zh-CN.json'
 import fa from './locales/fa.json'
 import tr from './locales/tr.json'
 
-export const supportedLanguages = ['en', 'fa', 'tr', 'ar', 'de', 'ja', 'zh-CN', 'es', 'fr', 'pt-BR'] as const
+export const supportedLanguages = ['en', 'fa', 'tr', 'ar', 'de', 'ja', 'zh-CN', 'es', 'fr', 'pt-BR', 'hi'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
 
 function initialLanguage(): SupportedLanguage {
@@ -31,7 +32,7 @@ function updateDocumentLanguage(language: string) {
 }
 
 void i18n.use(initReactI18next).init({
-  resources: { en: { translation: en }, fa: { translation: fa }, tr: { translation: tr }, ar: { translation: ar }, de: { translation: de }, ja: { translation: ja }, 'zh-CN': { translation: zhCN }, es: { translation: es }, fr: { translation: fr }, 'pt-BR': { translation: ptBR } },
+  resources: { en: { translation: en }, fa: { translation: fa }, tr: { translation: tr }, ar: { translation: ar }, de: { translation: de }, ja: { translation: ja }, 'zh-CN': { translation: zhCN }, es: { translation: es }, fr: { translation: fr }, 'pt-BR': { translation: ptBR }, hi: { translation: hi } },
   lng: initialLanguage(),
   fallbackLng: 'en',
   supportedLngs: supportedLanguages,
