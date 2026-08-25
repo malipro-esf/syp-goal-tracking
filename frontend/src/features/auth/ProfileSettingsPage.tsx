@@ -6,7 +6,7 @@ import { ApiError } from '../../api/client'
 import { supportedLanguages, type SupportedLanguage } from '../../i18n'
 import { useAuth } from './useAuth'
 
-const languageNames: Record<SupportedLanguage, string> = { en: 'English', fa: 'فارسی', tr: 'Türkçe', ar: 'العربية' }
+const languageNames: Record<SupportedLanguage, string> = { en: 'English', fa: 'فارسی', tr: 'Türkçe', ar: 'العربية', de: 'Deutsch', ja: '日本語' }
 
 export function ProfileSettingsPage() {
   const { i18n, t } = useTranslation()

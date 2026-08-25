@@ -31,12 +31,22 @@ test('renders a crawlable public landing page with product metadata', async () =
   expect(document.head.querySelector('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
 })
 
-test('switches between Turkish and right-to-left Persian', async () => {
+test('switches between Japanese, German, Turkish, and right-to-left languages', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))
   renderApp('/')
 
   const language = screen.getByLabelText('Language')
-  fireEvent.change(language, { target: { value: 'tr' } })
+  fireEvent.change(language, { target: { value: 'ja' } })
+  expect(await screen.findByRole('link', { name: 'ログイン' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'ja')
+  expect(document.documentElement).toHaveAttribute('dir', 'ltr')
+
+  fireEvent.change(screen.getByLabelText('言語'), { target: { value: 'de' } })
+  expect(await screen.findByRole('link', { name: 'Anmelden' })).toBeInTheDocument()
+  expect(document.documentElement).toHaveAttribute('lang', 'de')
+  expect(document.documentElement).toHaveAttribute('dir', 'ltr')
+
+  fireEvent.change(screen.getByLabelText('Sprache'), { target: { value: 'tr' } })
   expect(await screen.findByRole('link', { name: 'Giriş yap' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('lang', 'tr')
   expect(document.documentElement).toHaveAttribute('dir', 'ltr')
@@ -283,7 +293,7 @@ test('shows the plan template workspace to a coach', async () => {
   renderApp('/coaching')
 
   expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
-  expect(await screen.findByText('Easy run: 5 kilometer · weekly')).toBeInTheDocument()
+  expect(await screen.findByText('Easy run: 5 Kilometer · Weekly')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
 })
 
