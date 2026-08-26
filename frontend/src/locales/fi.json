@@ -77,6 +77,15 @@
     "language": "Ensisijainen kieli",
     "timezone": "Aikavyöhyke",
     "timezoneHint": "Käytä IANA aikavyöhyke kuten Europe/Bucharest.",
+    "appearance": {
+      "title": "Ulkoasu",
+      "gender": "Sukupuoli",
+      "notSpecified": "En halua kertoa",
+      "man": "Mies / poika",
+      "woman": "Nainen / tyttö",
+      "enable": "Käytä valittuun sukupuoleen perustuvia värejä",
+      "hint": "Valinnainen. Nykyiset neutraalit värit säilyvät, kun asetus ei ole käytössä."
+    },
     "save": "Tallenna muutokset",
     "saving": "Tallennetaan…",
     "saved": "Profiilisi on päivitetty.",

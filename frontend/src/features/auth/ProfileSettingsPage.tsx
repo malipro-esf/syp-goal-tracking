@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Clock3, Languages, Mail, Save, ShieldCheck, UserRound } from 'lucide-react'
+import { Clock3, Languages, Mail, Palette, Save, ShieldCheck, UserRound } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { supportedLanguages, type SupportedLanguage } from '../../i18n'
@@ -14,6 +14,12 @@ export function ProfileSettingsPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [selectedGender, setSelectedGender] = useState(user?.gender ?? '')
+  const [genderThemeEnabled, setGenderThemeEnabled] = useState(user?.gender_theme_enabled ?? false)
+  useEffect(() => {
+    setSelectedGender(user?.gender ?? '')
+    setGenderThemeEnabled(user?.gender_theme_enabled ?? false)
+  }, [user?.gender, user?.gender_theme_enabled])
   if (!user) return null
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -25,6 +31,8 @@ export function ProfileSettingsPage() {
         bio: String(data.get('bio')).trim() || null,
         timezone: String(data.get('timezone')),
         preferred_language: String(data.get('language')) as SupportedLanguage,
+        gender: (String(data.get('gender')) || null) as 'man' | 'woman' | null,
+        gender_theme_enabled: data.get('genderThemeEnabled') === 'on',
       })
       await i18n.changeLanguage(updated.preferred_language)
       setMessage(t('profile.saved'))
@@ -39,6 +47,11 @@ export function ProfileSettingsPage() {
       <label>{t('profile.bio')}<textarea name="bio" defaultValue={user.bio ?? ''} maxLength={500} rows={5} /><small>{t('profile.bioHint')}</small></label>
       <label><span className="label-with-icon"><Languages aria-hidden="true" />{t('profile.language')}</span><select name="language" defaultValue={user.preferred_language}>{supportedLanguages.map(code => <option key={code} value={code}>{languageNames[code]}</option>)}</select></label>
       <label><span className="label-with-icon"><Clock3 aria-hidden="true" />{t('profile.timezone')}</span><input name="timezone" defaultValue={user.timezone} required /><small>{t('profile.timezoneHint')}</small></label>
+      <fieldset className="appearance-settings"><legend><span className="label-with-icon"><Palette aria-hidden="true" />{t('profile.appearance.title')}</span></legend>
+        <label>{t('profile.appearance.gender')}<select name="gender" value={selectedGender} onChange={(event) => { const gender = event.target.value; setSelectedGender(gender); if (!gender) setGenderThemeEnabled(false) }}><option value="">{t('profile.appearance.notSpecified')}</option><option value="man">{t('profile.appearance.man')}</option><option value="woman">{t('profile.appearance.woman')}</option></select></label>
+        <label className="checkbox-label"><input type="checkbox" name="genderThemeEnabled" checked={genderThemeEnabled} disabled={!selectedGender} onChange={(event) => setGenderThemeEnabled(event.target.checked)} /> <span>{t('profile.appearance.enable')}</span></label>
+        <small>{t('profile.appearance.hint')}</small>
+      </fieldset>
       {message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
       <button type="submit" className="icon-button" disabled={saving}><Save aria-hidden="true" />{saving ? t('profile.saving') : t('profile.save')}</button>
     </form><aside className="card account-summary"><h2>{t('profile.account')}</h2><dl><div><dt className="label-with-icon"><Mail aria-hidden="true" />{t('profile.email')}</dt><dd>{user.email}</dd></div><div><dt className="label-with-icon"><ShieldCheck aria-hidden="true" />{t('profile.roles')}</dt><dd>{user.roles.join(', ')}</dd></div></dl><p>{t('profile.accountHint')}</p></aside></div>

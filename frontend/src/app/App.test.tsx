@@ -157,8 +157,8 @@ test('redirects an anonymous visitor from the dashboard to login', async () => {
 })
 
 test('updates the signed-in user profile and preferred language', async () => {
-  const user = { id: '1', email: 'learner@example.com', display_name: 'Learner', bio: null, timezone: 'UTC', preferred_language: 'en' as const, roles: ['participant'] }
-  const updated = { ...user, display_name: 'زبان‌آموز', bio: 'IELTS learner', timezone: 'Europe/Bucharest', preferred_language: 'fa' as const }
+  const user = { id: '1', email: 'learner@example.com', display_name: 'Learner', bio: null, timezone: 'UTC', preferred_language: 'en' as const, gender: null, gender_theme_enabled: false, roles: ['participant'] }
+  const updated = { ...user, display_name: 'زبان‌آموز', bio: 'IELTS learner', timezone: 'Europe/Bucharest', preferred_language: 'fa' as const, gender: 'woman' as const, gender_theme_enabled: true }
   const fetchMock = vi.spyOn(globalThis, 'fetch')
   fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ access_token: 'token', token_type: 'bearer', user }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
   fetchMock.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200, headers: { 'Content-Type': 'application/json' } }))
@@ -170,10 +170,13 @@ test('updates the signed-in user profile and preferred language', async () => {
   fireEvent.change(screen.getByLabelText(/^Short bio/), { target: { value: 'IELTS learner' } })
   fireEvent.change(screen.getByLabelText('Preferred language'), { target: { value: 'fa' } })
   fireEvent.change(screen.getByLabelText(/^Timezone/), { target: { value: 'Europe/Bucharest' } })
+  fireEvent.change(screen.getByLabelText('Gender'), { target: { value: 'woman' } })
+  fireEvent.click(screen.getByLabelText('Use colors based on my selected gender'))
   fireEvent.click(screen.getByRole('button', { name: 'Save changes' }))
 
   expect(await screen.findByRole('heading', { name: 'پروفایل و تنظیمات' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('dir', 'rtl')
+  expect(document.documentElement).toHaveAttribute('data-appearance', 'woman')
   expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/users/me', expect.objectContaining({ method: 'PATCH' }))
 })
 

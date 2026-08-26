@@ -1,8 +1,8 @@
 import uuid
-from typing import Literal
+from typing import Literal, Self
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 
 class RegistrationRequest(BaseModel):
@@ -47,6 +47,8 @@ class UserResponse(BaseModel):
     preferred_language: Literal[
         "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
     ]
+    gender: Literal["man", "woman"] | None
+    gender_theme_enabled: bool
     roles: list[str]
 
 
@@ -57,6 +59,14 @@ class ProfileUpdate(BaseModel):
     preferred_language: Literal[
         "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
     ]
+    gender: Literal["man", "woman"] | None = None
+    gender_theme_enabled: bool = False
+
+    @model_validator(mode="after")
+    def validate_gender_theme(self) -> Self:
+        if self.gender_theme_enabled and self.gender is None:
+            raise ValueError("A gender selection is required to enable gender-based colors.")
+        return self
 
     @field_validator("display_name")
     @classmethod

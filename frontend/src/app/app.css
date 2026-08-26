@@ -78,6 +78,73 @@ a { color: #17633e; font-weight: 700; }
 .profile-page { max-width: 70rem; }
 .profile-page > .page-header, .profile-grid { width: min(100%, 54rem); }
 .profile-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(17rem, .6fr); gap: 1.25rem; }
+.appearance-settings { display: grid; gap: .85rem; margin: .25rem 0; padding: 1rem; border: 1px solid #d8e3dc; border-radius: .8rem; }
+.appearance-settings legend { padding: 0 .35rem; color: #304b3e; font-size: .9rem; font-weight: 800; }
+.appearance-settings small { color: #617168; line-height: 1.45; }
+.checkbox-label { display: flex; align-items: center; gap: .65rem; }
+.checkbox-label input { width: 1.1rem; height: 1.1rem; margin: 0; accent-color: #287653; }
+
+html[data-appearance="man"] {
+  --appearance-primary: #2563eb;
+  --appearance-dark: #1e40af;
+  --appearance-deep: #172554;
+  --appearance-accent: #0ea5e9;
+  --appearance-soft: #eaf3ff;
+  --appearance-page: #f3f8ff;
+  --appearance-border: #cbdcf4;
+  --appearance-shadow: 30 64 175;
+}
+
+html[data-appearance="woman"] {
+  --appearance-primary: #db2777;
+  --appearance-dark: #9d174d;
+  --appearance-deep: #500724;
+  --appearance-accent: #a855f7;
+  --appearance-soft: #fce7f3;
+  --appearance-page: #fff5fa;
+  --appearance-border: #f3c6d9;
+  --appearance-shadow: 157 23 77;
+}
+
+html[data-appearance] body { color: var(--appearance-deep); background: var(--appearance-page); }
+html[data-appearance] .app-header { border-color: var(--appearance-border); box-shadow: 0 .35rem 1.2rem rgb(var(--appearance-shadow) / 8%); }
+html[data-appearance] .header-brand { color: var(--appearance-deep); }
+html[data-appearance] .header-brand > span { background: var(--appearance-primary); }
+html[data-appearance] button:not(.text-button):not(.secondary-button),
+html[data-appearance] .primary-link { color: #fff; background: var(--appearance-primary); }
+html[data-appearance] .app-header nav a:hover,
+html[data-appearance] .app-header nav a.active { color: var(--appearance-dark); background: var(--appearance-soft); }
+html[data-appearance] .app-header nav .header-cta,
+html[data-appearance] .app-header nav .header-cta:hover { color: #fff; background: var(--appearance-primary); }
+html[data-appearance] .header-account .text-button,
+html[data-appearance] .header-account a,
+html[data-appearance] a,
+html[data-appearance] .eyebrow { color: var(--appearance-dark); }
+html[data-appearance] .header-account .text-button { background: transparent; }
+html[data-appearance] h1,
+html[data-appearance] h2,
+html[data-appearance] h3 { color: var(--appearance-deep); }
+html[data-appearance] input:focus,
+html[data-appearance] textarea:focus,
+html[data-appearance] select:focus { border-color: var(--appearance-primary); outline-color: color-mix(in srgb, var(--appearance-primary) 22%, transparent); }
+html[data-appearance] .heading-with-icon svg,
+html[data-appearance] .label-with-icon svg { color: var(--appearance-accent); }
+html[data-appearance] .secondary-button { color: var(--appearance-dark); background: var(--appearance-soft); }
+html[data-appearance] .checkbox-label input { accent-color: var(--appearance-primary); }
+html[data-appearance] .admin-sidebar { background: linear-gradient(180deg, var(--appearance-deep), var(--appearance-dark)); }
+html[data-appearance] .admin-sidebar a,
+html[data-appearance] .admin-sidebar button { color: #e8f1ff; }
+html[data-appearance] .admin-sidebar .sidebar-plan small,
+html[data-appearance] .admin-sidebar .sidebar-plan span { color: #c7d8f5; }
+html[data-appearance] .admin-nav a,
+html[data-appearance] .admin-nav button { background: transparent; color: #e8f1ff; }
+html[data-appearance] .admin-nav a:hover,
+html[data-appearance] .admin-nav button:hover { background: rgb(255 255 255 / 12%); color: #fff; }
+html[data-appearance] .admin-nav a.active,
+html[data-appearance] .admin-nav button.active { background: #fff; color: var(--appearance-deep); }
+html[data-appearance] .admin-nav a.active svg,
+html[data-appearance] .admin-nav button.active svg { color: var(--appearance-primary); }
+html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --primary-dark: var(--appearance-dark); }
 .profile-form { display: grid; gap: 1rem; }
 .profile-form label { display: grid; gap: .45rem; font-weight: 700; }
 .profile-form label small, .account-summary > p { color: #66756d; font-weight: 400; }
@@ -304,7 +371,7 @@ a { color: #17633e; font-weight: 700; }
 .marketing-page .header-brand > span { background: var(--primary); }
 .marketing-page .app-header nav a:hover { color: var(--primary-dark); }
 .marketing-page .app-header nav .header-cta { background: var(--primary); }
-.marketing-page .app-header nav .header-cta:hover { background: var(--primary-dark); }
+.marketing-page .app-header nav .header-cta:hover { background: var(--primary-dark); color: #fff; }
 .hero-section { position: relative; display: grid; min-height: 43rem; grid-template-columns: minmax(0, 1.12fr) minmax(20rem, .88fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); padding: 5.5rem 0 6.5rem; }
 .hero-section::before { position: absolute; z-index: -1; top: -8rem; right: -16rem; width: 35rem; height: 35rem; border-radius: 50%; background: radial-gradient(circle, rgb(109 93 251 / 16%), transparent 68%); content: ""; }
 .hero-section h1 { max-width: 45rem; font-size: clamp(3rem, 6.3vw, 4.8rem); letter-spacing: -.055em; }
@@ -685,4 +752,27 @@ a { color: #17633e; font-weight: 700; }
   .template-card-header > .section-count { grid-column: 2; justify-self: start; }
   .assignment-card { grid-template-columns: auto minmax(0, 1fr); }
   .assignment-card > .status-badge, .assignment-card .assignment-open, .assignment-card .assignment-buttons { grid-column: 2; justify-self: start; }
+}
+
+/* Appearance themes must preserve component contrast regardless of source order. */
+html[data-appearance] .primary-link,
+html[data-appearance] button:not(.text-button):not(.secondary-button) {
+  color: #fff;
+}
+
+html[data-appearance] .header-account .text-button {
+  background: transparent;
+  color: var(--appearance-dark);
+}
+
+html[data-appearance] .admin-sidebar .admin-brand,
+html[data-appearance] .admin-sidebar .admin-nav a,
+html[data-appearance] .admin-sidebar .admin-nav button {
+  color: #f8fbff;
+}
+
+html[data-appearance] .admin-sidebar .admin-nav a.active,
+html[data-appearance] .admin-sidebar .admin-nav button.active {
+  background: #fff;
+  color: var(--appearance-deep);
 }
