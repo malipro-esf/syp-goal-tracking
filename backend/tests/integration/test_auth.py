@@ -49,6 +49,8 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
             "bio": "Working toward IELTS band 8.",
             "timezone": "Europe/Bucharest",
             "preferred_language": "fi",
+            "gender": "woman",
+            "gender_theme_enabled": True,
         },
     )
 
@@ -59,6 +61,8 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
         "bio": "Working toward IELTS band 8.",
         "timezone": "Europe/Bucharest",
         "preferred_language": "fi",
+        "gender": "woman",
+        "gender_theme_enabled": True,
     }
     assert (
         api_client.patch(
@@ -69,6 +73,23 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
                 "bio": None,
                 "timezone": "Not/A_Timezone",
                 "preferred_language": "en",
+                "gender": None,
+                "gender_theme_enabled": False,
+            },
+        ).status_code
+        == 422
+    )
+    assert (
+        api_client.patch(
+            "/api/v1/users/me",
+            headers=headers,
+            json={
+                "display_name": "Updated Learner",
+                "bio": None,
+                "timezone": "UTC",
+                "preferred_language": "en",
+                "gender": None,
+                "gender_theme_enabled": True,
             },
         ).status_code
         == 422

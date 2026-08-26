@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Index, String, func
+from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from syp.core.database import Base
@@ -9,7 +9,10 @@ from syp.core.database import Base
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = (CheckConstraint("status IN ('active', 'disabled')", name="ck_users_status"),)
+    __table_args__ = (
+        CheckConstraint("status IN ('active', 'disabled')", name="ck_users_status"),
+        CheckConstraint("gender IS NULL OR gender IN ('man', 'woman')", name="ck_users_gender"),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(String(320))
@@ -18,6 +21,8 @@ class User(Base):
     bio: Mapped[str | None] = mapped_column(String(500))
     timezone: Mapped[str] = mapped_column(String(100), default="UTC")
     preferred_language: Mapped[str] = mapped_column(String(5), default="en")
+    gender: Mapped[str | None] = mapped_column(String(10))
+    gender_theme_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
     password_hash: Mapped[str] = mapped_column(String(512))
     status: Mapped[str] = mapped_column(String(20), default="active")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
