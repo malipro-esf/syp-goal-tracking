@@ -17,7 +17,7 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
 
   return <header className="app-header" aria-label="Application header">
     <Link className="header-brand" to={user ? '/dashboard' : '/'} aria-label="SYP home">
-      <span aria-hidden="true">S</span><strong>SYP</strong><small>{t('brand.tagline')}</small>
+      <span aria-hidden="true">S</span><strong>SYP</strong><small>See Your Progress</small>
     </Link>
     <nav aria-label="Primary navigation">
       {user && !publicOnly ? <>
