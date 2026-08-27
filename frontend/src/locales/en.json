@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Progress over perfection" },
-  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish", "arabic": "Arabic", "german": "German", "greek": "Greek", "japanese": "Japanese", "chineseSimplified": "Simplified Chinese", "spanish": "Spanish", "french": "French", "portugueseBrazilian": "Portuguese (Brazil)", "hindi": "Hindi", "korean": "Korean", "finnish": "Finnish",
+  "language": { "label": "Language", "english": "English", "persian": "Persian", "turkish": "Turkish", "arabic": "Arabic", "german": "German", "greek": "Greek", "japanese": "Japanese", "chineseSimplified": "Simplified Chinese", "spanish": "Spanish", "french": "French", "portugueseBrazilian": "Portuguese (Brazil)", "hindi": "Hindi", "korean": "Korean", "finnish": "Finnish", "norwegian": "Norwegian Bokmål",
     "swedish": "Swedish",
     "danish": "Danish" },
   "navigation": { "home": "Home", "dashboard": "Dashboard", "plans": "Plans", "coaching": "Coaching", "features": "Features", "howItWorks": "How it works", "forCoaches": "For coaches", "signIn": "Sign in", "getStarted": "Get started", "signOut": "Sign out" },

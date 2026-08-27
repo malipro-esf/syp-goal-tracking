@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
 
-export const supportedLanguages = ['ar', 'da', 'en', 'fi', 'fr', 'de', 'el', 'hi', 'ja', 'ko', 'fa', 'pt-BR', 'zh-CN', 'es', 'sv', 'tr'] as const
+export const supportedLanguages = ['ar', 'da', 'en', 'fi', 'fr', 'de', 'el', 'hi', 'ja', 'ko', 'nb', 'fa', 'pt-BR', 'zh-CN', 'es', 'sv', 'tr'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
 
 type TranslationCatalog = Record<string, unknown>
@@ -24,6 +24,7 @@ const localeLoaders: Record<Exclude<SupportedLanguage, 'en'>, LocaleLoader> = {
   'pt-BR': () => import('./locales/pt-BR.json'),
   hi: () => import('./locales/hi.json'),
   ko: () => import('./locales/ko.json'),
+  nb: () => import('./locales/nb.json'),
   fi: () => import('./locales/fi.json'),
   sv: () => import('./locales/sv.json'),
 }
@@ -39,13 +40,13 @@ function initialLanguage(): SupportedLanguage {
   const saved = localStorage.getItem('syp-language')
   if (supportedLanguages.includes(saved as SupportedLanguage)) return saved as SupportedLanguage
   const normalizedBrowserLanguage = navigator.language.toLowerCase()
-  const browserLanguage = normalizedBrowserLanguage.startsWith('zh') ? 'zh-CN' : normalizedBrowserLanguage.startsWith('pt') ? 'pt-BR' : navigator.language.split('-')[0]
+  const browserLanguage = normalizedBrowserLanguage.startsWith('zh') ? 'zh-CN' : normalizedBrowserLanguage.startsWith('pt') ? 'pt-BR' : normalizedBrowserLanguage.startsWith('no') || normalizedBrowserLanguage.startsWith('nb') ? 'nb' : navigator.language.split('-')[0]
   return supportedLanguages.includes(browserLanguage as SupportedLanguage) ? browserLanguage as SupportedLanguage : 'en'
 }
 
 function updateDocumentLanguage(language: string) {
   const baseLanguage = language.split('-')[0]
-  const resolved = baseLanguage === 'zh' ? 'zh-CN' : baseLanguage === 'pt' ? 'pt-BR' : baseLanguage
+  const resolved = baseLanguage === 'zh' ? 'zh-CN' : baseLanguage === 'pt' ? 'pt-BR' : baseLanguage === 'no' ? 'nb' : baseLanguage
   document.documentElement.lang = resolved
   document.documentElement.dir = resolved === 'fa' || resolved === 'ar' ? 'rtl' : 'ltr'
 }
