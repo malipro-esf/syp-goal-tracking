@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Fortschritt statt Perfektion" },
-  "language": { "label": "Sprache", "english": "Englisch", "persian": "Persisch", "turkish": "Türkisch", "arabic": "Arabisch", "german": "Deutsch", "japanese": "Japanisch", "chineseSimplified": "Vereinfachtes Chinesisch", "spanish": "Spanisch", "french": "Französisch", "portugueseBrazilian": "Portugiesisch (Brasilien)", "hindi": "Hindi", "korean": "Koreanisch", "finnish": "Finnisch" },
+  "language": { "label": "Sprache", "english": "Englisch", "persian": "Persisch", "turkish": "Türkisch", "arabic": "Arabisch", "german": "Deutsch", "greek": "Griechisch", "japanese": "Japanisch", "chineseSimplified": "Vereinfachtes Chinesisch", "spanish": "Spanisch", "french": "Französisch", "portugueseBrazilian": "Portugiesisch (Brasilien)", "hindi": "Hindi", "korean": "Koreanisch", "finnish": "Finnisch" },
   "navigation": { "home": "Startseite", "dashboard": "Dashboard", "plans": "Pläne", "coaching": "Coaching", "features": "Funktionen", "howItWorks": "So funktioniert es", "forCoaches": "Für Coaches", "signIn": "Anmelden", "getStarted": "Jetzt starten", "signOut": "Abmelden" },
   "auth": {
     "eyebrow": "Fortschritt statt Perfektion.",

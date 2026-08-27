@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { supportedLanguages, type SupportedLanguage } from '../i18n'
 
 const languageLabelKeys: Record<SupportedLanguage, string> = {
-  en: 'english', fa: 'persian', tr: 'turkish', ar: 'arabic', de: 'german', ja: 'japanese', 'zh-CN': 'chineseSimplified', es: 'spanish', fr: 'french', 'pt-BR': 'portugueseBrazilian', hi: 'hindi', ko: 'korean', fi: 'finnish',
+  en: 'english', fa: 'persian', tr: 'turkish', ar: 'arabic', de: 'german', el: 'greek', ja: 'japanese', 'zh-CN': 'chineseSimplified', es: 'spanish', fr: 'french', 'pt-BR': 'portugueseBrazilian', hi: 'hindi', ko: 'korean', fi: 'finnish',
 }
 
 export function LanguageSwitcher() {

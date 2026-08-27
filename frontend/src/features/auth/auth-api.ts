@@ -1,6 +1,6 @@
 import { apiRequest } from '../../api/client'
 
-export type User = { id: string; email: string; display_name: string; bio: string | null; timezone: string; preferred_language: 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'ja' | 'zh-CN' | 'es' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi'; gender: 'man' | 'woman' | null; gender_theme_enabled: boolean; roles: string[] }
+export type User = { id: string; email: string; display_name: string; bio: string | null; timezone: string; preferred_language: 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'el' | 'ja' | 'zh-CN' | 'es' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi'; gender: 'man' | 'woman' | null; gender_theme_enabled: boolean; roles: string[] }
 export type AuthResponse = { access_token: string; token_type: 'bearer'; user: User }
 type Credentials = { email: string; password: string }
 

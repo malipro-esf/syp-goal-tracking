@@ -11,7 +11,7 @@ class RegistrationRequest(BaseModel):
     display_name: str = Field(min_length=2, max_length=100)
     timezone: str = Field(default="UTC", min_length=1, max_length=100)
     preferred_language: Literal[
-        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
+        "en", "fa", "tr", "ar", "de", "el", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
     ] = "en"
     account_type: Literal["participant", "coach"] = "participant"
 
@@ -45,7 +45,7 @@ class UserResponse(BaseModel):
     bio: str | None
     timezone: str
     preferred_language: Literal[
-        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
+        "en", "fa", "tr", "ar", "de", "el", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
     ]
     gender: Literal["man", "woman"] | None
     gender_theme_enabled: bool
@@ -57,7 +57,7 @@ class ProfileUpdate(BaseModel):
     bio: str | None = Field(default=None, max_length=500)
     timezone: str = Field(min_length=1, max_length=100)
     preferred_language: Literal[
-        "en", "fa", "tr", "ar", "de", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
+        "en", "fa", "tr", "ar", "de", "el", "ja", "zh-CN", "es", "fr", "pt-BR", "hi", "ko", "fi"
     ]
     gender: Literal["man", "woman"] | None = None
     gender_theme_enabled: bool = False
