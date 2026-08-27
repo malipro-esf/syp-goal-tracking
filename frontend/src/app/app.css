@@ -809,3 +809,23 @@ html[data-appearance] .plan-row-icon {
   background: var(--appearance-soft);
   color: var(--appearance-primary);
 }
+
+/* Dark marketing panels own their contrast colors, even when an appearance theme is active. */
+html[data-appearance] .final-cta h2,
+html[data-appearance] .goal-section h2,
+html[data-appearance] .feature-trust h2,
+html[data-appearance] .coach-insight-feature h2,
+html[data-appearance] .engine-flow h2 {
+  color: #fff;
+}
+
+html[data-appearance] .final-cta .eyebrow {
+  color: #ffd0a3;
+}
+
+html[data-appearance] .goal-section .eyebrow,
+html[data-appearance] .feature-trust .eyebrow,
+html[data-appearance] .coach-insight-feature .eyebrow,
+html[data-appearance] .engine-flow .eyebrow {
+  color: #fff;
+}
