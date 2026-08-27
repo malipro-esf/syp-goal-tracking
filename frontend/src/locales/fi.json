@@ -19,6 +19,7 @@
     "finnish": "Suomi"
   },
   "navigation": {
+    "home": "Etusivu",
     "dashboard": "Kojelauta",
     "plans": "Suunnitelmat",
     "coaching": "Valmennus",
@@ -142,7 +143,8 @@
     "title": "Sinun tavoitteesi",
     "create": {
       "title": "Luo suunnitelma",
-      "action": "Luo luonnos"
+      "action": "Luo luonnos",
+      "close": "Sulje luontilomake"
     },
     "fields": {
       "title": "Nimi",
@@ -154,7 +156,10 @@
       "title": "Suunnitelmani",
       "loading": "Ladataan suunnitelmia…",
       "empty": "Ei vielä suunnitelmia. Luo ensimmäinen luonnoksesi.",
-      "noDescription": "Ei kuvausta"
+      "noDescription": "Ei kuvausta",
+      "search": "Hae suunnitelmia",
+      "filter": "Suodata suunnitelmia tilan mukaan",
+      "all": "Kaikki"
     },
     "errors": {
       "load": "Ei voitu ladata suunnitelmia.",

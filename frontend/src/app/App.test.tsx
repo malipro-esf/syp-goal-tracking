@@ -206,6 +206,17 @@ test('logs in and displays the protected dashboard', async () => {
   expect(fetchMock).toHaveBeenCalledWith('/api/v1/auth/login', expect.objectContaining({ method: 'POST' }))
   expect(fetchMock).toHaveBeenCalledWith('/api/v1/plans', expect.objectContaining({ headers: { Authorization: 'Bearer access-token' } }))
 
+  fireEvent.click(screen.getByRole('link', { name: 'Home' }))
+  expect(await screen.findByRole('heading', { name: /Turn your effort into visible progress/i })).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Sign out' })).toBeInTheDocument()
+  expect(screen.queryByRole('link', { name: 'Sign in' })).not.toBeInTheDocument()
+  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
+    id: 'plan-1', title: 'Learn Python', description: null, status: 'active',
+    start_date: null, end_date: null, created_at: '2026-08-20T00:00:00Z', updated_at: '2026-08-24T00:00:00Z',
+  }]), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fireEvent.click(screen.getByRole('link', { name: 'Dashboard' }))
+  expect(await screen.findByRole('heading', { name: 'Hello, SYP Learner' })).toBeInTheDocument()
+
   fireEvent.change(screen.getByLabelText('Language'), { target: { value: 'fa' } })
   expect(await screen.findByRole('heading', { name: 'سلام، SYP Learner' })).toBeInTheDocument()
   expect(screen.getByRole('region', { name: 'خلاصه برنامه‌ها' })).toHaveTextContent('برنامه‌های فعال1')
@@ -244,6 +255,13 @@ test('shows the personal plan workspace for an authenticated user', async () => 
   expect(await screen.findByRole('banner', { name: 'Application header' })).toBeInTheDocument()
   expect(await screen.findByRole('heading', { name: 'Your goals' })).toBeInTheDocument()
   expect(await screen.findByText('No plans yet. Create your first draft.')).toBeInTheDocument()
+  expect(screen.getByPlaceholderText('Search plans')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'All' })).toHaveClass('active')
+  expect(screen.queryByLabelText('Close creation form')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Create a plan' }))
+  expect(screen.getByLabelText('Close creation form')).toBeInTheDocument()
+  fireEvent.click(screen.getByLabelText('Close creation form'))
+  expect(screen.queryByLabelText('Close creation form')).not.toBeInTheDocument()
   expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/plans', expect.objectContaining({
     headers: { Authorization: 'Bearer access-token' },
   }))

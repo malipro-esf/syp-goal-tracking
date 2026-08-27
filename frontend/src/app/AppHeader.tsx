@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Bot, CircleUserRound, ClipboardList, LayoutDashboard, ListChecks, LogIn, LogOut, Rocket, Settings, Sparkles } from 'lucide-react'
+import { Bot, CircleUserRound, ClipboardList, House, LayoutDashboard, ListChecks, LogIn, LogOut, Rocket, Settings, Sparkles } from 'lucide-react'
 
 import { useAuth } from '../features/auth/useAuth'
 import { LanguageSwitcher } from './LanguageSwitcher'
@@ -21,10 +21,12 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
     </Link>
     <nav aria-label="Primary navigation">
       {user && !publicOnly ? <>
+        <NavLink to="/" end><House aria-hidden="true" />{t('navigation.home')}</NavLink>
         <NavLink to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('navigation.dashboard')}</NavLink>
         <NavLink to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</NavLink>
         <NavLink to="/coaching"><Bot aria-hidden="true" />{t('navigation.coaching')}</NavLink>
       </> : <>
+        <NavLink to="/" end><House aria-hidden="true" />{t('navigation.home')}</NavLink>
         <NavLink to="/features"><Sparkles aria-hidden="true" />{t('navigation.features')}</NavLink>
         <NavLink to="/how-it-works"><ListChecks aria-hidden="true" />{t('navigation.howItWorks')}</NavLink>
         <NavLink to="/for-coaches"><CircleUserRound aria-hidden="true" />{t('navigation.forCoaches')}</NavLink>

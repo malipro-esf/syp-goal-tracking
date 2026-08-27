@@ -13,7 +13,7 @@ export function LandingPage() {
   const { t } = useTranslation()
 
   return <div className="marketing-page">
-    <AppHeader publicOnly />
+    <AppHeader />
     <main>
       <section className="hero-section">
         <div className="hero-content">
