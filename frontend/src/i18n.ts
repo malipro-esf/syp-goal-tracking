@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
 
-export const supportedLanguages = ['ar', 'da', 'en', 'fi', 'fr', 'de', 'el', 'hi', 'ja', 'ko', 'nb', 'fa', 'pt-BR', 'zh-CN', 'es', 'sv', 'tr'] as const
+export const supportedLanguages = ['ar', 'da', 'en', 'fi', 'fr', 'de', 'el', 'hi', 'it', 'ja', 'ko', 'nb', 'fa', 'pt-BR', 'zh-CN', 'es', 'sv', 'tr'] as const
 export type SupportedLanguage = typeof supportedLanguages[number]
 
 type TranslationCatalog = Record<string, unknown>
@@ -23,6 +23,7 @@ const localeLoaders: Record<Exclude<SupportedLanguage, 'en'>, LocaleLoader> = {
   fr: () => import('./locales/fr.json'),
   'pt-BR': () => import('./locales/pt-BR.json'),
   hi: () => import('./locales/hi.json'),
+  it: () => import('./locales/it.json'),
   ko: () => import('./locales/ko.json'),
   nb: () => import('./locales/nb.json'),
   fi: () => import('./locales/fi.json'),

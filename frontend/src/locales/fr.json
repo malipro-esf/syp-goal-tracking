@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Le progrès plutôt que la perfection" },
-  "language": { "label": "Langue", "english": "Anglais", "persian": "Persan", "turkish": "Turc", "arabic": "Arabe", "german": "Allemand", "greek": "Grec", "japanese": "Japonais", "chineseSimplified": "Chinois simplifié", "spanish": "Espagnol", "french": "Français", "portugueseBrazilian": "Portugais (Brésil)", "hindi": "Hindi", "korean": "Coréen", "finnish": "Finnois", "norwegian": "Norvégien bokmål",
+  "language": { "label": "Langue", "english": "Anglais", "persian": "Persan", "turkish": "Turc", "arabic": "Arabe", "german": "Allemand", "greek": "Grec", "japanese": "Japonais", "chineseSimplified": "Chinois simplifié", "spanish": "Espagnol", "french": "Français", "portugueseBrazilian": "Portugais (Brésil)", "hindi": "Hindi", "korean": "Coréen", "finnish": "Finnois", "norwegian": "Norvégien bokmål", "italian": "Italien",
     "swedish": "Suédois",
     "danish": "Danois" },
   "navigation": { "home": "Accueil", "dashboard": "Tableau de bord", "plans": "Plans", "coaching": "Coaching", "features": "Fonctionnalités", "howItWorks": "Fonctionnement", "forCoaches": "Pour les coachs", "signIn": "Se connecter", "getStarted": "Commencer", "signOut": "Se déconnecter" },

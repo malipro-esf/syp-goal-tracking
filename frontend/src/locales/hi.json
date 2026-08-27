@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "पूर्णता से अधिक प्रगति" },
-  "language": { "label": "भाषा", "english": "अंग्रेज़ी", "persian": "फ़ारसी", "turkish": "तुर्की", "arabic": "अरबी", "german": "जर्मन", "greek": "यूनानी", "japanese": "जापानी", "chineseSimplified": "सरलीकृत चीनी", "spanish": "स्पेनिश", "french": "फ़्रेंच", "portugueseBrazilian": "पुर्तगाली (ब्राज़ील)", "hindi": "हिन्दी", "korean": "कोरियाई", "finnish": "फ़िनिश", "norwegian": "नॉर्वेजियन बोकमोल",
+  "language": { "label": "भाषा", "english": "अंग्रेज़ी", "persian": "फ़ारसी", "turkish": "तुर्की", "arabic": "अरबी", "german": "जर्मन", "greek": "यूनानी", "japanese": "जापानी", "chineseSimplified": "सरलीकृत चीनी", "spanish": "स्पेनिश", "french": "फ़्रेंच", "portugueseBrazilian": "पुर्तगाली (ब्राज़ील)", "hindi": "हिन्दी", "korean": "कोरियाई", "finnish": "फ़िनिश", "norwegian": "नॉर्वेजियन बोकमोल", "italian": "इतालवी",
     "swedish": "स्वीडिश",
     "danish": "डेनिश" },
   "navigation": { "home": "होम", "dashboard": "डैशबोर्ड", "plans": "योजनाएँ", "coaching": "कोचिंग", "features": "विशेषताएँ", "howItWorks": "यह कैसे काम करता है", "forCoaches": "कोचों के लिए", "signIn": "साइन इन", "getStarted": "शुरू करें", "signOut": "साइन आउट" },

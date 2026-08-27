@@ -36,6 +36,13 @@ test('loads the Norwegian Bokmål translation catalog on demand', async () => {
   expect(norwegian.plansPage).toMatchObject({ title: 'Dine mål' })
 })
 
+test('loads the Italian translation catalog on demand', async () => {
+  const italian = await loadLocale('it')
+
+  expect(italian.navigation).toMatchObject({ signIn: 'Accedi' })
+  expect(italian.plansPage).toMatchObject({ title: 'I tuoi obiettivi' })
+})
+
 test('keeps the bundled English catalog available through the same interface', async () => {
   const english = await loadLocale('en')
 

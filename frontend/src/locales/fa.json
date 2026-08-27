@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "پیشرفت مهم‌تر از بی‌نقص بودن است" },
-  "language": { "label": "زبان", "english": "انگلیسی", "persian": "فارسی", "turkish": "ترکی", "arabic": "عربی", "german": "آلمانی", "greek": "یونانی", "japanese": "ژاپنی", "chineseSimplified": "چینی ساده‌شده", "spanish": "اسپانیایی", "french": "فرانسوی", "portugueseBrazilian": "پرتغالی (برزیل)", "hindi": "هندی", "korean": "کره‌ای", "finnish": "فنلاندی", "norwegian": "نروژی بوکمول",
+  "language": { "label": "زبان", "english": "انگلیسی", "persian": "فارسی", "turkish": "ترکی", "arabic": "عربی", "german": "آلمانی", "greek": "یونانی", "japanese": "ژاپنی", "chineseSimplified": "چینی ساده‌شده", "spanish": "اسپانیایی", "french": "فرانسوی", "portugueseBrazilian": "پرتغالی (برزیل)", "hindi": "هندی", "korean": "کره‌ای", "finnish": "فنلاندی", "norwegian": "نروژی بوکمول", "italian": "ایتالیایی",
     "swedish": "سوئدی",
     "danish": "دانمارکی" },
   "navigation": { "home": "خانه", "dashboard": "داشبورد", "plans": "برنامه‌ها", "coaching": "مربی‌گری", "features": "ویژگی‌ها", "howItWorks": "نحوه کار", "forCoaches": "برای مربیان", "signIn": "ورود", "getStarted": "شروع کنید", "signOut": "خروج" },

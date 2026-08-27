@@ -1,6 +1,6 @@
 {
   "brand": { "tagline": "Progresso acima da perfeição" },
-  "language": { "label": "Idioma", "english": "Inglês", "persian": "Persa", "turkish": "Turco", "arabic": "Árabe", "german": "Alemão", "greek": "Grego", "japanese": "Japonês", "chineseSimplified": "Chinês simplificado", "spanish": "Espanhol", "french": "Francês", "portugueseBrazilian": "Português (Brasil)", "hindi": "Hindi", "korean": "Coreano", "finnish": "Finlandês", "norwegian": "Norueguês bokmål",
+  "language": { "label": "Idioma", "english": "Inglês", "persian": "Persa", "turkish": "Turco", "arabic": "Árabe", "german": "Alemão", "greek": "Grego", "japanese": "Japonês", "chineseSimplified": "Chinês simplificado", "spanish": "Espanhol", "french": "Francês", "portugueseBrazilian": "Português (Brasil)", "hindi": "Hindi", "korean": "Coreano", "finnish": "Finlandês", "norwegian": "Norueguês bokmål", "italian": "Italiano",
     "swedish": "Sueco",
     "danish": "Dinamarquês" },
   "navigation": { "home": "Início", "dashboard": "Painel", "plans": "Planos", "coaching": "Mentoria", "features": "Recursos", "howItWorks": "Como funciona", "forCoaches": "Para mentores", "signIn": "Entrar", "getStarted": "Começar", "signOut": "Sair" },
