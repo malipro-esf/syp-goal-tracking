@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
         display_name: displayName,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
-        preferred_language: (i18n.resolvedLanguage ?? 'en') as 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'el' | 'ja' | 'zh-CN' | 'es' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi',
+        preferred_language: (i18n.resolvedLanguage ?? 'en') as 'en' | 'fa' | 'tr' | 'ar' | 'de' | 'el' | 'ja' | 'zh-CN' | 'es' | 'sv' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi',
         account_type: accountType,
       })),
     logout: async () => { try { await logoutUser() } finally { setSession(null); applyAppearance(null) } },

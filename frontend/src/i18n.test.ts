@@ -15,6 +15,13 @@ test('loads the Greek translation catalog on demand', async () => {
   expect(greek.plansPage).toMatchObject({ title: 'Οι στόχοι σας' })
 })
 
+test('loads the Swedish translation catalog on demand', async () => {
+  const swedish = await loadLocale('sv')
+
+  expect(swedish.navigation).toMatchObject({ signIn: 'Logga in' })
+  expect(swedish.plansPage).toMatchObject({ title: 'Dina mål' })
+})
+
 test('keeps the bundled English catalog available through the same interface', async () => {
   const english = await loadLocale('en')
 

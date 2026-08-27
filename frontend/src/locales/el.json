@@ -1,6 +1,7 @@
 {
   "brand": { "tagline": "Πρόοδος αντί τελειότητας" },
-  "language": { "label": "Γλώσσα", "english": "Αγγλικά", "persian": "Περσικά", "turkish": "Τουρκικά", "arabic": "Αραβικά", "german": "Γερμανικά", "greek": "Ελληνικά", "japanese": "Ιαπωνικά", "chineseSimplified": "Απλοποιημένα Κινέζικα", "spanish": "Ισπανικά", "french": "Γαλλικά", "portugueseBrazilian": "Πορτογαλικά (Βραζιλία)", "hindi": "Χίντι", "korean": "Κορεατικά", "finnish": "Φινλανδικά" },
+  "language": { "label": "Γλώσσα", "english": "Αγγλικά", "persian": "Περσικά", "turkish": "Τουρκικά", "arabic": "Αραβικά", "german": "Γερμανικά", "greek": "Ελληνικά", "japanese": "Ιαπωνικά", "chineseSimplified": "Απλοποιημένα Κινέζικα", "spanish": "Ισπανικά", "french": "Γαλλικά", "portugueseBrazilian": "Πορτογαλικά (Βραζιλία)", "hindi": "Χίντι", "korean": "Κορεατικά", "finnish": "Φινλανδικά",
+    "swedish": "Σουηδικά" },
   "navigation": { "home": "Αρχική", "dashboard": "Πίνακας ελέγχου", "plans": "Πλάνα", "coaching": "Καθοδήγηση", "features": "Δυνατότητες", "howItWorks": "Πώς λειτουργεί", "forCoaches": "Για προπονητές", "signIn": "Σύνδεση", "getStarted": "Ξεκινήστε", "signOut": "Αποσύνδεση" },
   "auth": {
     "eyebrow": "Πρόοδος αντί τελειότητας.",

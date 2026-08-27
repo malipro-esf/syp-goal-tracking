@@ -1,6 +1,7 @@
 {
   "brand": { "tagline": "التقدم أهم من الكمال" },
-  "language": { "label": "اللغة", "english": "الإنجليزية", "persian": "الفارسية", "turkish": "التركية", "arabic": "العربية", "german": "الألمانية", "greek": "اليونانية", "japanese": "اليابانية", "chineseSimplified": "الصينية المبسطة", "spanish": "الإسبانية", "french": "الفرنسية", "portugueseBrazilian": "البرتغالية (البرازيل)", "hindi": "الهندية", "korean": "الكورية", "finnish": "الفنلندية" },
+  "language": { "label": "اللغة", "english": "الإنجليزية", "persian": "الفارسية", "turkish": "التركية", "arabic": "العربية", "german": "الألمانية", "greek": "اليونانية", "japanese": "اليابانية", "chineseSimplified": "الصينية المبسطة", "spanish": "الإسبانية", "french": "الفرنسية", "portugueseBrazilian": "البرتغالية (البرازيل)", "hindi": "الهندية", "korean": "الكورية", "finnish": "الفنلندية",
+    "swedish": "السويدية" },
   "navigation": { "home": "الرئيسية", "dashboard": "لوحة التحكم", "plans": "الخطط", "coaching": "التدريب", "features": "الميزات", "howItWorks": "كيف يعمل", "forCoaches": "للمدربين", "signIn": "تسجيل الدخول", "getStarted": "ابدأ الآن", "signOut": "تسجيل الخروج" },
   "auth": {
     "eyebrow": "التقدم أهم من الكمال.",
