@@ -22,6 +22,13 @@ test('loads the Swedish translation catalog on demand', async () => {
   expect(swedish.plansPage).toMatchObject({ title: 'Dina mål' })
 })
 
+test('loads the Danish translation catalog on demand', async () => {
+  const danish = await loadLocale('da')
+
+  expect(danish.navigation).toMatchObject({ signIn: 'Log ind' })
+  expect(danish.plansPage).toMatchObject({ title: 'Dine mål' })
+})
+
 test('keeps the bundled English catalog available through the same interface', async () => {
   const english = await loadLocale('en')
 
