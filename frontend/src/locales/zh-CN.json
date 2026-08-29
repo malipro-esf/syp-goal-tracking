@@ -60,5 +60,116 @@
     "cta": { "eyebrow": "用清晰信息支持进步", "title": "为每次教练对话提供更好的证据。", "description": "创建教练账户，把你的方案转化为可衡量且由参与者拥有的进步。", "button": "以教练身份开始" }
   },
   "plan": { "tabs": { "overview": "概览", "overviewLong": "计划概览", "activities": "活动", "progress": "进度", "progressLong": "进度报告", "entries": "记录", "entriesLong": "最近记录", "feedback": "反馈", "feedbackLong": "教练反馈", "ai": "AI 教练", "aiLong": "AI 教练" }, "allPlans": "所有计划", "currentPlan": "当前计划", "actions": { "activate": "开始", "pause": "暂停", "resume": "继续", "complete": "完成", "archive": "归档" }, "configuration": "配置", "details": "计划详情", "title": "标题", "description": "说明", "startDate": "开始日期", "endDate": "结束日期", "save": "保存更改", "atGlance": "一览", "status": "计划状态", "currentState": "当前状态", "starts": "开始", "ends": "结束", "notSet": "未设置", "openEnded": "无结束日期", "states": { "draft": "草稿", "active": "进行中", "paused": "已暂停", "completed": "已完成", "archived": "已归档" }, "errors": { "load": "无法加载计划。", "save": "无法保存计划。", "status": "无法更新状态。" }, "loading": "正在加载计划…" },
-  "chart": { "period": "本周", "title": "进度快照", "loading": "正在计算进度…", "empty": "添加活动后即可在此查看进度。", "error": "无法加载本周进度。", "aria": "每周总体达成率 {{percent}}%" }
+  "chart": { "period": "本周", "title": "进度快照", "loading": "正在计算进度…", "empty": "添加活动后即可在此查看进度。", "error": "无法加载本周进度。", "aria": "每周总体达成率 {{percent}}%" },
+  "execution": {
+    "saving": "正在保存...",
+    "adding": "添加...",
+    "activities": {
+      "eyebrow": "可衡量的执行力",
+      "title": "活动",
+      "total": "{{count}} 总计",
+      "add": "添加活动",
+      "name": "活动名称",
+      "description": "描述",
+      "target": "目标",
+      "unit": "单位",
+      "customUnit": "自定义单位标签",
+      "frequency": "频率",
+      "weekdays": "平日",
+      "effectiveFrom": "生效日期：",
+      "effective": "有效 {{date}}",
+      "recordEffort": "记录努力",
+      "actualAmount": "实际金额 ({{unit}})",
+      "performedOn": "执行于",
+      "noteOptional": "注意（可选）",
+      "saveEffort": "节省实际精力",
+      "changeExpectation": "改变未来的期望",
+      "newTarget": "新目标",
+      "reasonOptional": "原因（可选）",
+      "saveExpectation": "保存新的期待",
+      "empty": "还没有活动。",
+      "activitySaved": "已添加活动。",
+      "effortSaved": "努力记录。",
+      "expectationSaved": "保存了未来的期望。"
+    },
+    "schedules": {
+      "daily": "每天",
+      "weekly": "每周配额",
+      "selected_days": "选定的工作日"
+    },
+    "weekdays": {
+      "mon": "周一",
+      "tue": "星期二",
+      "wed": "周三",
+      "thu": "星期四",
+      "fri": "周五",
+      "sat": "星期六",
+      "sun": "太阳"
+    },
+    "units": {
+      "minute": "分钟",
+      "hour": "时间",
+      "page": "页数",
+      "repetition": "重复次数",
+      "number": "数量",
+      "meter": "米",
+      "kilometer": "公里",
+      "custom": "定制单位"
+    },
+    "progress": {
+      "eyebrow": "确定性报告",
+      "title": "进展",
+      "today": "今天",
+      "thisWeek": "本周",
+      "from": "来自",
+      "to": "至",
+      "overall": "整体依从性",
+      "attainment": "成就",
+      "complete": "完成",
+      "partial": "部分",
+      "missed": "错过了",
+      "upcoming": "即将推出"
+    },
+    "entries": {
+      "eyebrow": "实际执行",
+      "title": "最近的条目",
+      "empty": "尚未记录任何努力。",
+      "activity": "活动",
+      "correct": "正确",
+      "actualAmount": "实际金额",
+      "date": "日期",
+      "note": "注意事项",
+      "save": "保存修正",
+      "remove": "删除"
+    },
+    "feedback": {
+      "eyebrow": "教练沟通",
+      "title": "反馈意见",
+      "label": "参与者反馈",
+      "send": "发送反馈",
+      "empty": "还没有教练反馈。"
+    },
+    "ai": {
+      "eyebrow": "可选的人工智能指导",
+      "title": "询问你的进步教练",
+      "description": "人工智能可以通过受控工具读取该计划的进度。它不能改变您的计划或记录。",
+      "question": "你的问题",
+      "placeholder": "为什么我落后了，我应该关注什么？",
+      "consent": "我同意将相关进度数据发送给 OpenAI 以获取此答案。",
+      "analyzing": "正在分析……",
+      "ask": "询问AI教练",
+      "answer": "人工智能生成的指导"
+    },
+    "errors": {
+      "activity": "无法创建活动。",
+      "effort": "无法记录努力。",
+      "expectation": "无法修改预期。",
+      "progress": "无法计算进度。",
+      "entryUpdate": "无法正确输入。",
+      "entryRemove": "无法删除条目。",
+      "feedbackLoad": "无法加载反馈。",
+      "feedbackSend": "无法留下反馈。",
+      "ai": "AI教练暂时无法使用。"
+    }
+  }
 }

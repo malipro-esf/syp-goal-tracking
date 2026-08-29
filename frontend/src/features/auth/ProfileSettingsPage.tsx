@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Clock3, Languages, Mail, Palette, Save, ShieldCheck, UserRound } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
+import { SuccessToast } from '../../components/SuccessToast'
 import { supportedLanguages, type SupportedLanguage } from '../../i18n'
 import { detectBrowserTimezone, getSupportedTimezones } from './timezones'
 import { useAuth } from './useAuth'
@@ -55,7 +56,7 @@ export function ProfileSettingsPage() {
         <label className="checkbox-label"><input type="checkbox" name="genderThemeEnabled" checked={genderThemeEnabled} disabled={!selectedGender} onChange={(event) => setGenderThemeEnabled(event.target.checked)} /> <span>{t('profile.appearance.enable')}</span></label>
         <small>{t('profile.appearance.hint')}</small>
       </fieldset>
-      {message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
+      <SuccessToast message={message} onDismiss={() => setMessage('')} />{error && <p className="form-error" role="alert">{error}</p>}
       <button type="submit" className="icon-button" disabled={saving}><Save aria-hidden="true" />{saving ? t('profile.saving') : t('profile.save')}</button>
     </form><aside className="card account-summary"><h2>{t('profile.account')}</h2><dl><div><dt className="label-with-icon"><Mail aria-hidden="true" />{t('profile.email')}</dt><dd>{user.email}</dd></div><div><dt className="label-with-icon"><ShieldCheck aria-hidden="true" />{t('profile.roles')}</dt><dd>{user.roles.join(', ')}</dd></div></dl><p>{t('profile.accountHint')}</p></aside></div>
   </main>

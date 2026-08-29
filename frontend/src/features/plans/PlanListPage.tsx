@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarDays, ChevronRight, ClipboardList, LayoutDashboard, 
 import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
+import { SuccessToast } from '../../components/SuccessToast'
 import { useAuth } from '../auth/useAuth'
 import { createPlan, listPlans, type Plan, type PlanStatus } from './plans-api'
 
@@ -15,6 +16,8 @@ export function PlanListPage() {
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [saving, setSaving] = useState(false)
   const [showCreate, setShowCreate] = useState(false)
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<PlanStatus | 'all'>('all')
@@ -38,7 +41,7 @@ export function PlanListPage() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!accessToken) return
-    setError('')
+    setError(''); setMessage(''); setSaving(true)
     const form = event.currentTarget
     const data = new FormData(form)
     try {
@@ -51,9 +54,10 @@ export function PlanListPage() {
       setPlans((current) => [plan, ...current])
       form.reset()
       setShowCreate(false)
+      setMessage(t('plansPage.create.saved', { title: plan.title }))
     } catch (caught) {
       setError(caught instanceof ApiError ? caught.message : t('plansPage.errors.create'))
-    }
+    } finally { setSaving(false) }
   }
 
   return (
@@ -63,6 +67,7 @@ export function PlanListPage() {
         <div className="plans-header-actions"><Link className="icon-button" to="/dashboard"><ArrowLeft aria-hidden="true" /><LayoutDashboard aria-hidden="true" />{t('navigation.dashboard')}</Link><button type="button" className="icon-button" onClick={() => setShowCreate(true)}><Plus aria-hidden="true" />{t('plansPage.create.title')}</button></div>
       </header>
       {error && <p className="form-error panel" role="alert">{error}</p>}
+      <SuccessToast message={message} onDismiss={() => setMessage('')} className="panel" />
       <section className={`plan-layout${showCreate ? ' plan-layout-open' : ''}`}>
         {showCreate && <form className="panel plan-form" onSubmit={submit}>
           <div className="section-heading"><h2>{t('plansPage.create.title')}</h2><button type="button" className="text-button icon-button" aria-label={t('plansPage.create.close')} onClick={() => setShowCreate(false)}><X aria-hidden="true" /></button></div>
@@ -72,7 +77,7 @@ export function PlanListPage() {
             <label>{t('plansPage.fields.startDate')}<input name="startDate" type="date" /></label>
             <label>{t('plansPage.fields.endDate')}<input name="endDate" type="date" /></label>
           </div>
-          <button type="submit" className="icon-button"><Plus aria-hidden="true" />{t('plansPage.create.action')}</button>
+          <button type="submit" className="icon-button" disabled={saving}><Plus aria-hidden="true" />{saving ? t('plansPage.create.saving') : t('plansPage.create.action')}</button>
         </form>}
         <section className="panel plans-catalog" aria-labelledby="plan-list-title">
           <div className="plans-list-heading"><div><p className="eyebrow">{t('plansPage.eyebrow')}</p><h2 id="plan-list-title">{t('plansPage.list.title')}</h2></div><strong>{filteredPlans.length} / {plans.length}</strong></div>

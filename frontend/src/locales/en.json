@@ -17,7 +17,7 @@
   },
   "profile": { "eyebrow": "Personal workspace", "title": "Profile and settings", "description": "Keep your identity and progress preferences accurate.", "displayName": "Display name", "bio": "Short bio", "bioHint": "Optional, up to 500 characters.", "language": "Preferred language", "timezone": "Timezone", "timezoneHint": "Use an IANA timezone such as Europe/Bucharest.", "appearance": { "title": "Appearance", "gender": "Gender", "notSpecified": "Prefer not to say", "man": "Man / boy", "woman": "Woman / girl", "enable": "Use colors based on my selected gender", "hint": "Optional. Your current neutral colors remain when this setting is off." }, "save": "Save changes", "saving": "Saving…", "saved": "Your profile was updated.", "error": "The profile could not be updated.", "account": "Account information", "email": "Email", "roles": "Roles", "accountHint": "Email and roles cannot be changed from this page." },
   "dashboard": { "eyebrow": "Your progress workspace", "greeting": "Hello, {{name}}", "description": "See your plans, priorities, and next actions at a glance.", "createPlan": "Create a plan", "sidebar": { "workspace": "Personal workspace", "navigation": "Dashboard sections", "overview": "Overview", "settings": "Settings" }, "metrics": { "label": "Plan summary", "total": "Total plans", "active": "Active plans", "completed": "Completed" }, "recent": { "eyebrow": "Continue where you left off", "title": "Recent plans", "viewAll": "View all", "loading": "Loading plans…", "emptyTitle": "No plans yet", "emptyDescription": "Create your first plan and turn a goal into measurable action.", "emptyAction": "Create your first plan", "updated": "Updated {{date}}" }, "actions": { "eyebrow": "Shortcuts", "title": "Quick actions", "manage": "Manage plans", "manageDescription": "Create, review, or update your goals.", "coach": "Coach workspace", "invitations": "Plan invitations", "coachingDescription": "Continue your coaching collaboration.", "settings": "Profile & settings", "settingsDescription": "Update language, timezone, and identity." }, "errors": { "load": "Could not load your overview." } },
-  "plansPage": { "eyebrow": "Personal plans", "title": "Your goals", "create": { "title": "Create a plan", "action": "Create draft", "close": "Close creation form" }, "fields": { "title": "Title", "description": "Description", "startDate": "Start date", "endDate": "End date" }, "list": { "title": "My plans", "loading": "Loading plans…", "empty": "No plans yet. Create your first draft.", "noDescription": "No description", "search": "Search plans", "filter": "Filter plans by status", "all": "All" }, "errors": { "load": "Could not load plans.", "create": "Could not create the plan." } },
+  "plansPage": { "eyebrow": "Personal plans", "title": "Your goals", "create": { "title": "Create a plan", "action": "Create draft", "saving": "Creating…", "saved": "Plan “{{title}}” was created as a draft.", "close": "Close creation form" }, "fields": { "title": "Title", "description": "Description", "startDate": "Start date", "endDate": "End date" }, "list": { "title": "My plans", "loading": "Loading plans…", "empty": "No plans yet. Create your first draft.", "noDescription": "No description", "search": "Search plans", "filter": "Filter plans by status", "all": "All" }, "errors": { "load": "Could not load plans.", "create": "Could not create the plan." } },
   "coachingPage": { "eyebrow": "Coach collaboration", "coachTitle": "Plan templates & assignments", "participantTitle": "Plan invitations", "coachDescription": "Build reusable structures, assign them thoughtfully, and support progress with evidence.", "participantDescription": "Review plan invitations and continue the coaching relationships you have accepted.", "summary": { "label": "Invitation summary", "total": "Total invitations", "pending": "Pending", "accepted": "Accepted" }, "fields": { "title": "Title", "description": "Description", "name": "Name", "target": "Target", "unit": "Unit", "frequency": "Frequency", "email": "Email", "startDate": "Start date" }, "template": { "eyebrow": "Reusable structure", "new": "New plan template", "create": "Create plan template", "libraryEyebrow": "Your coaching system", "library": "Plan template library", "activityCount": "{{count}} activities", "emptyTitle": "No templates yet", "emptyDescription": "Create a reusable plan structure for your participants." }, "activity": { "add": "Add activity", "action": "Add activity" }, "units": { "minute": "Minute", "page": "Page", "repetition": "Repetition", "kilometer": "Kilometer" }, "schedules": { "daily": "Daily", "weekly": "Weekly" }, "assignment": { "eyebrow": "Coaching relationships", "assign": "Assign to participant", "send": "Send invitation", "sent": "Sent assignments", "invitations": "Your invitations", "emptyTitle": "No invitations yet", "empty": "New coaching invitations will appear here.", "starts": "Starts {{date}}", "accept": "Accept", "reject": "Reject", "review": "Review progress", "open": "Open plan" }, "statuses": { "pending": "Pending", "accepted": "Accepted", "rejected": "Rejected" }, "errors": { "load": "Could not load coaching.", "createTemplate": "Could not create plan template.", "addActivity": "Could not add activity.", "send": "Could not send invitation.", "respond": "Could not answer invitation." } },
   "home": {
     "hero": { "eyebrow": "Smart goal tracking & coaching", "title": "Turn your effort into visible progress.", "description": "Build structured plans, record what you actually completed, and improve without turning every missed target into failure.", "primary": "Start tracking", "secondary": "See how it works", "note": "Designed for real progress—not perfect streaks." },
@@ -108,10 +108,121 @@
     "tabs": { "overview": "Overview", "overviewLong": "Plan overview", "activities": "Activities", "progress": "Progress", "progressLong": "Progress report", "entries": "Entries", "entriesLong": "Recent entries", "feedback": "Feedback", "feedbackLong": "Coach feedback", "ai": "AI Coach", "aiLong": "AI coach" },
     "allPlans": "All plans", "currentPlan": "Current plan",
     "actions": { "activate": "Activate", "pause": "Pause", "resume": "Resume", "complete": "Complete", "archive": "Archive" },
-    "configuration": "Configuration", "details": "Plan details", "title": "Title", "description": "Description", "startDate": "Start date", "endDate": "End date", "save": "Save changes",
+    "configuration": "Configuration", "details": "Plan details", "title": "Title", "description": "Description", "startDate": "Start date", "endDate": "End date", "save": "Save changes", "saving": "Saving…", "saved": "Plan details were saved.", "statusUpdated": "Plan status was updated.",
     "atGlance": "At a glance", "status": "Plan status", "currentState": "Current state", "starts": "Starts", "ends": "Ends", "notSet": "Not set", "openEnded": "Open-ended",
     "states": { "draft": "Draft", "active": "Active", "paused": "Paused", "completed": "Completed", "archived": "Archived" },
     "errors": { "load": "Could not load the plan.", "save": "Could not save the plan.", "status": "Could not update status." }, "loading": "Loading plan…"
   },
-  "chart": { "period": "This week", "title": "Progress snapshot", "loading": "Calculating progress…", "empty": "Add an activity to see progress here.", "error": "Could not load this week’s progress.", "aria": "Weekly overall adherence {{percent}} percent" }
+  "chart": { "period": "This week", "title": "Progress snapshot", "loading": "Calculating progress…", "empty": "Add an activity to see progress here.", "error": "Could not load this week’s progress.", "aria": "Weekly overall adherence {{percent}} percent" },
+  "execution": {
+    "saving": "Saving…",
+    "adding": "Adding…",
+    "activities": {
+      "eyebrow": "Measurable execution",
+      "title": "Activities",
+      "total": "{{count}} total",
+      "add": "Add activity",
+      "name": "Activity name",
+      "description": "Description",
+      "target": "Target",
+      "unit": "Unit",
+      "customUnit": "Custom unit label",
+      "frequency": "Frequency",
+      "weekdays": "Weekdays",
+      "effectiveFrom": "Effective from",
+      "effective": "Effective {{date}}",
+      "recordEffort": "Record effort",
+      "actualAmount": "Actual amount ({{unit}})",
+      "performedOn": "Performed on",
+      "noteOptional": "Note (optional)",
+      "saveEffort": "Save actual effort",
+      "changeExpectation": "Change future expectation",
+      "newTarget": "New target",
+      "reasonOptional": "Reason (optional)",
+      "saveExpectation": "Save new expectation",
+      "empty": "No activities yet.",
+      "activitySaved": "Activity added.",
+      "effortSaved": "Effort recorded.",
+      "expectationSaved": "Future expectation saved."
+    },
+    "schedules": {
+      "daily": "Every day",
+      "weekly": "Weekly quota",
+      "selected_days": "Selected weekdays"
+    },
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "units": {
+      "minute": "Minutes",
+      "hour": "Hours",
+      "page": "Pages",
+      "repetition": "Repetitions",
+      "number": "Number",
+      "meter": "Meters",
+      "kilometer": "Kilometers",
+      "custom": "Custom unit"
+    },
+    "progress": {
+      "eyebrow": "Deterministic report",
+      "title": "Progress",
+      "today": "Today",
+      "thisWeek": "This week",
+      "from": "From",
+      "to": "To",
+      "overall": "Overall adherence",
+      "attainment": "Attainment",
+      "complete": "Complete",
+      "partial": "Partial",
+      "missed": "Missed",
+      "upcoming": "Upcoming"
+    },
+    "entries": {
+      "eyebrow": "Actual execution",
+      "title": "Recent entries",
+      "empty": "No effort recorded yet.",
+      "activity": "Activity",
+      "correct": "Correct",
+      "actualAmount": "Actual amount",
+      "date": "Date",
+      "note": "Note",
+      "save": "Save correction",
+      "remove": "Remove"
+    },
+    "feedback": {
+      "eyebrow": "Coach communication",
+      "title": "Feedback",
+      "label": "Feedback for participant",
+      "send": "Send feedback",
+      "empty": "No coach feedback yet."
+    },
+    "ai": {
+      "eyebrow": "Optional AI guidance",
+      "title": "Ask your progress coach",
+      "description": "The AI can read this plan’s progress through controlled tools. It cannot change your plan or records.",
+      "question": "Your question",
+      "placeholder": "Why am I falling behind, and what should I focus on?",
+      "consent": "I agree to send relevant progress data to OpenAI for this answer.",
+      "analyzing": "Analyzing…",
+      "ask": "Ask AI coach",
+      "answer": "AI-generated guidance"
+    },
+    "errors": {
+      "activity": "Could not create activity.",
+      "effort": "Could not record effort.",
+      "expectation": "Could not revise expectation.",
+      "progress": "Could not calculate progress.",
+      "entryUpdate": "Could not correct entry.",
+      "entryRemove": "Could not remove entry.",
+      "feedbackLoad": "Could not load feedback.",
+      "feedbackSend": "Could not leave feedback.",
+      "ai": "The AI coach is temporarily unavailable."
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
 import { useAuth } from '../auth/useAuth'
@@ -9,13 +10,14 @@ export function FeedbackPanel({ enrollmentId, canWrite = false }: {
   canWrite?: boolean
 }) {
   const { accessToken } = useAuth()
+  const { i18n, t } = useTranslation()
   const [items, setItems] = useState<Feedback[]>([])
   const [error, setError] = useState('')
 
   useEffect(() => {
     if (accessToken) listFeedback(accessToken, enrollmentId).then(setItems).catch((caught: unknown) =>
-      setError(caught instanceof ApiError ? caught.message : 'Could not load feedback.'))
-  }, [accessToken, enrollmentId])
+      setError(caught instanceof ApiError ? caught.message : t('execution.errors.feedbackLoad')))
+  }, [accessToken, enrollmentId, t])
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); if (!accessToken) return
@@ -24,16 +26,16 @@ export function FeedbackPanel({ enrollmentId, canWrite = false }: {
     try {
       const created = await createFeedback(accessToken, enrollmentId, message)
       setItems((current) => [created, ...current]); form.reset(); setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not leave feedback.') }
+    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('execution.errors.feedbackSend')) }
   }
 
-  return <section className="feedback-panel"><p className="eyebrow">Coach communication</p><h2>Feedback</h2>
-    {canWrite && <form className="panel" onSubmit={submit}><label>Feedback for participant
-      <textarea name="message" maxLength={2000} rows={4} required /></label><button>Send feedback</button></form>}
+  return <section className="feedback-panel"><p className="eyebrow">{t('execution.feedback.eyebrow')}</p><h2>{t('execution.feedback.title')}</h2>
+    {canWrite && <form className="panel" onSubmit={submit}><label>{t('execution.feedback.label')}
+      <textarea name="message" maxLength={2000} rows={4} required /></label><button>{t('execution.feedback.send')}</button></form>}
     {error && <p className="form-error" role="alert">{error}</p>}
-    {items.length === 0 && <p className="empty-state">No coach feedback yet.</p>}
+    {items.length === 0 && <p className="empty-state">{t('execution.feedback.empty')}</p>}
     {items.map((item) => <article className="panel feedback-item" key={item.id}>
-      <div><strong>{item.coach_name}</strong><time>{new Date(item.created_at).toLocaleString()}</time></div>
+      <div><strong>{item.coach_name}</strong><time>{new Date(item.created_at).toLocaleString(i18n.language)}</time></div>
       <p>{item.message}</p></article>)}
   </section>
 }

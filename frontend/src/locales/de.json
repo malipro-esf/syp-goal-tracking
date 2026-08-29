@@ -94,5 +94,116 @@
       "history": { "title": "Vorlagenänderungen bleiben vorhersehbar", "description": "Spätere Änderungen an Vorlagen überschreiben unabhängige Plankopien nicht unbemerkt." }
     } },
     "cta": { "eyebrow": "Fortschritt mit Klarheit unterstützen", "title": "Gib jedem Coaching-Gespräch bessere Fakten.", "description": "Erstelle ein Coach-Konto und verwandle dein Programm in messbaren Fortschritt im Besitz der Teilnehmenden.", "button": "Als Coach starten" }
+  },
+  "execution": {
+    "saving": "Wird gespeichert...",
+    "adding": "Wird hinzugefügt...",
+    "activities": {
+      "eyebrow": "Messbare Ausführung",
+      "title": "Aktivitäten",
+      "total": "{{count}} gesamt",
+      "add": "Aktivität hinzufügen",
+      "name": "Aktivitätsname",
+      "description": "Beschreibung",
+      "target": "Target",
+      "unit": "Einheit",
+      "customUnit": "Benutzerdefiniertes Geräteetikett",
+      "frequency": "Häufigkeit",
+      "weekdays": "Wochentage",
+      "effectiveFrom": "Gültig ab",
+      "effective": "Gültig ab {{date}}",
+      "recordEffort": "Aufwand erfassen",
+      "actualAmount": "Tatsächlicher Betrag ({{unit}})",
+      "performedOn": "Durchgeführt am",
+      "noteOptional": "Hinweis (optional)",
+      "saveEffort": "Sparen Sie den tatsächlichen Aufwand",
+      "changeExpectation": "Zukunftserwartung ändern",
+      "newTarget": "Neues Ziel",
+      "reasonOptional": "Grund (optional)",
+      "saveExpectation": "Neue Erwartung speichern",
+      "empty": "Noch keine Aktivitäten.",
+      "activitySaved": "Aktivität hinzugefügt.",
+      "effortSaved": "Aufwand erfasst.",
+      "expectationSaved": "Zukunftserwartung gespeichert."
+    },
+    "schedules": {
+      "daily": "Jeden Tag",
+      "weekly": "Wöchentliches Kontingent",
+      "selected_days": "Ausgewählte Wochentage"
+    },
+    "weekdays": {
+      "mon": "Mo",
+      "tue": "Di",
+      "wed": "Mi",
+      "thu": "Do",
+      "fri": "Fr",
+      "sat": "Sa",
+      "sun": "So"
+    },
+    "units": {
+      "minute": "Minuten",
+      "hour": "Stunden",
+      "page": "Seiten",
+      "repetition": "Wiederholungen",
+      "number": "Nummer",
+      "meter": "Meter",
+      "kilometer": "Kilometer",
+      "custom": "Benutzerdefinierte Einheit"
+    },
+    "progress": {
+      "eyebrow": "Deterministischer Bericht",
+      "title": "Fortschritt",
+      "today": "Heute",
+      "thisWeek": "Diese Woche",
+      "from": "Von",
+      "to": "An",
+      "overall": "Gesamte Adhärenz",
+      "attainment": "Errungenschaft",
+      "complete": "Abgeschlossen",
+      "partial": "Teilweise",
+      "missed": "Verpasst",
+      "upcoming": "Bevorstehend"
+    },
+    "entries": {
+      "eyebrow": "Tatsächliche Ausführung",
+      "title": "Letzte Einträge",
+      "empty": "Noch kein Aufwand erfasst.",
+      "activity": "Aktivität",
+      "correct": "Richtig",
+      "actualAmount": "Tatsächlicher Betrag",
+      "date": "Datum",
+      "note": "Hinweis",
+      "save": "Korrektur speichern",
+      "remove": "Entfernen"
+    },
+    "feedback": {
+      "eyebrow": "Coach-Kommunikation",
+      "title": "Feedback",
+      "label": "Feedback für Teilnehmer",
+      "send": "Feedback senden",
+      "empty": "Noch kein Coach-Feedback."
+    },
+    "ai": {
+      "eyebrow": "Optionale KI-Anleitung",
+      "title": "Fragen Sie Ihren Fortschrittscoach",
+      "description": "Die KI kann den Fortschritt dieses Plans durch kontrollierte Tools ablesen. Es kann Ihren Plan oder Ihre Aufzeichnungen nicht ändern.",
+      "question": "Ihre Frage",
+      "placeholder": "Warum gerate ich ins Hintertreffen und worauf sollte ich mich konzentrieren?",
+      "consent": "Ich bin damit einverstanden, relevante Fortschrittsdaten für diese Antwort an OpenAI zu senden.",
+      "analyzing": "Analysiere...",
+      "ask": "KI-Coach fragen",
+      "answer": "KI-generierte Anleitung"
+    },
+    "errors": {
+      "activity": "Aktivität konnte nicht erstellt werden.",
+      "effort": "Der Aufwand konnte nicht aufgezeichnet werden.",
+      "expectation": "Erwartung konnte nicht überarbeitet werden.",
+      "progress": "Fortschritt konnte nicht berechnet werden.",
+      "entryUpdate": "Eingabe konnte nicht korrigiert werden.",
+      "entryRemove": "Eintrag konnte nicht entfernt werden.",
+      "feedbackLoad": "Feedback konnte nicht geladen werden.",
+      "feedbackSend": "Es konnte kein Feedback hinterlassen werden.",
+      "ai": "Der KI-Coach ist vorübergehend nicht erreichbar."
+    }
   }
 }

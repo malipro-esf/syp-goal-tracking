@@ -21,7 +21,116 @@
     "footer": { "name": "Vedi i tuoi progressi", "tagline": "Il progresso prima della perfezione.", "navigation": "Navigazione a piè di pagina", "features": "Funzionalità", "coaches": "Per i coach" }
   },
   "plan": { "tabs": { "overview": "Panoramica", "overviewLong": "Panoramica del piano", "activities": "Attività", "progress": "Progressi", "progressLong": "Rapporto sui progressi", "entries": "Registrazioni", "entriesLong": "Registrazioni recenti", "feedback": "Feedback", "feedbackLong": "Feedback del coach", "ai": "AI-coach", "aiLong": "AI-coach" }, "allPlans": "Tutti i piani", "currentPlan": "Piano corrente", "actions": { "activate": "Attiva", "pause": "Metti in pausa", "resume": "Riprendi", "complete": "Completa", "archive": "Archivia" }, "configuration": "Configurazione", "details": "Dettagli del piano", "title": "Titolo", "description": "Descrizione", "startDate": "Data di inizio", "endDate": "Data di fine", "save": "Salva modifiche", "atGlance": "A colpo d'occhio", "status": "Stato del piano", "currentState": "Stato corrente", "starts": "Inizia", "ends": "Termina", "notSet": "Non impostato", "openEnded": "Senza data di fine", "states": { "draft": "Bozza", "active": "Attivo", "paused": "In pausa", "completed": "Completato", "archived": "Archiviato" }, "errors": { "load": "Impossibile caricare il piano.", "save": "Impossibile salvare il piano.", "status": "Impossibile aggiornare lo stato." }, "loading": "Caricamento piano…" },
-  "chart": { "period": "Questa settimana", "title": "Istantanea dei progressi", "loading": "Calcolo dei progressi…", "empty": "Aggiungi un'attività per visualizzare qui i progressi.", "error": "Impossibile caricare i progressi settimanali.", "aria": "L'aderenza complessiva della settimana è del {{percent}} percento" }
+  "chart": { "period": "Questa settimana", "title": "Istantanea dei progressi", "loading": "Calcolo dei progressi…", "empty": "Aggiungi un'attività per visualizzare qui i progressi.", "error": "Impossibile caricare i progressi settimanali.", "aria": "L'aderenza complessiva della settimana è del {{percent}} percento" },
+  "execution": {
+    "saving": "Salvataggio…",
+    "adding": "Aggiunta…",
+    "activities": {
+      "eyebrow": "Esecuzione misurabile",
+      "title": "Attività",
+      "total": "{{count}} totale",
+      "add": "Aggiungi attività",
+      "name": "Nome dell'attività",
+      "description": "Descrizione",
+      "target": "Obiettivo",
+      "unit": "Unità",
+      "customUnit": "Etichetta unità personalizzata",
+      "frequency": "Frequenza",
+      "weekdays": "Giorni feriali",
+      "effectiveFrom": "Efficace da",
+      "effective": "Effettivo {{date}}",
+      "recordEffort": "Sforzo da record",
+      "actualAmount": "Importo effettivo ({{unit}})",
+      "performedOn": "Eseguito il",
+      "noteOptional": "Nota (facoltativa)",
+      "saveEffort": "Risparmia lo sforzo effettivo",
+      "changeExpectation": "Cambiare le aspettative future",
+      "newTarget": "Nuovo obiettivo",
+      "reasonOptional": "Motivo (facoltativo)",
+      "saveExpectation": "Salva nuove aspettative",
+      "empty": "Nessuna attività ancora",
+      "activitySaved": "Attività aggiunta.",
+      "effortSaved": "Sforzo registrato.",
+      "expectationSaved": "Aspettativa futura salvata."
+    },
+    "schedules": {
+      "daily": "Ogni giorno",
+      "weekly": "Quota settimanale",
+      "selected_days": "Giorni feriali selezionati"
+    },
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mercoledì",
+      "thu": "Gio",
+      "fri": "Ven",
+      "sat": "Sab",
+      "sun": "Sole"
+    },
+    "units": {
+      "minute": "Minuti",
+      "hour": "Ore",
+      "page": "Pagine",
+      "repetition": "Ripetizioni",
+      "number": "Numero",
+      "meter": "Metri",
+      "kilometer": "Chilometri",
+      "custom": "Unità personalizzata"
+    },
+    "progress": {
+      "eyebrow": "Rapporto deterministico",
+      "title": "Progresso",
+      "today": "Oggi",
+      "thisWeek": "Questa settimana",
+      "from": "Da",
+      "to": "A",
+      "overall": "Aderenza complessiva",
+      "attainment": "Raggiungimento",
+      "complete": "Completo",
+      "partial": "Parziale",
+      "missed": "Mancato",
+      "upcoming": "Prossimamente"
+    },
+    "entries": {
+      "eyebrow": "Esecuzione effettiva",
+      "title": "Voci recenti",
+      "empty": "Nessuno sforzo ancora registrato.",
+      "activity": "Attività",
+      "correct": "Corretto",
+      "actualAmount": "Importo effettivo",
+      "date": "Data",
+      "note": "Nota",
+      "save": "Salva la correzione",
+      "remove": "Rimuovi"
+    },
+    "feedback": {
+      "eyebrow": "Comunicazione dell'allenatore",
+      "title": "Feedback",
+      "label": "Feedback per il partecipante",
+      "send": "Invia feedback",
+      "empty": "Nessun feedback ancora dall'allenatore."
+    },
+    "ai": {
+      "eyebrow": "Guida AI opzionale",
+      "title": "Chiedi al tuo allenatore dei progressi",
+      "description": "L’intelligenza artificiale può leggere i progressi di questo piano attraverso strumenti controllati. Non può modificare il tuo piano o i tuoi record.",
+      "question": "La tua domanda",
+      "placeholder": "Perché rimango indietro e su cosa dovrei concentrarmi?",
+      "consent": "Accetto di inviare dati di avanzamento rilevanti a OpenAI per questa risposta.",
+      "analyzing": "Analizzando...",
+      "ask": "Chiedi all'allenatore dell'IA",
+      "answer": "Guida generata dall'intelligenza artificiale"
+    },
+    "errors": {
+      "activity": "Impossibile creare l'attività.",
+      "effort": "Impossibile registrare lo sforzo.",
+      "expectation": "Impossibile rivedere le aspettative.",
+      "progress": "Impossibile calcolare i progressi.",
+      "entryUpdate": "Impossibile correggere la voce.",
+      "entryRemove": "Impossibile rimuovere la voce.",
+      "feedbackLoad": "Impossibile caricare il feedback.",
+      "feedbackSend": "Impossibile lasciare un feedback.",
+      "ai": "L'allenatore dell'IA è temporaneamente non disponibile."
+    }
+  }
 }
-
-

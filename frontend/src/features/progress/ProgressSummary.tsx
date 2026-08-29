@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { apiRequest, ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
@@ -41,6 +42,7 @@ function weekRange() {
 
 export function ProgressSummary({ planId, entries }: { planId: string; entries: ProgressEntry[] }) {
   const { accessToken } = useAuth()
+  const { t } = useTranslation()
   const initialWeek = weekRange()
   const [startDate, setStartDate] = useState(initialWeek[0])
   const [endDate, setEndDate] = useState(initialWeek[1])
@@ -53,28 +55,28 @@ export function ProgressSummary({ planId, entries }: { planId: string; entries: 
     apiRequest<ProgressReport>(`/api/v1/plans/${planId}/progress-report?${params}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then(setReport).catch((caught: unknown) =>
-      setError(caught instanceof ApiError ? caught.message : 'Could not calculate progress.'))
-  }, [accessToken, planId, startDate, endDate, entries])
+      setError(caught instanceof ApiError ? caught.message : t('execution.errors.progress')))
+  }, [accessToken, planId, startDate, endDate, entries, t])
 
   function showToday() { const today = localDate(); setStartDate(today); setEndDate(today) }
   function showWeek() { const [start, end] = weekRange(); setStartDate(start); setEndDate(end) }
 
   return <section className="progress-summary">
-    <header className="summary-header"><div><p className="eyebrow">Deterministic report</p><h2>Progress</h2></div><div className="button-row">
-      <button type="button" className="secondary-button" onClick={showToday}>Today</button>
-      <button type="button" className="secondary-button" onClick={showWeek}>This week</button>
+    <header className="summary-header"><div><p className="eyebrow">{t('execution.progress.eyebrow')}</p><h2>{t('execution.progress.title')}</h2></div><div className="button-row">
+      <button type="button" className="secondary-button" onClick={showToday}>{t('execution.progress.today')}</button>
+      <button type="button" className="secondary-button" onClick={showWeek}>{t('execution.progress.thisWeek')}</button>
     </div></header>
     <div className="date-fields panel report-dates">
-      <label>From<input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} /></label>
-      <label>To<input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} /></label>
+      <label>{t('execution.progress.from')}<input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} /></label>
+      <label>{t('execution.progress.to')}<input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} /></label>
     </div>
     {error && <p className="form-error" role="alert">{error}</p>}
     {report && <>
-      <div className="overall-score"><strong>{formatNumber(report.overall_adherence_percent)}%</strong><span>overall adherence</span></div>
+      <div className="overall-score"><strong>{formatNumber(report.overall_adherence_percent)}%</strong><span>{t('execution.progress.overall')}</span></div>
       <div className="report-list">{report.activities.map((activity) => <article className="panel report-row" key={activity.activity_id}>
-        <div><h3>{activity.name}</h3><p>{formatNumber(activity.actual)} / {formatNumber(activity.expected)} {activity.unit}</p></div>
-        <div className="report-percent"><strong>{formatNumber(activity.attainment_percent)}%</strong><span>attainment</span></div>
-        <dl><div><dt>Complete</dt><dd>{activity.completed_occurrences}</dd></div><div><dt>Partial</dt><dd>{activity.partial_occurrences}</dd></div><div><dt>Missed</dt><dd>{activity.missed_occurrences}</dd></div><div><dt>Upcoming</dt><dd>{activity.upcoming_occurrences}</dd></div></dl>
+        <div><h3>{activity.name}</h3><p>{formatNumber(activity.actual)} / {formatNumber(activity.expected)} {t(`execution.units.${activity.unit}`, { defaultValue: activity.unit })}</p></div>
+        <div className="report-percent"><strong>{formatNumber(activity.attainment_percent)}%</strong><span>{t('execution.progress.attainment')}</span></div>
+        <dl><div><dt>{t('execution.progress.complete')}</dt><dd>{activity.completed_occurrences}</dd></div><div><dt>{t('execution.progress.partial')}</dt><dd>{activity.partial_occurrences}</dd></div><div><dt>{t('execution.progress.missed')}</dt><dd>{activity.missed_occurrences}</dd></div><div><dt>{t('execution.progress.upcoming')}</dt><dd>{activity.upcoming_occurrences}</dd></div></dl>
       </article>)}</div>
     </>}
   </section>

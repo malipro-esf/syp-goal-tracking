@@ -50,5 +50,116 @@
     "cta": { "eyebrow": "Apoya el progreso con claridad", "title": "Da mejores datos a cada conversación.", "description": "Crea una cuenta de coach y convierte tu programa en progreso medible propiedad del participante.", "button": "Comenzar como coach" }
   },
   "plan": { "tabs": { "overview": "Resumen", "overviewLong": "Resumen del plan", "activities": "Actividades", "progress": "Progreso", "progressLong": "Informe de progreso", "entries": "Registros", "entriesLong": "Registros recientes", "feedback": "Feedback", "feedbackLong": "Feedback del coach", "ai": "Coach de IA", "aiLong": "Coach de IA" }, "allPlans": "Todos los planes", "currentPlan": "Plan actual", "actions": { "activate": "Activar", "pause": "Pausar", "resume": "Reanudar", "complete": "Completar", "archive": "Archivar" }, "configuration": "Configuración", "details": "Detalles del plan", "title": "Título", "description": "Descripción", "startDate": "Fecha de inicio", "endDate": "Fecha final", "save": "Guardar cambios", "atGlance": "De un vistazo", "status": "Estado del plan", "currentState": "Estado actual", "starts": "Comienza", "ends": "Finaliza", "notSet": "Sin definir", "openEnded": "Sin fecha final", "states": { "draft": "Borrador", "active": "Activo", "paused": "Pausado", "completed": "Completado", "archived": "Archivado" }, "errors": { "load": "No se pudo cargar el plan.", "save": "No se pudo guardar el plan.", "status": "No se pudo actualizar el estado." }, "loading": "Cargando plan…" },
-  "chart": { "period": "Esta semana", "title": "Resumen de progreso", "loading": "Calculando progreso…", "empty": "Añade una actividad para ver el progreso.", "error": "No se pudo cargar el progreso semanal.", "aria": "Adherencia general semanal: {{percent}} por ciento" }
+  "chart": { "period": "Esta semana", "title": "Resumen de progreso", "loading": "Calculando progreso…", "empty": "Añade una actividad para ver el progreso.", "error": "No se pudo cargar el progreso semanal.", "aria": "Adherencia general semanal: {{percent}} por ciento" },
+  "execution": {
+    "saving": "Guardando...",
+    "adding": "Añadiendo...",
+    "activities": {
+      "eyebrow": "Ejecución medible",
+      "title": "Actividades",
+      "total": "{{count}} total",
+      "add": "Añadir actividad",
+      "name": "Nombre de la actividad",
+      "description": "Descripción",
+      "target": "Objetivo",
+      "unit": "Unidad",
+      "customUnit": "Etiqueta de unidad personalizada",
+      "frequency": "Frecuencia",
+      "weekdays": "Días laborables",
+      "effectiveFrom": "Vigente desde",
+      "effective": "Efectivo {{date}}",
+      "recordEffort": "Esfuerzo récord",
+      "actualAmount": "Importe real ({{unit}})",
+      "performedOn": "Realizado el",
+      "noteOptional": "Nota (opcional)",
+      "saveEffort": "Ahorra esfuerzo real",
+      "changeExpectation": "Cambiar las expectativas futuras",
+      "newTarget": "Nuevo objetivo",
+      "reasonOptional": "Motivo (opcional)",
+      "saveExpectation": "Guardar nueva expectativa",
+      "empty": "Aún no hay actividades.",
+      "activitySaved": "Actividad añadida.",
+      "effortSaved": "Esfuerzo registrado.",
+      "expectationSaved": "Expectativa de futuro guardada."
+    },
+    "schedules": {
+      "daily": "Todos los días",
+      "weekly": "Cuota semanal",
+      "selected_days": "Días laborables seleccionados"
+    },
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue.",
+      "fri": "Vie",
+      "sat": "Sáb",
+      "sun": "Dom"
+    },
+    "units": {
+      "minute": "Minutos",
+      "hour": "Horas",
+      "page": "Páginas",
+      "repetition": "Repeticiones",
+      "number": "Número",
+      "meter": "Metros",
+      "kilometer": "Kilómetros",
+      "custom": "Unidad personalizada"
+    },
+    "progress": {
+      "eyebrow": "Informe determinista",
+      "title": "Progreso",
+      "today": "Hoy",
+      "thisWeek": "Esta semana",
+      "from": "Desde",
+      "to": "Para",
+      "overall": "Adherencia general",
+      "attainment": "Logro",
+      "complete": "Completar",
+      "partial": "Parcial",
+      "missed": "Perdido",
+      "upcoming": "Próximos"
+    },
+    "entries": {
+      "eyebrow": "Ejecución real",
+      "title": "Entradas recientes",
+      "empty": "Aún no se ha registrado ningún esfuerzo.",
+      "activity": "Actividad",
+      "correct": "Correcto",
+      "actualAmount": "Importe real",
+      "date": "Fecha",
+      "note": "Nota",
+      "save": "Guardar corrección",
+      "remove": "Eliminar"
+    },
+    "feedback": {
+      "eyebrow": "Comunicación del coach",
+      "title": "Comentarios",
+      "label": "Comentarios para el participante",
+      "send": "Enviar comentarios",
+      "empty": "Aún no hay comentarios del coach."
+    },
+    "ai": {
+      "eyebrow": "Guía opcional de IA",
+      "title": "Pregúntale a tu asesor de progreso",
+      "description": "La IA puede leer el progreso de este plan a través de herramientas controladas. No puede cambiar su plan o registros.",
+      "question": "Tu pregunta",
+      "placeholder": "¿Por qué me estoy quedando atrás y en qué debería centrarme?",
+      "consent": "Acepto enviar datos de progreso relevantes a OpenAI para esta respuesta.",
+      "analyzing": "Analizando...",
+      "ask": "Preguntar al entrenador de IA",
+      "answer": "Orientación generada por IA"
+    },
+    "errors": {
+      "activity": "No se ha podido crear la actividad.",
+      "effort": "No se ha podido registrar el esfuerzo.",
+      "expectation": "No se ha podido revisar la expectativa.",
+      "progress": "No se ha podido calcular el progreso.",
+      "entryUpdate": "No se ha podido corregir la entrada.",
+      "entryRemove": "No se ha podido eliminar la entrada.",
+      "feedbackLoad": "No se han podido cargar los comentarios.",
+      "feedbackSend": "No se han podido dejar comentarios.",
+      "ai": "El entrenador de IA no está disponible temporalmente."
+    }
+  }
 }

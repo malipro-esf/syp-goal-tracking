@@ -113,5 +113,116 @@
     "states": { "draft": "Taslak", "active": "Aktif", "paused": "Duraklatıldı", "completed": "Tamamlandı", "archived": "Arşivlendi" },
     "errors": { "load": "Plan yüklenemedi.", "save": "Plan kaydedilemedi.", "status": "Durum güncellenemedi." }, "loading": "Plan yükleniyor…"
   },
-  "chart": { "period": "Bu hafta", "title": "İlerleme özeti", "loading": "İlerleme hesaplanıyor…", "empty": "İlerlemeyi görmek için bir aktivite ekleyin.", "error": "Bu haftanın ilerlemesi yüklenemedi.", "aria": "Haftalık genel uyum yüzde {{percent}}" }
+  "chart": { "period": "Bu hafta", "title": "İlerleme özeti", "loading": "İlerleme hesaplanıyor…", "empty": "İlerlemeyi görmek için bir aktivite ekleyin.", "error": "Bu haftanın ilerlemesi yüklenemedi.", "aria": "Haftalık genel uyum yüzde {{percent}}" },
+  "execution": {
+    "saving": "Kaydediliyor…",
+    "adding": "Ekleniyor…",
+    "activities": {
+      "eyebrow": "Ölçülebilir uygulama",
+      "title": "Faaliyetler",
+      "total": "{{count}} toplam",
+      "add": "Etkinlik ekle",
+      "name": "Etkinlik adı",
+      "description": "Açıklama",
+      "target": "Hedef",
+      "unit": "Birim",
+      "customUnit": "Özel birim etiketi",
+      "frequency": "Frekans",
+      "weekdays": "Hafta içi",
+      "effectiveFrom": "Şu tarihten itibaren geçerli:",
+      "effective": "Etkili {{date}}",
+      "recordEffort": "Eforu kaydedin",
+      "actualAmount": "Gerçek tutar ({{unit}})",
+      "performedOn": "Gerçekleştirildiği tarih",
+      "noteOptional": "Not (isteğe bağlı)",
+      "saveEffort": "Gerçek çabadan tasarruf edin",
+      "changeExpectation": "Gelecek beklentisini değiştirin",
+      "newTarget": "Yeni hedef",
+      "reasonOptional": "Sebep (isteğe bağlı)",
+      "saveExpectation": "Yeni beklentiyi kaydet",
+      "empty": "Henüz etkinlik yok.",
+      "activitySaved": "Etkinlik eklendi.",
+      "effortSaved": "Çaba kaydedildi.",
+      "expectationSaved": "Gelecek beklentisi kurtarıldı."
+    },
+    "schedules": {
+      "daily": "Her gün",
+      "weekly": "Haftalık kota",
+      "selected_days": "Seçilen hafta içi günler"
+    },
+    "weekdays": {
+      "mon": "Pazartesi",
+      "tue": "Salı",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cuma",
+      "sat": "Cumartesi",
+      "sun": "Güneş"
+    },
+    "units": {
+      "minute": "dakika",
+      "hour": "Saatler",
+      "page": "Sayfalar",
+      "repetition": "Tekrarlar",
+      "number": "Sayı",
+      "meter": "Metre",
+      "kilometer": "Kilometre",
+      "custom": "Özel birim"
+    },
+    "progress": {
+      "eyebrow": "Deterministik rapor",
+      "title": "İlerleme",
+      "today": "Bugün",
+      "thisWeek": "Bu hafta",
+      "from": "Gönderen",
+      "to": "Kime",
+      "overall": "Genel bağlılık",
+      "attainment": "Başarı",
+      "complete": "Tamamlandı",
+      "partial": "Kısmi",
+      "missed": "Cevapsız",
+      "upcoming": "Yaklaşan"
+    },
+    "entries": {
+      "eyebrow": "Gerçek yürütme",
+      "title": "Son girişler",
+      "empty": "Henüz hiçbir çaba kaydedilmedi.",
+      "activity": "Etkinlik",
+      "correct": "Doğru",
+      "actualAmount": "Gerçek tutar",
+      "date": "Tarih",
+      "note": "Not",
+      "save": "Düzeltmeyi kaydet",
+      "remove": "Kaldır"
+    },
+    "feedback": {
+      "eyebrow": "Koç iletişimi",
+      "title": "Geribildirim",
+      "label": "Katılımcı için geri bildirim",
+      "send": "Geri bildirim gönder",
+      "empty": "Henüz antrenör geri bildirimi yok."
+    },
+    "ai": {
+      "eyebrow": "İsteğe bağlı yapay zeka rehberliği",
+      "title": "İlerleme koçunuza sorun",
+      "description": "Yapay zeka, kontrollü araçlar aracılığıyla bu planın ilerleyişini okuyabilir. Planınızı veya kayıtlarınızı değiştiremez.",
+      "question": "Sorunuz",
+      "placeholder": "Neden geride kalıyorum ve neye odaklanmalıyım?",
+      "consent": "Bu yanıt için ilgili ilerleme verilerini OpenAI'ye göndermeyi kabul ediyorum.",
+      "analyzing": "Analiz ediliyor…",
+      "ask": "AI koçuna sorun",
+      "answer": "Yapay zeka tarafından oluşturulan rehberlik"
+    },
+    "errors": {
+      "activity": "Etkinlik oluşturulamadı.",
+      "effort": "Çaba kaydedilemedi.",
+      "expectation": "Beklenti revize edilemedi.",
+      "progress": "İlerleme durumu hesaplanamadı.",
+      "entryUpdate": "Giriş düzeltilemedi.",
+      "entryRemove": "Giriş kaldırılamadı.",
+      "feedbackLoad": "Geri bildirim yüklenemedi.",
+      "feedbackSend": "Geri bildirim bırakılamadı.",
+      "ai": "AI koçu geçici olarak kullanılamıyor."
+    }
+  }
 }

@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Activity, Archive, ArrowLeft, Bot, ChartNoAxesColumnIncreasing, CircleCheck, FileClock, Gauge, MessageSquareText, Pause, Play, Save } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
+import { SuccessToast } from '../../components/SuccessToast'
 import { ActivityPanel, type ActivityPanelView } from '../activities/ActivityPanel'
 import { AiCoachPanel } from '../ai-coach/AiCoachPanel'
 import { useAuth } from '../auth/useAuth'
@@ -43,6 +44,8 @@ export function PlanDetailPage() {
   const { planId = '' } = useParams()
   const [plan, setPlan] = useState<Plan | null>(null)
   const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [saving, setSaving] = useState(false)
   const [activeTab, setActiveTab] = useState<PlanTab>('overview')
 
   useEffect(() => {
@@ -54,6 +57,7 @@ export function PlanDetailPage() {
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!accessToken || !plan) return
+    setSaving(true); setMessage(''); setError('')
     const data = new FormData(event.currentTarget)
     try {
       setPlan(await updatePlan(accessToken, plan.id, {
@@ -62,15 +66,16 @@ export function PlanDetailPage() {
         start_date: String(data.get('startDate')) || null,
         end_date: String(data.get('endDate')) || null,
       }))
-      setError('')
+      setMessage(t('plan.saved'))
     } catch (caught) {
       setError(caught instanceof ApiError ? caught.message : t('plan.errors.save'))
-    }
+    } finally { setSaving(false) }
   }
 
   async function transition(action: string) {
     if (!accessToken || !plan) return
-    try { setPlan(await transitionPlan(accessToken, plan.id, action)); setError('') }
+    setMessage(''); setError('')
+    try { setPlan(await transitionPlan(accessToken, plan.id, action)); setMessage(t('plan.statusUpdated')) }
     catch (caught) { setError(caught instanceof ApiError ? caught.message : t('plan.errors.status')) }
   }
 
@@ -98,6 +103,7 @@ export function PlanDetailPage() {
 
       <div className="admin-content" role="tabpanel">
         {error && <p className="form-error panel" role="alert">{error}</p>}
+        <SuccessToast message={message} onDismiss={() => setMessage('')} className="panel" />
         {activeTab === 'overview' && <section className="overview-grid">
           <form className="panel plan-form" onSubmit={save}>
             <div className="section-heading"><div><p className="eyebrow">{t('plan.configuration')}</p><h2>{t('plan.details')}</h2></div><span className={`status-badge status-${plan.status}`}>{t(`plan.states.${plan.status}`)}</span></div>
@@ -107,7 +113,7 @@ export function PlanDetailPage() {
               <label>{t('plan.startDate')}<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={archived} /></label>
               <label>{t('plan.endDate')}<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={archived} /></label>
             </div>
-            {!archived && <button type="submit" className="icon-button"><Save aria-hidden="true" />{t('plan.save')}</button>}
+            {!archived && <button type="submit" className="icon-button" disabled={saving}><Save aria-hidden="true" />{saving ? t('plan.saving') : t('plan.save')}</button>}
           </form>
           <div className="overview-aside">
             <aside className="panel plan-at-a-glance"><p className="eyebrow">{t('plan.atGlance')}</p><h2>{t('plan.status')}</h2><dl><div><dt>{t('plan.currentState')}</dt><dd>{t(`plan.states.${plan.status}`)}</dd></div><div><dt>{t('plan.starts')}</dt><dd>{plan.start_date || t('plan.notSet')}</dd></div><div><dt>{t('plan.ends')}</dt><dd>{plan.end_date || t('plan.openEnded')}</dd></div></dl></aside>
