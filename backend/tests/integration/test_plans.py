@@ -1,5 +1,13 @@
+import uuid
+from datetime import UTC, datetime
+
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import Engine, select
+from sqlalchemy.orm import Session
+
+from syp.plans.expiration import complete_expired_plans
+from syp.plans.models import PlanEnrollment, PlanStatusEvent
 
 pytestmark = pytest.mark.integration
 
@@ -85,6 +93,8 @@ def test_plan_lifecycle_allows_only_defined_transitions(api_client: TestClient) 
     assert api_client.post(f"{plan_url}/pause", headers=headers).json()["status"] == "paused"
     assert api_client.post(f"{plan_url}/activate", headers=headers).json()["status"] == "active"
     assert api_client.post(f"{plan_url}/complete", headers=headers).json()["status"] == "completed"
+    assert api_client.post(f"{plan_url}/activate", headers=headers).json()["status"] == "active"
+    assert api_client.post(f"{plan_url}/complete", headers=headers).json()["status"] == "completed"
     assert api_client.post(f"{plan_url}/archive", headers=headers).json()["status"] == "archived"
 
     edit = api_client.patch(plan_url, headers=headers, json={"title": "Changed"})
@@ -109,3 +119,69 @@ def test_plan_dates_must_be_ordered(api_client: TestClient) -> None:
 def test_plans_require_authentication(api_client: TestClient) -> None:
     response = api_client.get("/api/v1/plans")
     assert response.status_code == 401
+
+
+def test_expired_active_plans_complete_in_participant_timezone(
+    api_client: TestClient,
+    migrated_test_engine: Engine,
+) -> None:
+    local_token = register(api_client, "local-date@example.com")
+    utc_token = register(api_client, "utc-date@example.com")
+    local_headers = authorization(local_token)
+    utc_headers = authorization(utc_token)
+    profile = api_client.patch(
+        "/api/v1/users/me",
+        headers=local_headers,
+        json={
+            "display_name": "Plan Owner",
+            "bio": None,
+            "timezone": "Pacific/Kiritimati",
+            "preferred_language": "en",
+            "gender": None,
+            "gender_theme_enabled": False,
+        },
+    )
+    assert profile.status_code == 200
+
+    def create_active(headers: dict[str, str], title: str) -> dict[str, object]:
+        plan = api_client.post(
+            "/api/v1/plans",
+            headers=headers,
+            json={"title": title, "start_date": "2025-12-01", "end_date": "2026-01-01"},
+        ).json()
+        return api_client.post(
+            f"/api/v1/plans/{plan['id']}/activate", headers=headers
+        ).json()
+
+    local_plan = create_active(local_headers, "Local plan")
+    utc_plan = create_active(utc_headers, "UTC plan")
+    paused_plan = create_active(local_headers, "Paused plan")
+    api_client.post(f"/api/v1/plans/{paused_plan['id']}/pause", headers=local_headers)
+
+    with Session(migrated_test_engine) as session:
+        completed = complete_expired_plans(
+            session,
+            now=datetime(2026, 1, 1, 12, tzinfo=UTC),
+        )
+        assert completed == [uuid.UUID(str(local_plan["id"]))]
+        local_record = session.get(PlanEnrollment, uuid.UUID(str(local_plan["id"])))
+        utc_record = session.get(PlanEnrollment, uuid.UUID(str(utc_plan["id"])))
+        paused_record = session.get(PlanEnrollment, uuid.UUID(str(paused_plan["id"])))
+        assert local_record is not None and local_record.status == "completed"
+        assert utc_record is not None and utc_record.status == "active"
+        assert paused_record is not None and paused_record.status == "paused"
+        event = session.scalar(
+            select(PlanStatusEvent)
+            .where(
+                PlanStatusEvent.plan_id == local_record.id,
+                PlanStatusEvent.status == "completed",
+            )
+        )
+        assert event is not None
+        assert event.source == "automatic"
+        assert event.effective_on.isoformat() == "2026-01-02"
+
+        assert complete_expired_plans(
+            session,
+            now=datetime(2026, 1, 1, 12, tzinfo=UTC),
+        ) == []

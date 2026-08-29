@@ -11,6 +11,7 @@ from syp.plans.domain import PlanStatus, ensure_transition_allowed
         (PlanStatus.ACTIVE, PlanStatus.PAUSED),
         (PlanStatus.PAUSED, PlanStatus.ACTIVE),
         (PlanStatus.ACTIVE, PlanStatus.COMPLETED),
+        (PlanStatus.COMPLETED, PlanStatus.ACTIVE),
         (PlanStatus.COMPLETED, PlanStatus.ARCHIVED),
     ],
 )
@@ -22,7 +23,6 @@ def test_allowed_plan_transitions(current: PlanStatus, target: PlanStatus) -> No
     ("current", "target"),
     [
         (PlanStatus.DRAFT, PlanStatus.PAUSED),
-        (PlanStatus.COMPLETED, PlanStatus.ACTIVE),
         (PlanStatus.ARCHIVED, PlanStatus.ACTIVE),
     ],
 )

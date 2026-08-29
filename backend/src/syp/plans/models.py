@@ -56,6 +56,10 @@ class PlanStatusEvent(Base):
             name="ck_plan_status_events_status",
         ),
         Index("ix_plan_status_events_plan_date", "plan_id", "effective_on"),
+        CheckConstraint(
+            "source IN ('manual', 'automatic')",
+            name="ck_plan_status_events_source",
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
@@ -64,6 +68,7 @@ class PlanStatusEvent(Base):
     )
     status: Mapped[str] = mapped_column(String(20))
     effective_on: Mapped[date] = mapped_column(Date)
+    source: Mapped[str] = mapped_column(String(20), default="manual")
     recorded_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
