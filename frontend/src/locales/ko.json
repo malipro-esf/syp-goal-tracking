@@ -747,6 +747,7 @@
       "title": "활동",
       "total": "{{count}} 합계",
       "add": "활동 추가",
+      "addToPlan": "{{plan}}에 활동 추가",
       "name": "활동명",
       "description": "설명",
       "target": "대상",

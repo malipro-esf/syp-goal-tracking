@@ -29,6 +29,7 @@
       "title": "Aktiviteter",
       "total": "{{count}} I alt",
       "add": "Tilføj aktivitet",
+      "addToPlan": "Føj aktivitet til {{plan}}",
       "name": "Aktivitetsnavn",
       "description": "Beskrivelse",
       "target": "Mål",

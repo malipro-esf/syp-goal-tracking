@@ -59,6 +59,7 @@
       "title": "Actividades",
       "total": "{{count}} total",
       "add": "Añadir actividad",
+      "addToPlan": "Añadir actividad a {{plan}}",
       "name": "Nombre de la actividad",
       "description": "Descripción",
       "target": "Objetivo",

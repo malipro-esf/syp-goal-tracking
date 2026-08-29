@@ -69,6 +69,7 @@
       "title": "活動内容",
       "total": "{{count}} 合計",
       "add": "アクティビティの追加",
+      "addToPlan": "{{plan}} にアクティビティを追加",
       "name": "アクティビティ名",
       "description": "説明",
       "target": "ターゲット",

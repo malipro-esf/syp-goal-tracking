@@ -120,7 +120,7 @@ export function PlanDetailPage() {
             <OverviewProgressChart planId={plan.id} />
           </div>
         </section>}
-        {(activeTab === 'activities' || activeTab === 'progress' || activeTab === 'entries') && <ActivityPanel planId={plan.id} planStatus={plan.status} view={activeTab} />}
+        {(activeTab === 'activities' || activeTab === 'progress' || activeTab === 'entries') && <ActivityPanel planId={plan.id} planTitle={plan.title} planStatus={plan.status} view={activeTab} />}
         {activeTab === 'feedback' && <FeedbackPanel enrollmentId={plan.id} />}
         {activeTab === 'ai' && <AiCoachPanel planId={plan.id} />}
       </div>

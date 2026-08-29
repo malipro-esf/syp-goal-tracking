@@ -136,7 +136,7 @@ html[data-appearance] .admin-sidebar { background: linear-gradient(180deg, var(-
 html[data-appearance] .admin-sidebar a,
 html[data-appearance] .admin-sidebar button { color: #e8f1ff; }
 html[data-appearance] .admin-sidebar .sidebar-plan small,
-html[data-appearance] .admin-sidebar .sidebar-plan span { color: #c7d8f5; }
+html[data-appearance] .admin-sidebar .sidebar-plan span:not(.status-badge) { color: #c7d8f5; }
 html[data-appearance] .admin-nav a,
 html[data-appearance] .admin-nav button { background: transparent; color: #e8f1ff; }
 html[data-appearance] .admin-nav a:hover,

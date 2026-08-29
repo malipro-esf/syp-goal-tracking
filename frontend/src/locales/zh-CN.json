@@ -69,6 +69,7 @@
       "title": "活动",
       "total": "{{count}} 总计",
       "add": "添加活动",
+      "addToPlan": "向 {{plan}} 添加活动",
       "name": "活动名称",
       "description": "描述",
       "target": "目标",

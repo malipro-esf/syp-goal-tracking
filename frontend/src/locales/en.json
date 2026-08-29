@@ -122,6 +122,7 @@
       "title": "Activities",
       "total": "{{count}} total",
       "add": "Add activity",
+      "addToPlan": "Add activity to {{plan}}",
       "name": "Activity name",
       "description": "Description",
       "target": "Target",

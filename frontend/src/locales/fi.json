@@ -747,6 +747,7 @@
       "title": "Aktiviteetit",
       "total": "{{count}} yhteensä",
       "add": "Lisää toimintaa",
+      "addToPlan": "Lisää aktiviteetti suunnitelmaan {{plan}}",
       "name": "Toiminnan nimi",
       "description": "Kuvaus",
       "target": "Kohde",

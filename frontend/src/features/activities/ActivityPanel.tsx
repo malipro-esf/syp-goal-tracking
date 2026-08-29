@@ -121,8 +121,9 @@ function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activi
 
 export type ActivityPanelView = 'activities' | 'progress' | 'entries'
 
-export function ActivityPanel({ planId, planStatus, view = 'activities' }: {
+export function ActivityPanel({ planId, planTitle, planStatus, view = 'activities' }: {
   planId: string
+  planTitle: string
   planStatus: string
   view?: ActivityPanelView
 }) {
@@ -172,7 +173,7 @@ export function ActivityPanel({ planId, planStatus, view = 'activities' }: {
 
   return <section className="activity-section admin-section">
     <div className="section-heading"><div><p className="eyebrow">{t('execution.activities.eyebrow')}</p><h2>{t('execution.activities.title')}</h2></div><span className="section-count">{t('execution.activities.total', { count: activities.length })}</span></div>
-    {!readOnly && <details className="panel create-activity-panel"><summary>{t('execution.activities.add')}</summary><form className="activity-form" onSubmit={submit}>
+    {!readOnly && <details className="panel create-activity-panel"><summary>{t('execution.activities.addToPlan', { plan: planTitle })}</summary><form className="activity-form" onSubmit={submit}>
       <label>{t('execution.activities.name')}<input name="name" maxLength={120} required /></label>
       <label>{t('execution.activities.description')}<textarea name="description" rows={2} maxLength={2000} /></label>
       <div className="activity-grid">

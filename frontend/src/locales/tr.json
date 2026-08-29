@@ -122,6 +122,7 @@
       "title": "Faaliyetler",
       "total": "{{count}} toplam",
       "add": "Etkinlik ekle",
+      "addToPlan": "{{plan}} planına etkinlik ekle",
       "name": "Etkinlik adı",
       "description": "Açıklama",
       "target": "Hedef",
