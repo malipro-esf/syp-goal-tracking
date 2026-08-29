@@ -42,6 +42,8 @@ class Settings(BaseSettings):
     ai_coach_model: str = "gpt-5-mini"
     ai_coach_daily_run_limit: int = Field(default=20, ge=1, le=100)
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
+    automatic_plan_completion_enabled: bool = True
+    automatic_plan_completion_interval_seconds: int = Field(default=300, ge=30, le=86400)
 
     @model_validator(mode="after")
     def validate_production_secrets(self) -> "Settings":
