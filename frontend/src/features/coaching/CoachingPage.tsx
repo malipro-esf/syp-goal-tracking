@@ -5,6 +5,7 @@ import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hour
 
 import { ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
+import type { UnitCode } from '../activities/activities-api'
 import { useAuth } from '../auth/useAuth'
 import {
   addTemplateActivity, assignTemplate, createTemplate, listInvitations,
@@ -20,6 +21,7 @@ export function CoachingPage() {
   const [templates, setTemplates] = useState<PlanTemplate[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [error, setError] = useState('')
+  const [activityUnits, setActivityUnits] = useState<Record<string, UnitCode>>({})
 
   useEffect(() => {
     if (!accessToken) return
@@ -45,14 +47,16 @@ export function CoachingPage() {
   async function addActivity(event: FormEvent<HTMLFormElement>, templateId: string) {
     event.preventDefault(); if (!accessToken) return
     const form = event.currentTarget; const data = new FormData(form)
+    const unit = String(data.get('unit')) as UnitCode
     try {
       const updated = await addTemplateActivity(accessToken, templateId, {
-        name: String(data.get('name')), unit_code: String(data.get('unit')) as 'minute',
+        name: String(data.get('name')), unit_code: unit,
+        custom_unit_label: unit === 'custom' ? String(data.get('customUnitLabel')).trim() : null,
         target_quantity: String(data.get('target')), schedule_type: String(data.get('schedule')) as 'daily',
         effective_from: today(), weekdays: null,
       })
       setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
-      form.reset(); setError('')
+      form.reset(); setActivityUnits((items) => ({ ...items, [templateId]: 'minute' })); setError('')
     } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.addActivity')) }
   }
 
@@ -111,11 +115,12 @@ export function CoachingPage() {
       {templates.length === 0 && <div className="panel coaching-empty"><FileStack aria-hidden="true" /><h3>{t('coachingPage.template.emptyTitle')}</h3><p>{t('coachingPage.template.emptyDescription')}</p></div>}
       <div className="coaching-grid">{templates.map((template) =>
         <article className="panel template-card" key={template.id}><div className="template-card-header"><span className="template-icon"><FileStack aria-hidden="true" /></span><div><h2>{template.title}</h2><p>{template.description || t('plansPage.list.noDescription')}</p></div><span className="section-count">{t('coachingPage.template.activityCount', { count: template.activities.length })}</span></div>
-          <ul className="template-activity-list">{template.activities.map((activity) => <li key={activity.id}>{activity.name}: {formatNumber(activity.target_quantity)} {t(`coachingPage.units.${activity.unit_code}`)} · {t(`coachingPage.schedules.${activity.schedule_type}`)}</li>)}</ul>
+          <ul className="template-activity-list">{template.activities.map((activity) => <li key={activity.id}>{activity.name}: {formatNumber(activity.target_quantity)} {activity.custom_unit_label ?? t(`coachingPage.units.${activity.unit_code}`)} · {t(`coachingPage.schedules.${activity.schedule_type}`)}</li>)}</ul>
           <div className="template-actions"><form onSubmit={(event) => addActivity(event, template.id)}><h3>{t('coachingPage.activity.add')}</h3>
             <label>{t('coachingPage.fields.name')}<input name="name" required /></label>
             <label>{t('coachingPage.fields.target')}<input name="target" type="number" min="0.0001" step="0.0001" required /></label>
-            <label>{t('coachingPage.fields.unit')}<select name="unit"><option value="minute">{t('coachingPage.units.minute')}</option><option value="page">{t('coachingPage.units.page')}</option><option value="repetition">{t('coachingPage.units.repetition')}</option><option value="kilometer">{t('coachingPage.units.kilometer')}</option></select></label>
+            <label>{t('coachingPage.fields.unit')}<select name="unit" value={activityUnits[template.id] ?? 'minute'} onChange={(event) => setActivityUnits((items) => ({ ...items, [template.id]: event.target.value as UnitCode }))}><option value="minute">{t('coachingPage.units.minute')}</option><option value="page">{t('coachingPage.units.page')}</option><option value="repetition">{t('coachingPage.units.repetition')}</option><option value="kilometer">{t('coachingPage.units.kilometer')}</option><option value="custom">Custom unit</option></select></label>
+            {(activityUnits[template.id] ?? 'minute') === 'custom' && <label>Custom unit label<input name="customUnitLabel" maxLength={40} placeholder="essay" required /></label>}
             <label>{t('coachingPage.fields.frequency')}<select name="schedule"><option value="daily">{t('coachingPage.schedules.daily')}</option><option value="weekly">{t('coachingPage.schedules.weekly')}</option></select></label>
             <button className="secondary-button icon-button"><Plus aria-hidden="true" />{t('coachingPage.activity.action')}</button></form>
           <form onSubmit={(event) => send(event, template.id)}><h3>{t('coachingPage.assignment.assign')}</h3>

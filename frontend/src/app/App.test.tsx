@@ -327,9 +327,9 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(await screen.findByText('Listening is at 60%. Try a smaller daily session.')).toBeInTheDocument()
 })
 
-test('shows the plan template workspace to a coach', async () => {
+test('shows the plan template workspace and accepts a custom activity unit', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch')
-  fetchMock.mockImplementation(async (input) => {
+  fetchMock.mockImplementation(async (input, init) => {
     const url = String(input)
     const json = (body: unknown) => new Response(JSON.stringify(body), {
       status: 200, headers: { 'Content-Type': 'application/json' },
@@ -342,6 +342,13 @@ test('shows the plan template workspace to a coach', async () => {
       id: 'template-1', title: 'Running foundation', description: 'A starter plan',
       activities: [{ id: 'activity-1', name: 'Easy run', target_quantity: '5.0000', unit_code: 'kilometer', schedule_type: 'weekly' }],
     }])
+    if (url === '/api/v1/coaching/templates/template-1/activities' && init?.method === 'POST') return json({
+      id: 'template-1', title: 'Running foundation', description: 'A starter plan',
+      activities: [
+        { id: 'activity-1', name: 'Easy run', target_quantity: '5.0000', unit_code: 'kilometer', schedule_type: 'weekly' },
+        { id: 'activity-2', name: 'Write', target_quantity: '1.0000', unit_code: 'custom', custom_unit_label: 'essay', schedule_type: 'daily' },
+      ],
+    })
     if (url === '/api/v1/coaching/assignments/sent') return json([])
     return new Response('{}', { status: 404 })
   })
@@ -351,6 +358,16 @@ test('shows the plan template workspace to a coach', async () => {
   expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
   expect(await screen.findByText('Easy run: 5 Kilometer · Weekly')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
+  fireEvent.change(screen.getByLabelText('Unit'), { target: { value: 'custom' } })
+  fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Write' } })
+  fireEvent.change(screen.getByLabelText('Target'), { target: { value: '1' } })
+  fireEvent.change(screen.getByLabelText('Custom unit label'), { target: { value: 'essay' } })
+  fireEvent.click(screen.getByRole('button', { name: 'Add activity' }))
+  expect(await screen.findByText('Write: 1 essay · Daily')).toBeInTheDocument()
+  expect(JSON.parse(String(fetchMock.mock.calls.find(([url, request]) =>
+    String(url).endsWith('/template-1/activities') && request?.method === 'POST')?.[1]?.body))).toMatchObject({
+    unit_code: 'custom', custom_unit_label: 'essay',
+  })
 })
 
 test('shows authorized participant progress and feedback to a coach', async () => {
