@@ -738,5 +738,117 @@
     "empty": "Lisää toiminto nähdäksesi edistymisen täällä.",
     "error": "Tällä viikolla ei voitu ladata edistystä.",
     "aria": "Viikoittainen kokonaisnoudattaminen {{percent}} prosenttia"
+  },
+  "execution": {
+    "saving": "Tallennetaan…",
+    "adding": "Lisätään…",
+    "activities": {
+      "eyebrow": "Mitattavissa oleva toteutus",
+      "title": "Aktiviteetit",
+      "total": "{{count}} yhteensä",
+      "add": "Lisää toimintaa",
+      "addToPlan": "Lisää aktiviteetti suunnitelmaan {{plan}}",
+      "name": "Toiminnan nimi",
+      "description": "Kuvaus",
+      "target": "Kohde",
+      "unit": "Yksikkö",
+      "customUnit": "Mukautettu yksikön etiketti",
+      "frequency": "Taajuus",
+      "weekdays": "arkipäivisin",
+      "effectiveFrom": "Voimassa alkaen",
+      "effective": "Tehokas {{date}}",
+      "recordEffort": "Ennätystyö",
+      "actualAmount": "Todellinen summa ({{unit}})",
+      "performedOn": "Esitetty",
+      "noteOptional": "Huomautus (valinnainen)",
+      "saveEffort": "Säästä todellista vaivaa",
+      "changeExpectation": "Muuta tulevaisuuden odotuksia",
+      "newTarget": "Uusi kohde",
+      "reasonOptional": "Syy (valinnainen)",
+      "saveExpectation": "Säästä uudet odotukset",
+      "empty": "Ei vielä aktiviteetteja.",
+      "activitySaved": "Toiminta lisätty.",
+      "effortSaved": "Ponnistelu kirjattiin.",
+      "expectationSaved": "Tulevaisuuden odotukset pelastettu."
+    },
+    "schedules": {
+      "daily": "Joka päivä",
+      "weekly": "Viikkokiintiö",
+      "selected_days": "Valitut arkipäivät"
+    },
+    "weekdays": {
+      "mon": "ma",
+      "tue": "ti",
+      "wed": "ke",
+      "thu": "to",
+      "fri": "pe",
+      "sat": "la",
+      "sun": "Sun"
+    },
+    "units": {
+      "minute": "Minuutit",
+      "hour": "Tuntia",
+      "page": "Sivut",
+      "repetition": "Toistoja",
+      "number": "Numero",
+      "meter": "Metriä",
+      "kilometer": "Kilometrejä",
+      "custom": "Mukautettu yksikkö"
+    },
+    "progress": {
+      "eyebrow": "Deterministinen raportti",
+      "title": "Edistyminen",
+      "today": "Tänään",
+      "thisWeek": "Tällä viikolla",
+      "from": "From",
+      "to": "Vastaanottaja",
+      "overall": "Yleinen sitoutuminen",
+      "attainment": "Saavutus",
+      "complete": "Täydellinen",
+      "partial": "Osittainen",
+      "missed": "Jäi väliin",
+      "upcoming": "Tuleva"
+    },
+    "entries": {
+      "eyebrow": "Todellinen toteutus",
+      "title": "Viimeaikaiset merkinnät",
+      "empty": "Yhtään yritystä ei ole vielä tallennettu.",
+      "activity": "Toiminta",
+      "correct": "oikein",
+      "actualAmount": "Todellinen määrä",
+      "date": "Päivämäärä",
+      "note": "Huom",
+      "save": "Tallenna korjaus",
+      "remove": "Poista"
+    },
+    "feedback": {
+      "eyebrow": "Valmentajan viestintä",
+      "title": "Palaute",
+      "label": "Palautetta osallistujalle",
+      "send": "Lähetä palautetta",
+      "empty": "Valmentajan palautetta ei vielä ole."
+    },
+    "ai": {
+      "eyebrow": "Valinnainen AI-opastus",
+      "title": "Kysy edistymisvalmentajaltasi",
+      "description": "Tekoäly voi lukea tämän suunnitelman edistymistä ohjattujen työkalujen avulla. Se ei voi muuttaa suunnitelmaasi tai tietueitasi.",
+      "question": "Kysymyksesi",
+      "placeholder": "Miksi jään jälkeen ja mihin minun pitäisi keskittyä?",
+      "consent": "Suostun lähettämään asiaankuuluvat edistymistiedot OpenAI:lle tätä vastausta varten.",
+      "analyzing": "Analysoidaan…",
+      "ask": "Kysy AI-valmentajalta",
+      "answer": "Tekoälyn luoma opastus"
+    },
+    "errors": {
+      "activity": "Toimintoa ei voitu luoda.",
+      "effort": "Työtä ei voitu tallentaa.",
+      "expectation": "Odotuksia ei voitu muuttaa.",
+      "progress": "Edistymistä ei voitu laskea.",
+      "entryUpdate": "Tietoa ei voitu korjata.",
+      "entryRemove": "merkintää ei voitu poistaa.",
+      "feedbackLoad": "Palautteen lataaminen epäonnistui.",
+      "feedbackSend": "Palautetta ei voitu jättää.",
+      "ai": "Tekoälyvalmentaja on tilapäisesti poissa käytöstä."
+    }
   }
 }

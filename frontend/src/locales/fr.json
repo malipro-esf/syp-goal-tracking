@@ -50,5 +50,117 @@
     "cta": { "eyebrow": "Accompagnez les progrès avec clarté", "title": "Apportez de meilleures données à chaque conversation.", "description": "Créez un compte coach et transformez votre programme en progrès mesurable appartenant au participant.", "button": "Commencer comme coach" }
   },
   "plan": { "tabs": { "overview": "Vue d’ensemble", "overviewLong": "Vue d’ensemble du plan", "activities": "Activités", "progress": "Progression", "progressLong": "Rapport de progression", "entries": "Entrées", "entriesLong": "Entrées récentes", "feedback": "Retours", "feedbackLong": "Retours du coach", "ai": "Coach IA", "aiLong": "Coach IA" }, "allPlans": "Tous les plans", "currentPlan": "Plan actuel", "actions": { "activate": "Activer", "pause": "Mettre en pause", "resume": "Reprendre", "complete": "Terminer", "archive": "Archiver" }, "configuration": "Configuration", "details": "Détails du plan", "title": "Titre", "description": "Description", "startDate": "Date de début", "endDate": "Date de fin", "save": "Enregistrer les modifications", "atGlance": "En un coup d’œil", "status": "État du plan", "currentState": "État actuel", "starts": "Commence", "ends": "Se termine", "notSet": "Non défini", "openEnded": "Sans date de fin", "states": { "draft": "Brouillon", "active": "Actif", "paused": "En pause", "completed": "Terminé", "archived": "Archivé" }, "errors": { "load": "Le plan n’a pas pu être chargé.", "save": "Le plan n’a pas pu être enregistré.", "status": "L’état n’a pas pu être mis à jour." }, "loading": "Chargement du plan…" },
-  "chart": { "period": "Cette semaine", "title": "Aperçu de la progression", "loading": "Calcul de la progression…", "empty": "Ajoutez une activité pour afficher la progression.", "error": "La progression hebdomadaire n’a pas pu être chargée.", "aria": "Adhérence globale hebdomadaire : {{percent}} pour cent" }
+  "chart": { "period": "Cette semaine", "title": "Aperçu de la progression", "loading": "Calcul de la progression…", "empty": "Ajoutez une activité pour afficher la progression.", "error": "La progression hebdomadaire n’a pas pu être chargée.", "aria": "Adhérence globale hebdomadaire : {{percent}} pour cent" },
+  "execution": {
+    "saving": "Sauvegarde…",
+    "adding": "Ajout…",
+    "activities": {
+      "eyebrow": "Exécution mesurable",
+      "title": "Activités",
+      "total": "{{count}} total",
+      "add": "Ajouter une activité",
+      "addToPlan": "Ajouter une activité à {{plan}}",
+      "name": "Nom de l'activité",
+      "description": "Descriptif",
+      "target": "Cible",
+      "unit": "Unité",
+      "customUnit": "Étiquette d'unité personnalisée",
+      "frequency": "Fréquence",
+      "weekdays": "En semaine",
+      "effectiveFrom": "En vigueur à partir de",
+      "effective": "Efficace {{date}}",
+      "recordEffort": "Effort record",
+      "actualAmount": "Montant réel ({{unit}})",
+      "performedOn": "Effectué le",
+      "noteOptional": "Remarque (facultatif)",
+      "saveEffort": "Économisez les efforts réels",
+      "changeExpectation": "Changer les attentes futures",
+      "newTarget": "Nouvelle cible",
+      "reasonOptional": "Raison (facultatif)",
+      "saveExpectation": "Enregistrez de nouvelles attentes",
+      "empty": "Aucune activité pour l'instant.",
+      "activitySaved": "Activité ajoutée.",
+      "effortSaved": "Effort enregistré.",
+      "expectationSaved": "Attente future sauvée."
+    },
+    "schedules": {
+      "daily": "Chaque jour",
+      "weekly": "Quota hebdomadaire",
+      "selected_days": "Jours de la semaine sélectionnés"
+    },
+    "weekdays": {
+      "mon": "lundi",
+      "tue": "mar.",
+      "wed": "mer",
+      "thu": "jeu.",
+      "fri": "vendredi",
+      "sat": "Samedi",
+      "sun": "Soleil"
+    },
+    "units": {
+      "minute": "Procès-verbal",
+      "hour": "Horaires",
+      "page": "Pages",
+      "repetition": "Répétitions",
+      "number": "Numéro",
+      "meter": "Mètres",
+      "kilometer": "Kilomètres",
+      "custom": "Unité personnalisée"
+    },
+    "progress": {
+      "eyebrow": "Rapport déterministe",
+      "title": "Progrès",
+      "today": "Aujourd'hui",
+      "thisWeek": "Cette semaine",
+      "from": "De",
+      "to": "À",
+      "overall": "Adhérence globale",
+      "attainment": "Réalisation",
+      "complete": "Terminé",
+      "partial": "Partiel",
+      "missed": "Manqué",
+      "upcoming": "À venir"
+    },
+    "entries": {
+      "eyebrow": "Exécution réelle",
+      "title": "Entrées récentes",
+      "empty": "Aucun effort enregistré pour l'instant.",
+      "activity": "Activité",
+      "correct": "Correct",
+      "actualAmount": "Montant réel",
+      "date": "Date",
+      "note": "Remarque",
+      "save": "Enregistrer la correction",
+      "remove": "Supprimer"
+    },
+    "feedback": {
+      "eyebrow": "Communication des entraîneurs",
+      "title": "Commentaires",
+      "label": "Commentaires pour les participants",
+      "send": "Envoyer des commentaires",
+      "empty": "Aucun retour d'entraîneur pour l'instant."
+    },
+    "ai": {
+      "eyebrow": "Conseils facultatifs sur l’IA",
+      "title": "Demandez à votre coach de progrès",
+      "description": "L’IA peut lire l’avancement de ce plan grâce à des outils contrôlés. Il ne peut pas modifier votre plan ou vos dossiers.",
+      "question": "Votre question",
+      "placeholder": "Pourquoi suis-je en retard et sur quoi dois-je me concentrer ?",
+      "consent": "J'accepte d'envoyer les données de progression pertinentes à OpenAI pour cette réponse.",
+      "analyzing": "Analyser…",
+      "ask": "Demandez au coach IA",
+      "answer": "Guidage généré par l'IA"
+    },
+    "errors": {
+      "activity": "Impossible de créer une activité.",
+      "effort": "Impossible d'enregistrer l'effort.",
+      "expectation": "Impossible de réviser les attentes.",
+      "progress": "Impossible de calculer les progrès.",
+      "entryUpdate": "Impossible de corriger l'entrée.",
+      "entryRemove": "Impossible de supprimer l'entrée.",
+      "feedbackLoad": "Impossible de charger les commentaires.",
+      "feedbackSend": "Impossible de laisser des commentaires.",
+      "ai": "Le coach IA est temporairement indisponible."
+    }
+  }
 }

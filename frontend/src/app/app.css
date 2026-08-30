@@ -136,7 +136,7 @@ html[data-appearance] .admin-sidebar { background: linear-gradient(180deg, var(-
 html[data-appearance] .admin-sidebar a,
 html[data-appearance] .admin-sidebar button { color: #e8f1ff; }
 html[data-appearance] .admin-sidebar .sidebar-plan small,
-html[data-appearance] .admin-sidebar .sidebar-plan span { color: #c7d8f5; }
+html[data-appearance] .admin-sidebar .sidebar-plan span:not(.status-badge) { color: #c7d8f5; }
 html[data-appearance] .admin-nav a,
 html[data-appearance] .admin-nav button { background: transparent; color: #e8f1ff; }
 html[data-appearance] .admin-nav a:hover,
@@ -149,7 +149,49 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .profile-form { display: grid; gap: 1rem; }
 .profile-form label { display: grid; gap: .45rem; font-weight: 700; }
 .profile-form label small, .account-summary > p { color: #66756d; font-weight: 400; }
-.form-success { color: #167341; }
+.form-success {
+  position: fixed;
+  z-index: 100;
+  top: 5.5rem;
+  left: 1.25rem;
+  display: flex;
+  width: min(calc(100vw - 2.5rem), 25rem);
+  align-items: center;
+  gap: .7rem;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid #0a5330;
+  border-left: .35rem solid #063d24;
+  border-radius: .75rem;
+  background: #0f6b3c;
+  box-shadow: 0 .85rem 2rem rgb(6 61 36 / 28%);
+  color: #fff !important;
+  font-size: .9rem;
+  font-weight: 800;
+  line-height: 1.4;
+  animation: success-toast-in .35s cubic-bezier(.2, .8, .2, 1) both;
+}
+.form-success::before {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #0f6b3c;
+  content: "\2713";
+  font-size: .9rem;
+  font-weight: 950;
+}
+.form-success.panel { padding: 1rem 1.15rem; border-color: #0a5330; border-left-color: #063d24; background: #0f6b3c; box-shadow: 0 .85rem 2rem rgb(6 61 36 / 28%); color: #fff !important; }
+@keyframes success-toast-in {
+  from { opacity: 0; transform: translateX(-1.5rem) translateY(-.5rem); }
+  to { opacity: 1; transform: translateX(0) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-success { animation: none; }
+}
 .account-summary h2 { margin-top: 0; }
 .account-summary dl { display: grid; gap: 1rem; }
 .account-summary dl > div { padding-bottom: 1rem; border-bottom: 1px solid #e3ebe6; }

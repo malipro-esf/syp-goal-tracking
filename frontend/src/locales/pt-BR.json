@@ -50,5 +50,117 @@
     "cta": { "eyebrow": "Apoie o progresso com clareza", "title": "Leve dados melhores para cada conversa.", "description": "Crie uma conta de mentor e transforme seu programa em progresso mensurável de propriedade do participante.", "button": "Começar como mentor" }
   },
   "plan": { "tabs": { "overview": "Visão geral", "overviewLong": "Visão geral do plano", "activities": "Atividades", "progress": "Progresso", "progressLong": "Relatório de progresso", "entries": "Registros", "entriesLong": "Registros recentes", "feedback": "Feedback", "feedbackLong": "Feedback do mentor", "ai": "Mentor de IA", "aiLong": "Mentor de IA" }, "allPlans": "Todos os planos", "currentPlan": "Plano atual", "actions": { "activate": "Ativar", "pause": "Pausar", "resume": "Retomar", "complete": "Concluir", "archive": "Arquivar" }, "configuration": "Configuração", "details": "Detalhes do plano", "title": "Título", "description": "Descrição", "startDate": "Data de início", "endDate": "Data de término", "save": "Salvar alterações", "atGlance": "Em resumo", "status": "Status do plano", "currentState": "Estado atual", "starts": "Começa", "ends": "Termina", "notSet": "Não definido", "openEnded": "Sem data de término", "states": { "draft": "Rascunho", "active": "Ativo", "paused": "Pausado", "completed": "Concluído", "archived": "Arquivado" }, "errors": { "load": "Não foi possível carregar o plano.", "save": "Não foi possível salvar o plano.", "status": "Não foi possível atualizar o status." }, "loading": "Carregando plano…" },
-  "chart": { "period": "Esta semana", "title": "Visão geral do progresso", "loading": "Calculando progresso…", "empty": "Adicione uma atividade para ver o progresso.", "error": "Não foi possível carregar o progresso semanal.", "aria": "Aderência geral semanal: {{percent}} por cento" }
+  "chart": { "period": "Esta semana", "title": "Visão geral do progresso", "loading": "Calculando progresso…", "empty": "Adicione uma atividade para ver o progresso.", "error": "Não foi possível carregar o progresso semanal.", "aria": "Aderência geral semanal: {{percent}} por cento" },
+  "execution": {
+    "saving": "Salvando…",
+    "adding": "Adicionando…",
+    "activities": {
+      "eyebrow": "Execução mensurável",
+      "title": "Atividades",
+      "total": "{{count}} total",
+      "add": "Adicionar atividade",
+      "addToPlan": "Adicionar atividade a {{plan}}",
+      "name": "Nome da atividade",
+      "description": "Descrição",
+      "target": "Alvo",
+      "unit": "Unidade",
+      "customUnit": "Etiqueta de unidade personalizada",
+      "frequency": "Frequência",
+      "weekdays": "Dias da semana",
+      "effectiveFrom": "Eficaz a partir de",
+      "effective": "{{date}} efetivo",
+      "recordEffort": "Esforço recorde",
+      "actualAmount": "Valor real ({{unit}})",
+      "performedOn": "Realizado em",
+      "noteOptional": "Nota (opcional)",
+      "saveEffort": "Economize esforço real",
+      "changeExpectation": "Mude a expectativa futura",
+      "newTarget": "Novo alvo",
+      "reasonOptional": "Razão (opcional)",
+      "saveExpectation": "Salve nova expectativa",
+      "empty": "Nenhuma atividade ainda.",
+      "activitySaved": "Atividade adicionada.",
+      "effortSaved": "Esforço registrado.",
+      "expectationSaved": "Expectativa futura salva."
+    },
+    "schedules": {
+      "daily": "Todos os dias",
+      "weekly": "Cota semanal",
+      "selected_days": "Dias da semana selecionados"
+    },
+    "weekdays": {
+      "mon": "segunda-feira",
+      "tue": "Terça",
+      "wed": "Quarta",
+      "thu": "Qui",
+      "fri": "Sexta-feira",
+      "sat": "Sábado",
+      "sun": "Sol"
+    },
+    "units": {
+      "minute": "Minutos",
+      "hour": "Horas",
+      "page": "Páginas",
+      "repetition": "Repetições",
+      "number": "Número",
+      "meter": "Metros",
+      "kilometer": "Quilômetros",
+      "custom": "Unidade personalizada"
+    },
+    "progress": {
+      "eyebrow": "Relatório determinístico",
+      "title": "Progresso",
+      "today": "Hoje",
+      "thisWeek": "Esta semana",
+      "from": "De",
+      "to": "Para",
+      "overall": "Aderência geral",
+      "attainment": "Realização",
+      "complete": "Completo",
+      "partial": "Parcial",
+      "missed": "Perdido",
+      "upcoming": "Próximos"
+    },
+    "entries": {
+      "eyebrow": "Execução real",
+      "title": "Entradas recentes",
+      "empty": "Nenhum esforço registrado ainda.",
+      "activity": "Atividade",
+      "correct": "Correto",
+      "actualAmount": "Valor real",
+      "date": "Data",
+      "note": "Nota",
+      "save": "Salvar correção",
+      "remove": "Remover"
+    },
+    "feedback": {
+      "eyebrow": "Comunicação do treinador",
+      "title": "Comentários",
+      "label": "Feedback para o participante",
+      "send": "Enviar comentários",
+      "empty": "Nenhum feedback do treinador ainda."
+    },
+    "ai": {
+      "eyebrow": "Orientação opcional de IA",
+      "title": "Pergunte ao seu treinador de progresso",
+      "description": "A IA pode ler o progresso deste plano através de ferramentas controladas. Ele não pode alterar seu plano ou registros.",
+      "question": "Sua pergunta",
+      "placeholder": "Por que estou ficando para trás e em que devo me concentrar?",
+      "consent": "Concordo em enviar dados de progresso relevantes à OpenAI para esta resposta.",
+      "analyzing": "Analisando…",
+      "ask": "Pergunte ao treinador de IA",
+      "answer": "Orientação gerada por IA"
+    },
+    "errors": {
+      "activity": "Não foi possível criar atividade.",
+      "effort": "Não foi possível registrar o esforço.",
+      "expectation": "Não foi possível revisar a expectativa.",
+      "progress": "Não foi possível calcular o progresso.",
+      "entryUpdate": "Não foi possível corrigir a entrada.",
+      "entryRemove": "Não foi possível remover a entrada.",
+      "feedbackLoad": "Não foi possível carregar o feedback.",
+      "feedbackSend": "Não foi possível deixar comentários.",
+      "ai": "O treinador de IA está temporariamente indisponível."
+    }
+  }
 }

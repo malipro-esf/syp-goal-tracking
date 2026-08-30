@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
@@ -12,6 +13,7 @@ import {
 
 function EditEntry({ entry, planId, onUpdated }: { entry: ProgressEntry; planId: string; onUpdated: (entry: ProgressEntry) => void }) {
   const { accessToken } = useAuth()
+  const { t } = useTranslation()
   const [error, setError] = useState('')
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -24,14 +26,14 @@ function EditEntry({ entry, planId, onUpdated }: { entry: ProgressEntry; planId:
         note: String(data.get('note')) || null,
       }))
       setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not correct entry.') }
+    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('execution.errors.entryUpdate')) }
   }
-  return <details className="entry-edit"><summary>Correct</summary><form onSubmit={submit}>
-    <label>Actual amount<input name="quantity" type="number" min="0.0001" step="0.0001" defaultValue={entry.quantity} required /></label>
-    <label>Date<input name="performedOn" type="date" defaultValue={entry.performed_on} required /></label>
-    <label>Note<input name="note" defaultValue={entry.note ?? ''} maxLength={1000} /></label>
+  return <details className="entry-edit"><summary>{t('execution.entries.correct')}</summary><form onSubmit={submit}>
+    <label>{t('execution.entries.actualAmount')}<input name="quantity" type="number" min="0.0001" step="0.0001" defaultValue={entry.quantity} required /></label>
+    <label>{t('execution.entries.date')}<input name="performedOn" type="date" defaultValue={entry.performed_on} required /></label>
+    <label>{t('execution.entries.note')}<input name="note" defaultValue={entry.note ?? ''} maxLength={1000} /></label>
     {error && <p className="form-error" role="alert">{error}</p>}
-    <button type="submit" className="secondary-button">Save correction</button>
+    <button type="submit" className="secondary-button">{t('execution.entries.save')}</button>
   </form></details>
 }
 
@@ -43,6 +45,7 @@ export function ProgressHistory({ planId, activities, entries, readOnly, onEntri
   onEntriesChange: (entries: ProgressEntry[]) => void
 }) {
   const { accessToken } = useAuth()
+  const { t } = useTranslation()
   const [error, setError] = useState('')
   const activityById = new Map(activities.map((activity) => [activity.id, activity]))
 
@@ -51,22 +54,22 @@ export function ProgressHistory({ planId, activities, entries, readOnly, onEntri
     try {
       await deleteProgressEntry(accessToken, planId, entry.activity_id, entry.id)
       onEntriesChange(entries.filter((item) => item.id !== entry.id)); setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Could not remove entry.') }
+    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('execution.errors.entryRemove')) }
   }
 
   return <section className="progress-history">
-    <div><p className="eyebrow">Actual execution</p><h2>Recent entries</h2></div>
+    <div><p className="eyebrow">{t('execution.entries.eyebrow')}</p><h2>{t('execution.entries.title')}</h2></div>
     {error && <p className="form-error" role="alert">{error}</p>}
-    {entries.length === 0 && <p className="empty-state">No effort recorded yet.</p>}
+    {entries.length === 0 && <p className="empty-state">{t('execution.entries.empty')}</p>}
     {entries.map((entry) => {
       const activity = activityById.get(entry.activity_id)
       const unit = activity?.custom_unit_label ?? activity?.unit_code ?? ''
       return <article className="panel progress-row" key={entry.id}>
-        <div><strong>{activity?.name ?? 'Activity'}</strong><span>{entry.performed_on}</span>{entry.note && <small>{entry.note}</small>}</div>
-        <b>{formatNumber(entry.quantity)} {unit}</b>
+        <div><strong>{activity?.name ?? t('execution.entries.activity')}</strong><span>{entry.performed_on}</span>{entry.note && <small>{entry.note}</small>}</div>
+        <b>{formatNumber(entry.quantity)} {t(`execution.units.${unit}`, { defaultValue: unit })}</b>
         {!readOnly && <div className="entry-actions">
           <EditEntry entry={entry} planId={planId} onUpdated={(updated) => onEntriesChange(entries.map((item) => item.id === updated.id ? updated : item))} />
-          <button type="button" className="text-button danger-button" onClick={() => remove(entry)}>Remove</button>
+          <button type="button" className="text-button danger-button" onClick={() => remove(entry)}>{t('execution.entries.remove')}</button>
         </div>}
       </article>
     })}

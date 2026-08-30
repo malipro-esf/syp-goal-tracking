@@ -21,5 +21,117 @@
     "footer": { "name": "Se fremgangen din", "tagline": "Fremgang fremfor perfeksjon.", "navigation": "Bunntekstnavigasjon", "features": "Funksjoner", "coaches": "For coacher" }
   },
   "plan": { "tabs": { "overview": "Oversikt", "overviewLong": "Planoversikt", "activities": "Aktiviteter", "progress": "Fremgang", "progressLong": "Fremgangsrapport", "entries": "Registreringer", "entriesLong": "Nylige registreringer", "feedback": "Tilbakemelding", "feedbackLong": "Coachens tilbakemelding", "ai": "AI-coach", "aiLong": "AI-coach" }, "allPlans": "Alle planer", "currentPlan": "Gjeldende plan", "actions": { "activate": "Aktiver", "pause": "Sett på pause", "resume": "Fortsett", "complete": "Fullfør", "archive": "Arkiver" }, "configuration": "Konfigurasjon", "details": "Plandetaljer", "title": "Tittel", "description": "Beskrivelse", "startDate": "Startdato", "endDate": "Sluttdato", "save": "Lagre endringer", "atGlance": "På et øyeblikk", "status": "Planstatus", "currentState": "Gjeldende status", "starts": "Starter", "ends": "Slutter", "notSet": "Ikke angitt", "openEnded": "Uten sluttdato", "states": { "draft": "Utkast", "active": "Aktiv", "paused": "Satt på pause", "completed": "Fullført", "archived": "Arkivert" }, "errors": { "load": "Planen kunne ikke lastes inn.", "save": "Planen kunne ikke lagres.", "status": "Statusen kunne ikke oppdateres." }, "loading": "Laster inn plan…" },
-  "chart": { "period": "Denne uken", "title": "Øyeblikksbilde av fremgang", "loading": "Beregner fremgang…", "empty": "Legg til en aktivitet for å se fremgang her.", "error": "Ukens fremgang kunne ikke lastes inn.", "aria": "Ukens samlede etterlevelse er {{percent}} prosent" }
+  "chart": { "period": "Denne uken", "title": "Øyeblikksbilde av fremgang", "loading": "Beregner fremgang…", "empty": "Legg til en aktivitet for å se fremgang her.", "error": "Ukens fremgang kunne ikke lastes inn.", "aria": "Ukens samlede etterlevelse er {{percent}} prosent" },
+  "execution": {
+    "saving": "Lagrer …",
+    "adding": "Legger til …",
+    "activities": {
+      "eyebrow": "Målbar utførelse",
+      "title": "Aktiviteter",
+      "total": "{{count}} totalt",
+      "add": "Legg til aktivitet",
+      "addToPlan": "Legg til aktivitet i {{plan}}",
+      "name": "Aktivitetsnavn",
+      "description": "Beskrivelse",
+      "target": "Mål",
+      "unit": "Enhet",
+      "customUnit": "Egendefinert enhetsetikett",
+      "frequency": "Frekvens",
+      "weekdays": "Hverdager",
+      "effectiveFrom": "Gjelder fra",
+      "effective": "Gjelder {{date}}",
+      "recordEffort": "Rekordinnsats",
+      "actualAmount": "Faktisk beløp ({{unit}})",
+      "performedOn": "Utført på",
+      "noteOptional": "Merknad (valgfritt)",
+      "saveEffort": "Spar faktisk innsats",
+      "changeExpectation": "Endre fremtidsforventning",
+      "newTarget": "Nytt mål",
+      "reasonOptional": "Årsak (valgfritt)",
+      "saveExpectation": "Lagre ny forventning",
+      "empty": "Ingen aktiviteter ennå.",
+      "activitySaved": "Aktivitet lagt til.",
+      "effortSaved": "Innsats registrert.",
+      "expectationSaved": "Fremtidig forventning reddet."
+    },
+    "schedules": {
+      "daily": "Hver dag",
+      "weekly": "Ukentlig kvote",
+      "selected_days": "Utvalgte ukedager"
+    },
+    "weekdays": {
+      "mon": "man",
+      "tue": "tirs",
+      "wed": "ons",
+      "thu": "tor",
+      "fri": "fre",
+      "sat": "Lør",
+      "sun": "Sol"
+    },
+    "units": {
+      "minute": "Minutter",
+      "hour": "Timer",
+      "page": "Sider",
+      "repetition": "Repetisjoner",
+      "number": "Nummer",
+      "meter": "Meter",
+      "kilometer": "Kilometer",
+      "custom": "Tilpasset enhet"
+    },
+    "progress": {
+      "eyebrow": "Deterministisk rapport",
+      "title": "Fremgang",
+      "today": "I dag",
+      "thisWeek": "Denne uken",
+      "from": "Fra",
+      "to": "Til",
+      "overall": "Samlet tilslutning",
+      "attainment": "Oppnåelse",
+      "complete": "Komplett",
+      "partial": "Delvis",
+      "missed": "Savnet",
+      "upcoming": "Kommende"
+    },
+    "entries": {
+      "eyebrow": "Faktisk utførelse",
+      "title": "Nylige oppføringer",
+      "empty": "Ingen innsats registrert ennå.",
+      "activity": "Aktivitet",
+      "correct": "Riktig",
+      "actualAmount": "Faktisk beløp",
+      "date": "Dato",
+      "note": "Merk",
+      "save": "Lagre korrigering",
+      "remove": "Fjern"
+    },
+    "feedback": {
+      "eyebrow": "Trenerkommunikasjon",
+      "title": "Tilbakemelding",
+      "label": "Tilbakemelding til deltaker",
+      "send": "Send tilbakemelding",
+      "empty": "Ingen tilbakemelding fra trener ennå."
+    },
+    "ai": {
+      "eyebrow": "Valgfri AI-veiledning",
+      "title": "Spør fremdriftstreneren din",
+      "description": "AI kan lese denne planens fremgang gjennom kontrollerte verktøy. Den kan ikke endre planen eller postene dine.",
+      "question": "Spørsmålet ditt",
+      "placeholder": "Hvorfor henger jeg etter, og hva bør jeg fokusere på?",
+      "consent": "Jeg godtar å sende relevante fremdriftsdata til OpenAI for dette svaret.",
+      "analyzing": "Analyserer …",
+      "ask": "Spør AI-trener",
+      "answer": "AI-generert veiledning"
+    },
+    "errors": {
+      "activity": "Kunne ikke opprette aktivitet.",
+      "effort": "Kunne ikke registrere innsats.",
+      "expectation": "Kunne ikke endre forventningene.",
+      "progress": "Kunne ikke beregne fremdrift.",
+      "entryUpdate": "Kunne ikke korrigere oppføringen.",
+      "entryRemove": "Kunne ikke fjerne oppføringen.",
+      "feedbackLoad": "Kunne ikke laste inn tilbakemelding.",
+      "feedbackSend": "Kunne ikke gi tilbakemelding.",
+      "ai": "AI-treneren er midlertidig utilgjengelig."
+    }
+  }
 }

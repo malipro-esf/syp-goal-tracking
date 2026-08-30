@@ -60,5 +60,117 @@
     "cta": { "eyebrow": "明確さで進歩を支援", "title": "すべてのコーチング対話に、より良い根拠を。", "description": "コーチアカウントを作り、あなたのプログラムを参加者が所有する測定可能な進歩に変えましょう。", "button": "コーチとして始める" }
   },
   "plan": { "tabs": { "overview": "概要", "overviewLong": "プラン概要", "activities": "アクティビティ", "progress": "進捗", "progressLong": "進捗レポート", "entries": "記録", "entriesLong": "最近の記録", "feedback": "フィードバック", "feedbackLong": "コーチのフィードバック", "ai": "AIコーチ", "aiLong": "AIコーチ" }, "allPlans": "すべてのプラン", "currentPlan": "現在のプラン", "actions": { "activate": "開始", "pause": "一時停止", "resume": "再開", "complete": "完了", "archive": "アーカイブ" }, "configuration": "設定", "details": "プラン詳細", "title": "タイトル", "description": "説明", "startDate": "開始日", "endDate": "終了日", "save": "変更を保存", "atGlance": "概要", "status": "プランの状態", "currentState": "現在の状態", "starts": "開始", "ends": "終了", "notSet": "未設定", "openEnded": "終了日なし", "states": { "draft": "下書き", "active": "進行中", "paused": "一時停止", "completed": "完了", "archived": "アーカイブ済み" }, "errors": { "load": "プランを読み込めませんでした。", "save": "プランを保存できませんでした。", "status": "状態を更新できませんでした。" }, "loading": "プランを読み込み中…" },
-  "chart": { "period": "今週", "title": "進捗スナップショット", "loading": "進捗を計算中…", "empty": "アクティビティを追加すると、ここに進捗が表示されます。", "error": "今週の進捗を読み込めませんでした。", "aria": "週間全体達成率 {{percent}}パーセント" }
+  "chart": { "period": "今週", "title": "進捗スナップショット", "loading": "進捗を計算中…", "empty": "アクティビティを追加すると、ここに進捗が表示されます。", "error": "今週の進捗を読み込めませんでした。", "aria": "週間全体達成率 {{percent}}パーセント" },
+  "execution": {
+    "saving": "保存中…",
+    "adding": "追加中…",
+    "activities": {
+      "eyebrow": "測定可能な実行",
+      "title": "活動内容",
+      "total": "{{count}} 合計",
+      "add": "アクティビティの追加",
+      "addToPlan": "{{plan}} にアクティビティを追加",
+      "name": "アクティビティ名",
+      "description": "説明",
+      "target": "ターゲット",
+      "unit": "単位",
+      "customUnit": "カスタム単位ラベル",
+      "frequency": "周波数",
+      "weekdays": "平日",
+      "effectiveFrom": "から有効",
+      "effective": "有効な{{date}}",
+      "recordEffort": "努力を記録する",
+      "actualAmount": "実際の金額 ({{unit}})",
+      "performedOn": "実施日",
+      "noteOptional": "注記 (オプション)",
+      "saveEffort": "実際の労力を節約する",
+      "changeExpectation": "将来の期待を変える",
+      "newTarget": "新たなターゲット",
+      "reasonOptional": "理由（任意）",
+      "saveExpectation": "新たな期待を保存する",
+      "empty": "まだアクティビティはありません。",
+      "activitySaved": "アクティビティが追加されました。",
+      "effortSaved": "努力が記録されました。",
+      "expectationSaved": "今後の期待が高まりました。"
+    },
+    "schedules": {
+      "daily": "毎日",
+      "weekly": "週ごとの割り当て",
+      "selected_days": "選択した平日"
+    },
+    "weekdays": {
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土",
+      "sun": "太陽"
+    },
+    "units": {
+      "minute": "分",
+      "hour": "営業時間",
+      "page": "ページ",
+      "repetition": "繰り返し",
+      "number": "番号",
+      "meter": "メートル",
+      "kilometer": "キロメートル",
+      "custom": "カスタム単位"
+    },
+    "progress": {
+      "eyebrow": "確定的なレポート",
+      "title": "進捗状況",
+      "today": "今日",
+      "thisWeek": "今週",
+      "from": "から",
+      "to": "に",
+      "overall": "全体的な遵守",
+      "attainment": "達成",
+      "complete": "完了",
+      "partial": "部分的",
+      "missed": "逃した",
+      "upcoming": "今後の予定"
+    },
+    "entries": {
+      "eyebrow": "実際の実行",
+      "title": "最近のエントリー",
+      "empty": "まだ努力は記録されていません。",
+      "activity": "アクティビティ",
+      "correct": "正しい",
+      "actualAmount": "実際の金額",
+      "date": "日付",
+      "note": "注記",
+      "save": "修正の保存",
+      "remove": "削除する"
+    },
+    "feedback": {
+      "eyebrow": "コーチコミュニケーション",
+      "title": "フィードバック",
+      "label": "参加者へのフィードバック",
+      "send": "フィードバックを送信する",
+      "empty": "コーチからのフィードバックはまだありません。"
+    },
+    "ai": {
+      "eyebrow": "オプションのAIガイダンス",
+      "title": "プログレスコーチに尋ねてください",
+      "description": "AI は、制御されたツールを通じてこの計画の進捗状況を読み取ることができます。計画や記録を変更することはできません。",
+      "question": "あなたの質問",
+      "placeholder": "なぜ遅れをとっているのでしょうか?何に重点を置くべきですか?",
+      "consent": "この回答のために、関連する進捗データを OpenAI に送信することに同意します。",
+      "analyzing": "分析中…",
+      "ask": "AIコーチに聞く",
+      "answer": "AIが生成したガイダンス"
+    },
+    "errors": {
+      "activity": "アクティビティを作成できませんでした。",
+      "effort": "努力を記録できませんでした。",
+      "expectation": "期待を修正できませんでした。",
+      "progress": "進行状況を計算できませんでした。",
+      "entryUpdate": "エントリを修正できませんでした。",
+      "entryRemove": "エントリを削除できませんでした。",
+      "feedbackLoad": "フィードバックを読み込めませんでした。",
+      "feedbackSend": "フィードバックを残すことができませんでした。",
+      "ai": "AI コーチは一時的に利用できなくなります。"
+    }
+  }
 }

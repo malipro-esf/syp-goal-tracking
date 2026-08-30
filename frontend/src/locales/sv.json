@@ -21,5 +21,117 @@
     "footer": { "name": "Se dina framsteg", "tagline": "Framsteg framför perfektion.", "navigation": "Sidfotsnavigering", "features": "Funktioner", "coaches": "För coacher" }
   },
   "plan": { "tabs": { "overview": "Översikt", "overviewLong": "Planöversikt", "activities": "Aktiviteter", "progress": "Framsteg", "progressLong": "Framstegsrapport", "entries": "Poster", "entriesLong": "Senaste poster", "feedback": "Återkoppling", "feedbackLong": "Coachens återkoppling", "ai": "AI-coach", "aiLong": "AI-coach" }, "allPlans": "Alla planer", "currentPlan": "Aktuell plan", "actions": { "activate": "Aktivera", "pause": "Pausa", "resume": "Återuppta", "complete": "Slutför", "archive": "Arkivera" }, "configuration": "Konfiguration", "details": "Plandetaljer", "title": "Titel", "description": "Beskrivning", "startDate": "Startdatum", "endDate": "Slutdatum", "save": "Spara ändringar", "atGlance": "I korthet", "status": "Planstatus", "currentState": "Aktuellt läge", "starts": "Startar", "ends": "Slutar", "notSet": "Inte angivet", "openEnded": "Utan slutdatum", "states": { "draft": "Utkast", "active": "Aktiv", "paused": "Pausad", "completed": "Slutförd", "archived": "Arkiverad" }, "errors": { "load": "Planen kunde inte läsas in.", "save": "Planen kunde inte sparas.", "status": "Statusen kunde inte uppdateras." }, "loading": "Läser in plan…" },
-  "chart": { "period": "Den här veckan", "title": "Ögonblicksbild av framsteg", "loading": "Beräknar framsteg…", "empty": "Lägg till en aktivitet för att se framsteg här.", "error": "Veckans framsteg kunde inte läsas in.", "aria": "Veckans totala följsamhet {{percent}} procent" }
+  "chart": { "period": "Den här veckan", "title": "Ögonblicksbild av framsteg", "loading": "Beräknar framsteg…", "empty": "Lägg till en aktivitet för att se framsteg här.", "error": "Veckans framsteg kunde inte läsas in.", "aria": "Veckans totala följsamhet {{percent}} procent" },
+  "execution": {
+    "saving": "Sparar...",
+    "adding": "Lägger till...",
+    "activities": {
+      "eyebrow": "Mätbart utförande",
+      "title": "Aktiviteter",
+      "total": "{{count}} totalt",
+      "add": "Lägg till aktivitet",
+      "addToPlan": "Lägg till aktivitet i {{plan}}",
+      "name": "Aktivitetsnamn",
+      "description": "Beskrivning",
+      "target": "Mål",
+      "unit": "Enhet",
+      "customUnit": "Anpassad enhetsetikett",
+      "frequency": "Frekvens",
+      "weekdays": "Vardagar",
+      "effectiveFrom": "Gäller från",
+      "effective": "Gäller {{date}}",
+      "recordEffort": "Rekordinsats",
+      "actualAmount": "Faktiskt belopp ({{unit}})",
+      "performedOn": "Utförde på",
+      "noteOptional": "Obs (valfritt)",
+      "saveEffort": "Spara faktiska ansträngningar",
+      "changeExpectation": "Ändra framtidsförväntningar",
+      "newTarget": "Nytt mål",
+      "reasonOptional": "Orsak (valfritt)",
+      "saveExpectation": "Spara nya förväntningar",
+      "empty": "Inga aktiviteter än.",
+      "activitySaved": "Aktivitet tillagd.",
+      "effortSaved": "Ansträngning registrerad.",
+      "expectationSaved": "Framtidsförväntningar räddade."
+    },
+    "schedules": {
+      "daily": "Varje dag",
+      "weekly": "Veckokvot",
+      "selected_days": "Utvalda vardagar"
+    },
+    "weekdays": {
+      "mon": "mån",
+      "tue": "tis",
+      "wed": "ons",
+      "thu": "tors",
+      "fri": "fre",
+      "sat": "lö",
+      "sun": "Sol"
+    },
+    "units": {
+      "minute": "Protokoll",
+      "hour": "Timmar",
+      "page": "Sidor",
+      "repetition": "Upprepningar",
+      "number": "Nummer",
+      "meter": "Meter",
+      "kilometer": "Kilometer",
+      "custom": "Anpassad enhet"
+    },
+    "progress": {
+      "eyebrow": "Deterministisk rapport",
+      "title": "Framsteg",
+      "today": "Idag",
+      "thisWeek": "Denna vecka",
+      "from": "Från",
+      "to": "Till",
+      "overall": "Övergripande följsamhet",
+      "attainment": "Uppnåelse",
+      "complete": "Komplett",
+      "partial": "Partiell",
+      "missed": "Saknad",
+      "upcoming": "Kommande"
+    },
+    "entries": {
+      "eyebrow": "Faktiskt utförande",
+      "title": "Senaste inlägg",
+      "empty": "Ingen ansträngning registrerad ännu.",
+      "activity": "Aktivitet",
+      "correct": "Rätt",
+      "actualAmount": "Faktiskt belopp",
+      "date": "Datum",
+      "note": "Obs",
+      "save": "Spara korrigering",
+      "remove": "Ta bort"
+    },
+    "feedback": {
+      "eyebrow": "Coachkommunikation",
+      "title": "Feedback",
+      "label": "Feedback för deltagare",
+      "send": "Skicka feedback",
+      "empty": "Ingen feedback från tränaren än."
+    },
+    "ai": {
+      "eyebrow": "Valfri AI-vägledning",
+      "title": "Fråga din framstegscoach",
+      "description": "AI:n kan läsa denna plans framsteg genom kontrollerade verktyg. Det kan inte ändra din plan eller dina poster.",
+      "question": "Din fråga",
+      "placeholder": "Varför hamnar jag på efterkälken och vad ska jag fokusera på?",
+      "consent": "Jag samtycker till att skicka relevanta framstegsdata till OpenAI för detta svar.",
+      "analyzing": "Analyserar...",
+      "ask": "Fråga AI-coachen",
+      "answer": "AI-genererad vägledning"
+    },
+    "errors": {
+      "activity": "Det gick inte att skapa aktivitet.",
+      "effort": "Kunde inte registrera ansträngning.",
+      "expectation": "Kunde inte ändra förväntningarna.",
+      "progress": "Det gick inte att beräkna framsteg.",
+      "entryUpdate": "Det gick inte att korrigera inmatningen.",
+      "entryRemove": "Det gick inte att ta bort posten.",
+      "feedbackLoad": "Det gick inte att ladda feedback.",
+      "feedbackSend": "Kunde inte lämna feedback.",
+      "ai": "AI-coachen är tillfälligt otillgänglig."
+    }
+  }
 }

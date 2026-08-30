@@ -738,5 +738,117 @@
     "empty": "활동을 추가하면 여기에 진전이 표시됩니다.",
     "error": "이번 주 진행 상황을 로드할 수 없습니다.",
     "aria": "주간 전체 이행률 {{percent}}퍼센트"
+  },
+  "execution": {
+    "saving": "저장 중…",
+    "adding": "추가 중…",
+    "activities": {
+      "eyebrow": "측정 가능한 실행",
+      "title": "활동",
+      "total": "{{count}} 합계",
+      "add": "활동 추가",
+      "addToPlan": "{{plan}}에 활동 추가",
+      "name": "활동명",
+      "description": "설명",
+      "target": "대상",
+      "unit": "단위",
+      "customUnit": "맞춤 단위 라벨",
+      "frequency": "빈도",
+      "weekdays": "평일",
+      "effectiveFrom": "발효일:",
+      "effective": "유효한 {{date}}",
+      "recordEffort": "노력을 기록하다",
+      "actualAmount": "실제 수량 ({{unit}})",
+      "performedOn": "수행 날짜",
+      "noteOptional": "참고(선택사항)",
+      "saveEffort": "실제 노력을 아끼세요",
+      "changeExpectation": "미래의 기대를 바꾸다",
+      "newTarget": "새로운 목표",
+      "reasonOptional": "이유(선택사항)",
+      "saveExpectation": "새로운 기대를 저장",
+      "empty": "아직 활동이 없습니다.",
+      "activitySaved": "활동이 추가되었습니다.",
+      "effortSaved": "노력이 기록되었습니다.",
+      "expectationSaved": "미래의 기대가 저장되었습니다."
+    },
+    "schedules": {
+      "daily": "매일",
+      "weekly": "주간 할당량",
+      "selected_days": "선택한 평일"
+    },
+    "weekdays": {
+      "mon": "월",
+      "tue": "화요일",
+      "wed": "수요일",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토요일",
+      "sun": "태양"
+    },
+    "units": {
+      "minute": "분",
+      "hour": "시간",
+      "page": "페이지",
+      "repetition": "반복",
+      "number": "번호",
+      "meter": "미터",
+      "kilometer": "킬로미터",
+      "custom": "맞춤 단위"
+    },
+    "progress": {
+      "eyebrow": "결정론적 보고서",
+      "title": "진행상황",
+      "today": "오늘",
+      "thisWeek": "이번주",
+      "from": "에서",
+      "to": "받는 사람",
+      "overall": "전반적인 접착력",
+      "attainment": "달성",
+      "complete": "완료",
+      "partial": "부분",
+      "missed": "놓친",
+      "upcoming": "예정"
+    },
+    "entries": {
+      "eyebrow": "실제 실행",
+      "title": "최근 항목",
+      "empty": "아직 기록된 노력이 없습니다.",
+      "activity": "활동",
+      "correct": "맞다",
+      "actualAmount": "실제 금액",
+      "date": "날짜",
+      "note": "참고",
+      "save": "수정사항 저장",
+      "remove": "제거"
+    },
+    "feedback": {
+      "eyebrow": "코치 커뮤니케이션",
+      "title": "피드백",
+      "label": "참가자 피드백",
+      "send": "피드백 보내기",
+      "empty": "아직 코치 피드백이 없습니다."
+    },
+    "ai": {
+      "eyebrow": "선택적 AI 지침",
+      "title": "진행 코치에게 물어보세요",
+      "description": "AI는 제어된 도구를 통해 이 계획의 진행 상황을 읽을 수 있습니다. 귀하의 계획이나 기록은 변경할 수 없습니다.",
+      "question": "귀하의 질문",
+      "placeholder": "나는 왜 뒤쳐지고 있으며, 무엇에 집중해야 합니까?",
+      "consent": "이 답변에 대해 관련 진행 데이터를 OpenAI에 보내는 데 동의합니다.",
+      "analyzing": "분석 중…",
+      "ask": "AI 코치에게 물어보세요",
+      "answer": "AI 생성 안내"
+    },
+    "errors": {
+      "activity": "활동을 생성할 수 없습니다.",
+      "effort": "노력을 기록할 수 없습니다.",
+      "expectation": "기대치를 수정할 수 없습니다.",
+      "progress": "진행 상황을 계산할 수 없습니다.",
+      "entryUpdate": "항목을 수정할 수 없습니다.",
+      "entryRemove": "항목을 삭제할 수 없습니다.",
+      "feedbackLoad": "의견을 로드할 수 없습니다.",
+      "feedbackSend": "피드백을 남길 수 없습니다.",
+      "ai": "AI 코치를 일시적으로 사용할 수 없습니다."
+    }
   }
 }
