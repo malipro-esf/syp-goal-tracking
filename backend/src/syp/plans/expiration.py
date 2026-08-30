@@ -76,6 +76,7 @@ async def run_plan_completion_scheduler(
     while True:
         await asyncio.sleep(interval_seconds)
         try:
+
             def sweep() -> list[uuid.UUID]:
                 with session_factory() as session:
                     return complete_expired_plans(session)

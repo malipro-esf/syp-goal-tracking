@@ -149,9 +149,7 @@ def test_expired_active_plans_complete_in_participant_timezone(
             headers=headers,
             json={"title": title, "start_date": "2025-12-01", "end_date": "2026-01-01"},
         ).json()
-        return api_client.post(
-            f"/api/v1/plans/{plan['id']}/activate", headers=headers
-        ).json()
+        return api_client.post(f"/api/v1/plans/{plan['id']}/activate", headers=headers).json()
 
     local_plan = create_active(local_headers, "Local plan")
     utc_plan = create_active(utc_headers, "UTC plan")
@@ -171,8 +169,7 @@ def test_expired_active_plans_complete_in_participant_timezone(
         assert utc_record is not None and utc_record.status == "active"
         assert paused_record is not None and paused_record.status == "paused"
         event = session.scalar(
-            select(PlanStatusEvent)
-            .where(
+            select(PlanStatusEvent).where(
                 PlanStatusEvent.plan_id == local_record.id,
                 PlanStatusEvent.status == "completed",
             )
@@ -181,7 +178,10 @@ def test_expired_active_plans_complete_in_participant_timezone(
         assert event.source == "automatic"
         assert event.effective_on.isoformat() == "2026-01-02"
 
-        assert complete_expired_plans(
-            session,
-            now=datetime(2026, 1, 1, 12, tzinfo=UTC),
-        ) == []
+        assert (
+            complete_expired_plans(
+                session,
+                now=datetime(2026, 1, 1, 12, tzinfo=UTC),
+            )
+            == []
+        )
