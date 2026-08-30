@@ -16,7 +16,7 @@ const actions: Record<string, { action: string; labelKey: string }[]> = {
   draft: [{ action: 'activate', labelKey: 'activate' }, { action: 'archive', labelKey: 'archive' }],
   active: [{ action: 'pause', labelKey: 'pause' }, { action: 'complete', labelKey: 'complete' }, { action: 'archive', labelKey: 'archive' }],
   paused: [{ action: 'activate', labelKey: 'resume' }, { action: 'complete', labelKey: 'complete' }, { action: 'archive', labelKey: 'archive' }],
-  completed: [{ action: 'archive', labelKey: 'archive' }],
+  completed: [{ action: 'activate', labelKey: 'resume' }, { action: 'archive', labelKey: 'archive' }],
   archived: [],
 }
 

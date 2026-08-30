@@ -111,14 +111,16 @@ def transition_personal_plan(
 ) -> PlanEnrollment:
     plan = get_personal_plan(session, participant_id, plan_id)
     ensure_transition_allowed(PlanStatus(plan.status), target)
-    plan.status = target.value
     user = session.get(User, participant_id)
     timezone = user.timezone if user else "UTC"
+    local_today = datetime.now(ZoneInfo(timezone)).date()
+    plan.status = target.value
     session.add(
         PlanStatusEvent(
             plan_id=plan.id,
             status=target.value,
-            effective_on=datetime.now(ZoneInfo(timezone)).date(),
+            effective_on=local_today,
+            source="manual",
         )
     )
     session.commit()
