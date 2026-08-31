@@ -10,6 +10,7 @@ from syp.activities.domain import ScheduleType, UnitCode
 class TemplateWrite(BaseModel):
     title: str = Field(min_length=1, max_length=120)
     description: str | None = Field(default=None, max_length=2000)
+    default_end_date: date | None = None
 
     @model_validator(mode="after")
     def normalize_text(self) -> "TemplateWrite":

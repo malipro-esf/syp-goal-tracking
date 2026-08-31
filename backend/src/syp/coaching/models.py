@@ -29,6 +29,7 @@ class PlanTemplate(Base):
     )
     title: Mapped[str] = mapped_column(String(120))
     description: Mapped[str | None] = mapped_column(Text)
+    default_end_date: Mapped[date | None] = mapped_column(Date)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

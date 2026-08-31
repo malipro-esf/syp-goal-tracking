@@ -6,6 +6,7 @@ export type PlanTemplate = {
   id: string
   title: string
   description: string | null
+  default_end_date: string | null
   activities: TemplateActivity[]
 }
 export type Assignment = {
@@ -33,7 +34,7 @@ const auth = (token: string, init: RequestInit = {}): RequestInit => ({
 
 export const listTemplates = (token: string) =>
   apiRequest<PlanTemplate[]>('/api/v1/coaching/templates', auth(token))
-export const createTemplate = (token: string, input: { title: string; description: string | null }) =>
+export const createTemplate = (token: string, input: { title: string; description: string | null; default_end_date: string | null }) =>
   apiRequest<PlanTemplate>('/api/v1/coaching/templates', auth(token, { method: 'POST', body: JSON.stringify(input) }))
 export const addTemplateActivity = (token: string, id: string, input: ActivityInput) =>
   apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}/activities`, auth(token, { method: 'POST', body: JSON.stringify(input) }))

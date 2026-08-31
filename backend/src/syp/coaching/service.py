@@ -65,7 +65,10 @@ def create_template(
 ) -> TemplateResponse:
     _require_role(session, coach_id, "coach")
     template = PlanTemplate(
-        created_by_user_id=coach_id, title=payload.title.strip(), description=payload.description
+        created_by_user_id=coach_id,
+        title=payload.title.strip(),
+        description=payload.description,
+        default_end_date=payload.default_end_date,
     )
     session.add(template)
     session.commit()
@@ -89,6 +92,7 @@ def update_template(
     template = _owned_template(session, coach_id, template_id)
     template.title = payload.title.strip()
     template.description = payload.description
+    template.default_end_date = payload.default_end_date
     session.commit()
     session.refresh(template)
     return _template_response(session, template)
@@ -158,6 +162,13 @@ def assign_template(
     session: Session, coach_id: uuid.UUID, template_id: uuid.UUID, payload: AssignmentCreate
 ) -> AssignmentResponse:
     template = _owned_template(session, coach_id, template_id)
+    end_date = payload.end_date or template.default_end_date
+    if end_date is not None and end_date < payload.start_date:
+        raise ApplicationError(
+            code="invalid_assignment_dates",
+            message="The template end date must be on or after the assignment start date.",
+            status_code=422,
+        )
     if not session.scalar(
         select(PlanTemplateActivity.id).where(PlanTemplateActivity.template_id == template.id)
     ):
@@ -194,7 +205,7 @@ def assign_template(
         participant_user_id=participant.id,
         assigned_by_user_id=coach_id,
         start_date=payload.start_date,
-        end_date=payload.end_date,
+        end_date=end_date,
     )
     session.add(assignment)
     session.commit()

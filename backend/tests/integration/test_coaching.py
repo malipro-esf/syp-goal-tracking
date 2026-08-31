@@ -22,11 +22,17 @@ def auth(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
 
 
-def create_template_with_activity(client: TestClient, coach_token: str) -> str:
+def create_template_with_activity(
+    client: TestClient, coach_token: str, default_end_date: str | None = None
+) -> str:
     created = client.post(
         "/api/v1/coaching/templates",
         headers=auth(coach_token),
-        json={"title": "IELTS foundation", "description": "Reusable program"},
+        json={
+            "title": "IELTS foundation",
+            "description": "Reusable program",
+            "default_end_date": default_end_date,
+        },
     )
     assert created.status_code == 201
     template_id = created.json()["id"]
@@ -47,16 +53,12 @@ def create_template_with_activity(client: TestClient, coach_token: str) -> str:
 def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> None:
     coach = register(api_client, "coach@example.com", "coach")
     participant = register(api_client, "learner@example.com", "participant")
-    template_id = create_template_with_activity(api_client, coach)
+    template_id = create_template_with_activity(api_client, coach, "2026-09-24")
 
     sent = api_client.post(
         f"/api/v1/coaching/templates/{template_id}/assignments",
         headers=auth(coach),
-        json={
-            "participant_email": "learner@example.com",
-            "start_date": "2026-08-24",
-            "end_date": "2026-09-24",
-        },
+        json={"participant_email": "learner@example.com", "start_date": "2026-08-24"},
     )
     assignment_id = sent.json()["id"]
     accepted = api_client.post(
