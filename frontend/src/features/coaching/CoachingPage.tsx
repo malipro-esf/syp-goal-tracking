@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hourglass, LayoutDashboard, Mail, Plus, Send, Settings, Users, XCircle } from 'lucide-react'
@@ -21,6 +21,7 @@ export function CoachingPage() {
   const [templates, setTemplates] = useState<PlanTemplate[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [assignmentFilter, setAssignmentFilter] = useState<AssignmentFilter>('all')
+  const assignmentSectionRef = useRef<HTMLElement>(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -83,6 +84,12 @@ export function CoachingPage() {
     ? assignments
     : assignments.filter((item) => item.status === assignmentFilter)
 
+  function selectAssignmentFilter(filter: AssignmentFilter) {
+    setAssignmentFilter(filter)
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+    assignmentSectionRef.current?.scrollIntoView?.({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+  }
+
   return <main className="admin-shell coaching-workspace">
     <aside className="admin-sidebar dashboard-sidebar">
       <Link className="admin-brand" to="/dashboard"><span>S</span><strong>SYP</strong></Link>
@@ -104,9 +111,9 @@ export function CoachingPage() {
       <div className="admin-content coaching-content">
         {error && <p className="form-error panel" role="alert">{error}</p>}
         <section className="coaching-metrics" aria-label={t('coachingPage.summary.label')}>
-          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'all' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'all'} onClick={() => setAssignmentFilter('all')}><span className="metric-icon"><Mail aria-hidden="true" /></span><div><small>{t('coachingPage.summary.total')}</small><strong>{assignments.length}</strong></div></button>
-          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'pending' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'pending'} onClick={() => setAssignmentFilter('pending')}><span className="metric-icon metric-active"><Hourglass aria-hidden="true" /></span><div><small>{t('coachingPage.summary.pending')}</small><strong>{pendingCount}</strong></div></button>
-          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'accepted' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'accepted'} onClick={() => setAssignmentFilter('accepted')}><span className="metric-icon metric-complete"><CheckCircle2 aria-hidden="true" /></span><div><small>{t('coachingPage.summary.accepted')}</small><strong>{acceptedCount}</strong></div></button>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'all' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'all'} onClick={() => selectAssignmentFilter('all')}><span className="metric-icon"><Mail aria-hidden="true" /></span><div><small>{t('coachingPage.summary.total')}</small><strong>{assignments.length}</strong></div></button>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'pending' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'pending'} onClick={() => selectAssignmentFilter('pending')}><span className="metric-icon metric-active"><Hourglass aria-hidden="true" /></span><div><small>{t('coachingPage.summary.pending')}</small><strong>{pendingCount}</strong></div></button>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'accepted' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'accepted'} onClick={() => selectAssignmentFilter('accepted')}><span className="metric-icon metric-complete"><CheckCircle2 aria-hidden="true" /></span><div><small>{t('coachingPage.summary.accepted')}</small><strong>{acceptedCount}</strong></div></button>
         </section>
 
         {coach && <><form className="panel coaching-create-template" onSubmit={makeTemplate}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.template.eyebrow')}</p><h2>{t('coachingPage.template.new')}</h2></div><FileStack aria-hidden="true" /></div>
@@ -129,7 +136,7 @@ export function CoachingPage() {
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
         </article>)}</div></section></>}
 
-        <section className="assignment-section"><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><span className="section-count">{visibleAssignments.length}</span></div>
+        <section className="assignment-section" ref={assignmentSectionRef}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><span className="section-count">{visibleAssignments.length}</span></div>
           {visibleAssignments.length === 0 && <div className="panel coaching-empty"><Mail aria-hidden="true" /><h3>{t('coachingPage.assignment.emptyTitle')}</h3><p>{t('coachingPage.assignment.empty')}</p></div>}
           <div className="assignment-list">{visibleAssignments.map((item) => <article className="panel assignment-card" key={item.id}>
             <span className="assignment-icon"><Users aria-hidden="true" /></span><div className="assignment-copy"><strong>{item.template_title}</strong><span>{coach ? `${item.participant_name} · ${item.participant_email}` : <><Clock3 aria-hidden="true" />{t('coachingPage.assignment.starts', { date: new Date(`${item.start_date}T00:00:00`).toLocaleDateString(i18n.language) })}</>}</span></div>
