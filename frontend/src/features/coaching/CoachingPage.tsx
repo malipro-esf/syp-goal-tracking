@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hourglass, LayoutDashboard, Mail, Plus, Send, Settings, Users, XCircle } from 'lucide-react'
+import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hourglass, LayoutDashboard, Mail, Plus, Save, Send, Settings, Users, XCircle } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
@@ -9,6 +9,7 @@ import { useAuth } from '../auth/useAuth'
 import {
   addTemplateActivity, assignTemplate, createTemplate, listInvitations,
   listSent, listTemplates, respondInvitation, type Assignment, type PlanTemplate,
+  updateTemplate,
 } from './coaching-api'
 
 const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60_000).toISOString().slice(0, 10)
@@ -63,6 +64,19 @@ export function CoachingPage() {
       setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
       form.reset(); setFormError(`activity-${templateId}`)
     } catch (caught) { setFormError(`activity-${templateId}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.addActivity')) }
+  }
+
+  async function editTemplate(event: FormEvent<HTMLFormElement>, templateId: string) {
+    event.preventDefault(); if (!accessToken) return
+    const data = new FormData(event.currentTarget)
+    try {
+      const updated = await updateTemplate(accessToken, templateId, {
+        title: String(data.get('title')), description: String(data.get('description')) || null,
+        default_end_date: String(data.get('defaultEndDate')) || null,
+      })
+      setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
+      setFormError(`template-${templateId}`)
+    } catch (caught) { setFormError(`template-${templateId}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.createTemplate')) }
   }
 
   async function send(event: FormEvent<HTMLFormElement>, templateId: string) {
@@ -135,6 +149,13 @@ export function CoachingPage() {
       <div className="coaching-grid">{templates.map((template) =>
         <article className="panel template-card" key={template.id}><div className="template-card-header"><span className="template-icon"><FileStack aria-hidden="true" /></span><div><h2>{template.title}</h2><p>{template.description || t('plansPage.list.noDescription')}</p></div><span className="section-count">{t('coachingPage.template.activityCount', { count: template.activities.length })}</span></div>
           <ul className="template-activity-list">{template.activities.map((activity) => <li key={activity.id}>{activity.name}: {formatNumber(activity.target_quantity)} {t(`coachingPage.units.${activity.unit_code}`)} · {t(`coachingPage.schedules.${activity.schedule_type}`)}</li>)}</ul>
+          <details className="revision-box"><summary>{t('plan.configuration')}</summary><form onSubmit={(event) => editTemplate(event, template.id)}>
+            {formErrors[`template-${template.id}`] && <p className="form-error" role="alert">{formErrors[`template-${template.id}`]}</p>}
+            <label>{t('coachingPage.fields.title')}<input name="title" defaultValue={template.title} required /></label>
+            <label>{t('coachingPage.fields.description')}<textarea name="description" defaultValue={template.description ?? ''} rows={2} /></label>
+            <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" defaultValue={template.default_end_date ?? ''} /></label>
+            <button type="submit" className="secondary-button icon-button"><Save aria-hidden="true" />{t('plan.save')}</button>
+          </form></details>
           <div className="template-actions"><form onSubmit={(event) => addActivity(event, template.id)}>{formErrors[`activity-${template.id}`] && <p className="form-error" role="alert">{formErrors[`activity-${template.id}`]}</p>}<h3>{t('coachingPage.activity.add')}</h3>
             <label>{t('coachingPage.fields.name')}<input name="name" required /></label>
             <label>{t('coachingPage.fields.target')}<input name="target" type="number" min="0.0001" step="0.0001" required /></label>

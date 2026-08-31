@@ -36,6 +36,8 @@ export const listTemplates = (token: string) =>
   apiRequest<PlanTemplate[]>('/api/v1/coaching/templates', auth(token))
 export const createTemplate = (token: string, input: { title: string; description: string | null; default_end_date: string | null }) =>
   apiRequest<PlanTemplate>('/api/v1/coaching/templates', auth(token, { method: 'POST', body: JSON.stringify(input) }))
+export const updateTemplate = (token: string, id: string, input: { title: string; description: string | null; default_end_date: string | null }) =>
+  apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}`, auth(token, { method: 'PUT', body: JSON.stringify(input) }))
 export const addTemplateActivity = (token: string, id: string, input: ActivityInput) =>
   apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}/activities`, auth(token, { method: 'POST', body: JSON.stringify(input) }))
 export const assignTemplate = (token: string, id: string, input: { participant_email: string; start_date: string; end_date: string | null }) =>
