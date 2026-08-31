@@ -1,11 +1,13 @@
 import { apiRequest } from '../../api/client'
 import type { ActivityInput } from '../activities/activities-api'
+import type { Plan } from '../plans/plans-api'
 
 export type TemplateActivity = ActivityInput & { id: string }
 export type PlanTemplate = {
   id: string
   title: string
   description: string | null
+  default_end_date: string | null
   activities: TemplateActivity[]
 }
 export type Assignment = {
@@ -15,6 +17,7 @@ export type Assignment = {
   participant_email: string
   status: string
   start_date: string
+  end_date: string | null
   enrollment_id: string | null
 }
 export type Feedback = {
@@ -32,11 +35,13 @@ const auth = (token: string, init: RequestInit = {}): RequestInit => ({
 
 export const listTemplates = (token: string) =>
   apiRequest<PlanTemplate[]>('/api/v1/coaching/templates', auth(token))
-export const createTemplate = (token: string, input: { title: string; description: string | null }) =>
+export const createTemplate = (token: string, input: { title: string; description: string | null; default_end_date: string | null }) =>
   apiRequest<PlanTemplate>('/api/v1/coaching/templates', auth(token, { method: 'POST', body: JSON.stringify(input) }))
+export const updateTemplate = (token: string, id: string, input: { title: string; description: string | null; default_end_date: string | null }) =>
+  apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}`, auth(token, { method: 'PUT', body: JSON.stringify(input) }))
 export const addTemplateActivity = (token: string, id: string, input: ActivityInput) =>
   apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}/activities`, auth(token, { method: 'POST', body: JSON.stringify(input) }))
-export const assignTemplate = (token: string, id: string, input: { participant_email: string; start_date: string }) =>
+export const assignTemplate = (token: string, id: string, input: { participant_email: string; start_date: string; end_date: string | null }) =>
   apiRequest<Assignment>(`/api/v1/coaching/templates/${id}/assignments`, auth(token, { method: 'POST', body: JSON.stringify(input) }))
 export const listSent = (token: string) =>
   apiRequest<Assignment[]>('/api/v1/coaching/assignments/sent', auth(token))
@@ -44,6 +49,12 @@ export const listInvitations = (token: string) =>
   apiRequest<Assignment[]>('/api/v1/coaching/invitations', auth(token))
 export const respondInvitation = (token: string, id: string, action: 'accept' | 'reject') =>
   apiRequest<Assignment>(`/api/v1/coaching/invitations/${id}/${action}`, auth(token, { method: 'POST' }))
+export const getCoachEnrollment = (token: string, enrollmentId: string) =>
+  apiRequest<Plan>(`/api/v1/coaching/enrollments/${enrollmentId}`, auth(token))
+export const updateCoachEnrollment = (token: string, enrollmentId: string, endDate: string | null) =>
+  apiRequest<Plan>(`/api/v1/coaching/enrollments/${enrollmentId}`, auth(token, {
+    method: 'PATCH', body: JSON.stringify({ end_date: endDate }),
+  }))
 export const listFeedback = (token: string, enrollmentId: string) =>
   apiRequest<Feedback[]>(`/api/v1/coaching/enrollments/${enrollmentId}/feedback`, auth(token))
 export const createFeedback = (token: string, enrollmentId: string, message: string) =>

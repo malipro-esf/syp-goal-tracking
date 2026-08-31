@@ -82,6 +82,8 @@ export function PlanDetailPage() {
   if (error && !plan) return <main className="workspace-shell"><p role="alert">{error}</p><Link to="/plans">{t('plan.allPlans')}</Link></main>
   if (!plan) return <main className="workspace-shell">{t('plan.loading')}</main>
   const archived = plan.status === 'archived'
+  const coachManaged = plan.source_assignment_id != null
+  const configurationReadOnly = archived || coachManaged
 
   return <main className="admin-shell">
     <aside className="admin-sidebar">
@@ -97,7 +99,7 @@ export function PlanDetailPage() {
       <header className="admin-topbar">
         <div><p className="eyebrow">{t(`plan.tabs.${tabs.find((tab) => tab.id === activeTab)?.labelKey}`)}</p><h1>{plan.title}</h1></div>
         <section className="lifecycle-actions" aria-label="Plan lifecycle actions">
-          {actions[plan.status].map(({ action, labelKey }) => { const Icon = actionIcons[action as keyof typeof actionIcons]; return <button type="button" className="secondary-button icon-button" key={action} onClick={() => transition(action)}><Icon aria-hidden="true" />{t(`plan.actions.${labelKey}`)}</button> })}
+          {!coachManaged && actions[plan.status].map(({ action, labelKey }) => { const Icon = actionIcons[action as keyof typeof actionIcons]; return <button type="button" className="secondary-button icon-button" key={action} onClick={() => transition(action)}><Icon aria-hidden="true" />{t(`plan.actions.${labelKey}`)}</button> })}
         </section>
       </header>
 
@@ -107,20 +109,20 @@ export function PlanDetailPage() {
         {activeTab === 'overview' && <section className="overview-grid">
           <form className="panel plan-form" onSubmit={save}>
             <div className="section-heading"><div><p className="eyebrow">{t('plan.configuration')}</p><h2>{t('plan.details')}</h2></div><span className={`status-badge status-${plan.status}`}>{t(`plan.states.${plan.status}`)}</span></div>
-            <label>{t('plan.title')}<input name="title" defaultValue={plan.title} maxLength={120} disabled={archived} required /></label>
-            <label>{t('plan.description')}<textarea name="description" defaultValue={plan.description ?? ''} maxLength={2000} rows={3} disabled={archived} /></label>
+            <label>{t('plan.title')}<input name="title" defaultValue={plan.title} maxLength={120} disabled={configurationReadOnly} required /></label>
+            <label>{t('plan.description')}<textarea name="description" defaultValue={plan.description ?? ''} maxLength={2000} rows={3} disabled={configurationReadOnly} /></label>
             <div className="date-fields">
-              <label>{t('plan.startDate')}<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={archived} /></label>
-              <label>{t('plan.endDate')}<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={archived} /></label>
+              <label>{t('plan.startDate')}<input name="startDate" type="date" defaultValue={plan.start_date ?? ''} disabled={configurationReadOnly} /></label>
+              <label>{t('plan.endDate')}<input name="endDate" type="date" defaultValue={plan.end_date ?? ''} disabled={configurationReadOnly} /></label>
             </div>
-            {!archived && <button type="submit" className="icon-button" disabled={saving}><Save aria-hidden="true" />{saving ? t('plan.saving') : t('plan.save')}</button>}
+            {!configurationReadOnly && <button type="submit" className="icon-button" disabled={saving}><Save aria-hidden="true" />{saving ? t('plan.saving') : t('plan.save')}</button>}
           </form>
           <div className="overview-aside">
             <aside className="panel plan-at-a-glance"><p className="eyebrow">{t('plan.atGlance')}</p><h2>{t('plan.status')}</h2><dl><div><dt>{t('plan.currentState')}</dt><dd>{t(`plan.states.${plan.status}`)}</dd></div><div><dt>{t('plan.starts')}</dt><dd>{plan.start_date || t('plan.notSet')}</dd></div><div><dt>{t('plan.ends')}</dt><dd>{plan.end_date || t('plan.openEnded')}</dd></div></dl></aside>
             <OverviewProgressChart planId={plan.id} />
           </div>
         </section>}
-        {(activeTab === 'activities' || activeTab === 'progress' || activeTab === 'entries') && <ActivityPanel planId={plan.id} planTitle={plan.title} planStatus={plan.status} view={activeTab} />}
+        {(activeTab === 'activities' || activeTab === 'progress' || activeTab === 'entries') && <ActivityPanel planId={plan.id} planTitle={plan.title} planStatus={plan.status} canEdit={!coachManaged} view={activeTab} />}
         {activeTab === 'feedback' && <FeedbackPanel enrollmentId={plan.id} />}
         {activeTab === 'ai' && <AiCoachPanel planId={plan.id} />}
       </div>

@@ -22,11 +22,17 @@ def auth(token: str) -> dict[str, str]:
     return {"Authorization": f"Bearer {token}"}
 
 
-def create_template_with_activity(client: TestClient, coach_token: str) -> str:
+def create_template_with_activity(
+    client: TestClient, coach_token: str, default_end_date: str | None = None
+) -> str:
     created = client.post(
         "/api/v1/coaching/templates",
         headers=auth(coach_token),
-        json={"title": "IELTS foundation", "description": "Reusable program"},
+        json={
+            "title": "IELTS foundation",
+            "description": "Reusable program",
+            "default_end_date": default_end_date,
+        },
     )
     assert created.status_code == 201
     template_id = created.json()["id"]
@@ -47,7 +53,7 @@ def create_template_with_activity(client: TestClient, coach_token: str) -> str:
 def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> None:
     coach = register(api_client, "coach@example.com", "coach")
     participant = register(api_client, "learner@example.com", "participant")
-    template_id = create_template_with_activity(api_client, coach)
+    template_id = create_template_with_activity(api_client, coach, "2026-09-24")
 
     sent = api_client.post(
         f"/api/v1/coaching/templates/{template_id}/assignments",
@@ -61,8 +67,48 @@ def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> 
     )
     assert accepted.status_code == 200
     enrollment_id = accepted.json()["enrollment_id"]
+    plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
+    assert plan.json()["end_date"] == "2026-09-24"
+    assert plan.json()["status"] == "active"
+    coach_update = api_client.patch(
+        f"/api/v1/coaching/enrollments/{enrollment_id}",
+        headers=auth(coach),
+        json={"end_date": "2026-10-01"},
+    )
+    assert coach_update.status_code == 200
+    assert coach_update.json()["end_date"] == "2026-10-01"
+    plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
+    assert plan.json()["end_date"] == "2026-10-01"
     copied = api_client.get(f"/api/v1/plans/{enrollment_id}/activities", headers=auth(participant))
     assert copied.json()[0]["current_target"]["target_quantity"] == "30.0000"
+
+    locked_plan = api_client.patch(
+        f"/api/v1/plans/{enrollment_id}",
+        headers=auth(participant),
+        json={"end_date": "2026-10-01"},
+    )
+    assert locked_plan.status_code == 403
+    locked_activity = api_client.post(
+        f"/api/v1/plans/{enrollment_id}/activities",
+        headers=auth(participant),
+        json={
+            "name": "Extra work",
+            "unit_code": "minute",
+            "target_quantity": "10",
+            "schedule_type": "daily",
+            "effective_from": "2026-08-24",
+        },
+    )
+    assert locked_activity.status_code == 403
+    recorded = api_client.post(
+        f"/api/v1/plans/{enrollment_id}/activities/{copied.json()[0]['id']}/progress-entries",
+        headers=auth(participant),
+        json={
+            "quantity": "20",
+            "performed_on": "2026-08-24",
+        },
+    )
+    assert recorded.status_code == 201
 
     api_client.post(
         f"/api/v1/coaching/templates/{template_id}/activities",

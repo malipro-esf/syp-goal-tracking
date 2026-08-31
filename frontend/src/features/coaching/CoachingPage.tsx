@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hourglass, LayoutDashboard, Mail, Plus, Send, Settings, Users, XCircle } from 'lucide-react'
+import { Bot, CheckCircle2, ClipboardList, Clock3, ExternalLink, FileStack, Hourglass, LayoutDashboard, Mail, Plus, Save, Send, Settings, Users, XCircle } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { formatNumber } from '../../utils/format-number'
@@ -9,6 +9,7 @@ import { useAuth } from '../auth/useAuth'
 import {
   addTemplateActivity, assignTemplate, createTemplate, listInvitations,
   listSent, listTemplates, respondInvitation, type Assignment, type PlanTemplate,
+  updateTemplate,
 } from './coaching-api'
 
 const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60_000).toISOString().slice(0, 10)
@@ -18,11 +19,13 @@ export function CoachingPage() {
   const { accessToken, user } = useAuth()
   const { i18n, t } = useTranslation()
   const coach = user?.roles.includes('coach') ?? false
+  const coachingLabel = t(coach ? 'navigation.coaching' : 'dashboard.actions.invitations')
   const [templates, setTemplates] = useState<PlanTemplate[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [assignmentFilter, setAssignmentFilter] = useState<AssignmentFilter>('all')
   const assignmentSectionRef = useRef<HTMLElement>(null)
-  const [error, setError] = useState('')
+  const [loadError, setLoadError] = useState('')
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
     if (!accessToken) return
@@ -31,8 +34,12 @@ export function CoachingPage() {
           .then(([items, sent]) => { setTemplates(items); setAssignments(sent) })
       : listInvitations(accessToken).then(setAssignments)
     request.catch((caught: unknown) =>
-      setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.load')))
+      setLoadError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.load')))
   }, [accessToken, coach, t])
+
+  function setFormError(key: string, message = '') {
+    setFormErrors((current) => ({ ...current, [key]: message }))
+  }
 
   async function makeTemplate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); if (!accessToken) return
@@ -40,9 +47,10 @@ export function CoachingPage() {
     try {
       const item = await createTemplate(accessToken, {
         title: String(data.get('title')), description: String(data.get('description')) || null,
+        default_end_date: String(data.get('defaultEndDate')) || null,
       })
-      setTemplates((items) => [item, ...items]); form.reset(); setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.createTemplate')) }
+      setTemplates((items) => [item, ...items]); form.reset(); setFormError('template')
+    } catch (caught) { setFormError('template', caught instanceof ApiError ? caught.message : t('coachingPage.errors.createTemplate')) }
   }
 
   async function addActivity(event: FormEvent<HTMLFormElement>, templateId: string) {
@@ -55,8 +63,21 @@ export function CoachingPage() {
         effective_from: today(), weekdays: null,
       })
       setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
-      form.reset(); setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.addActivity')) }
+      form.reset(); setFormError(`activity-${templateId}`)
+    } catch (caught) { setFormError(`activity-${templateId}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.addActivity')) }
+  }
+
+  async function editTemplate(event: FormEvent<HTMLFormElement>, templateId: string) {
+    event.preventDefault(); if (!accessToken) return
+    const data = new FormData(event.currentTarget)
+    try {
+      const updated = await updateTemplate(accessToken, templateId, {
+        title: String(data.get('title')), description: String(data.get('description')) || null,
+        default_end_date: String(data.get('defaultEndDate')) || null,
+      })
+      setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
+      setFormError(`template-${templateId}`)
+    } catch (caught) { setFormError(`template-${templateId}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.createTemplate')) }
   }
 
   async function send(event: FormEvent<HTMLFormElement>, templateId: string) {
@@ -65,9 +86,10 @@ export function CoachingPage() {
     try {
       const item = await assignTemplate(accessToken, templateId, {
         participant_email: String(data.get('email')), start_date: String(data.get('startDate')),
+        end_date: null,
       })
-      setAssignments((items) => [item, ...items]); form.reset(); setError('')
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.send')) }
+      setAssignments((items) => [item, ...items]); form.reset(); setFormError(`assignment-${templateId}`)
+    } catch (caught) { setFormError(`assignment-${templateId}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.send')) }
   }
 
   async function respond(id: string, action: 'accept' | 'reject') {
@@ -75,7 +97,8 @@ export function CoachingPage() {
     try {
       const updated = await respondInvitation(accessToken, id, action)
       setAssignments((items) => items.map((item) => item.id === id ? updated : item))
-    } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.respond')) }
+      setFormError(`response-${id}`)
+    } catch (caught) { setFormError(`response-${id}`, caught instanceof ApiError ? caught.message : t('coachingPage.errors.respond')) }
   }
 
   const pendingCount = assignments.filter((item) => item.status === 'pending').length
@@ -97,7 +120,7 @@ export function CoachingPage() {
       <nav className="admin-nav" aria-label={t('dashboard.sidebar.navigation')}>
         <Link to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('dashboard.sidebar.overview')}</Link>
         <Link to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</Link>
-        <Link className="active" to="/coaching"><Bot aria-hidden="true" />{t('navigation.coaching')}</Link>
+        <Link className="active" to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />{t('dashboard.sidebar.settings')}</Link>
       </nav>
     </aside>
@@ -109,7 +132,7 @@ export function CoachingPage() {
       </header>
 
       <div className="admin-content coaching-content">
-        {error && <p className="form-error panel" role="alert">{error}</p>}
+        {loadError && <p className="form-error panel" role="alert">{loadError}</p>}
         <section className="coaching-metrics" aria-label={t('coachingPage.summary.label')}>
           <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'all' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'all'} onClick={() => selectAssignmentFilter('all')}><span className="metric-icon"><Mail aria-hidden="true" /></span><div><small>{t('coachingPage.summary.total')}</small><strong>{assignments.length}</strong></div></button>
           <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'pending' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'pending'} onClick={() => selectAssignmentFilter('pending')}><span className="metric-icon metric-active"><Hourglass aria-hidden="true" /></span><div><small>{t('coachingPage.summary.pending')}</small><strong>{pendingCount}</strong></div></button>
@@ -117,20 +140,30 @@ export function CoachingPage() {
         </section>
 
         {coach && <><form className="panel coaching-create-template" onSubmit={makeTemplate}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.template.eyebrow')}</p><h2>{t('coachingPage.template.new')}</h2></div><FileStack aria-hidden="true" /></div>
+      {formErrors.template && <p className="form-error" role="alert">{formErrors.template}</p>}
       <label>{t('coachingPage.fields.title')}<input name="title" required /></label>
-      <label>{t('coachingPage.fields.description')}<textarea name="description" rows={3} /></label><button className="icon-button"><Plus aria-hidden="true" />{t('coachingPage.template.create')}</button></form>
+      <label>{t('coachingPage.fields.description')}<textarea name="description" rows={3} /></label>
+      <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" min={today()} /></label>
+      <button className="icon-button"><Plus aria-hidden="true" />{t('coachingPage.template.create')}</button></form>
       <section className="coaching-templates"><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.template.libraryEyebrow')}</p><h2>{t('coachingPage.template.library')}</h2></div><span className="section-count">{templates.length}</span></div>
       {templates.length === 0 && <div className="panel coaching-empty"><FileStack aria-hidden="true" /><h3>{t('coachingPage.template.emptyTitle')}</h3><p>{t('coachingPage.template.emptyDescription')}</p></div>}
       <div className="coaching-grid">{templates.map((template) =>
         <article className="panel template-card" key={template.id}><div className="template-card-header"><span className="template-icon"><FileStack aria-hidden="true" /></span><div><h2>{template.title}</h2><p>{template.description || t('plansPage.list.noDescription')}</p></div><span className="section-count">{t('coachingPage.template.activityCount', { count: template.activities.length })}</span></div>
           <ul className="template-activity-list">{template.activities.map((activity) => <li key={activity.id}>{activity.name}: {formatNumber(activity.target_quantity)} {t(`coachingPage.units.${activity.unit_code}`)} · {t(`coachingPage.schedules.${activity.schedule_type}`)}</li>)}</ul>
-          <div className="template-actions"><form onSubmit={(event) => addActivity(event, template.id)}><h3>{t('coachingPage.activity.add')}</h3>
+          <details className="revision-box"><summary>{t('plan.configuration')}</summary><form onSubmit={(event) => editTemplate(event, template.id)}>
+            {formErrors[`template-${template.id}`] && <p className="form-error" role="alert">{formErrors[`template-${template.id}`]}</p>}
+            <label>{t('coachingPage.fields.title')}<input name="title" defaultValue={template.title} required /></label>
+            <label>{t('coachingPage.fields.description')}<textarea name="description" defaultValue={template.description ?? ''} rows={2} /></label>
+            <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" defaultValue={template.default_end_date ?? ''} /></label>
+            <button type="submit" className="secondary-button icon-button"><Save aria-hidden="true" />{t('plan.save')}</button>
+          </form></details>
+          <div className="template-actions"><form onSubmit={(event) => addActivity(event, template.id)}>{formErrors[`activity-${template.id}`] && <p className="form-error" role="alert">{formErrors[`activity-${template.id}`]}</p>}<h3>{t('coachingPage.activity.add')}</h3>
             <label>{t('coachingPage.fields.name')}<input name="name" required /></label>
             <label>{t('coachingPage.fields.target')}<input name="target" type="number" min="0.0001" step="0.0001" required /></label>
             <label>{t('coachingPage.fields.unit')}<select name="unit"><option value="minute">{t('coachingPage.units.minute')}</option><option value="page">{t('coachingPage.units.page')}</option><option value="repetition">{t('coachingPage.units.repetition')}</option><option value="kilometer">{t('coachingPage.units.kilometer')}</option></select></label>
             <label>{t('coachingPage.fields.frequency')}<select name="schedule"><option value="daily">{t('coachingPage.schedules.daily')}</option><option value="weekly">{t('coachingPage.schedules.weekly')}</option></select></label>
             <button className="secondary-button icon-button"><Plus aria-hidden="true" />{t('coachingPage.activity.action')}</button></form>
-          <form onSubmit={(event) => send(event, template.id)}><h3>{t('coachingPage.assignment.assign')}</h3>
+          <form onSubmit={(event) => send(event, template.id)}>{formErrors[`assignment-${template.id}`] && <p className="form-error" role="alert">{formErrors[`assignment-${template.id}`]}</p>}<h3>{t('coachingPage.assignment.assign')}</h3>
             <label>{t('coachingPage.fields.email')}<input name="email" type="email" required /></label>
             <label>{t('coachingPage.fields.startDate')}<input name="startDate" type="date" defaultValue={today()} required /></label>
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
@@ -139,6 +172,7 @@ export function CoachingPage() {
         <section className="assignment-section" ref={assignmentSectionRef}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><span className="section-count">{visibleAssignments.length}</span></div>
           {visibleAssignments.length === 0 && <div className="panel coaching-empty"><Mail aria-hidden="true" /><h3>{t('coachingPage.assignment.emptyTitle')}</h3><p>{t('coachingPage.assignment.empty')}</p></div>}
           <div className="assignment-list">{visibleAssignments.map((item) => <article className="panel assignment-card" key={item.id}>
+            {formErrors[`response-${item.id}`] && <p className="form-error" role="alert">{formErrors[`response-${item.id}`]}</p>}
             <span className="assignment-icon"><Users aria-hidden="true" /></span><div className="assignment-copy"><strong>{item.template_title}</strong><span>{coach ? `${item.participant_name} · ${item.participant_email}` : <><Clock3 aria-hidden="true" />{t('coachingPage.assignment.starts', { date: new Date(`${item.start_date}T00:00:00`).toLocaleDateString(i18n.language) })}</>}</span></div>
             <span className={`status-badge status-${item.status}`}>{t(`coachingPage.statuses.${item.status}`)}</span>{!coach && item.status === 'pending' && <div className="button-row assignment-buttons">
               <button className="icon-button" onClick={() => respond(item.id, 'accept')}><CheckCircle2 aria-hidden="true" />{t('coachingPage.assignment.accept')}</button>

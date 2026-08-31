@@ -25,6 +25,12 @@ from syp.plans.service import get_personal_plan
 
 
 def _ensure_plan_editable(plan: PlanEnrollment) -> None:
+    if plan.source_assignment_id is not None:
+        raise ApplicationError(
+            code="coach_managed_plan_read_only",
+            message="Only the coach can change activities in an assigned plan.",
+            status_code=403,
+        )
     if PlanStatus(plan.status) in {PlanStatus.COMPLETED, PlanStatus.ARCHIVED}:
         raise ApplicationError(
             code="plan_activities_read_only",

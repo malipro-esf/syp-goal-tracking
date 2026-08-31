@@ -10,6 +10,7 @@ from syp.coaching.models import CoachFeedback, PlanAssignment, PlanTemplate, Pla
 from syp.coaching.schemas import (
     AssignmentCreate,
     AssignmentResponse,
+    CoachEnrollmentUpdate,
     FeedbackCreate,
     FeedbackResponse,
     TemplateActivityCreate,
@@ -65,7 +66,10 @@ def create_template(
 ) -> TemplateResponse:
     _require_role(session, coach_id, "coach")
     template = PlanTemplate(
-        created_by_user_id=coach_id, title=payload.title.strip(), description=payload.description
+        created_by_user_id=coach_id,
+        title=payload.title.strip(),
+        description=payload.description,
+        default_end_date=payload.default_end_date,
     )
     session.add(template)
     session.commit()
@@ -89,6 +93,7 @@ def update_template(
     template = _owned_template(session, coach_id, template_id)
     template.title = payload.title.strip()
     template.description = payload.description
+    template.default_end_date = payload.default_end_date
     session.commit()
     session.refresh(template)
     return _template_response(session, template)
@@ -158,6 +163,13 @@ def assign_template(
     session: Session, coach_id: uuid.UUID, template_id: uuid.UUID, payload: AssignmentCreate
 ) -> AssignmentResponse:
     template = _owned_template(session, coach_id, template_id)
+    end_date = payload.end_date or template.default_end_date
+    if end_date is not None and end_date < payload.start_date:
+        raise ApplicationError(
+            code="invalid_assignment_dates",
+            message="The template end date must be on or after the assignment start date.",
+            status_code=422,
+        )
     if not session.scalar(
         select(PlanTemplateActivity.id).where(PlanTemplateActivity.template_id == template.id)
     ):
@@ -194,6 +206,7 @@ def assign_template(
         participant_user_id=participant.id,
         assigned_by_user_id=coach_id,
         start_date=payload.start_date,
+        end_date=end_date,
     )
     session.add(assignment)
     session.commit()
@@ -254,13 +267,14 @@ def respond_to_assignment(
             source_assignment_id=assignment.id,
             title=template.title,
             description=template.description,
-            status="draft",
+            status="active",
             start_date=assignment.start_date,
+            end_date=assignment.end_date,
         )
         session.add(plan)
         session.flush()
         session.add(
-            PlanStatusEvent(plan_id=plan.id, status="draft", effective_on=assignment.start_date)
+            PlanStatusEvent(plan_id=plan.id, status="active", effective_on=assignment.start_date)
         )
         template_activities = session.scalars(
             select(PlanTemplateActivity).where(PlanTemplateActivity.template_id == template.id)
@@ -329,6 +343,33 @@ def get_coach_enrollment(
             message="The participant plan was not found.",
             status_code=404,
         )
+    return plan
+
+
+def update_coach_enrollment(
+    session: Session,
+    coach_id: uuid.UUID,
+    enrollment_id: uuid.UUID,
+    payload: CoachEnrollmentUpdate,
+) -> PlanEnrollment:
+    plan = get_coach_enrollment(session, coach_id, enrollment_id)
+    if (
+        payload.end_date is not None
+        and plan.start_date is not None
+        and payload.end_date < plan.start_date
+    ):
+        raise ApplicationError(
+            code="invalid_plan_dates",
+            message="End date must be on or after start date.",
+            status_code=422,
+        )
+    plan.end_date = payload.end_date
+    if plan.source_assignment_id is not None:
+        assignment = session.get(PlanAssignment, plan.source_assignment_id)
+        if assignment is not None:
+            assignment.end_date = payload.end_date
+    session.commit()
+    session.refresh(plan)
     return plan
 
 

@@ -121,10 +121,11 @@ function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activi
 
 export type ActivityPanelView = 'activities' | 'progress' | 'entries'
 
-export function ActivityPanel({ planId, planTitle, planStatus, view = 'activities' }: {
+export function ActivityPanel({ planId, planTitle, planStatus, canEdit = true, view = 'activities' }: {
   planId: string
   planTitle: string
   planStatus: string
+  canEdit?: boolean
   view?: ActivityPanelView
 }) {
   const { accessToken } = useAuth()
@@ -135,7 +136,7 @@ export function ActivityPanel({ planId, planTitle, planStatus, view = 'activitie
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [saving, setSaving] = useState(false)
-  const readOnly = planStatus === 'completed' || planStatus === 'archived'
+  const readOnly = !canEdit || planStatus === 'completed' || planStatus === 'archived'
   const canRecord = planStatus === 'active' || planStatus === 'paused'
 
   useEffect(() => {

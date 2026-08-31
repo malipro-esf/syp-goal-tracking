@@ -44,5 +44,6 @@ class PlanResponse(BaseModel):
     status: PlanStatus
     start_date: date | None
     end_date: date | None
+    source_assignment_id: uuid.UUID | None
     created_at: datetime
     updated_at: datetime
