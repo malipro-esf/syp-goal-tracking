@@ -12,6 +12,7 @@ import {
 } from './coaching-api'
 
 const today = () => new Date(Date.now() - new Date().getTimezoneOffset() * 60_000).toISOString().slice(0, 10)
+type AssignmentFilter = 'all' | 'pending' | 'accepted'
 
 export function CoachingPage() {
   const { accessToken, user } = useAuth()
@@ -19,6 +20,7 @@ export function CoachingPage() {
   const coach = user?.roles.includes('coach') ?? false
   const [templates, setTemplates] = useState<PlanTemplate[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
+  const [assignmentFilter, setAssignmentFilter] = useState<AssignmentFilter>('all')
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -77,6 +79,9 @@ export function CoachingPage() {
 
   const pendingCount = assignments.filter((item) => item.status === 'pending').length
   const acceptedCount = assignments.filter((item) => item.status === 'accepted').length
+  const visibleAssignments = assignmentFilter === 'all'
+    ? assignments
+    : assignments.filter((item) => item.status === assignmentFilter)
 
   return <main className="admin-shell coaching-workspace">
     <aside className="admin-sidebar dashboard-sidebar">
@@ -99,9 +104,9 @@ export function CoachingPage() {
       <div className="admin-content coaching-content">
         {error && <p className="form-error panel" role="alert">{error}</p>}
         <section className="coaching-metrics" aria-label={t('coachingPage.summary.label')}>
-          <article className="panel metric-card"><span className="metric-icon"><Mail aria-hidden="true" /></span><div><small>{t('coachingPage.summary.total')}</small><strong>{assignments.length}</strong></div></article>
-          <article className="panel metric-card"><span className="metric-icon metric-active"><Hourglass aria-hidden="true" /></span><div><small>{t('coachingPage.summary.pending')}</small><strong>{pendingCount}</strong></div></article>
-          <article className="panel metric-card"><span className="metric-icon metric-complete"><CheckCircle2 aria-hidden="true" /></span><div><small>{t('coachingPage.summary.accepted')}</small><strong>{acceptedCount}</strong></div></article>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'all' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'all'} onClick={() => setAssignmentFilter('all')}><span className="metric-icon"><Mail aria-hidden="true" /></span><div><small>{t('coachingPage.summary.total')}</small><strong>{assignments.length}</strong></div></button>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'pending' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'pending'} onClick={() => setAssignmentFilter('pending')}><span className="metric-icon metric-active"><Hourglass aria-hidden="true" /></span><div><small>{t('coachingPage.summary.pending')}</small><strong>{pendingCount}</strong></div></button>
+          <button type="button" className={`panel metric-card metric-filter${assignmentFilter === 'accepted' ? ' active' : ''}`} aria-pressed={assignmentFilter === 'accepted'} onClick={() => setAssignmentFilter('accepted')}><span className="metric-icon metric-complete"><CheckCircle2 aria-hidden="true" /></span><div><small>{t('coachingPage.summary.accepted')}</small><strong>{acceptedCount}</strong></div></button>
         </section>
 
         {coach && <><form className="panel coaching-create-template" onSubmit={makeTemplate}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.template.eyebrow')}</p><h2>{t('coachingPage.template.new')}</h2></div><FileStack aria-hidden="true" /></div>
@@ -124,9 +129,9 @@ export function CoachingPage() {
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
         </article>)}</div></section></>}
 
-        <section className="assignment-section"><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations')}</h2></div><span className="section-count">{assignments.length}</span></div>
-          {assignments.length === 0 && <div className="panel coaching-empty"><Mail aria-hidden="true" /><h3>{t('coachingPage.assignment.emptyTitle')}</h3><p>{t('coachingPage.assignment.empty')}</p></div>}
-          <div className="assignment-list">{assignments.map((item) => <article className="panel assignment-card" key={item.id}>
+        <section className="assignment-section"><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><span className="section-count">{visibleAssignments.length}</span></div>
+          {visibleAssignments.length === 0 && <div className="panel coaching-empty"><Mail aria-hidden="true" /><h3>{t('coachingPage.assignment.emptyTitle')}</h3><p>{t('coachingPage.assignment.empty')}</p></div>}
+          <div className="assignment-list">{visibleAssignments.map((item) => <article className="panel assignment-card" key={item.id}>
             <span className="assignment-icon"><Users aria-hidden="true" /></span><div className="assignment-copy"><strong>{item.template_title}</strong><span>{coach ? `${item.participant_name} · ${item.participant_email}` : <><Clock3 aria-hidden="true" />{t('coachingPage.assignment.starts', { date: new Date(`${item.start_date}T00:00:00`).toLocaleDateString(i18n.language) })}</>}</span></div>
             <span className={`status-badge status-${item.status}`}>{t(`coachingPage.statuses.${item.status}`)}</span>{!coach && item.status === 'pending' && <div className="button-row assignment-buttons">
               <button className="icon-button" onClick={() => respond(item.id, 'accept')}><CheckCircle2 aria-hidden="true" />{t('coachingPage.assignment.accept')}</button>
