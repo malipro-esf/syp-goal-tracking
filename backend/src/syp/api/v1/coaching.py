@@ -6,6 +6,7 @@ from syp.api.dependencies import CurrentUser, DatabaseSession
 from syp.coaching.schemas import (
     AssignmentCreate,
     AssignmentResponse,
+    CoachEnrollmentUpdate,
     FeedbackCreate,
     FeedbackResponse,
     TemplateActivityCreate,
@@ -17,6 +18,7 @@ from syp.coaching.service import (
     assign_template,
     create_feedback,
     create_template,
+    get_coach_enrollment,
     list_feedback,
     list_my_invitations,
     list_participants,
@@ -25,8 +27,11 @@ from syp.coaching.service import (
     remove_template,
     remove_template_activity,
     respond_to_assignment,
+    update_coach_enrollment,
     update_template,
 )
+from syp.plans.models import PlanEnrollment
+from syp.plans.schemas import PlanResponse
 
 router = APIRouter(prefix="/coaching", tags=["coaching"])
 
@@ -121,6 +126,23 @@ def reject(
 @router.get("/participants", response_model=list[AssignmentResponse])
 def participants(session: DatabaseSession, current_user: CurrentUser) -> list[AssignmentResponse]:
     return list_participants(session, current_user.id)
+
+
+@router.get("/enrollments/{enrollment_id}", response_model=PlanResponse)
+def enrollment(
+    enrollment_id: uuid.UUID, session: DatabaseSession, current_user: CurrentUser
+) -> PlanEnrollment:
+    return get_coach_enrollment(session, current_user.id, enrollment_id)
+
+
+@router.patch("/enrollments/{enrollment_id}", response_model=PlanResponse)
+def update_enrollment(
+    enrollment_id: uuid.UUID,
+    payload: CoachEnrollmentUpdate,
+    session: DatabaseSession,
+    current_user: CurrentUser,
+) -> PlanEnrollment:
+    return update_coach_enrollment(session, current_user.id, enrollment_id, payload)
 
 
 @router.get("/enrollments/{enrollment_id}/feedback", response_model=list[FeedbackResponse])

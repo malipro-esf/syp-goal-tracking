@@ -1,5 +1,6 @@
 import { apiRequest } from '../../api/client'
 import type { ActivityInput } from '../activities/activities-api'
+import type { Plan } from '../plans/plans-api'
 
 export type TemplateActivity = ActivityInput & { id: string }
 export type PlanTemplate = {
@@ -48,6 +49,12 @@ export const listInvitations = (token: string) =>
   apiRequest<Assignment[]>('/api/v1/coaching/invitations', auth(token))
 export const respondInvitation = (token: string, id: string, action: 'accept' | 'reject') =>
   apiRequest<Assignment>(`/api/v1/coaching/invitations/${id}/${action}`, auth(token, { method: 'POST' }))
+export const getCoachEnrollment = (token: string, enrollmentId: string) =>
+  apiRequest<Plan>(`/api/v1/coaching/enrollments/${enrollmentId}`, auth(token))
+export const updateCoachEnrollment = (token: string, enrollmentId: string, endDate: string | null) =>
+  apiRequest<Plan>(`/api/v1/coaching/enrollments/${enrollmentId}`, auth(token, {
+    method: 'PATCH', body: JSON.stringify({ end_date: endDate }),
+  }))
 export const listFeedback = (token: string, enrollmentId: string) =>
   apiRequest<Feedback[]>(`/api/v1/coaching/enrollments/${enrollmentId}/feedback`, auth(token))
 export const createFeedback = (token: string, enrollmentId: string, message: string) =>

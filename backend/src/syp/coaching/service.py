@@ -10,6 +10,7 @@ from syp.coaching.models import CoachFeedback, PlanAssignment, PlanTemplate, Pla
 from syp.coaching.schemas import (
     AssignmentCreate,
     AssignmentResponse,
+    CoachEnrollmentUpdate,
     FeedbackCreate,
     FeedbackResponse,
     TemplateActivityCreate,
@@ -342,6 +343,33 @@ def get_coach_enrollment(
             message="The participant plan was not found.",
             status_code=404,
         )
+    return plan
+
+
+def update_coach_enrollment(
+    session: Session,
+    coach_id: uuid.UUID,
+    enrollment_id: uuid.UUID,
+    payload: CoachEnrollmentUpdate,
+) -> PlanEnrollment:
+    plan = get_coach_enrollment(session, coach_id, enrollment_id)
+    if (
+        payload.end_date is not None
+        and plan.start_date is not None
+        and payload.end_date < plan.start_date
+    ):
+        raise ApplicationError(
+            code="invalid_plan_dates",
+            message="End date must be on or after start date.",
+            status_code=422,
+        )
+    plan.end_date = payload.end_date
+    if plan.source_assignment_id is not None:
+        assignment = session.get(PlanAssignment, plan.source_assignment_id)
+        if assignment is not None:
+            assignment.end_date = payload.end_date
+    session.commit()
+    session.refresh(plan)
     return plan
 
 

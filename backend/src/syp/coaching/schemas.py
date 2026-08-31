@@ -89,6 +89,10 @@ class AssignmentResponse(BaseModel):
     enrollment_id: uuid.UUID | None = None
 
 
+class CoachEnrollmentUpdate(BaseModel):
+    end_date: date | None = None
+
+
 class FeedbackCreate(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
 

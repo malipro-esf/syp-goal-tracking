@@ -70,6 +70,15 @@ def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> 
     plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
     assert plan.json()["end_date"] == "2026-09-24"
     assert plan.json()["status"] == "active"
+    coach_update = api_client.patch(
+        f"/api/v1/coaching/enrollments/{enrollment_id}",
+        headers=auth(coach),
+        json={"end_date": "2026-10-01"},
+    )
+    assert coach_update.status_code == 200
+    assert coach_update.json()["end_date"] == "2026-10-01"
+    plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
+    assert plan.json()["end_date"] == "2026-10-01"
     copied = api_client.get(f"/api/v1/plans/{enrollment_id}/activities", headers=auth(participant))
     assert copied.json()[0]["current_target"]["target_quantity"] == "30.0000"
 
