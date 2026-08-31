@@ -5,6 +5,7 @@ import { ProtectedRoute } from '../features/auth/ProtectedRoute'
 import { ProfileSettingsPage } from '../features/auth/ProfileSettingsPage'
 import { CoachingPage } from '../features/coaching/CoachingPage'
 import { CoachEnrollmentPage } from '../features/coaching/CoachEnrollmentPage'
+import { CoachParticipantsPage } from '../features/coaching/CoachParticipantsPage'
 import { PlanDetailPage } from '../features/plans/PlanDetailPage'
 import { PlanListPage } from '../features/plans/PlanListPage'
 import { LandingPage } from './LandingPage'
@@ -30,6 +31,7 @@ export function App() {
         <Route path="/plans/:planId" element={<PlanDetailPage />} />
         <Route path="/coaching" element={<CoachingPage />} />
         <Route path="/coach/enrollments/:enrollmentId" element={<CoachEnrollmentPage />} />
+        <Route path="/coach/participants" element={<CoachParticipantsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes></>

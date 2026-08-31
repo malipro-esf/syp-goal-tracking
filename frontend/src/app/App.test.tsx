@@ -361,6 +361,33 @@ test('shows the plan template workspace to a coach', async () => {
   expect(screen.queryByText('Accepted Learner · accepted@example.com')).not.toBeInTheDocument()
 })
 
+test('lets a coach search and filter participants on a dedicated page', async () => {
+  vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+    const url = String(input)
+    const json = (body: unknown) => new Response(JSON.stringify(body), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    })
+    if (url === '/api/v1/auth/refresh') return json({
+      access_token: 'coach-token', token_type: 'bearer',
+      user: { id: '2', email: 'coach@example.com', display_name: 'Coach', timezone: 'UTC', roles: ['coach'] },
+    })
+    if (url === '/api/v1/coaching/assignments/sent') return json([
+      { id: 'assignment-1', template_title: 'IELTS', participant_name: 'Ada Learner', participant_email: 'ada@example.com', status: 'accepted', start_date: '2026-08-31', enrollment_id: 'enrollment-1' },
+      { id: 'assignment-2', template_title: 'Running', participant_name: 'Ben Learner', participant_email: 'ben@example.com', status: 'pending', start_date: '2026-08-31', enrollment_id: null },
+    ])
+    return new Response('{}', { status: 404 })
+  })
+
+  renderApp('/coach/participants')
+
+  expect(await screen.findByRole('heading', { name: 'Participants' })).toBeInTheDocument()
+  expect(screen.getByText('Ada Learner')).toBeInTheDocument()
+  expect(screen.getByText('Ben Learner')).toBeInTheDocument()
+  fireEvent.change(screen.getByPlaceholderText('Search participants'), { target: { value: 'Ada' } })
+  expect(screen.getByText('Ada Learner')).toBeInTheDocument()
+  expect(screen.queryByText('Ben Learner')).not.toBeInTheDocument()
+})
+
 test('shows authorized participant progress and feedback to a coach', async () => {
   vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
     const url = String(input)
