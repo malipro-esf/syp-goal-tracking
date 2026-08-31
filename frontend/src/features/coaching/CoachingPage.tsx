@@ -19,6 +19,7 @@ export function CoachingPage() {
   const { accessToken, user } = useAuth()
   const { i18n, t } = useTranslation()
   const coach = user?.roles.includes('coach') ?? false
+  const coachingLabel = t(coach ? 'navigation.coaching' : 'dashboard.actions.invitations')
   const [templates, setTemplates] = useState<PlanTemplate[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [assignmentFilter, setAssignmentFilter] = useState<AssignmentFilter>('all')
@@ -119,7 +120,7 @@ export function CoachingPage() {
       <nav className="admin-nav" aria-label={t('dashboard.sidebar.navigation')}>
         <Link to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('dashboard.sidebar.overview')}</Link>
         <Link to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</Link>
-        <Link className="active" to="/coaching"><Bot aria-hidden="true" />{t('navigation.coaching')}</Link>
+        <Link className="active" to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />{t('dashboard.sidebar.settings')}</Link>
       </nav>
     </aside>

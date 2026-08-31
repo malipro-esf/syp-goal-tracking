@@ -9,6 +9,7 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
   const { logout, user } = useAuth()
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const coachingLabel = t(user?.roles.includes('coach') ? 'navigation.coaching' : 'dashboard.actions.invitations')
 
   async function signOut() {
     await logout()
@@ -24,7 +25,7 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
         <NavLink to="/" end><House aria-hidden="true" />{t('navigation.home')}</NavLink>
         <NavLink to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('navigation.dashboard')}</NavLink>
         <NavLink to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</NavLink>
-        <NavLink to="/coaching"><Bot aria-hidden="true" />{t('navigation.coaching')}</NavLink>
+        <NavLink to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</NavLink>
       </> : <>
         <NavLink to="/" end><House aria-hidden="true" />{t('navigation.home')}</NavLink>
         <NavLink to="/features"><Sparkles aria-hidden="true" />{t('navigation.features')}</NavLink>

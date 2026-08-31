@@ -36,7 +36,7 @@ export function DashboardPage() {
       <nav className="admin-nav" aria-label={t('dashboard.sidebar.navigation')}>
         <Link className="active" to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('dashboard.sidebar.overview')}</Link>
         <Link to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</Link>
-        <Link to="/coaching"><Bot aria-hidden="true" />{t('navigation.coaching')}</Link>
+        <Link to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />{t('dashboard.sidebar.settings')}</Link>
       </nav>
     </aside>
