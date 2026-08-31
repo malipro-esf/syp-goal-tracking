@@ -342,7 +342,10 @@ test('shows the plan template workspace to a coach', async () => {
       id: 'template-1', title: 'Running foundation', description: 'A starter plan',
       activities: [{ id: 'activity-1', name: 'Easy run', target_quantity: '5.0000', unit_code: 'kilometer', schedule_type: 'weekly' }],
     }])
-    if (url === '/api/v1/coaching/assignments/sent') return json([])
+    if (url === '/api/v1/coaching/assignments/sent') return json([
+      { id: 'assignment-1', template_title: 'Running foundation', participant_name: 'Pending Learner', participant_email: 'pending@example.com', status: 'pending', start_date: '2026-08-31', enrollment_id: null },
+      { id: 'assignment-2', template_title: 'Running foundation', participant_name: 'Accepted Learner', participant_email: 'accepted@example.com', status: 'accepted', start_date: '2026-08-30', enrollment_id: 'enrollment-2' },
+    ])
     return new Response('{}', { status: 404 })
   })
 
@@ -351,6 +354,11 @@ test('shows the plan template workspace to a coach', async () => {
   expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
   expect(await screen.findByText('Easy run: 5 Kilometer · Weekly')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
+  expect(screen.getByText('Pending Learner · pending@example.com')).toBeInTheDocument()
+  expect(screen.getByText('Accepted Learner · accepted@example.com')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: /Pending\s*1/ }))
+  expect(screen.getByText('Pending Learner · pending@example.com')).toBeInTheDocument()
+  expect(screen.queryByText('Accepted Learner · accepted@example.com')).not.toBeInTheDocument()
 })
 
 test('shows authorized participant progress and feedback to a coach', async () => {

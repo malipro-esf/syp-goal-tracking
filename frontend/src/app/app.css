@@ -389,6 +389,11 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .coaching-topbar > div > p:last-child { max-width: 46rem; margin: .55rem 0 0; color: #617168; }
 .coaching-content { display: grid; gap: 1.5rem; }
 .coaching-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.metric-filter { width: 100%; border: 1px solid #e2eae5; color: inherit; text-align: start; cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.metric-filter:hover { border-color: var(--accent, #287f5c); transform: translateY(-2px); }
+.metric-filter.active { border-color: var(--accent, #287f5c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #287f5c) 14%, transparent), 0 1rem 2.5rem rgb(31 74 54 / 8%); }
+.metric-filter:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent, #287f5c) 28%, transparent); outline-offset: 2px; }
+.assignment-section { scroll-margin-top: 6rem; }
 .coaching-create-template { display: grid; max-width: 48rem; gap: 1rem; }
 .coaching-create-template .section-heading > svg { width: 2rem; height: 2rem; color: #6d5dfb; }
 .coaching-templates, .assignment-section { display: grid; gap: 1rem; }
