@@ -84,6 +84,7 @@ class PlanAssignment(Base):
     )
     status: Mapped[str] = mapped_column(String(20), default="pending")
     start_date: Mapped[date] = mapped_column(Date)
+    end_date: Mapped[date | None] = mapped_column(Date)
     responded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 

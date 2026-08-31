@@ -63,6 +63,13 @@ class TemplateResponse(TemplateWrite):
 class AssignmentCreate(BaseModel):
     participant_email: EmailStr
     start_date: date
+    end_date: date | None = None
+
+    @model_validator(mode="after")
+    def validate_dates(self) -> "AssignmentCreate":
+        if self.end_date is not None and self.end_date < self.start_date:
+            raise ValueError("End date must be on or after start date.")
+        return self
 
 
 class AssignmentResponse(BaseModel):
@@ -75,6 +82,7 @@ class AssignmentResponse(BaseModel):
     assigned_by_user_id: uuid.UUID
     status: str
     start_date: date
+    end_date: date | None
     responded_at: datetime | None
     created_at: datetime
     enrollment_id: uuid.UUID | None = None

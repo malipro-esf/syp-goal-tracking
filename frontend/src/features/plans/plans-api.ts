@@ -8,6 +8,7 @@ export type Plan = {
   status: PlanStatus
   start_date: string | null
   end_date: string | null
+  source_assignment_id: string | null
   created_at: string
   updated_at: string
 }

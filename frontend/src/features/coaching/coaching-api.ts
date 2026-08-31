@@ -15,6 +15,7 @@ export type Assignment = {
   participant_email: string
   status: string
   start_date: string
+  end_date: string | null
   enrollment_id: string | null
 }
 export type Feedback = {
@@ -36,7 +37,7 @@ export const createTemplate = (token: string, input: { title: string; descriptio
   apiRequest<PlanTemplate>('/api/v1/coaching/templates', auth(token, { method: 'POST', body: JSON.stringify(input) }))
 export const addTemplateActivity = (token: string, id: string, input: ActivityInput) =>
   apiRequest<PlanTemplate>(`/api/v1/coaching/templates/${id}/activities`, auth(token, { method: 'POST', body: JSON.stringify(input) }))
-export const assignTemplate = (token: string, id: string, input: { participant_email: string; start_date: string }) =>
+export const assignTemplate = (token: string, id: string, input: { participant_email: string; start_date: string; end_date: string | null }) =>
   apiRequest<Assignment>(`/api/v1/coaching/templates/${id}/assignments`, auth(token, { method: 'POST', body: JSON.stringify(input) }))
 export const listSent = (token: string) =>
   apiRequest<Assignment[]>('/api/v1/coaching/assignments/sent', auth(token))

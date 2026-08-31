@@ -65,6 +65,7 @@ export function CoachingPage() {
     try {
       const item = await assignTemplate(accessToken, templateId, {
         participant_email: String(data.get('email')), start_date: String(data.get('startDate')),
+        end_date: String(data.get('endDate')) || null,
       })
       setAssignments((items) => [item, ...items]); form.reset(); setError('')
     } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('coachingPage.errors.send')) }
@@ -133,6 +134,7 @@ export function CoachingPage() {
           <form onSubmit={(event) => send(event, template.id)}><h3>{t('coachingPage.assignment.assign')}</h3>
             <label>{t('coachingPage.fields.email')}<input name="email" type="email" required /></label>
             <label>{t('coachingPage.fields.startDate')}<input name="startDate" type="date" defaultValue={today()} required /></label>
+            <label>{t('plan.endDate')}<input name="endDate" type="date" min={today()} /></label>
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
         </article>)}</div></section></>}
 

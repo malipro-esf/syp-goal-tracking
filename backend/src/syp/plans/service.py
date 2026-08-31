@@ -70,6 +70,12 @@ def update_personal_plan(
     payload: PlanUpdate,
 ) -> PlanEnrollment:
     plan = get_personal_plan(session, participant_id, plan_id)
+    if plan.source_assignment_id is not None:
+        raise ApplicationError(
+            code="coach_managed_plan_read_only",
+            message="Only the coach can change an assigned plan.",
+            status_code=403,
+        )
     if PlanStatus(plan.status) == PlanStatus.ARCHIVED:
         raise ApplicationError(
             code="archived_plan_read_only",
@@ -110,6 +116,12 @@ def transition_personal_plan(
     target: PlanStatus,
 ) -> PlanEnrollment:
     plan = get_personal_plan(session, participant_id, plan_id)
+    if plan.source_assignment_id is not None:
+        raise ApplicationError(
+            code="coach_managed_plan_read_only",
+            message="Only the coach can change an assigned plan.",
+            status_code=403,
+        )
     ensure_transition_allowed(PlanStatus(plan.status), target)
     user = session.get(User, participant_id)
     timezone = user.timezone if user else "UTC"

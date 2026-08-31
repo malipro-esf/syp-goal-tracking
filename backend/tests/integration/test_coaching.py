@@ -52,7 +52,11 @@ def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> 
     sent = api_client.post(
         f"/api/v1/coaching/templates/{template_id}/assignments",
         headers=auth(coach),
-        json={"participant_email": "learner@example.com", "start_date": "2026-08-24"},
+        json={
+            "participant_email": "learner@example.com",
+            "start_date": "2026-08-24",
+            "end_date": "2026-09-24",
+        },
     )
     assignment_id = sent.json()["id"]
     accepted = api_client.post(
@@ -61,8 +65,39 @@ def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> 
     )
     assert accepted.status_code == 200
     enrollment_id = accepted.json()["enrollment_id"]
+    plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
+    assert plan.json()["end_date"] == "2026-09-24"
+    assert plan.json()["status"] == "active"
     copied = api_client.get(f"/api/v1/plans/{enrollment_id}/activities", headers=auth(participant))
     assert copied.json()[0]["current_target"]["target_quantity"] == "30.0000"
+
+    locked_plan = api_client.patch(
+        f"/api/v1/plans/{enrollment_id}",
+        headers=auth(participant),
+        json={"end_date": "2026-10-01"},
+    )
+    assert locked_plan.status_code == 403
+    locked_activity = api_client.post(
+        f"/api/v1/plans/{enrollment_id}/activities",
+        headers=auth(participant),
+        json={
+            "name": "Extra work",
+            "unit_code": "minute",
+            "target_quantity": "10",
+            "schedule_type": "daily",
+            "effective_from": "2026-08-24",
+        },
+    )
+    assert locked_activity.status_code == 403
+    recorded = api_client.post(
+        f"/api/v1/plans/{enrollment_id}/activities/{copied.json()[0]['id']}/progress-entries",
+        headers=auth(participant),
+        json={
+            "quantity": "20",
+            "performed_on": "2026-08-24",
+        },
+    )
+    assert recorded.status_code == 201
 
     api_client.post(
         f"/api/v1/coaching/templates/{template_id}/activities",

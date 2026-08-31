@@ -194,6 +194,7 @@ def assign_template(
         participant_user_id=participant.id,
         assigned_by_user_id=coach_id,
         start_date=payload.start_date,
+        end_date=payload.end_date,
     )
     session.add(assignment)
     session.commit()
@@ -254,13 +255,14 @@ def respond_to_assignment(
             source_assignment_id=assignment.id,
             title=template.title,
             description=template.description,
-            status="draft",
+            status="active",
             start_date=assignment.start_date,
+            end_date=assignment.end_date,
         )
         session.add(plan)
         session.flush()
         session.add(
-            PlanStatusEvent(plan_id=plan.id, status="draft", effective_on=assignment.start_date)
+            PlanStatusEvent(plan_id=plan.id, status="active", effective_on=assignment.start_date)
         )
         template_activities = session.scalars(
             select(PlanTemplateActivity).where(PlanTemplateActivity.template_id == template.id)
