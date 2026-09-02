@@ -291,6 +291,10 @@ test('shows activity unit and schedule controls inside a plan', async () => {
       current_schedule: { schedule_type: 'daily', weekdays: null, effective_from: '2026-08-22', effective_until: null },
     }])
     if (url === '/api/v1/plans/plan-1/progress-entries') return json([])
+    if (url === '/api/v1/plans/plan-1/activities/activity-1/progress-entries') return json({
+      id: 'entry-1', enrollment_id: 'plan-1', activity_id: 'activity-1', quantity: '10.0000',
+      performed_on: '2026-08-22', note: null, created_at: '2026-08-22T00:00:00Z', updated_at: '2026-08-22T00:00:00Z',
+    })
     if (url.startsWith('/api/v1/plans/plan-1/progress-report?')) return json({
       start_date: '2026-08-17', end_date: '2026-08-23', overall_adherence_percent: '60.00',
       activities: [{ activity_id: 'activity-1', name: 'Listening', unit: 'minute', expected: '150.0000', actual: '90.0000', attainment_percent: '60.00', adherence_percent: '60.00', completed_occurrences: 2, partial_occurrences: 1, missed_occurrences: 1, upcoming_occurrences: 1 }],
@@ -311,6 +315,14 @@ test('shows activity unit and schedule controls inside a plan', async () => {
   expect(screen.getByRole('option', { name: 'Minutes' })).toBeInTheDocument()
   expect(screen.getAllByRole('option', { name: 'Weekly quota' }).length).toBeGreaterThan(0)
   expect(await screen.findByText('Record effort')).toBeInTheDocument()
+
+  const recordDetails = screen.getByText('Record effort').closest('details')
+  fireEvent.click(screen.getByText('Record effort'))
+  expect(recordDetails).toHaveAttribute('open')
+  fireEvent.change(screen.getByLabelText('Actual amount (Minutes)'), { target: { value: '10' } })
+  fireEvent.click(screen.getByRole('button', { name: 'Save actual effort' }))
+  await waitFor(() => expect(recordDetails).not.toHaveAttribute('open'))
+  expect(await screen.findByText('Effort recorded.')).toBeInTheDocument()
 
   fireEvent.change(screen.getAllByLabelText('Frequency')[0], { target: { value: 'selected_days' } })
   expect(screen.getByText('Mon')).toBeInTheDocument()

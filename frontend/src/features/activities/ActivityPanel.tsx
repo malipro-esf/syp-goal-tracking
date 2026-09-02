@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
@@ -92,6 +92,7 @@ function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activi
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [saving, setSaving] = useState(false)
+  const detailsRef = useRef<HTMLDetailsElement>(null)
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!accessToken) return
@@ -104,19 +105,23 @@ function RecordProgressForm({ activity, planId, onRecorded }: { activity: Activi
         performed_on: String(data.get('performedOn')),
         note: String(data.get('note')) || null,
       }))
-      form.reset(); setMessage(t('execution.activities.effortSaved'))
+      form.reset()
+      setMessage(t('execution.activities.effortSaved'))
+      detailsRef.current?.removeAttribute('open')
     } catch (caught) { setError(caught instanceof ApiError ? caught.message : t('execution.errors.effort')) }
     finally { setSaving(false) }
   }
   const unit = activity.custom_unit_label ?? activity.unit_code
-  return <details className="record-box"><summary>{t('execution.activities.recordEffort')}</summary><form onSubmit={submit}>
-    <label>{t('execution.activities.actualAmount', { unit: t(`execution.units.${unit}`, { defaultValue: unit }) })}<input name="quantity" type="number" min="0.0001" step="0.0001" required /></label>
-    <label>{t('execution.activities.performedOn')}<input name="performedOn" type="date" max={today()} defaultValue={today()} required /></label>
-    <label>{t('execution.activities.noteOptional')}<input name="note" maxLength={1000} /></label>
-    {error && <p className="form-error" role="alert">{error}</p>}
+  return <>
+    <details className="record-box" ref={detailsRef}><summary>{t('execution.activities.recordEffort')}</summary><form onSubmit={submit}>
+      <label>{t('execution.activities.actualAmount', { unit: t(`execution.units.${unit}`, { defaultValue: unit }) })}<input name="quantity" type="number" min="0.0001" step="0.0001" required /></label>
+      <label>{t('execution.activities.performedOn')}<input name="performedOn" type="date" max={today()} defaultValue={today()} required /></label>
+      <label>{t('execution.activities.noteOptional')}<input name="note" maxLength={1000} /></label>
+      {error && <p className="form-error" role="alert">{error}</p>}
+      <button type="submit" disabled={saving}>{saving ? t('execution.saving') : t('execution.activities.saveEffort')}</button>
+    </form></details>
     <SuccessToast message={message} onDismiss={() => setMessage('')} />
-    <button type="submit" disabled={saving}>{saving ? t('execution.saving') : t('execution.activities.saveEffort')}</button>
-  </form></details>
+  </>
 }
 
 export type ActivityPanelView = 'activities' | 'progress' | 'entries'
