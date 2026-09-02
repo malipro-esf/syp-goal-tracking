@@ -44,6 +44,7 @@ class Settings(BaseSettings):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
     automatic_plan_completion_enabled: bool = True
     automatic_plan_completion_interval_seconds: int = Field(default=300, ge=30, le=86400)
+    admin_emails: str = ""
 
     @model_validator(mode="after")
     def validate_production_secrets(self) -> "Settings":
