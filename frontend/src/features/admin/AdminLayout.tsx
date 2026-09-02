@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import { Activity, LayoutDashboard, Settings, ShieldCheck, Users } from 'lucide-react'
+import { Activity, ClipboardList, LayoutDashboard, Settings, ShieldCheck, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { useAuth } from '../auth/useAuth'
 
-type AdminSection = 'overview' | 'users' | 'audit'
+type AdminSection = 'overview' | 'users' | 'plans' | 'audit'
 
 export function AdminLayout({
   active,
@@ -26,6 +26,7 @@ export function AdminLayout({
       <nav className="admin-nav" aria-label="Administration navigation">
         <Link className={active === 'overview' ? 'active' : ''} to="/admin"><LayoutDashboard aria-hidden="true" />Overview</Link>
         <Link className={active === 'users' ? 'active' : ''} to="/admin#users"><Users aria-hidden="true" />Users</Link>
+        <Link className={active === 'plans' ? 'active' : ''} to="/admin/plans"><ClipboardList aria-hidden="true" />Plans</Link>
         <Link className={active === 'audit' ? 'active' : ''} to="/admin#audit"><Activity aria-hidden="true" />Audit log</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />Profile settings</Link>
       </nav>
