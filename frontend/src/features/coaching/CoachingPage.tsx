@@ -123,7 +123,7 @@ export function CoachingPage() {
       <nav className="admin-nav" aria-label={t('dashboard.sidebar.navigation')}>
         <Link to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('dashboard.sidebar.overview')}</Link>
         <Link to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</Link>
-        <Link className="active" to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</Link>
+        <Link className="active" to="/coaching"><Bot aria-hidden="true" /><span>{coachingLabel}</span>{!coach && pendingCount > 0 && <span className="nav-count-badge">{pendingCount}</span>}</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />{t('dashboard.sidebar.settings')}</Link>
       </nav>
     </aside>

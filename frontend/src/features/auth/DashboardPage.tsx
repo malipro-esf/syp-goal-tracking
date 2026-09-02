@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiError } from '../../api/client'
 import { listPlans, type Plan } from '../plans/plans-api'
+import { listInvitations } from '../coaching/coaching-api'
 import { useAuth } from './useAuth'
 
 export function DashboardPage() {
@@ -13,6 +14,7 @@ export function DashboardPage() {
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [pendingInvitations, setPendingInvitations] = useState(0)
 
   useEffect(() => {
     if (!accessToken) return
@@ -21,6 +23,13 @@ export function DashboardPage() {
       .catch((caught: unknown) => setError(caught instanceof ApiError ? caught.message : t('dashboard.errors.load')))
       .finally(() => setLoading(false))
   }, [accessToken, t])
+
+  useEffect(() => {
+    if (!accessToken || user?.roles.includes('coach')) return
+    listInvitations(accessToken)
+      .then((items) => setPendingInvitations(items.filter((item) => item.status === 'pending').length))
+      .catch(() => setPendingInvitations(0))
+  }, [accessToken, user])
 
   const activePlans = plans.filter((plan) => plan.status === 'active').length
   const completedPlans = plans.filter((plan) => plan.status === 'completed').length
@@ -36,7 +45,7 @@ export function DashboardPage() {
       <nav className="admin-nav" aria-label={t('dashboard.sidebar.navigation')}>
         <Link className="active" to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('dashboard.sidebar.overview')}</Link>
         <Link to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</Link>
-        <Link to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</Link>
+        <Link to="/coaching"><Bot aria-hidden="true" /><span>{coachingLabel}</span>{pendingInvitations > 0 && <span className="nav-count-badge">{pendingInvitations}</span>}</Link>
         <Link to="/settings/profile"><Settings aria-hidden="true" />{t('dashboard.sidebar.settings')}</Link>
       </nav>
     </aside>
