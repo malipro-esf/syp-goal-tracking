@@ -2,12 +2,13 @@ from typing import Annotated
 
 from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from syp.core.config import Settings, get_settings
 from syp.core.database import get_db_session
 from syp.core.exceptions import ApplicationError
-from syp.identity.models import User
+from syp.identity.models import Role, User, UserRole
 from syp.identity.security import decode_access_token
 
 DatabaseSession = Annotated[Session, Depends(get_db_session)]
@@ -36,3 +37,19 @@ def get_current_user(
 
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
+
+
+def get_current_admin(current_user: CurrentUser, session: DatabaseSession) -> User:
+    is_admin = session.scalar(
+        select(UserRole.user_id)
+        .join(Role)
+        .where(UserRole.user_id == current_user.id, Role.code == "admin")
+    )
+    if is_admin is None:
+        raise ApplicationError(
+            code="admin_required", message="Administrator access is required.", status_code=403
+        )
+    return current_user
+
+
+CurrentAdmin = Annotated[User, Depends(get_current_admin)]

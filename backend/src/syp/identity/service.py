@@ -29,6 +29,17 @@ def normalize_email(email: str) -> str:
     return email.strip().casefold()
 
 
+def _sync_configured_admin(session: Session, user: User, settings: Settings) -> None:
+    configured = {
+        normalize_email(email) for email in settings.admin_emails.split(",") if email.strip()
+    }
+    if user.normalized_email not in configured:
+        return
+    admin_role = session.scalar(select(Role).where(Role.code == "admin"))
+    if admin_role and session.get(UserRole, (user.id, admin_role.id)) is None:
+        session.add(UserRole(user_id=user.id, role_id=admin_role.id))
+
+
 def build_user_response(session: Session, user: User) -> UserResponse:
     roles = session.scalars(
         select(Role.code)
@@ -105,6 +116,7 @@ def register_user(session: Session, request: RegistrationRequest, settings: Sett
     session.add(user)
     session.flush()
     session.add(UserRole(user_id=user.id, role_id=role.id))
+    _sync_configured_admin(session, user, settings)
     _, refresh_token = _new_refresh_session(session, user_id=user.id, settings=settings)
     try:
         session.commit()
@@ -130,6 +142,7 @@ def authenticate_user(session: Session, request: LoginRequest, settings: Setting
             message="The email or password is incorrect.",
             status_code=401,
         )
+    _sync_configured_admin(session, user, settings)
     _, refresh_token = _new_refresh_session(session, user_id=user.id, settings=settings)
     session.commit()
     return AuthResult(build_user_response(session, user), refresh_token)
@@ -162,6 +175,7 @@ def rotate_refresh_token(session: Session, token: str, settings: Settings) -> Au
         existing.revoked_at = now
         session.commit()
         raise _invalid_refresh_token()
+    _sync_configured_admin(session, user, settings)
     replacement, replacement_token = _new_refresh_session(
         session, user_id=user.id, settings=settings, family_id=existing.family_id
     )

@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthForm } from '../features/auth/AuthForm'
+import { AdminPage } from '../features/admin/AdminPage'
 import { DashboardPage } from '../features/auth/DashboardPage'
 import { ProtectedRoute } from '../features/auth/ProtectedRoute'
 import { ProfileSettingsPage } from '../features/auth/ProfileSettingsPage'
@@ -26,6 +27,7 @@ export function App() {
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/settings/profile" element={<ProfileSettingsPage />} />
         <Route path="/plans" element={<PlanListPage />} />
         <Route path="/plans/:planId" element={<PlanDetailPage />} />
