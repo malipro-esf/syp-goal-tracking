@@ -1,5 +1,6 @@
 import uuid
 from datetime import UTC, datetime
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import func, or_, select, update
 from sqlalchemy.orm import Session, aliased
@@ -20,7 +21,8 @@ from syp.admin.schemas import (
 from syp.coaching.models import PlanAssignment
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import RefreshSession, Role, User, UserRole
-from syp.plans.models import PlanEnrollment
+from syp.plans.domain import PlanStatus, ensure_transition_allowed
+from syp.plans.models import PlanEnrollment, PlanStatusEvent
 
 
 def _plan_summary(
@@ -131,6 +133,44 @@ def get_admin_plan(session: Session, plan_id: uuid.UUID) -> AdminPlanDetail:
             for activity in activities
         ],
     )
+
+
+def change_plan_status(
+    session: Session, admin: User, plan_id: uuid.UUID, target: PlanStatus
+) -> AdminPlanDetail:
+    plan = session.get(PlanEnrollment, plan_id)
+    if plan is None:
+        raise ApplicationError(
+            code="plan_not_found", message="Plan was not found.", status_code=404
+        )
+    current = PlanStatus(plan.status)
+    ensure_transition_allowed(current, target)
+    participant = session.get(User, plan.participant_user_id)
+    timezone = participant.timezone if participant else "UTC"
+    plan.status = target.value
+    session.add(
+        PlanStatusEvent(
+            plan_id=plan.id,
+            status=target.value,
+            effective_on=datetime.now(ZoneInfo(timezone)).date(),
+            source="manual",
+        )
+    )
+    session.add(
+        AdminAuditLog(
+            admin_user_id=admin.id,
+            target_user_id=plan.participant_user_id,
+            action="plan_status_changed",
+            changes={
+                "plan_id": str(plan.id),
+                "plan_title": plan.title,
+                "before": current.value,
+                "after": target.value,
+            },
+        )
+    )
+    session.commit()
+    return get_admin_plan(session, plan.id)
 
 
 def dashboard_metrics(session: Session) -> AdminMetricsResponse:

@@ -8,12 +8,14 @@ from syp.admin.schemas import (
     AdminMetricsResponse,
     AdminPlanDetail,
     AdminPlanPage,
+    AdminPlanStatusUpdate,
     AdminRolesUpdate,
     AdminStatusUpdate,
     AdminUserPage,
     AdminUserSummary,
 )
 from syp.admin.service import (
+    change_plan_status,
     change_user_roles,
     change_user_status,
     dashboard_metrics,
@@ -24,6 +26,7 @@ from syp.admin.service import (
     list_users,
 )
 from syp.api.dependencies import CurrentAdmin, DatabaseSession
+from syp.plans.domain import PlanStatus
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -45,6 +48,16 @@ def get_plans(
 @router.get("/plans/{plan_id}", response_model=AdminPlanDetail)
 def get_plan(plan_id: uuid.UUID, _: CurrentAdmin, session: DatabaseSession) -> AdminPlanDetail:
     return get_admin_plan(session, plan_id)
+
+
+@router.patch("/plans/{plan_id}/status", response_model=AdminPlanDetail)
+def patch_plan_status(
+    plan_id: uuid.UUID,
+    payload: AdminPlanStatusUpdate,
+    admin: CurrentAdmin,
+    session: DatabaseSession,
+) -> AdminPlanDetail:
+    return change_plan_status(session, admin, plan_id, PlanStatus(payload.status))
 
 
 @router.get("/metrics", response_model=AdminMetricsResponse)
