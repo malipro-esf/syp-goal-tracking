@@ -384,11 +384,38 @@ test('lets a coach search and filter participants on a dedicated page', async ()
   renderApp('/coach/participants')
 
   expect(await screen.findByRole('heading', { name: 'Participants' })).toBeInTheDocument()
-  expect(screen.getByText('Ada Learner')).toBeInTheDocument()
-  expect(screen.getByText('Ben Learner')).toBeInTheDocument()
+  expect(await screen.findByText('Ada Learner')).toBeInTheDocument()
+  expect(await screen.findByText('Ben Learner')).toBeInTheDocument()
   fireEvent.change(screen.getByPlaceholderText('Search participants'), { target: { value: 'Ada' } })
   expect(screen.getByText('Ada Learner')).toBeInTheDocument()
   expect(screen.queryByText('Ben Learner')).not.toBeInTheDocument()
+})
+
+test('shows and clears the participant pending invitation badge', async () => {
+  vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
+    const url = String(input)
+    const json = (body: unknown) => new Response(JSON.stringify(body), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    })
+    if (url === '/api/v1/auth/refresh') return json({
+      access_token: 'participant-token', token_type: 'bearer',
+      user: { id: '1', email: 'learner@example.com', display_name: 'Learner', timezone: 'UTC', roles: ['participant'] },
+    })
+    if (url === '/api/v1/coaching/invitations/assignment-1/accept' && init?.method === 'POST') return json({
+      id: 'assignment-1', template_title: 'IELTS', participant_name: 'Learner', participant_email: 'learner@example.com', status: 'accepted', start_date: '2026-09-02', enrollment_id: 'enrollment-1',
+    })
+    if (url === '/api/v1/coaching/invitations') return json([
+      { id: 'assignment-1', template_title: 'IELTS', participant_name: 'Learner', participant_email: 'learner@example.com', status: 'pending', start_date: '2026-09-02', enrollment_id: null },
+      { id: 'assignment-2', template_title: 'Running', participant_name: 'Learner', participant_email: 'learner@example.com', status: 'accepted', start_date: '2026-08-20', enrollment_id: 'enrollment-2' },
+    ])
+    return new Response('{}', { status: 404 })
+  })
+
+  renderApp('/coaching')
+
+  expect(await screen.findByRole('link', { name: /Invitations\s*1/ })).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Accept' }))
+  await waitFor(() => expect(screen.queryByRole('link', { name: /Invitations\s*1/ })).not.toBeInTheDocument())
 })
 
 test('shows authorized participant progress and feedback to a coach', async () => {

@@ -306,6 +306,8 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .admin-nav button:hover, .admin-nav a:hover { background: rgb(255 255 255 / 8%); color: #fff; }
 .admin-nav button.active, .admin-nav a.active { background: #fff; color: #153e2c; }
 .admin-nav svg { width: 1.05rem; height: 1.05rem; flex: 0 0 auto; }
+.admin-nav .nav-count-badge { min-width: 1.45rem; margin-inline-start: auto; padding: .15rem .42rem; border-radius: 999px; background: #f59e0b; color: #3b2600; font-size: .72rem; font-weight: 850; line-height: 1.2; text-align: center; box-shadow: 0 0 0 2px rgb(255 255 255 / 18%); }
+.admin-nav a.active .nav-count-badge { background: #d97706; color: #fff; box-shadow: none; }
 .nav-icon { width: .55rem; height: .55rem; flex: 0 0 auto; border: 2px solid currentcolor; border-radius: 50%; }
 .admin-nav button.active .nav-icon { background: #287653; border-color: #287653; }
 .admin-main { min-width: 0; }
