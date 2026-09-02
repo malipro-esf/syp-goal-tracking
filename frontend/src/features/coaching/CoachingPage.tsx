@@ -106,6 +106,7 @@ export function CoachingPage() {
   const visibleAssignments = assignmentFilter === 'all'
     ? assignments
     : assignments.filter((item) => item.status === assignmentFilter)
+  const displayedAssignments = coach ? visibleAssignments.slice(0, 3) : visibleAssignments
 
   function selectAssignmentFilter(filter: AssignmentFilter) {
     setAssignmentFilter(filter)
@@ -169,9 +170,9 @@ export function CoachingPage() {
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
         </article>)}</div></section></>}
 
-        <section className="assignment-section" ref={assignmentSectionRef}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><span className="section-count">{visibleAssignments.length}</span></div>
+        <section className="assignment-section" ref={assignmentSectionRef}><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.assignment.eyebrow')}</p><h2>{assignmentFilter === 'all' ? t(coach ? 'coachingPage.assignment.sent' : 'coachingPage.assignment.invitations') : t(`coachingPage.summary.${assignmentFilter}`)}</h2></div><div className="section-heading-actions"><span className="section-count">{visibleAssignments.length}</span>{coach && <Link className="secondary-button icon-button" to={`/coach/participants?status=${assignmentFilter}`}><Users aria-hidden="true" />{t('coachingPage.assignment.viewAll', { defaultValue: 'View all participants' })}</Link>}</div></div>
           {visibleAssignments.length === 0 && <div className="panel coaching-empty"><Mail aria-hidden="true" /><h3>{t('coachingPage.assignment.emptyTitle')}</h3><p>{t('coachingPage.assignment.empty')}</p></div>}
-          <div className="assignment-list">{visibleAssignments.map((item) => <article className="panel assignment-card" key={item.id}>
+          <div className="assignment-list">{displayedAssignments.map((item) => <article className="panel assignment-card" key={item.id}>
             {formErrors[`response-${item.id}`] && <p className="form-error" role="alert">{formErrors[`response-${item.id}`]}</p>}
             <span className="assignment-icon"><Users aria-hidden="true" /></span><div className="assignment-copy"><strong>{item.template_title}</strong><span>{coach ? `${item.participant_name} · ${item.participant_email}` : <><Clock3 aria-hidden="true" />{t('coachingPage.assignment.starts', { date: new Date(`${item.start_date}T00:00:00`).toLocaleDateString(i18n.language) })}</>}</span></div>
             <span className={`status-badge status-${item.status}`}>{t(`coachingPage.statuses.${item.status}`)}</span>{!coach && item.status === 'pending' && <div className="button-row assignment-buttons">
