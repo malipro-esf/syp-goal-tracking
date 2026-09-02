@@ -95,3 +95,34 @@ class AdminPlanDetail(AdminPlanSummary):
 
 class AdminPlanStatusUpdate(BaseModel):
     status: Literal["active", "paused", "completed", "archived"]
+
+
+class AdminOperationalAlerts(BaseModel):
+    expired_active_plans: int
+    disabled_users_with_active_plans: int
+    stale_pending_invitations: int
+    stale_after_days: int
+
+
+class AdminAssignmentSummary(BaseModel):
+    id: uuid.UUID
+    template_title: str
+    participant_name: str
+    participant_email: str
+    coach_name: str
+    coach_email: str
+    status: str
+    start_date: date
+    end_date: date | None
+    created_at: datetime
+    responded_at: datetime | None
+    pending_days: int | None
+    is_stale: bool
+
+
+class AdminAssignmentPage(BaseModel):
+    items: list[AdminAssignmentSummary]
+    total: int
+    page: int
+    page_size: int
+    stale_after_days: int

@@ -4,8 +4,10 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Query
 
 from syp.admin.schemas import (
+    AdminAssignmentPage,
     AdminAuditPage,
     AdminMetricsResponse,
+    AdminOperationalAlerts,
     AdminPlanDetail,
     AdminPlanPage,
     AdminPlanStatusUpdate,
@@ -21,14 +23,45 @@ from syp.admin.service import (
     dashboard_metrics,
     get_admin_plan,
     get_admin_user,
+    list_admin_assignments,
     list_admin_plans,
     list_audit_log,
     list_users,
+    operational_alerts,
 )
-from syp.api.dependencies import CurrentAdmin, DatabaseSession
+from syp.api.dependencies import AppSettings, CurrentAdmin, DatabaseSession
 from syp.plans.domain import PlanStatus
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+@router.get("/alerts", response_model=AdminOperationalAlerts)
+def get_alerts(
+    _: CurrentAdmin, session: DatabaseSession, settings: AppSettings
+) -> AdminOperationalAlerts:
+    return operational_alerts(session, stale_days=settings.admin_stale_invitation_days)
+
+
+@router.get("/assignments", response_model=AdminAssignmentPage)
+def get_assignments(
+    _: CurrentAdmin,
+    session: DatabaseSession,
+    settings: AppSettings,
+    page: Annotated[int, Query(ge=1)] = 1,
+    page_size: Annotated[int, Query(ge=1, le=100)] = 25,
+    search: Annotated[str | None, Query(max_length=100)] = None,
+    status: Annotated[Literal["pending", "accepted", "rejected"] | None, Query()] = None,
+    stale_only: bool = False,
+) -> AdminAssignmentPage:
+    return list_admin_assignments(
+        session,
+        page=page,
+        page_size=page_size,
+        search=search,
+        status=status,
+        stale_only=stale_only,
+        stale_days=settings.admin_stale_invitation_days,
+    )
 
 
 @router.get("/plans", response_model=AdminPlanPage)

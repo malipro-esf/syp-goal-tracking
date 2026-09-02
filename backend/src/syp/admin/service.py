@@ -1,5 +1,5 @@
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from sqlalchemy import func, or_, select, update
@@ -8,9 +8,12 @@ from sqlalchemy.orm import Session, aliased
 from syp.activities.models import EnrollmentActivity
 from syp.admin.models import AdminAuditLog
 from syp.admin.schemas import (
+    AdminAssignmentPage,
+    AdminAssignmentSummary,
     AdminAuditEntry,
     AdminAuditPage,
     AdminMetricsResponse,
+    AdminOperationalAlerts,
     AdminPlanActivity,
     AdminPlanDetail,
     AdminPlanPage,
@@ -18,7 +21,7 @@ from syp.admin.schemas import (
     AdminUserPage,
     AdminUserSummary,
 )
-from syp.coaching.models import PlanAssignment
+from syp.coaching.models import PlanAssignment, PlanTemplate
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import RefreshSession, Role, User, UserRole
 from syp.plans.domain import PlanStatus, ensure_transition_allowed
@@ -195,6 +198,110 @@ def dashboard_metrics(session: Session) -> AdminMetricsResponse:
             .where(PlanAssignment.status == "pending")
         )
         or 0,
+    )
+
+
+def operational_alerts(session: Session, *, stale_days: int) -> AdminOperationalAlerts:
+    stale_before = datetime.now(UTC) - timedelta(days=stale_days)
+    return AdminOperationalAlerts(
+        expired_active_plans=session.scalar(
+            select(func.count())
+            .select_from(PlanEnrollment)
+            .where(PlanEnrollment.status == "active", PlanEnrollment.end_date < date.today())
+        )
+        or 0,
+        disabled_users_with_active_plans=session.scalar(
+            select(func.count(func.distinct(User.id)))
+            .select_from(User)
+            .join(PlanEnrollment, PlanEnrollment.participant_user_id == User.id)
+            .where(User.status == "disabled", PlanEnrollment.status == "active")
+        )
+        or 0,
+        stale_pending_invitations=session.scalar(
+            select(func.count())
+            .select_from(PlanAssignment)
+            .where(PlanAssignment.status == "pending", PlanAssignment.created_at < stale_before)
+        )
+        or 0,
+        stale_after_days=stale_days,
+    )
+
+
+def list_admin_assignments(
+    session: Session,
+    *,
+    page: int,
+    page_size: int,
+    search: str | None,
+    status: str | None,
+    stale_only: bool,
+    stale_days: int,
+) -> AdminAssignmentPage:
+    participant = aliased(User)
+    coach = aliased(User)
+    stale_before = datetime.now(UTC) - timedelta(days=stale_days)
+    filters = []
+    if search:
+        term = f"%{search.strip()}%"
+        filters.append(
+            or_(
+                PlanTemplate.title.ilike(term),
+                participant.display_name.ilike(term),
+                participant.email.ilike(term),
+                coach.display_name.ilike(term),
+                coach.email.ilike(term),
+            )
+        )
+    if status:
+        filters.append(PlanAssignment.status == status)
+    if stale_only:
+        filters.extend(
+            (PlanAssignment.status == "pending", PlanAssignment.created_at < stale_before)
+        )
+    base = (
+        select(PlanAssignment.id)
+        .join(PlanTemplate)
+        .join(participant, participant.id == PlanAssignment.participant_user_id)
+        .join(coach, coach.id == PlanAssignment.assigned_by_user_id)
+        .where(*filters)
+    )
+    total = session.scalar(select(func.count()).select_from(base.subquery())) or 0
+    rows = session.execute(
+        select(PlanAssignment, PlanTemplate, participant, coach)
+        .join(PlanTemplate, PlanTemplate.id == PlanAssignment.template_id)
+        .join(participant, participant.id == PlanAssignment.participant_user_id)
+        .join(coach, coach.id == PlanAssignment.assigned_by_user_id)
+        .where(*filters)
+        .order_by(PlanAssignment.created_at.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
+    now = datetime.now(UTC)
+    return AdminAssignmentPage(
+        items=[
+            AdminAssignmentSummary(
+                id=assignment.id,
+                template_title=template.title,
+                participant_name=participant_user.display_name,
+                participant_email=participant_user.email,
+                coach_name=coach_user.display_name,
+                coach_email=coach_user.email,
+                status=assignment.status,
+                start_date=assignment.start_date,
+                end_date=assignment.end_date,
+                created_at=assignment.created_at,
+                responded_at=assignment.responded_at,
+                pending_days=(now - assignment.created_at).days
+                if assignment.status == "pending"
+                else None,
+                is_stale=assignment.status == "pending" and assignment.created_at < stale_before,
+            )
+            for assignment, template, participant_user, coach_user in rows
+        ],
+        total=total,
+        page=page,
+        page_size=page_size,
+        stale_after_days=stale_days,
     )
 
 

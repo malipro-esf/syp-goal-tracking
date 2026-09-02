@@ -4,6 +4,7 @@ import { AdminPage } from '../features/admin/AdminPage'
 import { AdminUserPage } from '../features/admin/AdminUserPage'
 import { AdminPlanPage } from '../features/admin/AdminPlanPage'
 import { AdminPlansPage } from '../features/admin/AdminPlansPage'
+import { AdminAssignmentsPage } from '../features/admin/AdminAssignmentsPage'
 import { DashboardPage } from '../features/auth/DashboardPage'
 import { ProtectedRoute } from '../features/auth/ProtectedRoute'
 import { ProfileSettingsPage } from '../features/auth/ProfileSettingsPage'
@@ -34,6 +35,7 @@ export function App() {
         <Route path="/admin/users/:userId" element={<AdminUserPage />} />
         <Route path="/admin/plans" element={<AdminPlansPage />} />
         <Route path="/admin/plans/:planId" element={<AdminPlanPage />} />
+        <Route path="/admin/assignments" element={<AdminAssignmentsPage />} />
         <Route path="/settings/profile" element={<ProfileSettingsPage />} />
         <Route path="/plans" element={<PlanListPage />} />
         <Route path="/plans/:planId" element={<PlanDetailPage />} />
