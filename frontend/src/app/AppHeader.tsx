@@ -26,6 +26,7 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
         <NavLink to="/dashboard"><LayoutDashboard aria-hidden="true" />{t('navigation.dashboard')}</NavLink>
         <NavLink to="/plans"><ClipboardList aria-hidden="true" />{t('navigation.plans')}</NavLink>
         <NavLink to="/coaching"><Bot aria-hidden="true" />{coachingLabel}</NavLink>
+        <NavLink to="/how-it-works"><ListChecks aria-hidden="true" />{t('navigation.howItWorks')}</NavLink>
       </> : <>
         <NavLink to="/" end><House aria-hidden="true" />{t('navigation.home')}</NavLink>
         <NavLink to="/features"><Sparkles aria-hidden="true" />{t('navigation.features')}</NavLink>
