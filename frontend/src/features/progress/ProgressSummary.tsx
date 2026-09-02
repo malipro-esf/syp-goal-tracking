@@ -23,6 +23,7 @@ type ProgressReport = {
   start_date: string
   end_date: string
   overall_adherence_percent: string
+  skipped_days: string[]
   activities: ActivityReport[]
 }
 
@@ -42,7 +43,7 @@ function weekRange() {
 
 export function ProgressSummary({ planId, entries }: { planId: string; entries: ProgressEntry[] }) {
   const { accessToken } = useAuth()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const initialWeek = weekRange()
   const [startDate, setStartDate] = useState(initialWeek[0])
   const [endDate, setEndDate] = useState(initialWeek[1])
@@ -73,6 +74,14 @@ export function ProgressSummary({ planId, entries }: { planId: string; entries: 
     {error && <p className="form-error" role="alert">{error}</p>}
     {report && <>
       <div className="overall-score"><strong>{formatNumber(report.overall_adherence_percent)}%</strong><span>{t('execution.progress.overall')}</span></div>
+      {(report.skipped_days?.length ?? 0) > 0 && <section className="panel skipped-days" aria-labelledby="skipped-days-title">
+        <div className="skipped-days-heading">
+          <div><p className="eyebrow">{t('execution.progress.attendance', { defaultValue: 'Attendance' })}</p><h3 id="skipped-days-title">{t('execution.progress.skippedDays', { defaultValue: 'Skipped days' })}</h3></div>
+          <span className="section-count">{report.skipped_days.length}</span>
+        </div>
+        <p>{t('execution.progress.skippedDaysDescription', { defaultValue: 'No activity was recorded on these scheduled days.' })}</p>
+        <div className="skipped-day-list">{report.skipped_days.map((day) => <time dateTime={day} key={day}>{new Intl.DateTimeFormat(i18n.language, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T00:00:00Z`))}</time>)}</div>
+      </section>}
       <div className="report-list">{report.activities.map((activity) => <article className="panel report-row" key={activity.activity_id}>
         <div><h3>{activity.name}</h3><p>{formatNumber(activity.actual)} / {formatNumber(activity.expected)} {t(`execution.units.${activity.unit}`, { defaultValue: activity.unit })}</p></div>
         <div className="report-percent"><strong>{formatNumber(activity.attainment_percent)}%</strong><span>{t('execution.progress.attainment')}</span></div>

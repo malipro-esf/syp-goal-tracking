@@ -36,6 +36,7 @@ def get_progress_report(
         end_date=report.end_date,
         expected_activity_count=report.expected_activity_count,
         overall_adherence_percent=report.overall_adherence_percent,
+        skipped_days=list(report.skipped_days),
         activities=[
             ActivityProgressResponse(**activity.__dict__) for activity in report.activities
         ],

@@ -64,6 +64,7 @@ class ProgressReportResult:
     end_date: date
     expected_activity_count: int
     overall_adherence_percent: Decimal
+    skipped_days: tuple[date, ...]
     activities: tuple[ActivityProgressResult, ...]
 
 
@@ -94,6 +95,13 @@ def calculate_progress(
     activities: tuple[ActivityProgressInput, ...],
 ) -> ProgressReportResult:
     results: list[ActivityProgressResult] = []
+    scheduled_days: set[date] = set()
+    recorded_days = {
+        entry.performed_on
+        for activity in activities
+        for entry in activity.entries
+        if start_date <= entry.performed_on <= end_date
+    }
     for activity in activities:
         buckets: dict[date, Decimal] = {}
         bucket_due_dates: dict[date, date] = {}
@@ -123,6 +131,8 @@ def calculate_progress(
                     ):
                         buckets[day] = buckets.get(day, Decimal(0)) + target.quantity
                         bucket_due_dates[day] = day
+                        if day < today:
+                            scheduled_days.add(day)
                     elif schedule.schedule_type == ScheduleType.WEEKLY:
                         week_start = day - timedelta(days=day.weekday())
                         key = max(week_start, schedule.effective_from, start_date)
@@ -198,5 +208,6 @@ def calculate_progress(
         end_date=end_date,
         expected_activity_count=len(scored),
         overall_adherence_percent=overall,
+        skipped_days=tuple(sorted(scheduled_days - recorded_days)),
         activities=tuple(results),
     )
