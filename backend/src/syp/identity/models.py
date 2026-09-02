@@ -21,6 +21,7 @@ class User(Base):
     bio: Mapped[str | None] = mapped_column(String(500))
     timezone: Mapped[str] = mapped_column(String(100), default="UTC")
     preferred_language: Mapped[str] = mapped_column(String(5), default="en")
+    country_code: Mapped[str | None] = mapped_column(String(2))
     gender: Mapped[str | None] = mapped_column(String(10))
     gender_theme_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
     password_hash: Mapped[str] = mapped_column(String(512))

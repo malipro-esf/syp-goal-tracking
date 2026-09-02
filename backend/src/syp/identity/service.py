@@ -43,6 +43,7 @@ def build_user_response(session: Session, user: User) -> UserResponse:
         bio=user.bio,
         timezone=user.timezone,
         preferred_language=user.preferred_language,
+        country_code=user.country_code,
         gender=user.gender,
         gender_theme_enabled=user.gender_theme_enabled,
         roles=list(roles),
@@ -54,6 +55,7 @@ def update_profile(session: Session, user: User, request: ProfileUpdate) -> User
     user.bio = request.bio
     user.timezone = request.timezone
     user.preferred_language = request.preferred_language
+    user.country_code = request.country_code
     user.gender = request.gender
     user.gender_theme_enabled = request.gender_theme_enabled
     session.commit()

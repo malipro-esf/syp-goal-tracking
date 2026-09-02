@@ -49,6 +49,7 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
             "bio": "Working toward IELTS band 8.",
             "timezone": "Europe/Bucharest",
             "preferred_language": "it",
+            "country_code": "ro",
             "gender": "woman",
             "gender_theme_enabled": True,
         },
@@ -61,6 +62,7 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
         "bio": "Working toward IELTS band 8.",
         "timezone": "Europe/Bucharest",
         "preferred_language": "it",
+        "country_code": "RO",
         "gender": "woman",
         "gender_theme_enabled": True,
     }
