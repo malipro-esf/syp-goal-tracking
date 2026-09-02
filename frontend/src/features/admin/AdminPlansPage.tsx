@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 
 import { ApiError, apiRequest } from '../../api/client'
 import { useAuth } from '../auth/useAuth'
@@ -10,9 +10,10 @@ type PlanPage = { items: Plan[]; total: number; page: number; page_size: number 
 
 export function AdminPlansPage() {
   const { accessToken, user } = useAuth()
+  const [urlParams] = useSearchParams()
   const [plans, setPlans] = useState<PlanPage | null>(null)
   const [search, setSearch] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState(urlParams.get('status') ?? '')
   const [page, setPage] = useState(1)
   const [error, setError] = useState('')
   const isAdmin = user?.roles.includes('admin')

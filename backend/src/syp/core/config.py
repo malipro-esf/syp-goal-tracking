@@ -45,6 +45,7 @@ class Settings(BaseSettings):
     automatic_plan_completion_enabled: bool = True
     automatic_plan_completion_interval_seconds: int = Field(default=300, ge=30, le=86400)
     admin_emails: str = ""
+    admin_stale_invitation_days: int = Field(default=7, ge=1, le=365)
 
     @model_validator(mode="after")
     def validate_production_secrets(self) -> "Settings":

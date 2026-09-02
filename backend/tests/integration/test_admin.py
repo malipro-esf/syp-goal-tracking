@@ -41,6 +41,12 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     metrics = api_client.get("/api/v1/admin/metrics", headers=headers)
     assert metrics.status_code == 200
     assert metrics.json()["users"] == 2
+    alerts = api_client.get("/api/v1/admin/alerts", headers=headers)
+    assert alerts.status_code == 200
+    assert alerts.json()["stale_after_days"] == 7
+    assignments = api_client.get("/api/v1/admin/assignments", headers=headers)
+    assert assignments.status_code == 200
+    assert assignments.json()["items"] == []
 
     users = api_client.get("/api/v1/admin/users?search=participant", headers=headers)
     assert users.status_code == 200
