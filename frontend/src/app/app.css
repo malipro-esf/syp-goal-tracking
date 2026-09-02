@@ -269,6 +269,12 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .overall-score { display: flex; align-items: baseline; gap: .75rem; padding: 1.25rem; border-radius: 1rem; background: #183e2c; color: #fff; }
 .overall-score strong { font-size: 2rem; }
 .overall-score span { color: #cde0d5; }
+.skipped-days { border-color: #edcf9a; background: #fffaf1; }
+.skipped-days-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.skipped-days-heading h3 { margin: 0; color: #713f12; }
+.skipped-days > p { margin: .45rem 0 1rem; color: #755c37; }
+.skipped-day-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.skipped-day-list time { padding: .45rem .7rem; border: 1px solid #edcf9a; border-radius: 999px; background: #fff; color: #713f12; font-weight: 700; }
 .report-list { display: grid; gap: 1rem; }
 .report-row { display: grid; grid-template-columns: 1fr auto; gap: 1rem 2rem; }
 .report-row p { margin: .35rem 0 0; color: #52675d; }

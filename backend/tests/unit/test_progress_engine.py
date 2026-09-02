@@ -124,3 +124,26 @@ def test_target_revision_applies_only_from_its_effective_date() -> None:
         activities=(revised,),
     )
     assert report.activities[0].expected == Decimal("70")
+
+
+def test_skipped_days_include_only_past_scheduled_days_with_no_activity() -> None:
+    report = calculate_progress(
+        start_date=date(2026, 8, 17),
+        end_date=date(2026, 8, 23),
+        today=date(2026, 8, 24),
+        status_events=(StatusEventInput("active", date(2026, 8, 1), 0),),
+        activities=(
+            activity(
+                schedule=ScheduleType.SELECTED_DAYS,
+                weekdays=(0, 2, 4),
+                entries=(ActualRecord(Decimal("5"), date(2026, 8, 17)),),
+            ),
+            activity(
+                activity_id="weekly",
+                schedule=ScheduleType.WEEKLY,
+                entries=(ActualRecord(Decimal("1"), date(2026, 8, 19)),),
+            ),
+        ),
+    )
+
+    assert report.skipped_days == (date(2026, 8, 21),)

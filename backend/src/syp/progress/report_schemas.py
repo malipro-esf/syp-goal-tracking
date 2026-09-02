@@ -23,4 +23,5 @@ class ProgressReportResponse(BaseModel):
     end_date: date
     expected_activity_count: int
     overall_adherence_percent: Decimal
+    skipped_days: list[date]
     activities: list[ActivityProgressResponse]
