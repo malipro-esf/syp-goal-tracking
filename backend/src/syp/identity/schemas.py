@@ -82,6 +82,7 @@ class UserResponse(BaseModel):
         "it",
     ]
     country_code: str | None
+    has_profile_photo: bool
     gender: Literal["man", "woman"] | None
     gender_theme_enabled: bool
     roles: list[str]

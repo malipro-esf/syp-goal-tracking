@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Bot, CircleUserRound, ClipboardList, House, LayoutDashboard, ListChecks, LogIn, LogOut, Rocket, Settings, Sparkles } from 'lucide-react'
 
 import { useAuth } from '../features/auth/useAuth'
+import { ProfileAvatar } from '../features/auth/ProfileAvatar'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
@@ -36,6 +37,6 @@ export function AppHeader({ publicOnly = false }: { publicOnly?: boolean }) {
         <Link className="header-cta" to="/register"><Rocket aria-hidden="true" />{t('navigation.getStarted')}</Link>
       </>}
     </nav>
-    <div className="header-tools"><LanguageSwitcher />{user && !publicOnly && <div className="header-account"><Link to="/settings/profile"><Settings aria-hidden="true" />{user.display_name}</Link><button type="button" className="text-button icon-button" onClick={signOut}><LogOut aria-hidden="true" />{t('navigation.signOut')}</button></div>}</div>
+    <div className="header-tools"><LanguageSwitcher />{user && !publicOnly && <div className="header-account"><Link to="/settings/profile"><ProfileAvatar /><Settings aria-hidden="true" />{user.display_name}</Link><button type="button" className="text-button icon-button" onClick={signOut}><LogOut aria-hidden="true" />{t('navigation.signOut')}</button></div>}</div>
   </header>
 }

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 
 import { ApiError } from '../../api/client'
 import i18n from '../../i18n'
-import { loginUser, logoutUser, refreshSession, registerUser, updateProfile, type AuthResponse } from './auth-api'
+import { deleteProfilePhoto, loginUser, logoutUser, refreshSession, registerUser, updateProfile, uploadProfilePhoto, type AuthResponse } from './auth-api'
 import { AuthContext, type AuthContextValue } from './auth-context'
 
 function applyAppearance(user: AuthResponse['user'] | null) {
@@ -48,6 +48,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession({ ...session, user })
       applyAppearance(user)
       return user
+    },
+    uploadProfilePhoto: async (photo) => {
+      if (!session) throw new Error('Authentication is required.')
+      const user = await uploadProfilePhoto(session.access_token, photo)
+      setSession({ ...session, user })
+      window.dispatchEvent(new Event('profile-photo-updated'))
+    },
+    removeProfilePhoto: async () => {
+      if (!session) throw new Error('Authentication is required.')
+      await deleteProfilePhoto(session.access_token)
+      setSession({ ...session, user: { ...session.user, has_profile_photo: false } })
+      window.dispatchEvent(new Event('profile-photo-updated'))
     },
   }), [applySession, isLoading, session])
 

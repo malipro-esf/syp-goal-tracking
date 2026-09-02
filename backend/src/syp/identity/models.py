@@ -1,7 +1,16 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, String, func
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Index,
+    LargeBinary,
+    String,
+    func,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from syp.core.database import Base
@@ -22,6 +31,8 @@ class User(Base):
     timezone: Mapped[str] = mapped_column(String(100), default="UTC")
     preferred_language: Mapped[str] = mapped_column(String(5), default="en")
     country_code: Mapped[str | None] = mapped_column(String(2))
+    profile_photo: Mapped[bytes | None] = mapped_column(LargeBinary)
+    profile_photo_content_type: Mapped[str | None] = mapped_column(String(30))
     gender: Mapped[str | None] = mapped_column(String(10))
     gender_theme_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
     password_hash: Mapped[str] = mapped_column(String(512))
