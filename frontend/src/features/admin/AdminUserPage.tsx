@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 
 import { ApiError, apiRequest } from '../../api/client'
 import { useAuth } from '../auth/useAuth'
+import { AdminLayout } from './AdminLayout'
 
 type AdminUser = { id: string; email: string; display_name: string; country_code: string | null; status: string; roles: string[]; created_at: string }
 const availableRoles = ['participant', 'coach', 'admin'] as const
@@ -36,8 +37,8 @@ export function AdminUserPage() {
     try { const updated = await apiRequest<AdminUser>(`/api/v1/admin/users/${userId}/status`, { method: 'PATCH', headers, body: JSON.stringify({ status: next }) }); setManagedUser(updated); setMessage(`Account ${next}.`); setError('') }
     catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Status could not be updated.') }
   }
-  return <main className="workspace-shell admin-user-page"><Link to="/admin">← Back to admin</Link><header><p className="eyebrow">Account management</p><h1>{user.display_name}</h1><p>{user.email}</p></header>{message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
+  return <AdminLayout active="users" title={user.display_name} description={user.email}><div className="admin-user-page"><Link to="/admin#users">← Back to users</Link>{message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
     <section className="card"><h2>Account status</h2><p><span className="status-badge">{user.status}</span></p><button type="button" className="secondary-button" onClick={toggleStatus}>{user.status === 'active' ? 'Disable account' : 'Enable account'}</button></section>
     <section className="card"><h2>Roles</h2><fieldset className="admin-role-list"><legend>Assigned roles</legend>{availableRoles.map((role) => <label className="checkbox-label" key={role}><input type="checkbox" checked={roles.includes(role)} onChange={(event) => setRoles((current) => event.target.checked ? [...current, role] : current.filter((item) => item !== role))} />{role}</label>)}</fieldset><button type="button" onClick={saveRoles}>Save roles</button></section>
-  </main>
+  </div></AdminLayout>
 }

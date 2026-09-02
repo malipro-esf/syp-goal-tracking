@@ -377,6 +377,11 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .admin-content .progress-history .progress-row { padding-block: 1rem; }
 .admin-content .feedback-panel, .admin-content .ai-coach-panel { max-width: 58rem; }
 .app-header + .admin-shell .admin-sidebar { top: 4.5rem; height: calc(100vh - 4.5rem); }
+.admin-workspace .admin-content { display: grid; gap: 1.5rem; }
+.admin-workspace-header > div > p:last-child { margin: .55rem 0 0; color: #617168; }
+.admin-access-label { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem .8rem; border-radius: 999px; background: #e7f3ec; color: #17633e; font-size: .82rem; font-weight: 800; white-space: nowrap; }
+.admin-access-label svg { width: 1rem; height: 1rem; }
+.admin-workspace section[id] { scroll-margin-top: 6rem; }
 
 /* Dashboard workspace */
 .dashboard-sidebar .sidebar-plan span { color: #9fc5af; font-size: .8rem; text-transform: capitalize; }
