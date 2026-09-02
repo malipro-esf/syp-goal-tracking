@@ -55,6 +55,21 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     assert plan.status_code == 200
     assert plan.json()["participant_email"] == "participant@example.com"
     assert plan.json()["activities"] == []
+    transitioned = api_client.patch(
+        f"/api/v1/admin/plans/{plan_id}/status",
+        headers=headers,
+        json={"status": "active"},
+    )
+    assert transitioned.status_code == 200
+    assert transitioned.json()["status"] == "active"
+    assert (
+        api_client.patch(
+            f"/api/v1/admin/plans/{plan_id}/status",
+            headers=headers,
+            json={"status": "active"},
+        ).status_code
+        == 409
+    )
 
     participant_id = participant["user"]["id"]
     roles = api_client.put(
@@ -94,4 +109,6 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
 
     audit = api_client.get("/api/v1/admin/audit-log", headers=headers)
     assert audit.status_code == 200
-    assert audit.json()["total"] == 2
+    assert audit.json()["total"] == 3
+    assert audit.json()["items"][0]["action"] == "user_status_changed"
+    assert any(item["action"] == "plan_status_changed" for item in audit.json()["items"])

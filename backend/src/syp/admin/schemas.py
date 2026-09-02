@@ -91,3 +91,7 @@ class AdminPlanDetail(AdminPlanSummary):
     coach_user_id: uuid.UUID | None
     created_by_user_id: uuid.UUID
     activities: list[AdminPlanActivity]
+
+
+class AdminPlanStatusUpdate(BaseModel):
+    status: Literal["active", "paused", "completed", "archived"]
