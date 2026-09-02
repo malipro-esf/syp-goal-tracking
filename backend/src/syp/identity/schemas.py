@@ -81,6 +81,7 @@ class UserResponse(BaseModel):
         "nb",
         "it",
     ]
+    country_code: str | None
     gender: Literal["man", "woman"] | None
     gender_theme_enabled: bool
     roles: list[str]
@@ -110,6 +111,7 @@ class ProfileUpdate(BaseModel):
         "nb",
         "it",
     ]
+    country_code: str | None = Field(default=None, min_length=2, max_length=2)
     gender: Literal["man", "woman"] | None = None
     gender_theme_enabled: bool = False
 
@@ -143,6 +145,16 @@ class ProfileUpdate(BaseModel):
             return None
         normalized = value.strip()
         return normalized or None
+
+    @field_validator("country_code")
+    @classmethod
+    def normalize_country_code(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        normalized = value.strip().upper()
+        if not normalized.isalpha() or len(normalized) != 2:
+            raise ValueError("Country must use a two-letter ISO country code.")
+        return normalized
 
 
 class AuthResponse(BaseModel):
