@@ -10,6 +10,7 @@ from syp.activities.domain import ScheduleType, UnitCode
 class TemplateWrite(BaseModel):
     title: str = Field(min_length=1, max_length=120)
     description: str | None = Field(default=None, max_length=2000)
+    default_start_date: date | None = None
     default_end_date: date | None = None
 
     @model_validator(mode="after")
@@ -19,6 +20,12 @@ class TemplateWrite(BaseModel):
             raise ValueError("Plan template title cannot be blank.")
         if self.description is not None:
             self.description = self.description.strip() or None
+        if (
+            self.default_start_date is not None
+            and self.default_end_date is not None
+            and self.default_end_date < self.default_start_date
+        ):
+            raise ValueError("Default end date must be on or after default start date.")
         return self
 
 
@@ -63,12 +70,16 @@ class TemplateResponse(TemplateWrite):
 
 class AssignmentCreate(BaseModel):
     participant_email: EmailStr
-    start_date: date
+    start_date: date | None = None
     end_date: date | None = None
 
     @model_validator(mode="after")
     def validate_dates(self) -> "AssignmentCreate":
-        if self.end_date is not None and self.end_date < self.start_date:
+        if (
+            self.start_date is not None
+            and self.end_date is not None
+            and self.end_date < self.start_date
+        ):
             raise ValueError("End date must be on or after start date.")
         return self
 
