@@ -97,6 +97,10 @@ a { color: #17633e; font-weight: 700; }
 .admin-users th, .admin-users td { padding: .8rem; border-bottom: 1px solid #e1e9e3; text-align: left; }
 .admin-users td:first-child { display: grid; gap: .2rem; }
 .admin-users td small { color: #617168; }
+.admin-user-page { display: grid; align-content: start; gap: 1.25rem; }
+.admin-user-page > .card { display: grid; gap: 1rem; }
+.admin-user-page h2 { margin: 0; }
+.admin-role-list { display: flex; flex-wrap: wrap; gap: 1rem; padding: 1rem; border: 1px solid #d8e3dc; border-radius: .75rem; }
 @media (max-width: 900px) { .admin-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .appearance-settings legend { padding: 0 .35rem; color: #304b3e; font-size: .9rem; font-weight: 800; }
 .appearance-settings small { color: #617168; line-height: 1.45; }
