@@ -47,6 +47,7 @@ export function CoachingPage() {
     try {
       const item = await createTemplate(accessToken, {
         title: String(data.get('title')), description: String(data.get('description')) || null,
+        default_start_date: String(data.get('defaultStartDate')) || null,
         default_end_date: String(data.get('defaultEndDate')) || null,
       })
       setTemplates((items) => [item, ...items]); form.reset(); setFormError('template')
@@ -73,6 +74,7 @@ export function CoachingPage() {
     try {
       const updated = await updateTemplate(accessToken, templateId, {
         title: String(data.get('title')), description: String(data.get('description')) || null,
+        default_start_date: String(data.get('defaultStartDate')) || null,
         default_end_date: String(data.get('defaultEndDate')) || null,
       })
       setTemplates((items) => items.map((item) => item.id === updated.id ? updated : item))
@@ -144,7 +146,8 @@ export function CoachingPage() {
       {formErrors.template && <p className="form-error" role="alert">{formErrors.template}</p>}
       <label>{t('coachingPage.fields.title')}<input name="title" required /></label>
       <label>{t('coachingPage.fields.description')}<textarea name="description" rows={3} /></label>
-      <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" min={today()} /></label>
+      <div className="date-fields"><label>{t('plan.startDate')}<input name="defaultStartDate" type="date" min={today()} /></label>
+      <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" min={today()} /></label></div>
       <button className="icon-button"><Plus aria-hidden="true" />{t('coachingPage.template.create')}</button></form>
       <section className="coaching-templates"><div className="section-heading"><div><p className="eyebrow">{t('coachingPage.template.libraryEyebrow')}</p><h2>{t('coachingPage.template.library')}</h2></div><span className="section-count">{templates.length}</span></div>
       {templates.length === 0 && <div className="panel coaching-empty"><FileStack aria-hidden="true" /><h3>{t('coachingPage.template.emptyTitle')}</h3><p>{t('coachingPage.template.emptyDescription')}</p></div>}
@@ -155,7 +158,8 @@ export function CoachingPage() {
             {formErrors[`template-${template.id}`] && <p className="form-error" role="alert">{formErrors[`template-${template.id}`]}</p>}
             <label>{t('coachingPage.fields.title')}<input name="title" defaultValue={template.title} required /></label>
             <label>{t('coachingPage.fields.description')}<textarea name="description" defaultValue={template.description ?? ''} rows={2} /></label>
-            <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" defaultValue={template.default_end_date ?? ''} /></label>
+            <div className="date-fields"><label>{t('plan.startDate')}<input name="defaultStartDate" type="date" defaultValue={template.default_start_date ?? ''} /></label>
+            <label>{t('plan.endDate')}<input name="defaultEndDate" type="date" defaultValue={template.default_end_date ?? ''} /></label></div>
             <button type="submit" className="secondary-button icon-button"><Save aria-hidden="true" />{t('plan.save')}</button>
           </form></details>
           <div className="template-actions"><form onSubmit={(event) => addActivity(event, template.id)}>{formErrors[`activity-${template.id}`] && <p className="form-error" role="alert">{formErrors[`activity-${template.id}`]}</p>}<h3>{t('coachingPage.activity.add')}</h3>
@@ -166,7 +170,7 @@ export function CoachingPage() {
             <button className="secondary-button icon-button"><Plus aria-hidden="true" />{t('coachingPage.activity.action')}</button></form>
           <form onSubmit={(event) => send(event, template.id)}>{formErrors[`assignment-${template.id}`] && <p className="form-error" role="alert">{formErrors[`assignment-${template.id}`]}</p>}<h3>{t('coachingPage.assignment.assign')}</h3>
             <label>{t('coachingPage.fields.email')}<input name="email" type="email" required /></label>
-            <label>{t('coachingPage.fields.startDate')}<input name="startDate" type="date" defaultValue={today()} required /></label>
+            <label>{t('coachingPage.fields.startDate')}<input name="startDate" type="date" defaultValue={template.default_start_date ?? today()} required /></label>
             <button className="icon-button" disabled={!template.activities.length}><Send aria-hidden="true" />{t('coachingPage.assignment.send')}</button></form></div>
         </article>)}</div></section></>}
 

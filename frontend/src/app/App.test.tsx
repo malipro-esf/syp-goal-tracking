@@ -340,6 +340,7 @@ test('shows the plan template workspace to a coach', async () => {
     })
     if (url === '/api/v1/coaching/templates') return json([{
       id: 'template-1', title: 'Running foundation', description: 'A starter plan',
+      default_start_date: '2026-09-07', default_end_date: '2026-10-07',
       activities: [{ id: 'activity-1', name: 'Easy run', target_quantity: '5.0000', unit_code: 'kilometer', schedule_type: 'weekly' }],
     }])
     if (url === '/api/v1/coaching/assignments/sent') return json([
@@ -354,6 +355,7 @@ test('shows the plan template workspace to a coach', async () => {
   expect(await screen.findByRole('heading', { name: 'Plan templates & assignments' })).toBeInTheDocument()
   expect(screen.getByRole('link', { name: 'How it works' })).toHaveAttribute('href', '/how-it-works')
   expect(await screen.findByText('Easy run: 5 Kilometer · Weekly')).toBeInTheDocument()
+  expect(screen.getAllByLabelText('Start date').some((input) => (input as HTMLInputElement).value === '2026-09-07')).toBe(true)
   expect(screen.getByRole('button', { name: 'Send invitation' })).toBeEnabled()
   expect(screen.getByText('Pending Learner · pending@example.com')).toBeInTheDocument()
   expect(screen.getByText('Accepted Learner · accepted@example.com')).toBeInTheDocument()

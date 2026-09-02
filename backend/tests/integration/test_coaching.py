@@ -23,7 +23,10 @@ def auth(token: str) -> dict[str, str]:
 
 
 def create_template_with_activity(
-    client: TestClient, coach_token: str, default_end_date: str | None = None
+    client: TestClient,
+    coach_token: str,
+    default_end_date: str | None = None,
+    default_start_date: str | None = None,
 ) -> str:
     created = client.post(
         "/api/v1/coaching/templates",
@@ -31,6 +34,7 @@ def create_template_with_activity(
         json={
             "title": "IELTS foundation",
             "description": "Reusable program",
+            "default_start_date": default_start_date,
             "default_end_date": default_end_date,
         },
     )
@@ -48,6 +52,27 @@ def create_template_with_activity(
     )
     assert activity.status_code == 200
     return template_id
+
+
+def test_assignment_inherits_template_default_dates(api_client: TestClient) -> None:
+    coach = register(api_client, "dates-coach@example.com", "coach")
+    register(api_client, "dates-learner@example.com", "participant")
+    template_id = create_template_with_activity(
+        api_client,
+        coach,
+        default_start_date="2026-09-07",
+        default_end_date="2026-10-07",
+    )
+
+    sent = api_client.post(
+        f"/api/v1/coaching/templates/{template_id}/assignments",
+        headers=auth(coach),
+        json={"participant_email": "dates-learner@example.com"},
+    )
+
+    assert sent.status_code == 201
+    assert sent.json()["start_date"] == "2026-09-07"
+    assert sent.json()["end_date"] == "2026-10-07"
 
 
 def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> None:

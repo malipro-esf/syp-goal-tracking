@@ -69,6 +69,7 @@ def create_template(
         created_by_user_id=coach_id,
         title=payload.title.strip(),
         description=payload.description,
+        default_start_date=payload.default_start_date,
         default_end_date=payload.default_end_date,
     )
     session.add(template)
@@ -93,6 +94,7 @@ def update_template(
     template = _owned_template(session, coach_id, template_id)
     template.title = payload.title.strip()
     template.description = payload.description
+    template.default_start_date = payload.default_start_date
     template.default_end_date = payload.default_end_date
     session.commit()
     session.refresh(template)
@@ -163,8 +165,15 @@ def assign_template(
     session: Session, coach_id: uuid.UUID, template_id: uuid.UUID, payload: AssignmentCreate
 ) -> AssignmentResponse:
     template = _owned_template(session, coach_id, template_id)
+    start_date = payload.start_date or template.default_start_date
+    if start_date is None:
+        raise ApplicationError(
+            code="assignment_start_date_required",
+            message="Choose a start date or set a default start date on the template.",
+            status_code=422,
+        )
     end_date = payload.end_date or template.default_end_date
-    if end_date is not None and end_date < payload.start_date:
+    if end_date is not None and end_date < start_date:
         raise ApplicationError(
             code="invalid_assignment_dates",
             message="The template end date must be on or after the assignment start date.",
@@ -205,7 +214,7 @@ def assign_template(
         template_id=template.id,
         participant_user_id=participant.id,
         assigned_by_user_id=coach_id,
-        start_date=payload.start_date,
+        start_date=start_date,
         end_date=end_date,
     )
     session.add(assignment)
