@@ -1,22 +1,25 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Clock3, Flag, Languages, Mail, Palette, Save, ShieldCheck, UserRound } from 'lucide-react'
+import { Camera, Clock3, Flag, Languages, Mail, Palette, Save, ShieldCheck, Trash2, UserRound } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { SuccessToast } from '../../components/SuccessToast'
 import { supportedLanguages, type SupportedLanguage } from '../../i18n'
 import { detectBrowserTimezone, getSupportedTimezones } from './timezones'
 import { useAuth } from './useAuth'
+import { ProfileAvatar } from './ProfileAvatar'
 import { getCountryOptions } from './countries'
 
 const languageNames: Record<SupportedLanguage, string> = { en: 'English', fa: 'فارسی', tr: 'Türkçe', ar: 'العربية', da: 'Dansk', de: 'Deutsch', el: 'Ελληνικά', ja: '日本語', 'zh-CN': '简体中文', es: 'Español', sv: 'Svenska', fr: 'Français', 'pt-BR': 'Português (Brasil)', hi: 'हिन्दी', ko: '한국어', fi: 'Suomi', nb: 'Norsk bokmål', it: 'Italiano' }
 
 export function ProfileSettingsPage() {
   const { i18n, t } = useTranslation()
-  const { updateProfile, user } = useAuth()
+  const { removeProfilePhoto, updateProfile, uploadProfilePhoto, user } = useAuth()
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [photoSaving, setPhotoSaving] = useState(false)
   const [selectedGender, setSelectedGender] = useState(user?.gender ?? '')
   const [genderThemeEnabled, setGenderThemeEnabled] = useState(user?.gender_theme_enabled ?? false)
   const browserTimezone = detectBrowserTimezone()
@@ -27,6 +30,21 @@ export function ProfileSettingsPage() {
     setGenderThemeEnabled(user?.gender_theme_enabled ?? false)
   }, [user?.gender, user?.gender_theme_enabled])
   if (!user) return null
+
+  async function savePhoto() {
+    if (!photo) return
+    setPhotoSaving(true); setError(''); setMessage('')
+    try { await uploadProfilePhoto(photo); setPhoto(null); setMessage(t('profile.photoSaved', { defaultValue: 'Your profile photo was updated.' })) }
+    catch (caught) { setError(caught instanceof ApiError ? caught.message : t('profile.photoError', { defaultValue: 'The profile photo could not be updated.' })) }
+    finally { setPhotoSaving(false) }
+  }
+
+  async function removePhoto() {
+    setPhotoSaving(true); setError(''); setMessage('')
+    try { await removeProfilePhoto(); setPhoto(null); setMessage(t('profile.photoRemoved', { defaultValue: 'Your profile photo was removed.' })) }
+    catch (caught) { setError(caught instanceof ApiError ? caught.message : t('profile.photoError', { defaultValue: 'The profile photo could not be updated.' })) }
+    finally { setPhotoSaving(false) }
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setSaving(true); setMessage(''); setError('')
@@ -50,6 +68,7 @@ export function ProfileSettingsPage() {
 
   return <main className="page-shell profile-page"><header className="page-header"><div><p className="eyebrow">{t('profile.eyebrow')}</p><h1 className="heading-with-icon"><UserRound aria-hidden="true" />{t('profile.title')}</h1><p>{t('profile.description')}</p></div></header>
     <div className="profile-grid"><form className="card profile-form" onSubmit={submit}>
+      <fieldset className="profile-photo-settings"><legend>{t('profile.photo', { defaultValue: 'Profile photo' })}</legend><div className="profile-photo-row"><ProfileAvatar className="profile-avatar-large" /><label>{t('profile.choosePhoto', { defaultValue: 'Choose a photo' })}<input name="profilePhoto" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => setPhoto(event.target.files?.[0] ?? null)} /><small>{t('profile.photoHint', { defaultValue: 'JPEG, PNG, or WebP. Maximum 2 MB.' })}</small></label></div><div className="button-row"><button type="button" className="secondary-button icon-button" disabled={!photo || photoSaving} onClick={savePhoto}><Camera aria-hidden="true" />{t('profile.uploadPhoto', { defaultValue: 'Upload photo' })}</button>{user.has_profile_photo && <button type="button" className="secondary-button icon-button" disabled={photoSaving} onClick={removePhoto}><Trash2 aria-hidden="true" />{t('profile.removePhoto', { defaultValue: 'Remove photo' })}</button>}</div></fieldset>
       <label>{t('profile.displayName')}<input name="displayName" defaultValue={user.display_name} minLength={2} maxLength={100} required /></label>
       <label>{t('profile.bio')}<textarea name="bio" defaultValue={user.bio ?? ''} maxLength={500} rows={5} /><small>{t('profile.bioHint')}</small></label>
       <label><span className="label-with-icon"><Languages aria-hidden="true" />{t('profile.language')}</span><select name="language" defaultValue={user.preferred_language}>{supportedLanguages.map(code => <option key={code} value={code}>{languageNames[code]}</option>)}</select></label>

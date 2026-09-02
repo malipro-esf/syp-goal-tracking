@@ -1,6 +1,6 @@
 import { apiRequest } from '../../api/client'
 
-export type User = { id: string; email: string; display_name: string; bio: string | null; timezone: string; preferred_language: 'en' | 'fa' | 'tr' | 'ar' | 'da' | 'de' | 'el' | 'ja' | 'zh-CN' | 'es' | 'sv' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi' | 'nb' | 'it'; country_code: string | null; gender: 'man' | 'woman' | null; gender_theme_enabled: boolean; roles: string[] }
+export type User = { id: string; email: string; display_name: string; bio: string | null; timezone: string; preferred_language: 'en' | 'fa' | 'tr' | 'ar' | 'da' | 'de' | 'el' | 'ja' | 'zh-CN' | 'es' | 'sv' | 'fr' | 'pt-BR' | 'hi' | 'ko' | 'fi' | 'nb' | 'it'; country_code: string | null; has_profile_photo: boolean; gender: 'man' | 'woman' | null; gender_theme_enabled: boolean; roles: string[] }
 export type AuthResponse = { access_token: string; token_type: 'bearer'; user: User }
 type Credentials = { email: string; password: string }
 
@@ -12,3 +12,5 @@ export const refreshSession = () => apiRequest<AuthResponse>('/api/v1/auth/refre
 export const logoutUser = () => apiRequest<void>('/api/v1/auth/logout', { method: 'POST' })
 export const updateProfile = (token: string, input: Pick<User, 'display_name' | 'bio' | 'timezone' | 'preferred_language' | 'country_code' | 'gender' | 'gender_theme_enabled'>) =>
   apiRequest<User>('/api/v1/users/me', { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(input) })
+export const uploadProfilePhoto = (token: string, photo: File) => { const body = new FormData(); body.append('photo', photo); return apiRequest<User>('/api/v1/users/me/profile-photo', { method: 'PUT', headers: { Authorization: `Bearer ${token}` }, body }) }
+export const deleteProfilePhoto = (token: string) => apiRequest<void>('/api/v1/users/me/profile-photo', { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })

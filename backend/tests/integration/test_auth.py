@@ -54,7 +54,6 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
             "gender_theme_enabled": True,
         },
     )
-
     assert response.status_code == 200
     assert response.json() == {
         **registration["user"],
@@ -81,6 +80,28 @@ def test_user_can_update_only_their_profile_preferences(api_client: TestClient) 
         ).status_code
         == 422
     )
+
+
+def test_user_can_upload_view_and_remove_profile_photo(api_client: TestClient) -> None:
+    registration = api_client.post("/api/v1/auth/register", json=REGISTRATION).json()
+    headers = {"Authorization": f"Bearer {registration['access_token']}"}
+    png = b"\x89PNG\r\n\x1a\n" + b"profile-photo"
+
+    uploaded = api_client.put(
+        "/api/v1/users/me/profile-photo",
+        headers=headers,
+        files={"photo": ("avatar.png", png, "image/png")},
+    )
+    assert uploaded.status_code == 200
+    assert uploaded.json()["has_profile_photo"] is True
+
+    downloaded = api_client.get("/api/v1/users/me/profile-photo", headers=headers)
+    assert downloaded.status_code == 200
+    assert downloaded.headers["content-type"] == "image/png"
+    assert downloaded.content == png
+
+    assert api_client.delete("/api/v1/users/me/profile-photo", headers=headers).status_code == 204
+    assert api_client.get("/api/v1/users/me/profile-photo", headers=headers).status_code == 404
     assert (
         api_client.patch(
             "/api/v1/users/me",

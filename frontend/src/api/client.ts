@@ -10,7 +10,7 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
   const response = await fetch(path, {
     ...init,
     credentials: 'include',
-    headers: { ...(init.body ? { 'Content-Type': 'application/json' } : {}), ...init.headers },
+    headers: { ...(init.body && !(init.body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}), ...init.headers },
   })
   if (!response.ok) {
     const body = (await response.json().catch(() => ({}))) as ErrorEnvelope

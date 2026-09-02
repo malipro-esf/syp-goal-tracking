@@ -44,6 +44,7 @@ def build_user_response(session: Session, user: User) -> UserResponse:
         timezone=user.timezone,
         preferred_language=user.preferred_language,
         country_code=user.country_code,
+        has_profile_photo=user.profile_photo is not None,
         gender=user.gender,
         gender_theme_enabled=user.gender_theme_enabled,
         roles=list(roles),
