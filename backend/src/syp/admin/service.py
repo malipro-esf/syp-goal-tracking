@@ -2,13 +2,18 @@ import uuid
 from datetime import UTC, datetime
 
 from sqlalchemy import func, or_, select, update
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
+from syp.activities.models import EnrollmentActivity
 from syp.admin.models import AdminAuditLog
 from syp.admin.schemas import (
     AdminAuditEntry,
     AdminAuditPage,
     AdminMetricsResponse,
+    AdminPlanActivity,
+    AdminPlanDetail,
+    AdminPlanPage,
+    AdminPlanSummary,
     AdminUserPage,
     AdminUserSummary,
 )
@@ -16,6 +21,116 @@ from syp.coaching.models import PlanAssignment
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import RefreshSession, Role, User, UserRole
 from syp.plans.models import PlanEnrollment
+
+
+def _plan_summary(
+    plan: PlanEnrollment, participant: User, coach: User | None, creator: User, activity_count: int
+) -> AdminPlanSummary:
+    return AdminPlanSummary(
+        id=plan.id,
+        title=plan.title,
+        status=plan.status,
+        participant_name=participant.display_name,
+        participant_email=participant.email,
+        coach_name=coach.display_name if coach else None,
+        created_by_name=creator.display_name,
+        start_date=plan.start_date,
+        end_date=plan.end_date,
+        activity_count=activity_count,
+        created_at=plan.created_at,
+    )
+
+
+def list_admin_plans(
+    session: Session, *, page: int, page_size: int, search: str | None, status: str | None
+) -> AdminPlanPage:
+    participant = aliased(User)
+    coach = aliased(User)
+    creator = aliased(User)
+    activity_count = (
+        select(func.count(EnrollmentActivity.id))
+        .where(EnrollmentActivity.enrollment_id == PlanEnrollment.id)
+        .correlate(PlanEnrollment)
+        .scalar_subquery()
+    )
+    filters = []
+    if search:
+        term = f"%{search.strip()}%"
+        filters.append(
+            or_(
+                PlanEnrollment.title.ilike(term),
+                participant.display_name.ilike(term),
+                participant.email.ilike(term),
+            )
+        )
+    if status:
+        filters.append(PlanEnrollment.status == status)
+    base = (
+        select(PlanEnrollment)
+        .join(participant, participant.id == PlanEnrollment.participant_user_id)
+        .where(*filters)
+    )
+    total = session.scalar(select(func.count()).select_from(base.subquery())) or 0
+    rows = session.execute(
+        select(PlanEnrollment, participant, coach, creator, activity_count)
+        .join(participant, participant.id == PlanEnrollment.participant_user_id)
+        .outerjoin(coach, coach.id == PlanEnrollment.coach_user_id)
+        .join(creator, creator.id == PlanEnrollment.created_by_user_id)
+        .where(*filters)
+        .order_by(PlanEnrollment.created_at.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
+    return AdminPlanPage(
+        items=[
+            _plan_summary(plan, participant_user, coach_user, creator_user, count)
+            for plan, participant_user, coach_user, creator_user, count in rows
+        ],
+        total=total,
+        page=page,
+        page_size=page_size,
+    )
+
+
+def get_admin_plan(session: Session, plan_id: uuid.UUID) -> AdminPlanDetail:
+    participant = aliased(User)
+    coach = aliased(User)
+    creator = aliased(User)
+    row = session.execute(
+        select(PlanEnrollment, participant, coach, creator)
+        .join(participant, participant.id == PlanEnrollment.participant_user_id)
+        .outerjoin(coach, coach.id == PlanEnrollment.coach_user_id)
+        .join(creator, creator.id == PlanEnrollment.created_by_user_id)
+        .where(PlanEnrollment.id == plan_id)
+    ).one_or_none()
+    if row is None:
+        raise ApplicationError(
+            code="plan_not_found", message="Plan was not found.", status_code=404
+        )
+    plan, participant_user, coach_user, creator_user = row
+    activities = session.scalars(
+        select(EnrollmentActivity)
+        .where(EnrollmentActivity.enrollment_id == plan.id)
+        .order_by(EnrollmentActivity.display_order, EnrollmentActivity.created_at)
+    ).all()
+    summary = _plan_summary(plan, participant_user, coach_user, creator_user, len(activities))
+    return AdminPlanDetail(
+        **summary.model_dump(),
+        description=plan.description,
+        participant_user_id=plan.participant_user_id,
+        coach_user_id=plan.coach_user_id,
+        created_by_user_id=plan.created_by_user_id,
+        activities=[
+            AdminPlanActivity(
+                id=activity.id,
+                name=activity.name,
+                description=activity.description,
+                unit=activity.custom_unit_label or activity.unit_code,
+                status=activity.status,
+            )
+            for activity in activities
+        ],
+    )
 
 
 def dashboard_metrics(session: Session) -> AdminMetricsResponse:

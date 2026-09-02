@@ -31,6 +31,13 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
         )
 
     headers = {"Authorization": f"Bearer {admin['access_token']}"}
+    created_plan = api_client.post(
+        "/api/v1/plans",
+        headers=participant_headers,
+        json={"title": "Admin visible plan", "start_date": "2026-09-02"},
+    )
+    assert created_plan.status_code == 201
+
     metrics = api_client.get("/api/v1/admin/metrics", headers=headers)
     assert metrics.status_code == 200
     assert metrics.json()["users"] == 2
@@ -39,6 +46,15 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     assert users.status_code == 200
     assert users.json()["total"] == 1
     assert users.json()["items"][0]["email"] == "participant@example.com"
+
+    plans = api_client.get("/api/v1/admin/plans?search=Admin%20visible", headers=headers)
+    assert plans.status_code == 200
+    assert plans.json()["total"] == 1
+    plan_id = created_plan.json()["id"]
+    plan = api_client.get(f"/api/v1/admin/plans/{plan_id}", headers=headers)
+    assert plan.status_code == 200
+    assert plan.json()["participant_email"] == "participant@example.com"
+    assert plan.json()["activities"] == []
 
     participant_id = participant["user"]["id"]
     roles = api_client.put(

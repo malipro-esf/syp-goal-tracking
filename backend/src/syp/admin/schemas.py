@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from typing import Literal
 
 from pydantic import BaseModel
@@ -54,3 +54,40 @@ class AdminAuditPage(BaseModel):
     total: int
     page: int
     page_size: int
+
+
+class AdminPlanSummary(BaseModel):
+    id: uuid.UUID
+    title: str
+    status: str
+    participant_name: str
+    participant_email: str
+    coach_name: str | None
+    created_by_name: str
+    start_date: date | None
+    end_date: date | None
+    activity_count: int
+    created_at: datetime
+
+
+class AdminPlanPage(BaseModel):
+    items: list[AdminPlanSummary]
+    total: int
+    page: int
+    page_size: int
+
+
+class AdminPlanActivity(BaseModel):
+    id: uuid.UUID
+    name: str
+    description: str | None
+    unit: str
+    status: str
+
+
+class AdminPlanDetail(AdminPlanSummary):
+    description: str | None
+    participant_user_id: uuid.UUID
+    coach_user_id: uuid.UUID | None
+    created_by_user_id: uuid.UUID
+    activities: list[AdminPlanActivity]
