@@ -1,3 +1,5 @@
+from datetime import UTC, datetime
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import Engine, text
@@ -47,6 +49,21 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     assignments = api_client.get("/api/v1/admin/assignments", headers=headers)
     assert assignments.status_code == 200
     assert assignments.json()["items"] == []
+
+    today = datetime.now(UTC).date().isoformat()
+    report = api_client.get(
+        f"/api/v1/admin/reports?start_date={today}&end_date={today}", headers=headers
+    )
+    assert report.status_code == 200
+    assert report.json()["totals"]["new_users"] == 2
+    assert report.json()["totals"]["new_plans"] == 1
+    assert len(report.json()["trend"]) == 1
+    export = api_client.get(
+        f"/api/v1/admin/reports/export?dataset=users&start_date={today}&end_date={today}",
+        headers=headers,
+    )
+    assert export.status_code == 200
+    assert "participant@example.com" in export.text
 
     users = api_client.get("/api/v1/admin/users?search=participant", headers=headers)
     assert users.status_code == 200

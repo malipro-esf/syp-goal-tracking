@@ -938,6 +938,32 @@ html[data-appearance] .plan-row-icon {
   color: var(--appearance-primary);
 }
 
+.admin-report-controls { display: flex; align-items: end; gap: 1rem; flex-wrap: wrap; }
+.admin-report-controls label { min-width: 12rem; }
+.admin-export-actions { display: flex; gap: .65rem; flex-wrap: wrap; margin-inline-start: auto; }
+.admin-export-actions button { display: inline-flex; align-items: center; gap: .45rem; }
+.admin-export-actions svg { width: 1rem; }
+.admin-report-chart { overflow: hidden; }
+.chart-legend { display: flex; gap: 1rem; font-size: .82rem; }
+.chart-legend span::before { content: ""; display: inline-block; width: .65rem; height: .65rem; border-radius: 2px; margin-inline-end: .35rem; }
+.chart-legend .users::before, .trend-bars .users { background: #725cff; }
+.chart-legend .plans::before, .trend-bars .plans { background: #22a06b; }
+.chart-legend .entries::before, .trend-bars .entries { background: #e98524; }
+.trend-chart { display: flex; align-items: end; gap: .35rem; height: 15rem; overflow-x: auto; padding-top: 1rem; }
+.trend-day { display: grid; grid-template-rows: 1fr auto; min-width: 2.25rem; height: 100%; gap: .35rem; }
+.trend-bars { display: flex; align-items: end; justify-content: center; gap: 2px; min-height: 0; }
+.trend-bars i { width: .38rem; min-height: 2px; border-radius: 3px 3px 0 0; }
+.trend-day small { font-size: .65rem; text-align: center; writing-mode: vertical-rl; }
+.admin-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.admin-breakdown > div { display: grid; grid-template-columns: minmax(5rem, 1fr) 3fr auto; align-items: center; gap: .75rem; margin-top: .8rem; }
+.admin-breakdown > div > div { height: .55rem; border-radius: 99px; background: var(--surface-soft); overflow: hidden; }
+.admin-breakdown i { display: block; height: 100%; border-radius: inherit; background: var(--primary); }
+
+@media (max-width: 760px) {
+  .admin-export-actions { margin-inline-start: 0; }
+  .admin-report-grid { grid-template-columns: 1fr; }
+}
+
 /* Dark marketing panels own their contrast colors, even when an appearance theme is active. */
 html[data-appearance] .final-cta h2,
 html[data-appearance] .goal-section h2,

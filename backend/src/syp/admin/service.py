@@ -1,3 +1,5 @@
+import csv
+import io
 import uuid
 from datetime import UTC, date, datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -8,16 +10,21 @@ from sqlalchemy.orm import Session, aliased
 from syp.activities.models import EnrollmentActivity
 from syp.admin.models import AdminAuditLog, SystemConfiguration
 from syp.admin.schemas import (
+    AdminAnalyticsReport,
     AdminAssignmentPage,
     AdminAssignmentSummary,
     AdminAuditEntry,
     AdminAuditPage,
+    AdminCoachPerformance,
     AdminMetricsResponse,
     AdminOperationalAlerts,
     AdminPlanActivity,
     AdminPlanDetail,
     AdminPlanPage,
     AdminPlanSummary,
+    AdminReportBreakdown,
+    AdminReportTotals,
+    AdminReportTrendPoint,
     AdminSystemSettings,
     AdminUserPage,
     AdminUserSummary,
@@ -27,6 +34,219 @@ from syp.core.exceptions import ApplicationError
 from syp.identity.models import RefreshSession, Role, User, UserRole
 from syp.plans.domain import PlanStatus, ensure_transition_allowed
 from syp.plans.models import PlanEnrollment, PlanStatusEvent
+from syp.progress.models import ProgressEntry
+
+
+def analytics_report(session: Session, *, start_date: date, end_date: date) -> AdminAnalyticsReport:
+    start_time = datetime.combine(start_date, datetime.min.time(), tzinfo=UTC)
+    end_time = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=UTC)
+
+    def created_counts(model: type[User] | type[PlanEnrollment]) -> dict[date, int]:
+        return dict(
+            session.execute(
+                select(func.date(model.created_at), func.count())
+                .where(model.created_at >= start_time, model.created_at < end_time)
+                .group_by(func.date(model.created_at))
+            ).all()
+        )
+
+    user_counts = created_counts(User)
+    plan_counts = created_counts(PlanEnrollment)
+    entry_counts = dict(
+        session.execute(
+            select(ProgressEntry.performed_on, func.count())
+            .where(
+                ProgressEntry.performed_on >= start_date,
+                ProgressEntry.performed_on <= end_date,
+                ProgressEntry.deleted_at.is_(None),
+            )
+            .group_by(ProgressEntry.performed_on)
+        ).all()
+    )
+    trend = []
+    current = start_date
+    while current <= end_date:
+        trend.append(
+            AdminReportTrendPoint(
+                date=current,
+                users=user_counts.get(current, 0),
+                plans=plan_counts.get(current, 0),
+                entries=entry_counts.get(current, 0),
+            )
+        )
+        current += timedelta(days=1)
+
+    countries = [
+        AdminReportBreakdown(label=country or "Not set", count=count)
+        for country, count in session.execute(
+            select(User.country_code, func.count())
+            .group_by(User.country_code)
+            .order_by(func.count().desc())
+        ).all()
+    ]
+    roles = [
+        AdminReportBreakdown(label=code, count=count)
+        for code, count in session.execute(
+            select(Role.code, func.count(UserRole.user_id))
+            .join(UserRole, UserRole.role_id == Role.id)
+            .group_by(Role.code)
+            .order_by(func.count(UserRole.user_id).desc())
+        ).all()
+    ]
+    coach = aliased(User)
+    coach_rows = session.execute(
+        select(
+            coach.id,
+            coach.display_name,
+            coach.email,
+            func.count(func.distinct(PlanEnrollment.participant_user_id)),
+            func.count(func.distinct(PlanEnrollment.id)),
+            func.count(ProgressEntry.id),
+        )
+        .join(PlanEnrollment, PlanEnrollment.coach_user_id == coach.id)
+        .outerjoin(EnrollmentActivity, EnrollmentActivity.enrollment_id == PlanEnrollment.id)
+        .outerjoin(
+            ProgressEntry,
+            (ProgressEntry.activity_id == EnrollmentActivity.id)
+            & (ProgressEntry.recorded_at >= start_time)
+            & (ProgressEntry.recorded_at < end_time)
+            & ProgressEntry.deleted_at.is_(None),
+        )
+        .group_by(coach.id, coach.display_name, coach.email)
+        .order_by(func.count(ProgressEntry.id).desc(), coach.display_name)
+        .limit(20)
+    ).all()
+    totals = AdminReportTotals(
+        new_users=sum(user_counts.values()),
+        new_plans=sum(plan_counts.values()),
+        activity_entries=sum(entry_counts.values()),
+        active_participants=session.scalar(
+            select(func.count(func.distinct(ProgressEntry.participant_user_id))).where(
+                ProgressEntry.performed_on >= start_date,
+                ProgressEntry.performed_on <= end_date,
+                ProgressEntry.deleted_at.is_(None),
+            )
+        )
+        or 0,
+        completed_plans=session.scalar(
+            select(func.count(func.distinct(PlanStatusEvent.plan_id))).where(
+                PlanStatusEvent.status == "completed",
+                PlanStatusEvent.recorded_at >= start_time,
+                PlanStatusEvent.recorded_at < end_time,
+            )
+        )
+        or 0,
+        accepted_invitations=session.scalar(
+            select(func.count())
+            .select_from(PlanAssignment)
+            .where(
+                PlanAssignment.status == "accepted",
+                PlanAssignment.responded_at >= start_time,
+                PlanAssignment.responded_at < end_time,
+            )
+        )
+        or 0,
+    )
+    return AdminAnalyticsReport(
+        start_date=start_date,
+        end_date=end_date,
+        totals=totals,
+        trend=trend,
+        countries=countries,
+        roles=roles,
+        coaches=[
+            AdminCoachPerformance(
+                coach_id=id_,
+                coach_name=name,
+                coach_email=email,
+                participants=participants,
+                plans=plans,
+                activity_entries=entries,
+            )
+            for id_, name, email, participants, plans, entries in coach_rows
+        ],
+    )
+
+
+def export_admin_dataset(
+    session: Session, dataset: str, *, start_date: date, end_date: date
+) -> str:
+    output = io.StringIO()
+    writer = csv.writer(output)
+    start_time = datetime.combine(start_date, datetime.min.time(), tzinfo=UTC)
+    end_time = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=UTC)
+    if dataset == "users":
+        writer.writerow(["name", "email", "status", "country", "roles", "joined"])
+        users = session.scalars(
+            select(User)
+            .where(User.created_at >= start_time, User.created_at < end_time)
+            .order_by(User.created_at.desc())
+        ).all()
+        role_rows = session.execute(
+            select(UserRole.user_id, Role.code).join(Role).order_by(Role.code)
+        ).all()
+        roles: dict[uuid.UUID, list[str]] = {}
+        for user_id, role in role_rows:
+            roles.setdefault(user_id, []).append(role)
+        for user in users:
+            writer.writerow(
+                [
+                    user.display_name,
+                    user.email,
+                    user.status,
+                    user.country_code or "",
+                    ", ".join(roles.get(user.id, [])),
+                    user.created_at.isoformat(),
+                ]
+            )
+    elif dataset == "plans":
+        writer.writerow(["title", "status", "participant", "coach", "start", "end", "created"])
+        participant = aliased(User)
+        coach = aliased(User)
+        rows = session.execute(
+            select(PlanEnrollment, participant.display_name, coach.display_name)
+            .join(participant, participant.id == PlanEnrollment.participant_user_id)
+            .outerjoin(coach, coach.id == PlanEnrollment.coach_user_id)
+            .where(PlanEnrollment.created_at >= start_time, PlanEnrollment.created_at < end_time)
+            .order_by(PlanEnrollment.created_at.desc())
+        ).all()
+        for plan, participant_name, coach_name in rows:
+            writer.writerow(
+                [
+                    plan.title,
+                    plan.status,
+                    participant_name,
+                    coach_name or "Self-managed",
+                    plan.start_date or "",
+                    plan.end_date or "",
+                    plan.created_at.isoformat(),
+                ]
+            )
+    else:
+        writer.writerow(["template", "participant", "coach", "status", "start", "end", "sent"])
+        participant = aliased(User)
+        coach = aliased(User)
+        rows = session.execute(
+            select(PlanAssignment, PlanTemplate.title, participant.display_name, coach.display_name)
+            .join(PlanTemplate, PlanTemplate.id == PlanAssignment.template_id)
+            .join(participant, participant.id == PlanAssignment.participant_user_id)
+            .join(coach, coach.id == PlanAssignment.assigned_by_user_id)
+            .where(PlanAssignment.created_at >= start_time, PlanAssignment.created_at < end_time)
+            .order_by(PlanAssignment.created_at.desc())
+        ).all()
+        for assignment, title, participant_name, coach_name in rows:
+            writer.writerow(
+                [
+                    title,
+                    participant_name,
+                    coach_name,
+                    assignment.status,
+                    assignment.start_date,
+                    assignment.end_date or "",
+                    assignment.created_at.isoformat(),
+                ]
+            )
+    return output.getvalue()
 
 
 def _plan_summary(

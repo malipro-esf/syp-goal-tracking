@@ -1,9 +1,11 @@
 import uuid
+from datetime import UTC, date, datetime, timedelta
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Response
 
 from syp.admin.schemas import (
+    AdminAnalyticsReport,
     AdminAssignmentPage,
     AdminAssignmentSummary,
     AdminAuditPage,
@@ -19,11 +21,13 @@ from syp.admin.schemas import (
     AdminUserSummary,
 )
 from syp.admin.service import (
+    analytics_report,
     cancel_assignment,
     change_plan_status,
     change_user_roles,
     change_user_status,
     dashboard_metrics,
+    export_admin_dataset,
     get_admin_plan,
     get_admin_user,
     list_admin_assignments,
@@ -35,9 +39,52 @@ from syp.admin.service import (
     update_system_settings,
 )
 from syp.api.dependencies import CurrentAdmin, DatabaseSession
+from syp.core.exceptions import ApplicationError
 from syp.plans.domain import PlanStatus
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+@router.get("/reports", response_model=AdminAnalyticsReport)
+def get_report(
+    _: CurrentAdmin,
+    session: DatabaseSession,
+    start_date: date | None = None,
+    end_date: date | None = None,
+) -> AdminAnalyticsReport:
+    report_end = end_date or datetime.now(UTC).date()
+    report_start = start_date or report_end - timedelta(days=29)
+    if report_start > report_end or (report_end - report_start).days > 365:
+        raise ApplicationError(
+            code="invalid_report_range",
+            message="Report range must be ordered and no longer than 366 days.",
+            status_code=422,
+        )
+    return analytics_report(session, start_date=report_start, end_date=report_end)
+
+
+@router.get("/reports/export")
+def export_report(
+    dataset: Literal["users", "plans", "assignments"],
+    _: CurrentAdmin,
+    session: DatabaseSession,
+    start_date: date | None = None,
+    end_date: date | None = None,
+) -> Response:
+    report_end = end_date or datetime.now(UTC).date()
+    report_start = start_date or report_end - timedelta(days=29)
+    if report_start > report_end or (report_end - report_start).days > 365:
+        raise ApplicationError(
+            code="invalid_report_range",
+            message="Report range must be ordered and no longer than 366 days.",
+            status_code=422,
+        )
+    return Response(
+        content="\ufeff"
+        + export_admin_dataset(session, dataset, start_date=report_start, end_date=report_end),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="syp-{dataset}.csv"'},
+    )
 
 
 @router.get("/settings", response_model=AdminSystemSettings)
