@@ -17,6 +17,7 @@ def create_notification(
     title: str,
     message: str,
     action_url: str | None = None,
+    dedupe_key: str | None = None,
 ) -> Notification:
     notification = Notification(
         user_id=user_id,
@@ -24,6 +25,7 @@ def create_notification(
         title=title,
         message=message,
         action_url=action_url,
+        dedupe_key=dedupe_key,
     )
     session.add(notification)
     return notification

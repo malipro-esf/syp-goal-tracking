@@ -1,7 +1,16 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Index, String, Text, func
+from sqlalchemy import (
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Index,
+    String,
+    Text,
+    UniqueConstraint,
+    func,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from syp.core.database import Base
@@ -11,9 +20,11 @@ class Notification(Base):
     __tablename__ = "notifications"
     __table_args__ = (
         CheckConstraint(
-            "kind IN ('invitation_received','invitation_accepted','invitation_rejected')",
+            "kind IN ('invitation_received','invitation_accepted','invitation_rejected',"
+            "'plan_ending','stale_invitation')",
             name="ck_notifications_kind",
         ),
+        UniqueConstraint("user_id", "dedupe_key", name="uq_notifications_user_dedupe_key"),
         Index("ix_notifications_user_read_created", "user_id", "read_at", "created_at"),
     )
 
@@ -25,5 +36,6 @@ class Notification(Base):
     title: Mapped[str] = mapped_column(String(160))
     message: Mapped[str] = mapped_column(Text)
     action_url: Mapped[str | None] = mapped_column(String(500))
+    dedupe_key: Mapped[str | None] = mapped_column(String(200))
     read_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
