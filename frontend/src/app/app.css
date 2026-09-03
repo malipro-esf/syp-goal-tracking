@@ -396,6 +396,8 @@ html[data-appearance] .marketing-page { --primary: var(--appearance-primary); --
 .table-note { color: #617168; font-size: .85rem; }
 .stale-row { background: #fff9ed; }
 .stale-label { margin-top: .25rem; color: #9a5b00; font-weight: 750; }
+.compact-button { width: auto; padding: .45rem .7rem; }
+.admin-settings-form { display: grid; gap: 1.25rem; max-width: 44rem; }
 @media (max-width: 760px) {
   .admin-filter-row, .admin-plan-overview, .admin-activity-grid, .admin-alert-grid, .admin-assignment-filters { grid-template-columns: 1fr; }
   .admin-access-label { display: none; }

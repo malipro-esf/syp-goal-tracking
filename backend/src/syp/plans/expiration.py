@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from syp.admin.models import SystemConfiguration
 from syp.identity.models import User
 from syp.plans.domain import PlanStatus
 from syp.plans.models import PlanEnrollment, PlanStatusEvent
@@ -79,6 +80,12 @@ async def run_plan_completion_scheduler(
 
             def sweep() -> list[uuid.UUID]:
                 with session_factory() as session:
+                    configuration = session.get(SystemConfiguration, 1)
+                    if (
+                        configuration is not None
+                        and not configuration.automatic_plan_completion_enabled
+                    ):
+                        return []
                     return complete_expired_plans(session)
 
             completed_ids = await asyncio.to_thread(sweep)

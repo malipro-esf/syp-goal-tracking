@@ -2,6 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, File, Response, UploadFile, status
 
+from syp.admin.service import get_system_configuration
 from syp.api.dependencies import CurrentUser, DatabaseSession
 from syp.core.exceptions import ApplicationError
 from syp.identity.schemas import ProfileUpdate, UserResponse
@@ -50,11 +51,12 @@ async def put_profile_photo(
         raise ApplicationError(
             code="invalid_profile_photo", message="Use a JPEG, PNG, or WebP image.", status_code=422
         )
-    content = await photo.read(2 * 1024 * 1024 + 1)
-    if len(content) > 2 * 1024 * 1024:
+    maximum_mb = get_system_configuration(session).profile_photo_max_mb
+    content = await photo.read(maximum_mb * 1024 * 1024 + 1)
+    if len(content) > maximum_mb * 1024 * 1024:
         raise ApplicationError(
             code="profile_photo_too_large",
-            message="Profile photos must be 2 MB or smaller.",
+            message=f"Profile photos must be {maximum_mb} MB or smaller.",
             status_code=413,
         )
     if not content.startswith(signatures[photo.content_type]) or (

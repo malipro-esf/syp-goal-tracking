@@ -2,7 +2,7 @@ import uuid
 from datetime import date, datetime
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AdminMetricsResponse(BaseModel):
@@ -126,3 +126,10 @@ class AdminAssignmentPage(BaseModel):
     page: int
     page_size: int
     stale_after_days: int
+
+
+class AdminSystemSettings(BaseModel):
+    registration_enabled: bool
+    stale_invitation_days: int = Field(ge=1, le=365)
+    profile_photo_max_mb: int = Field(ge=1, le=10)
+    automatic_plan_completion_enabled: bool

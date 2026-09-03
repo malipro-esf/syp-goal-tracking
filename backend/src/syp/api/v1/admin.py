@@ -5,6 +5,7 @@ from fastapi import APIRouter, Query
 
 from syp.admin.schemas import (
     AdminAssignmentPage,
+    AdminAssignmentSummary,
     AdminAuditPage,
     AdminMetricsResponse,
     AdminOperationalAlerts,
@@ -13,10 +14,12 @@ from syp.admin.schemas import (
     AdminPlanStatusUpdate,
     AdminRolesUpdate,
     AdminStatusUpdate,
+    AdminSystemSettings,
     AdminUserPage,
     AdminUserSummary,
 )
 from syp.admin.service import (
+    cancel_assignment,
     change_plan_status,
     change_user_roles,
     change_user_status,
@@ -28,29 +31,49 @@ from syp.admin.service import (
     list_audit_log,
     list_users,
     operational_alerts,
+    system_settings,
+    update_system_settings,
 )
-from syp.api.dependencies import AppSettings, CurrentAdmin, DatabaseSession
+from syp.api.dependencies import CurrentAdmin, DatabaseSession
 from syp.plans.domain import PlanStatus
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
 
+@router.get("/settings", response_model=AdminSystemSettings)
+def get_settings(_: CurrentAdmin, session: DatabaseSession) -> AdminSystemSettings:
+    return system_settings(session)
+
+
+@router.put("/settings", response_model=AdminSystemSettings)
+def put_settings(
+    payload: AdminSystemSettings, admin: CurrentAdmin, session: DatabaseSession
+) -> AdminSystemSettings:
+    return update_system_settings(session, admin, payload)
+
+
+@router.post("/assignments/{assignment_id}/cancel", response_model=AdminAssignmentSummary)
+def cancel_invitation(
+    assignment_id: uuid.UUID, admin: CurrentAdmin, session: DatabaseSession
+) -> AdminAssignmentSummary:
+    return cancel_assignment(session, admin, assignment_id)
+
+
 @router.get("/alerts", response_model=AdminOperationalAlerts)
-def get_alerts(
-    _: CurrentAdmin, session: DatabaseSession, settings: AppSettings
-) -> AdminOperationalAlerts:
-    return operational_alerts(session, stale_days=settings.admin_stale_invitation_days)
+def get_alerts(_: CurrentAdmin, session: DatabaseSession) -> AdminOperationalAlerts:
+    return operational_alerts(session, stale_days=system_settings(session).stale_invitation_days)
 
 
 @router.get("/assignments", response_model=AdminAssignmentPage)
 def get_assignments(
     _: CurrentAdmin,
     session: DatabaseSession,
-    settings: AppSettings,
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 25,
     search: Annotated[str | None, Query(max_length=100)] = None,
-    status: Annotated[Literal["pending", "accepted", "rejected"] | None, Query()] = None,
+    status: Annotated[
+        Literal["pending", "accepted", "rejected", "cancelled"] | None, Query()
+    ] = None,
     stale_only: bool = False,
 ) -> AdminAssignmentPage:
     return list_admin_assignments(
@@ -60,7 +83,7 @@ def get_assignments(
         search=search,
         status=status,
         stale_only=stale_only,
-        stale_days=settings.admin_stale_invitation_days,
+        stale_days=system_settings(session).stale_invitation_days,
     )
 
 
