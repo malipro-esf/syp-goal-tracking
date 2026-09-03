@@ -133,3 +133,43 @@ class AdminSystemSettings(BaseModel):
     stale_invitation_days: int = Field(ge=1, le=365)
     profile_photo_max_mb: int = Field(ge=1, le=10)
     automatic_plan_completion_enabled: bool
+
+
+class AdminReportTotals(BaseModel):
+    new_users: int
+    new_plans: int
+    activity_entries: int
+    active_participants: int
+    completed_plans: int
+    accepted_invitations: int
+
+
+class AdminReportTrendPoint(BaseModel):
+    date: date
+    users: int
+    plans: int
+    entries: int
+
+
+class AdminReportBreakdown(BaseModel):
+    label: str
+    count: int
+
+
+class AdminCoachPerformance(BaseModel):
+    coach_id: uuid.UUID
+    coach_name: str
+    coach_email: str
+    participants: int
+    plans: int
+    activity_entries: int
+
+
+class AdminAnalyticsReport(BaseModel):
+    start_date: date
+    end_date: date
+    totals: AdminReportTotals
+    trend: list[AdminReportTrendPoint]
+    countries: list[AdminReportBreakdown]
+    roles: list[AdminReportBreakdown]
+    coaches: list[AdminCoachPerformance]
