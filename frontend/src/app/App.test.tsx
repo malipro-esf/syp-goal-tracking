@@ -160,8 +160,13 @@ test('updates the signed-in user profile and preferred language', async () => {
   const user = { id: '1', email: 'learner@example.com', display_name: 'Learner', bio: null, timezone: 'UTC', preferred_language: 'en' as const, gender: null, gender_theme_enabled: false, roles: ['participant'] }
   const updated = { ...user, display_name: 'زبان‌آموز', bio: 'IELTS learner', timezone: 'Europe/Bucharest', preferred_language: 'fa' as const, gender: 'woman' as const, gender_theme_enabled: true }
   const fetchMock = vi.spyOn(globalThis, 'fetch')
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ access_token: 'token', token_type: 'bearer', user }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  fetchMock.mockImplementation(async (input, init) => {
+    const url = String(input)
+    if (url.endsWith('/auth/refresh')) return new Response(JSON.stringify({ access_token: 'token', token_type: 'bearer', user }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/notifications/unread-count')) return new Response(JSON.stringify({ unread: 0 }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/users/me') && init?.method === 'PATCH') return new Response(JSON.stringify(updated), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    return new Response('{}', { status: 404 })
+  })
 
   const view = renderApp('/settings/profile')
   expect(await screen.findByRole('heading', { name: 'Profile and settings' })).toBeInTheDocument()
@@ -177,21 +182,27 @@ test('updates the signed-in user profile and preferred language', async () => {
   expect(await screen.findByRole('heading', { name: 'پروفایل و تنظیمات' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('dir', 'rtl')
   expect(document.documentElement).toHaveAttribute('data-appearance', 'woman')
-  expect(fetchMock).toHaveBeenLastCalledWith('/api/v1/users/me', expect.objectContaining({ method: 'PATCH' }))
+  expect(fetchMock).toHaveBeenCalledWith('/api/v1/users/me', expect.objectContaining({ method: 'PATCH' }))
 })
 
 test('logs in and displays the protected dashboard', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch')
-  fetchMock.mockResolvedValueOnce(new Response('{}', { status: 401 }))
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
-    access_token: 'access-token',
-    token_type: 'bearer',
-    user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
-  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
+  const plans = [{
     id: 'plan-1', title: 'Learn Python', description: null, status: 'active',
     start_date: null, end_date: null, created_at: '2026-08-20T00:00:00Z', updated_at: '2026-08-24T00:00:00Z',
-  }]), { status: 200, headers: { 'Content-Type': 'application/json' } }))
+  }]
+  fetchMock.mockImplementation(async (input, init) => {
+    const url = String(input)
+    if (url.endsWith('/auth/refresh')) return new Response('{}', { status: 401 })
+    if (url.endsWith('/auth/login') && init?.method === 'POST') return new Response(JSON.stringify({
+      access_token: 'access-token', token_type: 'bearer',
+      user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/notifications/unread-count')) return new Response(JSON.stringify({ unread: 0 }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/coaching/invitations')) return new Response('[]', { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/plans')) return new Response(JSON.stringify(plans), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    return new Response('{}', { status: 404 })
+  })
 
   renderApp('/login')
   const submit = await screen.findByRole('button', { name: 'Sign in' })
@@ -210,10 +221,6 @@ test('logs in and displays the protected dashboard', async () => {
   expect(await screen.findByRole('heading', { name: /Turn your effort into visible progress/i })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Sign out' })).toBeInTheDocument()
   expect(screen.queryByRole('link', { name: 'Sign in' })).not.toBeInTheDocument()
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify([{
-    id: 'plan-1', title: 'Learn Python', description: null, status: 'active',
-    start_date: null, end_date: null, created_at: '2026-08-20T00:00:00Z', updated_at: '2026-08-24T00:00:00Z',
-  }]), { status: 200, headers: { 'Content-Type': 'application/json' } }))
   fireEvent.click(screen.getByRole('link', { name: 'Dashboard' }))
   expect(await screen.findByRole('heading', { name: 'Hello, SYP Learner' })).toBeInTheDocument()
 
@@ -240,15 +247,16 @@ test('shows and hides the password from the login form', async () => {
 
 test('shows the personal plan workspace for an authenticated user', async () => {
   const fetchMock = vi.spyOn(globalThis, 'fetch')
-  fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
-    access_token: 'access-token',
-    token_type: 'bearer',
-    user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
-  }), { status: 200, headers: { 'Content-Type': 'application/json' } }))
-  fetchMock.mockResolvedValueOnce(new Response('[]', {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  }))
+  fetchMock.mockImplementation(async (input) => {
+    const url = String(input)
+    if (url.endsWith('/auth/refresh')) return new Response(JSON.stringify({
+      access_token: 'access-token', token_type: 'bearer',
+      user: { id: '1', email: 'learner@example.com', display_name: 'SYP Learner', roles: ['participant'] },
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/notifications/unread-count')) return new Response(JSON.stringify({ unread: 0 }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    if (url.endsWith('/plans')) return new Response('[]', { status: 200, headers: { 'Content-Type': 'application/json' } })
+    return new Response('{}', { status: 404 })
+  })
 
   renderApp('/plans')
 

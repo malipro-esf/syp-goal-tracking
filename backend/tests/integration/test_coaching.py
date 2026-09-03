@@ -85,12 +85,29 @@ def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> 
         headers=auth(coach),
         json={"participant_email": "learner@example.com", "start_date": "2026-08-24"},
     )
+    participant_notifications = api_client.get("/api/v1/notifications", headers=auth(participant))
+    assert participant_notifications.status_code == 200
+    assert participant_notifications.json()["unread"] == 1
+    assert participant_notifications.json()["items"][0]["kind"] == "invitation_received"
+
     assignment_id = sent.json()["id"]
     accepted = api_client.post(
         f"/api/v1/coaching/invitations/{assignment_id}/accept",
         headers=auth(participant),
     )
     assert accepted.status_code == 200
+    coach_notifications = api_client.get("/api/v1/notifications", headers=auth(coach))
+    assert coach_notifications.status_code == 200
+    assert coach_notifications.json()["unread"] == 1
+    assert coach_notifications.json()["items"][0]["kind"] == "invitation_accepted"
+    marked = api_client.post(
+        f"/api/v1/notifications/{coach_notifications.json()['items'][0]['id']}/read",
+        headers=auth(coach),
+    )
+    assert marked.status_code == 204
+    unread = api_client.get("/api/v1/notifications/unread-count", headers=auth(coach))
+    assert unread.json()["unread"] == 0
+
     enrollment_id = accepted.json()["enrollment_id"]
     plan = api_client.get(f"/api/v1/plans/{enrollment_id}", headers=auth(participant))
     assert plan.json()["end_date"] == "2026-09-24"
