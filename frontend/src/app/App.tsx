@@ -20,6 +20,7 @@ import { HowItWorksPage } from './HowItWorksPage'
 import { FeaturesPage } from './FeaturesPage'
 import { ForCoachesPage } from './ForCoachesPage'
 import { RouteSeo } from './RouteSeo'
+import { NotificationsPage } from '../features/notifications/NotificationsPage'
 import './app.css'
 
 export function App() {
@@ -41,6 +42,7 @@ export function App() {
         <Route path="/admin/settings" element={<AdminSettingsPage />} />
         <Route path="/admin/reports" element={<AdminReportsPage />} />
         <Route path="/settings/profile" element={<ProfileSettingsPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/plans" element={<PlanListPage />} />
         <Route path="/plans/:planId" element={<PlanDetailPage />} />
         <Route path="/coaching" element={<CoachingPage />} />

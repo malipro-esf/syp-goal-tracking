@@ -20,6 +20,7 @@ from syp.coaching.schemas import (
 from syp.core.exceptions import ApplicationError
 from syp.identity.models import Role, User, UserRole
 from syp.identity.service import normalize_email
+from syp.notifications.service import create_notification
 from syp.plans.models import PlanEnrollment, PlanStatusEvent
 
 
@@ -218,6 +219,15 @@ def assign_template(
         end_date=end_date,
     )
     session.add(assignment)
+    coach = session.get(User, coach_id)
+    create_notification(
+        session,
+        user_id=participant.id,
+        kind="invitation_received",
+        title="New plan invitation",
+        message=f"{coach.display_name if coach else 'A coach'} invited you to {template.title}.",
+        action_url="/coaching",
+    )
     session.commit()
     session.refresh(assignment)
     return _assignment_response(session, assignment)
@@ -264,10 +274,22 @@ def respond_to_assignment(
         )
     assignment.status = "accepted" if accept else "rejected"
     assignment.responded_at = datetime.now(UTC)
+    template = session.get(PlanTemplate, assignment.template_id)
+    participant = session.get(User, participant_id)
+    if template is None:
+        raise RuntimeError("Assignment plan template is missing.")
+    create_notification(
+        session,
+        user_id=assignment.assigned_by_user_id,
+        kind="invitation_accepted" if accept else "invitation_rejected",
+        title="Plan invitation accepted" if accept else "Plan invitation declined",
+        message=(
+            f"{participant.display_name if participant else 'The participant'} "
+            f"{'accepted' if accept else 'declined'} {template.title}."
+        ),
+        action_url="/coach/participants" if accept else "/coaching",
+    )
     if accept:
-        template = session.get(PlanTemplate, assignment.template_id)
-        if template is None:
-            raise RuntimeError("Assignment plan template is missing.")
         plan = PlanEnrollment(
             participant_user_id=participant_id,
             created_by_user_id=assignment.assigned_by_user_id,
