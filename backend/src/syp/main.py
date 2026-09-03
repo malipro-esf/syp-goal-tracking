@@ -10,22 +10,36 @@ from syp.api.v1.router import api_router
 from syp.core.config import get_settings
 from syp.core.database import SessionLocal
 from syp.core.logging import configure_logging
+from syp.notifications.reminders import run_reminder_scheduler
 from syp.plans.expiration import run_plan_completion_scheduler, stop_scheduler
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
-    scheduler: asyncio.Task[None] | None = None
+    schedulers: list[asyncio.Task[None]] = []
     if settings.automatic_plan_completion_enabled:
-        scheduler = asyncio.create_task(
-            run_plan_completion_scheduler(
-                SessionLocal,
-                settings.automatic_plan_completion_interval_seconds,
+        schedulers.append(
+            asyncio.create_task(
+                run_plan_completion_scheduler(
+                    SessionLocal,
+                    settings.automatic_plan_completion_interval_seconds,
+                )
+            )
+        )
+    if settings.automated_reminders_enabled:
+        schedulers.append(
+            asyncio.create_task(
+                run_reminder_scheduler(
+                    SessionLocal,
+                    settings.automated_reminders_interval_seconds,
+                    plan_ending_days=settings.plan_ending_reminder_days,
+                    stale_invitation_days=settings.stale_invitation_reminder_days,
+                )
             )
         )
     yield
-    if scheduler is not None:
+    for scheduler in schedulers:
         await stop_scheduler(scheduler)
 
 
