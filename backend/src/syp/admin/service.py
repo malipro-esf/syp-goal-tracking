@@ -6,7 +6,7 @@ from sqlalchemy import func, or_, select, update
 from sqlalchemy.orm import Session, aliased
 
 from syp.activities.models import EnrollmentActivity
-from syp.admin.models import AdminAuditLog
+from syp.admin.models import AdminAuditLog, SystemConfiguration
 from syp.admin.schemas import (
     AdminAssignmentPage,
     AdminAssignmentSummary,
@@ -18,6 +18,7 @@ from syp.admin.schemas import (
     AdminPlanDetail,
     AdminPlanPage,
     AdminPlanSummary,
+    AdminSystemSettings,
     AdminUserPage,
     AdminUserSummary,
 )
@@ -302,6 +303,89 @@ def list_admin_assignments(
         page=page,
         page_size=page_size,
         stale_after_days=stale_days,
+    )
+
+
+def get_system_configuration(session: Session) -> SystemConfiguration:
+    configuration = session.get(SystemConfiguration, 1)
+    if configuration is None:
+        configuration = SystemConfiguration(id=1)
+        session.add(configuration)
+        session.flush()
+    return configuration
+
+
+def system_settings(session: Session) -> AdminSystemSettings:
+    configuration = get_system_configuration(session)
+    return AdminSystemSettings.model_validate(configuration.__dict__)
+
+
+def update_system_settings(
+    session: Session, admin: User, payload: AdminSystemSettings
+) -> AdminSystemSettings:
+    configuration = get_system_configuration(session)
+    before = system_settings(session).model_dump()
+    for field, value in payload.model_dump().items():
+        setattr(configuration, field, value)
+    session.add(
+        AdminAuditLog(
+            admin_user_id=admin.id,
+            action="system_settings_changed",
+            changes={"before": before, "after": payload.model_dump()},
+        )
+    )
+    session.commit()
+    return system_settings(session)
+
+
+def cancel_assignment(
+    session: Session, admin: User, assignment_id: uuid.UUID
+) -> AdminAssignmentSummary:
+    assignment = session.get(PlanAssignment, assignment_id)
+    if assignment is None:
+        raise ApplicationError(
+            code="assignment_not_found", message="Invitation was not found.", status_code=404
+        )
+    if assignment.status != "pending":
+        raise ApplicationError(
+            code="assignment_not_pending",
+            message="Only pending invitations can be cancelled.",
+            status_code=409,
+        )
+    assignment.status = "cancelled"
+    assignment.responded_at = datetime.now(UTC)
+    session.add(
+        AdminAuditLog(
+            admin_user_id=admin.id,
+            target_user_id=assignment.participant_user_id,
+            action="invitation_cancelled",
+            changes={
+                "assignment_id": str(assignment.id),
+                "before": "pending",
+                "after": "cancelled",
+            },
+        )
+    )
+    session.commit()
+    participant = session.get(User, assignment.participant_user_id)
+    coach = session.get(User, assignment.assigned_by_user_id)
+    template = session.get(PlanTemplate, assignment.template_id)
+    if participant is None or coach is None or template is None:
+        raise RuntimeError("Assignment references are missing.")
+    return AdminAssignmentSummary(
+        id=assignment.id,
+        template_title=template.title,
+        participant_name=participant.display_name,
+        participant_email=participant.email,
+        coach_name=coach.display_name,
+        coach_email=coach.email,
+        status=assignment.status,
+        start_date=assignment.start_date,
+        end_date=assignment.end_date,
+        created_at=assignment.created_at,
+        responded_at=assignment.responded_at,
+        pending_days=None,
+        is_stale=False,
     )
 
 

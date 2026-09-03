@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request, Response, status
 
+from syp.admin.service import get_system_configuration
 from syp.api.dependencies import AppSettings, DatabaseSession
 from syp.core.exceptions import ApplicationError
 from syp.identity.schemas import AuthResponse, LoginRequest, RegistrationRequest
@@ -42,6 +43,12 @@ def register(
     session: DatabaseSession,
     settings: AppSettings,
 ) -> AuthResponse:
+    if not get_system_configuration(session).registration_enabled:
+        raise ApplicationError(
+            code="registration_disabled",
+            message="New account registration is currently disabled.",
+            status_code=403,
+        )
     result = register_user(session, payload, settings)
     _set_refresh_cookie(response, result.refresh_token, settings)
     return _auth_response(result, settings)

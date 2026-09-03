@@ -113,8 +113,25 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
         == 409
     )
 
+    settings = api_client.get("/api/v1/admin/settings", headers=headers)
+    assert settings.status_code == 200
+    assert settings.json()["stale_invitation_days"] == 7
+    updated_settings = api_client.put(
+        "/api/v1/admin/settings",
+        headers=headers,
+        json={
+            "registration_enabled": True,
+            "stale_invitation_days": 14,
+            "profile_photo_max_mb": 3,
+            "automatic_plan_completion_enabled": False,
+        },
+    )
+    assert updated_settings.status_code == 200
+    assert updated_settings.json()["stale_invitation_days"] == 14
+    assert updated_settings.json()["profile_photo_max_mb"] == 3
+
     audit = api_client.get("/api/v1/admin/audit-log", headers=headers)
     assert audit.status_code == 200
-    assert audit.json()["total"] == 3
-    assert audit.json()["items"][0]["action"] == "user_status_changed"
+    assert audit.json()["total"] == 4
+    assert audit.json()["items"][0]["action"] == "system_settings_changed"
     assert any(item["action"] == "plan_status_changed" for item in audit.json()["items"])

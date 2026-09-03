@@ -70,7 +70,8 @@ class PlanAssignment(Base):
     __tablename__ = "plan_assignments"
     __table_args__ = (
         CheckConstraint(
-            "status IN ('pending','accepted','rejected')", name="ck_plan_assignment_status"
+            "status IN ('pending','accepted','rejected','cancelled')",
+            name="ck_plan_assignment_status",
         ),
     )
 
