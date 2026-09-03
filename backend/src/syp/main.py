@@ -4,7 +4,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from syp.admin.service import get_system_configuration
 from syp.api.errors import register_exception_handlers
 from syp.api.middleware import request_logging_middleware
 from syp.api.v1.router import api_router
@@ -18,11 +17,7 @@ from syp.plans.expiration import run_plan_completion_scheduler, stop_scheduler
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
     scheduler: asyncio.Task[None] | None = None
-    with SessionLocal() as session:
-        automatic_completion_enabled = get_system_configuration(
-            session
-        ).automatic_plan_completion_enabled
-    if settings.automatic_plan_completion_enabled and automatic_completion_enabled:
+    if settings.automatic_plan_completion_enabled:
         scheduler = asyncio.create_task(
             run_plan_completion_scheduler(
                 SessionLocal,
