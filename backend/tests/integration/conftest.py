@@ -54,6 +54,7 @@ def api_client(migrated_test_engine: Engine) -> Generator[TestClient]:
     with migrated_test_engine.begin() as connection:
         connection.execute(text("DELETE FROM admin_audit_logs"))
         connection.execute(text("DELETE FROM notifications"))
+        connection.execute(text("DELETE FROM notification_preferences"))
         connection.execute(text("DELETE FROM system_configuration"))
         connection.execute(text("INSERT INTO system_configuration (id) VALUES (1)"))
         connection.execute(text("DELETE FROM agent_tool_calls"))

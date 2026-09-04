@@ -24,3 +24,8 @@ class NotificationPage(BaseModel):
 
 class UnreadNotificationCount(BaseModel):
     unread: int
+
+
+class NotificationPreferences(BaseModel):
+    invitation_updates_enabled: bool = True
+    automated_reminders_enabled: bool = True

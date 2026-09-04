@@ -81,6 +81,33 @@ def test_assignment_inherits_template_default_dates(api_client: TestClient) -> N
     assert sent.json()["end_date"] == "2026-10-07"
 
 
+def test_notification_preferences_suppress_disabled_categories(api_client: TestClient) -> None:
+    coach = register(api_client, "preferences-coach@example.com", "coach")
+    participant = register(api_client, "preferences-learner@example.com", "participant")
+    preferences = api_client.put(
+        "/api/v1/notifications/preferences",
+        headers=auth(participant),
+        json={
+            "invitation_updates_enabled": False,
+            "automated_reminders_enabled": True,
+        },
+    )
+    assert preferences.status_code == 200
+    assert preferences.json()["invitation_updates_enabled"] is False
+    template_id = create_template_with_activity(api_client, coach)
+    sent = api_client.post(
+        f"/api/v1/coaching/templates/{template_id}/assignments",
+        headers=auth(coach),
+        json={
+            "participant_email": "preferences-learner@example.com",
+            "start_date": "2026-09-04",
+        },
+    )
+    assert sent.status_code == 201
+    notifications = api_client.get("/api/v1/notifications", headers=auth(participant))
+    assert notifications.json()["total"] == 0
+
+
 def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> None:
     coach = register(api_client, "coach@example.com", "coach")
     participant = register(api_client, "learner@example.com", "participant")

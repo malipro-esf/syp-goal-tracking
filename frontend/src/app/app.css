@@ -945,6 +945,9 @@ html[data-appearance] .plan-row-icon {
 .notifications-page { max-width: 64rem; padding-top: 3rem; padding-bottom: 5rem; }
 .notifications-page > .section-heading { align-items: end; margin-bottom: 1rem; }
 .notification-filter { width: max-content; margin-bottom: 1.25rem; }
+.notification-preferences { display: grid; gap: .9rem; margin-bottom: 1.25rem; }
+.notification-preferences h2, .notification-preferences p { margin: 0; }
+.notification-preferences button { width: max-content; }
 .notification-list { display: grid; gap: .8rem; }
 .notification-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem; align-items: center; }
 .notification-item.unread { border-color: var(--primary); box-shadow: inset 4px 0 0 var(--primary); }
