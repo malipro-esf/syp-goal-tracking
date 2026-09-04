@@ -771,10 +771,33 @@ def change_user_roles(
     return get_admin_user(session, user.id)
 
 
-def list_audit_log(session: Session, *, page: int, page_size: int) -> AdminAuditPage:
-    total = session.scalar(select(func.count()).select_from(AdminAuditLog)) or 0
+def list_audit_log(
+    session: Session,
+    *,
+    page: int,
+    page_size: int,
+    search: str | None = None,
+    action: str | None = None,
+) -> AdminAuditPage:
+    filters = []
+    if action:
+        filters.append(AdminAuditLog.action == action)
+    if search:
+        term = f"%{search.strip()}%"
+        matching_users = select(User.id).where(
+            or_(User.display_name.ilike(term), User.email.ilike(term))
+        )
+        filters.append(
+            or_(
+                AdminAuditLog.action.ilike(term),
+                AdminAuditLog.admin_user_id.in_(matching_users),
+                AdminAuditLog.target_user_id.in_(matching_users),
+            )
+        )
+    total = session.scalar(select(func.count()).select_from(AdminAuditLog).where(*filters)) or 0
     rows = session.scalars(
         select(AdminAuditLog)
+        .where(*filters)
         .order_by(AdminAuditLog.created_at.desc())
         .offset((page - 1) * page_size)
         .limit(page_size)

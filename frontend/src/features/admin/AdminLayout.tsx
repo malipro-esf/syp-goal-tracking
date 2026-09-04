@@ -29,7 +29,7 @@ export function AdminLayout({
         <Link className={active === 'plans' ? 'active' : ''} to="/admin/plans"><ClipboardList aria-hidden="true" />Plans</Link>
         <Link className={active === 'assignments' ? 'active' : ''} to="/admin/assignments"><Mail aria-hidden="true" />Invitations</Link>
         <Link className={active === 'reports' ? 'active' : ''} to="/admin/reports"><BarChart3 aria-hidden="true" />Reports</Link>
-        <Link className={active === 'audit' ? 'active' : ''} to="/admin#audit"><Activity aria-hidden="true" />Audit log</Link>
+        <Link className={active === 'audit' ? 'active' : ''} to="/admin/audit"><Activity aria-hidden="true" />Audit log</Link>
         <Link className={active === 'settings' ? 'active' : ''} to="/admin/settings"><Settings aria-hidden="true" />System settings</Link>
       </nav>
     </aside>

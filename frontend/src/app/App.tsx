@@ -6,6 +6,7 @@ import { AdminUsersPage } from '../features/admin/AdminUsersPage'
 import { AdminPlanPage } from '../features/admin/AdminPlanPage'
 import { AdminPlansPage } from '../features/admin/AdminPlansPage'
 import { AdminAssignmentsPage } from '../features/admin/AdminAssignmentsPage'
+import { AdminAuditPage } from '../features/admin/AdminAuditPage'
 import { AdminSettingsPage } from '../features/admin/AdminSettingsPage'
 import { AdminReportsPage } from '../features/admin/AdminReportsPage'
 import { DashboardPage } from '../features/auth/DashboardPage'
@@ -41,6 +42,7 @@ export function App() {
         <Route path="/admin/plans" element={<AdminPlansPage />} />
         <Route path="/admin/plans/:planId" element={<AdminPlanPage />} />
         <Route path="/admin/assignments" element={<AdminAssignmentsPage />} />
+        <Route path="/admin/audit" element={<AdminAuditPage />} />
         <Route path="/admin/settings" element={<AdminSettingsPage />} />
         <Route path="/admin/reports" element={<AdminReportsPage />} />
         <Route path="/settings/profile" element={<ProfileSettingsPage />} />
