@@ -44,7 +44,7 @@ def _add_once(
     )
     if exists is not None:
         return False
-    create_notification(
+    notification = create_notification(
         session,
         user_id=user_id,
         kind=kind,
@@ -53,7 +53,7 @@ def _add_once(
         action_url=action_url,
         dedupe_key=dedupe_key,
     )
-    return True
+    return notification is not None
 
 
 def generate_automated_reminders(

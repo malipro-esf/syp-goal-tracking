@@ -4,8 +4,18 @@ from typing import Annotated
 from fastapi import APIRouter, Query, Response
 
 from syp.api.dependencies import CurrentUser, DatabaseSession
-from syp.notifications.schemas import NotificationPage, UnreadNotificationCount
-from syp.notifications.service import list_notifications, mark_all_read, mark_read
+from syp.notifications.schemas import (
+    NotificationPage,
+    NotificationPreferences,
+    UnreadNotificationCount,
+)
+from syp.notifications.service import (
+    get_preferences,
+    list_notifications,
+    mark_all_read,
+    mark_read,
+    update_preferences,
+)
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
 
@@ -33,6 +43,20 @@ def unread_count(session: DatabaseSession, current_user: CurrentUser) -> UnreadN
 def read_all(session: DatabaseSession, current_user: CurrentUser) -> Response:
     mark_all_read(session, current_user.id)
     return Response(status_code=204)
+
+
+@router.get("/preferences", response_model=NotificationPreferences)
+def preferences(session: DatabaseSession, current_user: CurrentUser) -> NotificationPreferences:
+    return get_preferences(session, current_user.id)
+
+
+@router.put("/preferences", response_model=NotificationPreferences)
+def put_preferences(
+    payload: NotificationPreferences,
+    session: DatabaseSession,
+    current_user: CurrentUser,
+) -> NotificationPreferences:
+    return update_preferences(session, current_user.id, payload)
 
 
 @router.post("/{notification_id}/read", status_code=204)

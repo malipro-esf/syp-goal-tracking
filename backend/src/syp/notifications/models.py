@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     DateTime,
     ForeignKey,
@@ -39,3 +40,16 @@ class Notification(Base):
     dedupe_key: Mapped[str | None] = mapped_column(String(200))
     read_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class NotificationPreference(Base):
+    __tablename__ = "notification_preferences"
+
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    invitation_updates_enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    automated_reminders_enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )

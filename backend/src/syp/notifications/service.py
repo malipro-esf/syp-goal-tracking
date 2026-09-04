@@ -5,8 +5,15 @@ from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
 from syp.core.exceptions import ApplicationError
-from syp.notifications.models import Notification
-from syp.notifications.schemas import NotificationPage, NotificationResponse
+from syp.notifications.models import Notification, NotificationPreference
+from syp.notifications.schemas import (
+    NotificationPage,
+    NotificationPreferences,
+    NotificationResponse,
+)
+
+INVITATION_KINDS = {"invitation_received", "invitation_accepted", "invitation_rejected"}
+REMINDER_KINDS = {"plan_ending", "stale_invitation"}
 
 
 def create_notification(
@@ -18,7 +25,13 @@ def create_notification(
     message: str,
     action_url: str | None = None,
     dedupe_key: str | None = None,
-) -> Notification:
+) -> Notification | None:
+    preferences = session.get(NotificationPreference, user_id)
+    if preferences is not None:
+        if kind in INVITATION_KINDS and not preferences.invitation_updates_enabled:
+            return None
+        if kind in REMINDER_KINDS and not preferences.automated_reminders_enabled:
+            return None
     notification = Notification(
         user_id=user_id,
         kind=kind,
@@ -29,6 +42,26 @@ def create_notification(
     )
     session.add(notification)
     return notification
+
+
+def get_preferences(session: Session, user_id: uuid.UUID) -> NotificationPreferences:
+    stored = session.get(NotificationPreference, user_id)
+    if stored is None:
+        return NotificationPreferences()
+    return NotificationPreferences.model_validate(stored.__dict__)
+
+
+def update_preferences(
+    session: Session, user_id: uuid.UUID, payload: NotificationPreferences
+) -> NotificationPreferences:
+    stored = session.get(NotificationPreference, user_id)
+    if stored is None:
+        stored = NotificationPreference(user_id=user_id)
+        session.add(stored)
+    stored.invitation_updates_enabled = payload.invitation_updates_enabled
+    stored.automated_reminders_enabled = payload.automated_reminders_enabled
+    session.commit()
+    return get_preferences(session, user_id)
 
 
 def list_notifications(
