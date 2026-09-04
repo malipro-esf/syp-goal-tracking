@@ -609,11 +609,23 @@ def cancel_assignment(
     )
 
 
-def list_users(session: Session, *, page: int, page_size: int, search: str | None) -> AdminUserPage:
+def list_users(
+    session: Session,
+    *,
+    page: int,
+    page_size: int,
+    search: str | None,
+    status: str | None = None,
+    role: str | None = None,
+) -> AdminUserPage:
     filters = []
     if search:
         term = f"%{search.strip()}%"
         filters.append(or_(User.display_name.ilike(term), User.email.ilike(term)))
+    if status:
+        filters.append(User.status == status)
+    if role:
+        filters.append(User.id.in_(select(UserRole.user_id).join(Role).where(Role.code == role)))
     total = session.scalar(select(func.count()).select_from(User).where(*filters)) or 0
     users = session.scalars(
         select(User)
