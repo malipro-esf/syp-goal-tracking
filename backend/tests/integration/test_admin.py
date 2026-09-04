@@ -158,3 +158,14 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     assert audit.json()["total"] == 4
     assert audit.json()["items"][0]["action"] == "system_settings_changed"
     assert any(item["action"] == "plan_status_changed" for item in audit.json()["items"])
+    status_audit = api_client.get(
+        "/api/v1/admin/audit-log?action=user_status_changed", headers=headers
+    )
+    assert status_audit.status_code == 200
+    assert status_audit.json()["total"] == 1
+    assert status_audit.json()["items"][0]["action"] == "user_status_changed"
+    searched_audit = api_client.get(
+        "/api/v1/admin/audit-log?search=participant%40example.com", headers=headers
+    )
+    assert searched_audit.status_code == 200
+    assert searched_audit.json()["total"] >= 2

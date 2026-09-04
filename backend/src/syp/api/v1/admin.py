@@ -208,5 +208,7 @@ def get_audit_log(
     session: DatabaseSession,
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 25,
+    search: Annotated[str | None, Query(max_length=100)] = None,
+    action: Annotated[str | None, Query(max_length=60)] = None,
 ) -> AdminAuditPage:
-    return list_audit_log(session, page=page, page_size=page_size)
+    return list_audit_log(session, page=page, page_size=page_size, search=search, action=action)
