@@ -25,7 +25,7 @@ export function AdminLayout({
       <div className="sidebar-plan"><small>Administration workspace</small><strong>{user?.display_name}</strong><span>Administrator</span></div>
       <nav className="admin-nav" aria-label="Administration navigation">
         <Link className={active === 'overview' ? 'active' : ''} to="/admin"><LayoutDashboard aria-hidden="true" />Overview</Link>
-        <Link className={active === 'users' ? 'active' : ''} to="/admin#users"><Users aria-hidden="true" />Users</Link>
+        <Link className={active === 'users' ? 'active' : ''} to="/admin/users"><Users aria-hidden="true" />Users</Link>
         <Link className={active === 'plans' ? 'active' : ''} to="/admin/plans"><ClipboardList aria-hidden="true" />Plans</Link>
         <Link className={active === 'assignments' ? 'active' : ''} to="/admin/assignments"><Mail aria-hidden="true" />Invitations</Link>
         <Link className={active === 'reports' ? 'active' : ''} to="/admin/reports"><BarChart3 aria-hidden="true" />Reports</Link>

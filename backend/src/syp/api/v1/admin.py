@@ -175,8 +175,12 @@ def get_users(
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 25,
     search: Annotated[str | None, Query(max_length=100)] = None,
+    status: Annotated[Literal["active", "disabled"] | None, Query()] = None,
+    role: Annotated[Literal["participant", "coach", "admin"] | None, Query()] = None,
 ) -> AdminUserPage:
-    return list_users(session, page=page, page_size=page_size, search=search)
+    return list_users(
+        session, page=page, page_size=page_size, search=search, status=status, role=role
+    )
 
 
 @router.get("/users/{user_id}", response_model=AdminUserSummary)

@@ -23,7 +23,7 @@ export function AdminUserPage() {
       .catch((caught: unknown) => setError(caught instanceof ApiError ? caught.message : 'User could not be loaded.'))
   }, [accessToken, isAdmin, userId])
   if (!isAdmin) return <Navigate to="/dashboard" replace />
-  if (!managedUser) return <main className="workspace-shell">{error || 'Loading user…'}</main>
+  if (!managedUser) return <AdminLayout active="users" title="User account" description="Loading account details…">{error ? <p className="form-error" role="alert">{error}</p> : <p>Loading user…</p>}</AdminLayout>
   const user = managedUser
   const headers = { Authorization: `Bearer ${accessToken}` }
   async function saveRoles() {
@@ -37,7 +37,7 @@ export function AdminUserPage() {
     try { const updated = await apiRequest<AdminUser>(`/api/v1/admin/users/${userId}/status`, { method: 'PATCH', headers, body: JSON.stringify({ status: next }) }); setManagedUser(updated); setMessage(`Account ${next}.`); setError('') }
     catch (caught) { setError(caught instanceof ApiError ? caught.message : 'Status could not be updated.') }
   }
-  return <AdminLayout active="users" title={user.display_name} description={user.email}><div className="admin-user-page"><Link to="/admin#users">← Back to users</Link>{message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
+  return <AdminLayout active="users" title={user.display_name} description={user.email}><div className="admin-user-page"><Link to="/admin/users">← Back to users</Link>{message && <p className="form-success" role="status">{message}</p>}{error && <p className="form-error" role="alert">{error}</p>}
     <section className="card"><h2>Account status</h2><p><span className="status-badge">{user.status}</span></p><button type="button" className="secondary-button" onClick={toggleStatus}>{user.status === 'active' ? 'Disable account' : 'Enable account'}</button></section>
     <section className="card"><h2>Roles</h2><fieldset className="admin-role-list"><legend>Assigned roles</legend>{availableRoles.map((role) => <label className="checkbox-label" key={role}><input type="checkbox" checked={roles.includes(role)} onChange={(event) => setRoles((current) => event.target.checked ? [...current, role] : current.filter((item) => item !== role))} />{role}</label>)}</fieldset><button type="button" onClick={saveRoles}>Save roles</button></section>
   </div></AdminLayout>

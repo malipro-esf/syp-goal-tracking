@@ -110,6 +110,12 @@ def test_admin_endpoints_require_role_and_return_metrics_and_users(
     )
     assert disabled.status_code == 200
     assert disabled.json()["status"] == "disabled"
+    filtered_users = api_client.get(
+        "/api/v1/admin/users?role=coach&status=disabled", headers=headers
+    )
+    assert filtered_users.status_code == 200
+    assert filtered_users.json()["total"] == 1
+    assert filtered_users.json()["items"][0]["id"] == participant_id
     assert api_client.get("/api/v1/users/me", headers=participant_headers).status_code == 401
 
     admin_id = admin["user"]["id"]

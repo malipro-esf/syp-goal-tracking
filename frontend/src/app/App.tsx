@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthForm } from '../features/auth/AuthForm'
 import { AdminPage } from '../features/admin/AdminPage'
 import { AdminUserPage } from '../features/admin/AdminUserPage'
+import { AdminUsersPage } from '../features/admin/AdminUsersPage'
 import { AdminPlanPage } from '../features/admin/AdminPlanPage'
 import { AdminPlansPage } from '../features/admin/AdminPlansPage'
 import { AdminAssignmentsPage } from '../features/admin/AdminAssignmentsPage'
@@ -35,6 +36,7 @@ export function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
         <Route path="/admin/users/:userId" element={<AdminUserPage />} />
         <Route path="/admin/plans" element={<AdminPlansPage />} />
         <Route path="/admin/plans/:planId" element={<AdminPlanPage />} />
