@@ -108,6 +108,53 @@ def test_notification_preferences_suppress_disabled_categories(api_client: TestC
     assert notifications.json()["total"] == 0
 
 
+def test_notifications_can_be_filtered_and_deleted_only_by_their_owner(
+    api_client: TestClient,
+) -> None:
+    coach = register(api_client, "feed-coach@example.com", "coach")
+    participant = register(api_client, "feed-learner@example.com", "participant")
+    stranger = register(api_client, "feed-stranger@example.com", "participant")
+    template_id = create_template_with_activity(api_client, coach)
+
+    sent = api_client.post(
+        f"/api/v1/coaching/templates/{template_id}/assignments",
+        headers=auth(coach),
+        json={"participant_email": "feed-learner@example.com", "start_date": "2026-09-04"},
+    )
+    assert sent.status_code == 201
+
+    invitations = api_client.get(
+        "/api/v1/notifications?category=invitations&page=1&page_size=10",
+        headers=auth(participant),
+    )
+    assert invitations.status_code == 200
+    assert invitations.json()["total"] == 1
+    notification_id = invitations.json()["items"][0]["id"]
+    reminders = api_client.get(
+        "/api/v1/notifications?category=reminders", headers=auth(participant)
+    )
+    assert reminders.json()["total"] == 0
+
+    forbidden = api_client.delete(
+        f"/api/v1/notifications/{notification_id}", headers=auth(stranger)
+    )
+    assert forbidden.status_code == 404
+    deleted = api_client.delete(
+        f"/api/v1/notifications/{notification_id}", headers=auth(participant)
+    )
+    assert deleted.status_code == 204
+    assert api_client.get("/api/v1/notifications", headers=auth(participant)).json()["total"] == 0
+
+    api_client.post(
+        f"/api/v1/coaching/templates/{template_id}/assignments",
+        headers=auth(coach),
+        json={"participant_email": "feed-stranger@example.com", "start_date": "2026-09-04"},
+    )
+    cleared = api_client.delete("/api/v1/notifications", headers=auth(stranger))
+    assert cleared.status_code == 204
+    assert api_client.get("/api/v1/notifications", headers=auth(stranger)).json()["total"] == 0
+
+
 def test_acceptance_copies_an_independent_enrollment(api_client: TestClient) -> None:
     coach = register(api_client, "coach@example.com", "coach")
     participant = register(api_client, "learner@example.com", "participant")

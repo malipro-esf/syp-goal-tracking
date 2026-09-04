@@ -1,7 +1,7 @@
 import uuid
 from datetime import UTC, datetime
 
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import Session
 
 from syp.core.exceptions import ApplicationError
@@ -65,11 +65,21 @@ def update_preferences(
 
 
 def list_notifications(
-    session: Session, user_id: uuid.UUID, *, page: int, page_size: int, unread_only: bool
+    session: Session,
+    user_id: uuid.UUID,
+    *,
+    page: int,
+    page_size: int,
+    unread_only: bool,
+    category: str | None = None,
 ) -> NotificationPage:
     filters = [Notification.user_id == user_id]
     if unread_only:
         filters.append(Notification.read_at.is_(None))
+    if category == "invitations":
+        filters.append(Notification.kind.in_(INVITATION_KINDS))
+    elif category == "reminders":
+        filters.append(Notification.kind.in_(REMINDER_KINDS))
     total = session.scalar(select(func.count()).select_from(Notification).where(*filters)) or 0
     unread = (
         session.scalar(
@@ -116,4 +126,22 @@ def mark_all_read(session: Session, user_id: uuid.UUID) -> None:
         .where(Notification.user_id == user_id, Notification.read_at.is_(None))
         .values(read_at=datetime.now(UTC))
     )
+    session.commit()
+
+
+def delete_notification(session: Session, user_id: uuid.UUID, notification_id: uuid.UUID) -> None:
+    result = session.execute(
+        delete(Notification).where(
+            Notification.id == notification_id, Notification.user_id == user_id
+        )
+    )
+    if result.rowcount == 0:
+        raise ApplicationError(
+            code="notification_not_found", message="Notification was not found.", status_code=404
+        )
+    session.commit()
+
+
+def delete_all_notifications(session: Session, user_id: uuid.UUID) -> None:
+    session.execute(delete(Notification).where(Notification.user_id == user_id))
     session.commit()
