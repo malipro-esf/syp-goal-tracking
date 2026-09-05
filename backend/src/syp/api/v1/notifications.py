@@ -1,5 +1,5 @@
 import uuid
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Query, Response
 
@@ -10,6 +10,8 @@ from syp.notifications.schemas import (
     UnreadNotificationCount,
 )
 from syp.notifications.service import (
+    delete_all_notifications,
+    delete_notification,
     get_preferences,
     list_notifications,
     mark_all_read,
@@ -27,9 +29,15 @@ def notifications(
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 25,
     unread_only: bool = False,
+    category: Literal["invitations", "reminders"] | None = None,
 ) -> NotificationPage:
     return list_notifications(
-        session, current_user.id, page=page, page_size=page_size, unread_only=unread_only
+        session,
+        current_user.id,
+        page=page,
+        page_size=page_size,
+        unread_only=unread_only,
+        category=category,
     )
 
 
@@ -42,6 +50,12 @@ def unread_count(session: DatabaseSession, current_user: CurrentUser) -> UnreadN
 @router.post("/read-all", status_code=204)
 def read_all(session: DatabaseSession, current_user: CurrentUser) -> Response:
     mark_all_read(session, current_user.id)
+    return Response(status_code=204)
+
+
+@router.delete("", status_code=204)
+def delete_all(session: DatabaseSession, current_user: CurrentUser) -> Response:
+    delete_all_notifications(session, current_user.id)
     return Response(status_code=204)
 
 
@@ -64,4 +78,12 @@ def read_one(
     notification_id: uuid.UUID, session: DatabaseSession, current_user: CurrentUser
 ) -> Response:
     mark_read(session, current_user.id, notification_id)
+    return Response(status_code=204)
+
+
+@router.delete("/{notification_id}", status_code=204)
+def delete_one(
+    notification_id: uuid.UUID, session: DatabaseSession, current_user: CurrentUser
+) -> Response:
+    delete_notification(session, current_user.id, notification_id)
     return Response(status_code=204)

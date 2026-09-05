@@ -41,8 +41,65 @@ from syp.admin.service import (
 from syp.api.dependencies import CurrentAdmin, DatabaseSession
 from syp.core.exceptions import ApplicationError
 from syp.plans.domain import PlanStatus
+from syp.support.schemas import (
+    SupportCategory,
+    SupportRequestPage,
+    SupportRequestResponse,
+    SupportRequestUpdate,
+    SupportStatus,
+    UnreadSupportRequestCount,
+)
+from syp.support.service import (
+    list_support_requests,
+    mark_support_requests_viewed,
+    unread_support_request_count,
+    update_support_request,
+)
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+@router.get("/support-requests/unread-count", response_model=UnreadSupportRequestCount)
+def get_unread_support_request_count(
+    _: CurrentAdmin, session: DatabaseSession
+) -> UnreadSupportRequestCount:
+    return UnreadSupportRequestCount(unread=unread_support_request_count(session))
+
+
+@router.post("/support-requests/viewed", status_code=204)
+def view_support_requests(_: CurrentAdmin, session: DatabaseSession) -> Response:
+    mark_support_requests_viewed(session)
+    return Response(status_code=204)
+
+
+@router.get("/support-requests", response_model=SupportRequestPage)
+def get_support_requests(
+    _: CurrentAdmin,
+    session: DatabaseSession,
+    page: Annotated[int, Query(ge=1)] = 1,
+    page_size: Annotated[int, Query(ge=1, le=100)] = 25,
+    search: Annotated[str | None, Query(max_length=100)] = None,
+    status: SupportStatus | None = None,
+    category: SupportCategory | None = None,
+) -> SupportRequestPage:
+    return list_support_requests(
+        session,
+        page=page,
+        page_size=page_size,
+        search=search,
+        status=status,
+        category=category,
+    )
+
+
+@router.patch("/support-requests/{request_id}", response_model=SupportRequestResponse)
+def patch_support_request(
+    request_id: uuid.UUID,
+    payload: SupportRequestUpdate,
+    _: CurrentAdmin,
+    session: DatabaseSession,
+) -> SupportRequestResponse:
+    return update_support_request(session, request_id, payload)
 
 
 @router.get("/reports", response_model=AdminAnalyticsReport)
