@@ -23,6 +23,8 @@ import { FeaturesPage } from './FeaturesPage'
 import { ForCoachesPage } from './ForCoachesPage'
 import { RouteSeo } from './RouteSeo'
 import { NotificationsPage } from '../features/notifications/NotificationsPage'
+import { SupportPage } from '../features/support/SupportPage'
+import { AdminSupportPage } from '../features/admin/AdminSupportPage'
 import './app.css'
 
 export function App() {
@@ -34,6 +36,7 @@ export function App() {
       <Route path="/how-it-works" element={<HowItWorksPage />} />
       <Route path="/login" element={<AuthForm mode="login" />} />
       <Route path="/register" element={<AuthForm mode="register" />} />
+      <Route path="/support" element={<SupportPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />
@@ -45,6 +48,7 @@ export function App() {
         <Route path="/admin/audit" element={<AdminAuditPage />} />
         <Route path="/admin/settings" element={<AdminSettingsPage />} />
         <Route path="/admin/reports" element={<AdminReportsPage />} />
+        <Route path="/admin/support" element={<AdminSupportPage />} />
         <Route path="/settings/profile" element={<ProfileSettingsPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/plans" element={<PlanListPage />} />

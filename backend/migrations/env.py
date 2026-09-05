@@ -9,6 +9,7 @@ import syp.coaching.models  # noqa: F401
 import syp.identity.models  # noqa: F401
 import syp.plans.models  # noqa: F401
 import syp.progress.models  # noqa: F401
+import syp.support.models  # noqa: F401
 from syp.core.config import get_settings
 from syp.core.database import Base
 
