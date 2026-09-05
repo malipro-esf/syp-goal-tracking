@@ -850,5 +850,26 @@
       "feedbackSend": "Palautetta ei voitu jättää.",
       "ai": "Tekoälyvalmentaja on tilapäisesti poissa käytöstä."
     }
+  },
+  "trust": {
+    "eyebrow": "Luottamus ja läpinäkyvyys", "lastUpdated": "Päivitetty viimeksi 5. syyskuuta 2026", "sectionNavigation": "Sivun {{title}} osiot",
+    "footer": { "name": "Näe edistymisesi", "tagline": "Edistys ennen täydellisyyttä.", "navigation": "Alatunnisteen navigointi", "features": "Ominaisuudet", "support": "Tuki", "privacy": "Tietosuoja", "terms": "Ehdot", "cookies": "Evästeasetukset" },
+    "cookies": { "title": "Evästeasetukset", "description": "SYP käyttää välttämättömiä evästeitä turvalliseen kirjautumiseen. Valinnainen tallennus muistaa kielen ja ulkoasun. Emme käytä tällä hetkellä mainosevästeitä.", "essential": "Välttämätön tallennus (pakollinen)", "preferences": "Asetusten tallennus", "essentialOnly": "Vain välttämättömät", "save": "Tallenna asetukset" },
+    "privacy": { "title": "Tietosuojakäytäntö", "sections": {
+      "collection": { "title": "Keräämämme tiedot", "body": "Keräämme tilitietoja, kuten nimen, sähköpostin, roolit, kielen, aikavyöhykkeen, maan ja valinnaiset profiilitiedot. Tallennamme myös suunnitelmat, aktiviteetit, edistymisen, valmennuskutsut, palautteet, tukipyynnöt ja SYP:n tarvitsemat turvallisuustiedot.", "technical": "Tekniset tiedot voivat sisältää istunto- ja pyyntötunnisteita, aikaleimoja ja diagnostiikkalokeja. SYP ei käytä tällä hetkellä mainosseurantaa." },
+      "use": { "title": "Tietojen käyttö", "body": "Käytämme tietoja tileihin ja suunnitelmiin, edistymisen laskentaan, valmennukseen, turvallisuuteen, tukeen ja luotettavuuteen. Emme myy henkilötietoja." },
+      "coaching": { "title": "Valmentajat ja osallistujat", "body": "Kun liityt valmentajan hallinnoimaan suunnitelmaan, valmentaja näkee suunnitelman, kirjatut aktiviteetit, edistymisen ja palautteen. Osallistuja ei voi muuttaa suunnitelman asetuksia." },
+      "retention": { "title": "Tallennus ja säilytys", "body": "Tietoja säilytetään niin kauan kuin tiliä tai toimintatietoa tarvitaan. Turvallisuus-, tarkastus- ja tukitietoja voidaan säilyttää pidempään turvallisuuden, lain tai riitojen vuoksi." },
+      "choices": { "title": "Valintasi", "body": "Voit päivittää profiili- ja ilmoitusasetuksia SYP:ssä. Tilitietojen vienti ja poisto on suunniteltu tiliturvavaiheeseen. Ota siihen asti yhteyttä Tukeen tarkastusta, korjausta tai poistoa varten." },
+      "security": { "title": "Turvallisuus ja yhteystiedot", "body": "Käytämme pääsynhallintaa, salasanojen tiivistystä, istuntosuojausta ja hallinnollisia tarkastuslokeja. Täyttä turvallisuutta ei voi taata. Ilmoita huolista Tuki-sivulla." }
+    } },
+    "terms": { "title": "Käyttöehdot", "sections": {
+      "use": { "title": "SYP:n käyttö", "body": "Anna oikeat tilitiedot, pidä kirjautumistiedot salassa ja käytä palvelua lainmukaisesti. Vastaat tilin toiminnasta, ellet ilmoita luvattomasta käytöstä nopeasti." },
+      "coaching": { "title": "Suunnitelmat ja valmennus", "body": "SYP auttaa tavoitteiden, aktiviteettien ja valmennusyhteistyön hallinnassa. Valmentajat vastaavat malleistaan, ohjauksestaan ja suhteistaan. SYP ei varmista pätevyyksiä eikä takaa tuloksia." },
+      "professional": { "title": "Terveys ja ammatilliset päätökset", "body": "SYP on suunnittelu- ja edistymistyökalu, ei lääketieteellistä, oikeudellista, taloudellista tai muuta ammatillista neuvontaa. Pyydä pätevää apua turvallisuuteen tai merkittäviin seurauksiin liittyvissä päätöksissä." },
+      "acceptable": { "title": "Hyväksyttävä käyttö", "body": "Älä väärinkäytä tai häiritse palvelua, käytä muiden tietoja ilman lupaa, lataa haitallista aineistoa, esiinny toisena tai käytä SYP:tä oikeuksien tai lakien rikkomiseen." },
+      "changes": { "title": "Saatavuus ja muutokset", "body": "Ominaisuudet voivat muuttua SYP:n kehittyessä. Voimme keskeyttää pääsyn käyttäjien tai palvelun suojaamiseksi. Olennaisista muutoksista ilmoitetaan mahdollisuuksien mukaan etukäteen." },
+      "contact": { "title": "Yhteydenotto", "body": "Ehtoja koskevat kysymykset voi lähettää Tuki-sivulla." }
+    } }
   }
 }

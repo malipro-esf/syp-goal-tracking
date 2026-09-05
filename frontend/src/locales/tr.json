@@ -225,5 +225,26 @@
       "feedbackSend": "Geri bildirim bırakılamadı.",
       "ai": "AI koçu geçici olarak kullanılamıyor."
     }
+  },
+  "trust": {
+    "eyebrow": "Güven ve şeffaflık", "lastUpdated": "Son güncelleme: 5 Eylül 2026", "sectionNavigation": "{{title}} bölümleri",
+    "footer": { "name": "İlerlemeni Gör", "tagline": "Mükemmellikten önce ilerleme.", "navigation": "Alt bilgi menüsü", "features": "Özellikler", "support": "Destek", "privacy": "Gizlilik", "terms": "Koşullar", "cookies": "Çerez tercihleri" },
+    "cookies": { "title": "Çerez tercihleri", "description": "SYP güvenli giriş için zorunlu çerezler kullanır. İsteğe bağlı depolama dil ve görünüm seçimlerini hatırlar. Şu anda reklam çerezi kullanmıyoruz.", "essential": "Zorunlu depolama (gerekli)", "preferences": "Tercih depolama", "essentialOnly": "Yalnızca zorunlu", "save": "Tercihleri kaydet" },
+    "privacy": { "title": "Gizlilik Politikası", "sections": {
+      "collection": { "title": "Topladığımız bilgiler", "body": "Ad, e-posta, roller, dil, saat dilimi, ülke ve isteğe bağlı profil bilgileri gibi hesap verilerini toplarız. Ayrıca SYP için gereken planları, etkinlikleri, ilerleme kayıtlarını, koçluk davetlerini, geri bildirimleri, destek taleplerini ve güvenlik verilerini saklarız.", "technical": "Teknik bilgiler oturum ve istek kimlikleri, zaman damgaları ve tanı günlüklerini içerebilir. SYP şu anda reklam izleyicileri kullanmaz." },
+      "use": { "title": "Bilgileri nasıl kullanırız", "body": "Bilgileri hesaplar ve planlar, ilerleme hesabı, koçluk, güvenlik, destek ve güvenilirlik için kullanırız. Kişisel bilgileri satmayız." },
+      "coaching": { "title": "Koçlar ve katılımcılar", "body": "Koç tarafından yönetilen bir plana katıldığınızda koç planı, kayıtlı etkinliği, ilerlemeyi ve geri bildirimi görebilir. Katılımcılar plan yapılandırmasını değiştiremez." },
+      "retention": { "title": "Depolama ve saklama", "body": "Bilgiler hesap veya operasyon kaydı gerektiği sürece tutulur. Güvenlik, denetim ve destek kayıtları güvenlik, yasal yükümlülük veya uyuşmazlıklar için daha uzun tutulabilir." },
+      "choices": { "title": "Seçimleriniz", "body": "SYP'de profil ve bildirim tercihlerini güncelleyebilirsiniz. Veri dışa aktarma ve silme kontrolleri hesap güvenliği aşamasında planlanmaktadır. O zamana kadar erişim, düzeltme veya silme için Destek'e başvurun." },
+      "security": { "title": "Güvenlik ve iletişim", "body": "Erişim kontrolleri, parola karma işlevi, oturum koruması ve yönetim denetim kayıtları kullanırız. Hiçbir sistem mutlak güvenliği garanti edemez. Endişeleri Destek sayfasından bildirin." }
+    } },
+    "terms": { "title": "Hizmet Koşulları", "sections": {
+      "use": { "title": "SYP'yi kullanma", "body": "Doğru hesap bilgileri vermeli, giriş bilgilerini gizli tutmalı ve hizmeti yasal kullanmalısınız. Yetkisiz erişimi hemen bildirmediğiniz sürece hesap etkinliğinden siz sorumlusunuz." },
+      "coaching": { "title": "Planlar ve koçluk", "body": "SYP hedefleri düzenlemeye, etkinlik kaydetmeye ve koçlarla çalışmaya yardım eder. Koçlar şablonlarından, rehberliklerinden ve ilişkilerinden sorumludur. SYP mesleki yeterliliği doğrulamaz veya sonuç garanti etmez." },
+      "professional": { "title": "Sağlık ve profesyonel kararlar", "body": "SYP bir planlama ve ilerleme aracıdır; tıbbi, hukuki, mali veya başka profesyonel tavsiye değildir. Güvenlik veya önemli sonuçlar içeren kararlarda uzman desteği alın." },
+      "acceptable": { "title": "Kabul edilebilir kullanım", "body": "Hizmeti kötüye kullanmayın veya aksatmayın, başkalarının verilerine izinsiz erişmeyin, zararlı içerik yüklemeyin, başkalarını taklit etmeyin ve SYP'yi hakları veya yasaları ihlal etmek için kullanmayın." },
+      "changes": { "title": "Kullanılabilirlik ve değişiklikler", "body": "SYP geliştikçe özellikler değişebilir. Kullanıcıları veya hizmeti korumak için erişimi askıya alabiliriz. Önemli değişiklikler mümkün olduğunda yürürlüğe girmeden bildirilir." },
+      "contact": { "title": "İletişim", "body": "Bu koşullarla ilgili sorular Destek sayfasından gönderilebilir." }
+    } }
   }
 }

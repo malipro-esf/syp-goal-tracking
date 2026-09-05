@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { loadLocale } from './i18n'
+import { loadLocale, supportedLanguages } from './i18n'
 
 test('loads the Finnish translation catalog on demand', async () => {
   const finnish = await loadLocale('fi')
@@ -51,4 +51,18 @@ test('keeps the bundled English catalog available through the same interface', a
 
 test('rejects an unsupported locale instead of silently loading incorrect text', async () => {
   await expect(loadLocale('unsupported' as never)).rejects.toThrow('Unsupported locale: unsupported')
+})
+
+test.each(supportedLanguages)('includes complete trust and legal translations for %s', async (language) => {
+  const catalog = await loadLocale(language)
+
+  expect(catalog).toHaveProperty('trust.footer.cookies')
+  expect(catalog).toHaveProperty('trust.cookies.description')
+  expect(catalog).toHaveProperty('trust.privacy.sections.collection.technical')
+  for (const section of ['collection', 'use', 'coaching', 'retention', 'choices', 'security']) {
+    expect(catalog).toHaveProperty(`trust.privacy.sections.${section}.body`)
+  }
+  for (const section of ['use', 'coaching', 'professional', 'acceptable', 'changes', 'contact']) {
+    expect(catalog).toHaveProperty(`trust.terms.sections.${section}.body`)
+  }
 })

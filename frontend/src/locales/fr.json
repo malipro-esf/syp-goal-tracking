@@ -162,5 +162,26 @@
       "feedbackSend": "Impossible de laisser des commentaires.",
       "ai": "Le coach IA est temporairement indisponible."
     }
+  },
+  "trust": {
+    "eyebrow": "Confiance et transparence", "lastUpdated": "Dernière mise à jour : 5 septembre 2026", "sectionNavigation": "Sections de {{title}}",
+    "footer": { "name": "Voyez vos progrès", "tagline": "Le progrès avant la perfection.", "navigation": "Navigation de pied de page", "features": "Fonctionnalités", "support": "Assistance", "privacy": "Confidentialité", "terms": "Conditions", "cookies": "Préférences des cookies" },
+    "cookies": { "title": "Préférences des cookies", "description": "SYP utilise des cookies essentiels pour sécuriser la connexion. Le stockage facultatif mémorise la langue et l’apparence. Nous n’utilisons actuellement aucun cookie publicitaire.", "essential": "Stockage essentiel (obligatoire)", "preferences": "Stockage des préférences", "essentialOnly": "Essentiels uniquement", "save": "Enregistrer les préférences" },
+    "privacy": { "title": "Politique de confidentialité", "sections": {
+      "collection": { "title": "Informations collectées", "body": "Nous recueillons les données du compte : nom, e-mail, rôles, langue, fuseau horaire, pays et profil facultatif. Nous stockons aussi les plans, activités, progrès, invitations de coaching, retours, demandes d’assistance et données de sécurité nécessaires à SYP.", "technical": "Les données techniques peuvent inclure des identifiants de session et de requête, des horodatages et des journaux de diagnostic. SYP n’utilise actuellement aucun traceur publicitaire." },
+      "use": { "title": "Utilisation des informations", "body": "Nous utilisons ces informations pour fournir les comptes et plans, calculer les progrès, faciliter le coaching, sécuriser le service, répondre aux demandes et améliorer sa fiabilité. Nous ne vendons pas les données personnelles." },
+      "coaching": { "title": "Coachs et participants", "body": "En rejoignant un plan géré par un coach, celui-ci peut voir le plan, vos activités enregistrées, vos progrès et les retours liés à cette relation. Les participants ne peuvent pas modifier sa configuration." },
+      "retention": { "title": "Stockage et conservation", "body": "Les informations sont conservées tant que le compte ou le dossier opérationnel est nécessaire. Les dossiers de sécurité, d’audit et d’assistance peuvent l’être plus longtemps pour la sécurité, la loi ou les litiges." },
+      "choices": { "title": "Vos choix", "body": "Vous pouvez modifier le profil et les notifications dans SYP. L’exportation et la suppression des données sont prévues pour la phase de sécurité du compte. D’ici là, contactez l’assistance pour demander accès, correction ou suppression." },
+      "security": { "title": "Sécurité et contact", "body": "Nous utilisons des contrôles d’accès, le hachage des mots de passe, la protection des sessions et des journaux d’audit. Aucun système ne garantit une sécurité absolue. Signalez toute préoccupation via la page Assistance." }
+    } },
+    "terms": { "title": "Conditions d’utilisation", "sections": {
+      "use": { "title": "Utiliser SYP", "body": "Vous devez fournir des informations exactes, garder vos identifiants confidentiels et utiliser le service légalement. Vous êtes responsable de l’activité de votre compte sauf signalement rapide d’un accès non autorisé." },
+      "coaching": { "title": "Plans et coaching", "body": "SYP aide à organiser les objectifs, enregistrer les activités et collaborer avec des coachs. Les coachs sont responsables de leurs modèles, conseils et relations. SYP ne vérifie pas leurs qualifications et ne garantit aucun résultat." },
+      "professional": { "title": "Santé et décisions professionnelles", "body": "SYP est un outil de planification et de suivi, pas un conseil médical, juridique, financier ou professionnel. Consultez un spécialiste qualifié avant toute décision touchant à la sécurité ou ayant des conséquences importantes." },
+      "acceptable": { "title": "Utilisation acceptable", "body": "N’utilisez pas abusivement le service, ne perturbez pas son fonctionnement, n’accédez pas sans autorisation aux données d’autrui, ne chargez pas de contenu nuisible, n’usurpez pas d’identité et n’utilisez pas SYP pour enfreindre les droits ou la loi." },
+      "changes": { "title": "Disponibilité et modifications", "body": "Les fonctionnalités peuvent évoluer avec SYP. Nous pouvons suspendre l’accès pour protéger les utilisateurs ou le service. Les modifications importantes seront annoncées avant leur entrée en vigueur lorsque cela est raisonnablement possible." },
+      "contact": { "title": "Contact", "body": "Les questions sur ces conditions peuvent être envoyées depuis la page Assistance." }
+    } }
   }
 }

@@ -162,5 +162,26 @@
       "feedbackSend": "Não foi possível deixar comentários.",
       "ai": "O treinador de IA está temporariamente indisponível."
     }
+  },
+  "trust": {
+    "eyebrow": "Confiança e transparência", "lastUpdated": "Última atualização: 5 de setembro de 2026", "sectionNavigation": "Seções de {{title}}",
+    "footer": { "name": "Veja seu progresso", "tagline": "Progresso acima da perfeição.", "navigation": "Navegação do rodapé", "features": "Recursos", "support": "Suporte", "privacy": "Privacidade", "terms": "Termos", "cookies": "Preferências de cookies" },
+    "cookies": { "title": "Preferências de cookies", "description": "O SYP usa cookies essenciais para login seguro. O armazenamento opcional lembra idioma e aparência. Atualmente não usamos cookies de publicidade.", "essential": "Armazenamento essencial (obrigatório)", "preferences": "Armazenamento de preferências", "essentialOnly": "Somente essenciais", "save": "Salvar preferências" },
+    "privacy": { "title": "Política de Privacidade", "sections": {
+      "collection": { "title": "Informações que coletamos", "body": "Coletamos dados da conta, como nome, e-mail, funções, idioma, fuso horário, país e perfil opcional. Também armazenamos planos, atividades, progresso, convites de coaching, feedback, solicitações de suporte e dados de segurança necessários ao SYP.", "technical": "Dados técnicos podem incluir identificadores de sessão e solicitação, horários e logs de diagnóstico. O SYP não usa rastreadores de publicidade atualmente." },
+      "use": { "title": "Como usamos as informações", "body": "Usamos dados para contas e planos, cálculo do progresso, coaching, segurança, suporte e confiabilidade. Não vendemos informações pessoais." },
+      "coaching": { "title": "Coaches e participantes", "body": "Ao entrar em um plano gerenciado por coach, ele pode ver o plano, atividades registradas, progresso e feedback. Participantes não podem mudar a configuração do plano." },
+      "retention": { "title": "Armazenamento e retenção", "body": "Os dados são mantidos enquanto a conta ou registro operacional for necessário. Registros de segurança, auditoria e suporte podem durar mais por segurança, lei ou disputas." },
+      "choices": { "title": "Suas escolhas", "body": "Você pode atualizar perfil e notificações no SYP. Exportação e exclusão de dados estão previstas para a fase de segurança da conta. Até lá, contate o Suporte para acesso, correção ou exclusão." },
+      "security": { "title": "Segurança e contato", "body": "Usamos controles de acesso, hash de senhas, proteção de sessões e logs administrativos. Nenhum sistema garante segurança absoluta. Relate preocupações pelo Suporte." }
+    } },
+    "terms": { "title": "Termos de Serviço", "sections": {
+      "use": { "title": "Uso do SYP", "body": "Você deve fornecer dados corretos, manter credenciais confidenciais e usar o serviço legalmente. Você responde pela atividade da conta, salvo se comunicar rapidamente um acesso não autorizado." },
+      "coaching": { "title": "Planos e coaching", "body": "O SYP ajuda a organizar metas, registrar atividades e colaborar com coaches. Coaches respondem por modelos, orientação e relações. O SYP não verifica qualificações nem garante resultados." },
+      "professional": { "title": "Saúde e decisões profissionais", "body": "O SYP é uma ferramenta de planejamento e progresso, não aconselhamento médico, jurídico, financeiro ou profissional. Procure um profissional qualificado em decisões de segurança ou consequências importantes." },
+      "acceptable": { "title": "Uso aceitável", "body": "Não abuse nem interfira no serviço, acesse dados alheios sem permissão, envie material nocivo, se passe por outros ou use o SYP para violar direitos ou leis." },
+      "changes": { "title": "Disponibilidade e alterações", "body": "Os recursos podem mudar com a evolução do SYP. Podemos suspender o acesso para proteger usuários ou serviço. Mudanças relevantes serão informadas antes quando razoavelmente possível." },
+      "contact": { "title": "Contato", "body": "Dúvidas sobre estes termos podem ser enviadas pela página Suporte." }
+    } }
   }
 }
