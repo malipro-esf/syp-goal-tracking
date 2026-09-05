@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { AppHeader } from './AppHeader'
+import { SiteFooter } from './SiteFooter'
 
 const workflow = ['template', 'invite', 'accept', 'support'] as const
 const capabilities = ['reusable', 'measurable', 'visibility', 'feedback'] as const
@@ -49,5 +50,6 @@ export function ForCoachesPage() {
 
       <section className="final-cta"><p className="eyebrow">{t('coachesPage.cta.eyebrow')}</p><h2>{t('coachesPage.cta.title')}</h2><p>{t('coachesPage.cta.description')}</p><Link className="primary-link" to="/register">{t('coachesPage.cta.button')} <span aria-hidden="true">→</span></Link></section>
     </main>
+    <SiteFooter />
   </div>
 }

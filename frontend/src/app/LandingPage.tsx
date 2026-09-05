@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { AppHeader } from './AppHeader'
+import { SiteFooter } from './SiteFooter'
 
 const steps = ['structure', 'record', 'understand', 'adjust'] as const
 const goals = ['ielts', 'fitness', 'reading', 'programming', 'running', 'development'] as const
@@ -61,6 +62,6 @@ export function LandingPage() {
 
       <section className="final-cta"><p className="eyebrow">{t('home.cta.eyebrow')}</p><h2>{t('home.cta.title')}</h2><p>{t('home.cta.description')}</p><Link className="primary-link" to="/register">{t('home.cta.button')} <span aria-hidden="true">→</span></Link></section>
     </main>
-    <footer className="marketing-footer"><div><strong>SYP</strong><span>{t('home.footer.name')}</span></div><p>{t('home.footer.tagline')}</p><nav aria-label={t('home.footer.navigation')}><Link to="/features">{t('home.footer.features')}</Link><Link to="/how-it-works">{t('navigation.howItWorks')}</Link><Link to="/for-coaches">{t('home.footer.coaches')}</Link></nav></footer>
+    <SiteFooter />
   </div>
 }

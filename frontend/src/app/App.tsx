@@ -22,6 +22,8 @@ import { HowItWorksPage } from './HowItWorksPage'
 import { FeaturesPage } from './FeaturesPage'
 import { ForCoachesPage } from './ForCoachesPage'
 import { RouteSeo } from './RouteSeo'
+import { CookiePreferences } from './CookiePreferences'
+import { LegalPage } from './LegalPage'
 import { NotificationsPage } from '../features/notifications/NotificationsPage'
 import { SupportPage } from '../features/support/SupportPage'
 import { AdminSupportPage } from '../features/admin/AdminSupportPage'
@@ -29,7 +31,7 @@ import './app.css'
 
 export function App() {
   return (
-    <><RouteSeo /><Routes>
+    <><RouteSeo /><CookiePreferences /><Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/features" element={<FeaturesPage />} />
       <Route path="/for-coaches" element={<ForCoachesPage />} />
@@ -37,6 +39,8 @@ export function App() {
       <Route path="/login" element={<AuthForm mode="login" />} />
       <Route path="/register" element={<AuthForm mode="register" />} />
       <Route path="/support" element={<SupportPage />} />
+      <Route path="/privacy" element={<LegalPage type="privacy" />} />
+      <Route path="/terms" element={<LegalPage type="terms" />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { AppHeader } from './AppHeader'
+import { SiteFooter } from './SiteFooter'
 
 const workflowSteps = ['plan', 'activities', 'effort', 'report'] as const
 const principles = ['partial', 'deterministic', 'control'] as const
@@ -55,5 +56,6 @@ export function HowItWorksPage() {
 
       <section className="final-cta"><p className="eyebrow">{t('howPage.cta.eyebrow')}</p><h2>{t('howPage.cta.title')}</h2><p>{t('howPage.cta.description')}</p><Link className="primary-link" to="/register">{t('howPage.cta.button')} <span aria-hidden="true">→</span></Link></section>
     </main>
+    <SiteFooter />
   </div>
 }
