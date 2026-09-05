@@ -3,6 +3,7 @@ import { ChevronDown, LifeBuoy, Send } from 'lucide-react'
 
 import { ApiError } from '../../api/client'
 import { AppHeader } from '../../app/AppHeader'
+import { SiteFooter } from '../../app/SiteFooter'
 import { useAuth } from '../auth/useAuth'
 import { submitSupportRequest, type SupportCategory } from './support-api'
 
@@ -66,5 +67,5 @@ export function SupportPage() {
         </form>
       </section>
     </div>
-  </main></>
+  </main><SiteFooter /></>
 }

@@ -32,6 +32,21 @@ const publicMetadata: Record<string, { title: string; description: string; robot
     description: 'Create an SYP account and start tracking progress through actual effort.',
     robots: 'noindex, nofollow',
   },
+  '/support': {
+    title: 'Support | SYP',
+    description: 'Find answers and contact the SYP support team.',
+    robots: 'index, follow',
+  },
+  '/privacy': {
+    title: 'Privacy Policy | SYP',
+    description: 'Learn what information SYP collects, how it is used, and the choices available to you.',
+    robots: 'index, follow',
+  },
+  '/terms': {
+    title: 'Terms of Service | SYP',
+    description: 'Read the terms that apply when using the SYP goal tracking and coaching platform.',
+    robots: 'index, follow',
+  },
 }
 
 function setMeta(name: string, content: string) {

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { AppHeader } from './AppHeader'
+import { SiteFooter } from './SiteFooter'
 
 const featureKeys = ['plans', 'measurement', 'effort', 'reports', 'coaching', 'ai'] as const
 const trustKeys = ['auth', 'consent', 'independent'] as const
@@ -50,5 +51,6 @@ export function FeaturesPage() {
 
       <section className="final-cta"><p className="eyebrow">{t('featuresPage.cta.eyebrow')}</p><h2>{t('featuresPage.cta.title')}</h2><p>{t('featuresPage.cta.description')}</p><Link className="primary-link" to="/register">{t('featuresPage.cta.button')} <span aria-hidden="true">→</span></Link></section>
     </main>
+    <SiteFooter />
   </div>
 }
