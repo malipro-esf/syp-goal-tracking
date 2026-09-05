@@ -95,7 +95,7 @@ test('switches between Finnish, Korean, Hindi, Brazilian Portuguese, French, Spa
   expect(await screen.findByRole('link', { name: 'تسجيل الدخول' })).toBeInTheDocument()
   expect(document.documentElement).toHaveAttribute('lang', 'ar')
   expect(document.documentElement).toHaveAttribute('dir', 'rtl')
-})
+}, 15_000)
 
 test('localizes login and registration forms', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 401 }))

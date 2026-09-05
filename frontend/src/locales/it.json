@@ -133,5 +133,26 @@
       "feedbackSend": "Impossibile lasciare un feedback.",
       "ai": "L'allenatore dell'IA è temporaneamente non disponibile."
     }
+  },
+  "trust": {
+    "eyebrow": "Fiducia e trasparenza", "lastUpdated": "Ultimo aggiornamento: 5 settembre 2026", "sectionNavigation": "Sezioni di {{title}}",
+    "footer": { "name": "Vedi i tuoi progressi", "tagline": "Il progresso prima della perfezione.", "navigation": "Navigazione a piè di pagina", "features": "Funzionalità", "support": "Assistenza", "privacy": "Privacy", "terms": "Termini", "cookies": "Preferenze cookie" },
+    "cookies": { "title": "Preferenze cookie", "description": "SYP usa cookie essenziali per l'accesso sicuro. La memoria facoltativa ricorda lingua e aspetto. Al momento non usiamo cookie pubblicitari.", "essential": "Memoria essenziale (obbligatoria)", "preferences": "Memoria delle preferenze", "essentialOnly": "Solo essenziali", "save": "Salva preferenze" },
+    "privacy": { "title": "Informativa sulla privacy", "sections": {
+      "collection": { "title": "Informazioni raccolte", "body": "Raccogliamo dati dell'account come nome, e-mail, ruoli, lingua, fuso orario, paese e profilo facoltativo. Memorizziamo inoltre piani, attività, progressi, inviti di coaching, feedback, richieste di assistenza e dati di sicurezza necessari a SYP.", "technical": "I dati tecnici possono includere identificativi di sessione e richiesta, orari e registri diagnostici. SYP non usa attualmente tracker pubblicitari." },
+      "use": { "title": "Come usiamo le informazioni", "body": "Usiamo i dati per account e piani, calcolo dei progressi, coaching, sicurezza, assistenza e affidabilità. Non vendiamo dati personali." },
+      "coaching": { "title": "Coach e partecipanti", "body": "Quando aderisci a un piano gestito dal coach, questi può vedere piano, attività registrate, progressi e feedback. I partecipanti non possono modificare la configurazione del piano." },
+      "retention": { "title": "Archiviazione e conservazione", "body": "I dati restano finché l'account o il record operativo è necessario. I record di sicurezza, audit e assistenza possono essere conservati più a lungo per sicurezza, legge o controversie." },
+      "choices": { "title": "Le tue scelte", "body": "Puoi aggiornare profilo e notifiche in SYP. Esportazione ed eliminazione dei dati sono previste nella fase di sicurezza dell'account. Nel frattempo contatta l'Assistenza per accesso, correzione o eliminazione." },
+      "security": { "title": "Sicurezza e contatti", "body": "Usiamo controlli di accesso, hashing delle password, protezione delle sessioni e registri di audit. Nessun sistema garantisce sicurezza assoluta. Segnala problemi tramite Assistenza." }
+    } },
+    "terms": { "title": "Termini di servizio", "sections": {
+      "use": { "title": "Uso di SYP", "body": "Devi fornire dati corretti, mantenere riservate le credenziali e usare legalmente il servizio. Sei responsabile dell'attività dell'account salvo tempestiva segnalazione di accessi non autorizzati." },
+      "coaching": { "title": "Piani e coaching", "body": "SYP aiuta a organizzare obiettivi, registrare attività e collaborare con coach. I coach rispondono di modelli, indicazioni e relazioni. SYP non verifica qualifiche professionali né garantisce risultati." },
+      "professional": { "title": "Salute e decisioni professionali", "body": "SYP è uno strumento di pianificazione e progresso, non un consiglio medico, legale, finanziario o professionale. Consulta un professionista qualificato per decisioni sulla sicurezza o con conseguenze importanti." },
+      "acceptable": { "title": "Uso accettabile", "body": "Non abusare o interferire con il servizio, accedere senza permesso ai dati altrui, caricare materiali dannosi, impersonare altri o usare SYP per violare diritti o leggi." },
+      "changes": { "title": "Disponibilità e modifiche", "body": "Le funzionalità possono cambiare con l'evoluzione di SYP. Possiamo sospendere l'accesso per proteggere utenti o servizio. Le modifiche sostanziali saranno comunicate prima, ove ragionevolmente possibile." },
+      "contact": { "title": "Contatti", "body": "Le domande sui termini possono essere inviate tramite la pagina Assistenza." }
+    } }
   }
 }

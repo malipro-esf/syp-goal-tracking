@@ -133,5 +133,26 @@
       "feedbackSend": "Kunne ikke gi tilbakemelding.",
       "ai": "AI-treneren er midlertidig utilgjengelig."
     }
+  },
+  "trust": {
+    "eyebrow": "Tillit og åpenhet", "lastUpdated": "Sist oppdatert 5. september 2026", "sectionNavigation": "Deler av {{title}}",
+    "footer": { "name": "Se fremgangen din", "tagline": "Fremgang fremfor perfeksjon.", "navigation": "Bunntekstnavigasjon", "features": "Funksjoner", "support": "Brukerstøtte", "privacy": "Personvern", "terms": "Vilkår", "cookies": "Innstillinger for informasjonskapsler" },
+    "cookies": { "title": "Innstillinger for informasjonskapsler", "description": "SYP bruker nødvendige informasjonskapsler for sikker innlogging. Valgfri lagring husker språk og utseende. Vi bruker ikke annonseringskapsler nå.", "essential": "Nødvendig lagring (påkrevd)", "preferences": "Lagring av innstillinger", "essentialOnly": "Bare nødvendige", "save": "Lagre innstillinger" },
+    "privacy": { "title": "Personvernerklæring", "sections": {
+      "collection": { "title": "Opplysninger vi samler inn", "body": "Vi samler inn kontodata som navn, e-post, roller, språk, tidssone, land og valgfrie profilopplysninger. Vi lagrer også planer, aktiviteter, fremdrift, coachinginvitasjoner, tilbakemeldinger, supportsaker og sikkerhetsdata som trengs for SYP.", "technical": "Tekniske data kan omfatte økt- og forespørsels-ID-er, tidsstempler og diagnoselogger. SYP bruker ikke annonsesporing nå." },
+      "use": { "title": "Hvordan vi bruker opplysninger", "body": "Vi bruker data til kontoer og planer, fremdriftsberegning, coaching, sikkerhet, brukerstøtte og drift. Vi selger ikke personopplysninger." },
+      "coaching": { "title": "Coacher og deltakere", "body": "Når du blir med i en coachstyrt plan, kan coachen se planen, registrert aktivitet, fremdrift og tilbakemelding. Deltakere kan ikke endre plankonfigurasjonen." },
+      "retention": { "title": "Lagring og oppbevaring", "body": "Opplysninger beholdes mens kontoen eller driftsregistreringen trengs. Sikkerhets-, revisjons- og supportdata kan beholdes lenger for sikkerhet, lovkrav eller tvister." },
+      "choices": { "title": "Dine valg", "body": "Du kan oppdatere profil og varsler i SYP. Eksport og sletting av kontodata er planlagt i kontosikkerhetsfasen. Kontakt Brukerstøtte om innsyn, retting eller sletting frem til da." },
+      "security": { "title": "Sikkerhet og kontakt", "body": "Vi bruker tilgangskontroll, passordhashing, øktbeskyttelse og administrative revisjonslogger. Ingen systemer kan garantere absolutt sikkerhet. Meld bekymringer via Brukerstøtte." }
+    } },
+    "terms": { "title": "Tjenestevilkår", "sections": {
+      "use": { "title": "Bruk av SYP", "body": "Du må gi korrekte kontoopplysninger, holde innloggingen fortrolig og bruke tjenesten lovlig. Du er ansvarlig for kontoaktivitet med mindre du raskt melder uautorisert tilgang." },
+      "coaching": { "title": "Planer og coaching", "body": "SYP hjelper med mål, aktivitet og coachesamarbeid. Coacher er ansvarlige for maler, veiledning og relasjoner. SYP verifiserer ikke kvalifikasjoner og garanterer ikke resultater." },
+      "professional": { "title": "Helse og faglige beslutninger", "body": "SYP er et planleggingsverktøy, ikke medisinsk, juridisk, økonomisk eller annen faglig rådgivning. Søk kvalifisert hjelp før beslutninger som gjelder sikkerhet eller store konsekvenser." },
+      "acceptable": { "title": "Akseptabel bruk", "body": "Ikke misbruk eller forstyrr tjenesten, åpne andres data uten tillatelse, last opp skadelig materiale, utgi deg for andre eller bruk SYP til å bryte rettigheter eller lover." },
+      "changes": { "title": "Tilgjengelighet og endringer", "body": "Funksjoner kan endres når SYP utvikles. Vi kan stanse tilgang for å beskytte brukere eller tjenesten. Vesentlige endringer varsles om mulig før de gjelder." },
+      "contact": { "title": "Kontakt", "body": "Spørsmål om vilkårene kan sendes via Brukerstøtte." }
+    } }
   }
 }

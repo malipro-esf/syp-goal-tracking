@@ -206,5 +206,26 @@
       "feedbackSend": "Es konnte kein Feedback hinterlassen werden.",
       "ai": "Der KI-Coach ist vorübergehend nicht erreichbar."
     }
+  },
+  "trust": {
+    "eyebrow": "Vertrauen und Transparenz", "lastUpdated": "Zuletzt aktualisiert am 5. September 2026", "sectionNavigation": "Abschnitte von {{title}}",
+    "footer": { "name": "Sieh deinen Fortschritt", "tagline": "Fortschritt statt Perfektion.", "navigation": "Fußzeilennavigation", "features": "Funktionen", "support": "Support", "privacy": "Datenschutz", "terms": "Bedingungen", "cookies": "Cookie-Einstellungen" },
+    "cookies": { "title": "Cookie-Einstellungen", "description": "SYP verwendet notwendige Cookies für die sichere Anmeldung. Optionaler Speicher merkt sich Sprache und Darstellung. Wir verwenden derzeit keine Werbe-Cookies.", "essential": "Notwendiger Speicher (erforderlich)", "preferences": "Einstellungsspeicher", "essentialOnly": "Nur notwendige", "save": "Einstellungen speichern" },
+    "privacy": { "title": "Datenschutzerklärung", "sections": {
+      "collection": { "title": "Welche Daten wir erfassen", "body": "Wir erfassen Kontodaten wie Name, E-Mail, Rollen, Sprache, Zeitzone, Land und optionale Profilangaben. Zudem speichern wir Pläne, Aktivitäten, Fortschrittseinträge, Coaching-Einladungen, Feedback, Supportanfragen und Sicherheitsdaten für den Betrieb von SYP.", "technical": "Technische Daten können Sitzungs- und Anfragekennungen, Zeitstempel und Diagnoseprotokolle umfassen. SYP nutzt derzeit keine Werbe-Tracker." },
+      "use": { "title": "Wie wir Daten verwenden", "body": "Wir verwenden Daten für Konten und Pläne, Fortschrittsberechnung, Coaching, Sicherheit, Support und Zuverlässigkeit. Wir verkaufen keine personenbezogenen Daten." },
+      "coaching": { "title": "Coaches und Teilnehmende", "body": "Bei einem coachverwalteten Plan kann der zugewiesene Coach Plan, erfasste Aktivitäten, Fortschritt und Feedback der Beziehung sehen. Teilnehmende können die Plankonfiguration nicht ändern." },
+      "retention": { "title": "Speicherung und Aufbewahrung", "body": "Daten bleiben gespeichert, solange ein Konto oder betrieblicher Nachweis benötigt wird. Sicherheits-, Audit- und Supportdaten können aus Sicherheits-, Rechts- oder Streitgründen länger aufbewahrt werden." },
+      "choices": { "title": "Deine Wahlmöglichkeiten", "body": "Profil- und Benachrichtigungseinstellungen kannst du in SYP ändern. Export und Löschung von Kontodaten sind für die Kontosicherheitsphase geplant. Bis dahin wende dich für Auskunft, Berichtigung oder Löschung an den Support." },
+      "security": { "title": "Sicherheit und Kontakt", "body": "Wir nutzen Zugriffskontrollen, Passwort-Hashing, Sitzungsschutz und administrative Auditprotokolle. Absolute Sicherheit kann kein System garantieren. Melde Datenschutz- oder Sicherheitsbedenken über die Supportseite." }
+    } },
+    "terms": { "title": "Nutzungsbedingungen", "sections": {
+      "use": { "title": "Nutzung von SYP", "body": "Du musst korrekte Kontodaten angeben, Zugangsdaten vertraulich behandeln und den Dienst rechtmäßig nutzen. Für Kontoaktivitäten bist du verantwortlich, sofern du unbefugten Zugriff nicht unverzüglich meldest." },
+      "coaching": { "title": "Pläne und Coaching", "body": "SYP hilft beim Organisieren von Zielen, Erfassen von Aktivitäten und Zusammenarbeiten mit Coaches. Coaches sind für Vorlagen, Anleitung und Beziehungen verantwortlich. SYP prüft keine beruflichen Qualifikationen und garantiert keine Ergebnisse." },
+      "professional": { "title": "Gesundheit und fachliche Entscheidungen", "body": "SYP ist ein Planungs- und Fortschrittstool und keine medizinische, rechtliche, finanzielle oder sonstige Fachberatung. Hole bei Sicherheitsfragen oder bedeutenden Folgen qualifizierten Rat ein." },
+      "acceptable": { "title": "Zulässige Nutzung", "body": "Missbrauche oder störe den Dienst nicht, greife nicht ohne Erlaubnis auf fremde Daten zu, lade keine schädlichen Inhalte hoch, gib dich nicht als andere Person aus und verletze mit SYP keine Rechte oder Gesetze." },
+      "changes": { "title": "Verfügbarkeit und Änderungen", "body": "Funktionen können sich mit der Entwicklung von SYP ändern. Zum Schutz von Nutzern oder Dienst können wir den Zugriff aussetzen. Wesentliche Änderungen werden nach Möglichkeit vor ihrem Inkrafttreten mitgeteilt." },
+      "contact": { "title": "Kontakt", "body": "Fragen zu diesen Bedingungen kannst du über die Supportseite senden." }
+    } }
   }
 }

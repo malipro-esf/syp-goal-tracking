@@ -225,5 +225,26 @@
       "feedbackSend": "Could not leave feedback.",
       "ai": "The AI coach is temporarily unavailable."
     }
+  },
+  "trust": {
+    "eyebrow": "Trust and transparency", "lastUpdated": "Last updated September 5, 2026", "sectionNavigation": "{{title}} sections",
+    "footer": { "name": "See Your Progress", "tagline": "Progress over perfection.", "navigation": "Footer navigation", "features": "Features", "support": "Support", "privacy": "Privacy", "terms": "Terms", "cookies": "Cookie preferences" },
+    "cookies": { "title": "Cookie preferences", "description": "SYP uses essential cookies for secure sign-in. Optional preference storage remembers choices such as language and appearance. We do not currently use advertising cookies.", "essential": "Essential storage (required)", "preferences": "Preference storage", "essentialOnly": "Essential only", "save": "Save preferences" },
+    "privacy": { "title": "Privacy Policy", "sections": {
+      "collection": { "title": "Information we collect", "body": "We collect account details such as your name, email address, roles, language, timezone, country, and optional profile information. We also store plans, activities, progress entries, coaching invitations, feedback, support requests, and security records needed to operate SYP.", "technical": "Technical information may include session identifiers, request identifiers, timestamps, and diagnostic logs. SYP does not currently use advertising trackers." },
+      "use": { "title": "How we use information", "body": "We use information to provide accounts and plans, calculate progress, support coaching collaboration, secure the service, respond to support requests, and improve reliability. We do not sell personal information." },
+      "coaching": { "title": "Coaches and participants", "body": "When you join a coach-managed plan, the assigned coach can view the plan, your recorded activity, progress, and feedback connected to that coaching relationship. Participants cannot change coach-managed plan configuration." },
+      "retention": { "title": "Storage and retention", "body": "Information is retained while an account or operational record is needed. Security, audit, and support records may be retained longer when necessary for safety, legal obligations, or dispute resolution." },
+      "choices": { "title": "Your choices", "body": "You can update profile and notification preferences in SYP. Account-data export and deletion controls are planned for the account-safety phase. Until then, contact Support to request access, correction, or deletion." },
+      "security": { "title": "Security and contact", "body": "We use access controls, password hashing, session protections, and administrative audit records. No system can guarantee absolute security. Report privacy or security concerns through the Support page." }
+    } },
+    "terms": { "title": "Terms of Service", "sections": {
+      "use": { "title": "Using SYP", "body": "You must provide accurate account information, keep login credentials confidential, and use the service lawfully. You are responsible for activity performed through your account unless you promptly report unauthorized access." },
+      "coaching": { "title": "Plans and coaching", "body": "SYP helps users organize goals, record activity, and collaborate with coaches. Coaches are responsible for their templates, guidance, and relationships. SYP does not verify professional qualifications or guarantee results." },
+      "professional": { "title": "Health and professional decisions", "body": "SYP is a planning and progress tool, not medical, legal, financial, or other professional advice. Seek a qualified professional before acting on information where safety or significant consequences are involved." },
+      "acceptable": { "title": "Acceptable use", "body": "Do not misuse the service, interfere with its operation, access another person’s information without permission, upload harmful material, impersonate others, or use SYP to violate rights or laws." },
+      "changes": { "title": "Availability and changes", "body": "Features may change as SYP develops. We may suspend access to protect users or the service. Material changes to these terms should be communicated before they take effect where reasonably possible." },
+      "contact": { "title": "Contact", "body": "Questions about these terms can be submitted through the Support page." }
+    } }
   }
 }
